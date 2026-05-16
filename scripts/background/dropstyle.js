@@ -5,28 +5,22 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery'], function ($) {
-  var DropStyle
-
-  DropStyle = undefined
-
-  function initDrop ($body) {
-    $body.on('dragover', function (e) {
-      $body.addClass('dragover')
-      e.preventDefault()
-      return false
-    })
-
-    $body.on('dragleave drop', function (e) {
-      $body.removeClass('dragover')
-      e.preventDefault()
-      return false
-    })
-  }
-
-  $(function ($) {
-    initDrop($('body'))
-  })
-
-  return DropStyle
-})
+import $ from 'jquery';
+var DropStyle;
+DropStyle = undefined;
+function initDrop($body) {
+  $body.on('dragover', function (e) {
+    $body.addClass('dragover');
+    e.preventDefault();
+    return false;
+  });
+  $body.on('dragleave drop', function (e) {
+    $body.removeClass('dragover');
+    e.preventDefault();
+    return false;
+  });
+}
+$(function ($) {
+  initDrop($('body'));
+});
+export default DropStyle;

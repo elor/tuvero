@@ -13,53 +13,50 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/matrixmodel'], function (extend, MatrixModel) {
-  /**
-   * Constructor
-   *
-   * @param size
-   *          size of the matrix. defaults to 0
-   */
-  function TriangleMatrixModel (size) {
-    TriangleMatrixModel.superconstructor.call(this, size)
+import extend from '../lib/extend.js';
+import MatrixModel from './matrixmodel.js';
+/**
+ * Constructor
+ *
+ * @param size
+ *          size of the matrix. defaults to 0
+ */
+function TriangleMatrixModel(size) {
+  TriangleMatrixModel.superconstructor.call(this, size);
+}
+extend(TriangleMatrixModel, MatrixModel);
+
+/**
+ * get() function, which ignores super-diagonal elements
+ *
+ * @param row
+ *          row
+ * @param col
+ *          column
+ * @return 0 if reading a super-diagonal element, the stored value otherwise
+ */
+TriangleMatrixModel.prototype.get = function (row, col) {
+  if (row < col) {
+    return 0;
   }
-  extend(TriangleMatrixModel, MatrixModel)
+  return TriangleMatrixModel.superclass.get.call(this, row, col);
+};
 
-  /**
-   * get() function, which ignores super-diagonal elements
-   *
-   * @param row
-   *          row
-   * @param col
-   *          column
-   * @return 0 if reading a super-diagonal element, the stored value otherwise
-   */
-  TriangleMatrixModel.prototype.get = function (row, col) {
-    if (row < col) {
-      return 0
-    }
-
-    return TriangleMatrixModel.superclass.get.call(this, row, col)
+/**
+ * set() function, which ignores super-diagonal positions
+ *
+ * @param row
+ *          row
+ * @param col
+ *          column
+ * @param value
+ *          value
+ * @return this on success, undefined otherwise
+ */
+TriangleMatrixModel.prototype.set = function (row, col, value) {
+  if (row < col) {
+    return undefined;
   }
-
-  /**
-   * set() function, which ignores super-diagonal positions
-   *
-   * @param row
-   *          row
-   * @param col
-   *          column
-   * @param value
-   *          value
-   * @return this on success, undefined otherwise
-   */
-  TriangleMatrixModel.prototype.set = function (row, col, value) {
-    if (row < col) {
-      return undefined
-    }
-
-    return TriangleMatrixModel.superclass.set.call(this, row, col, value)
-  }
-
-  return TriangleMatrixModel
-})
+  return TriangleMatrixModel.superclass.set.call(this, row, col, value);
+};
+export default TriangleMatrixModel;

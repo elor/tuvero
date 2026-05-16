@@ -7,81 +7,70 @@
  * @license MIT License
  * @see LICENSE
  */
-define([
-  'ranking/rankingidcomponent',
-  'ranking/rankingpointscomponent',
-  'ranking/rankinglostpointscomponent',
-  'ranking/rankingsaldocomponent',
-  'ranking/rankingbuchholzcomponent',
-  'ranking/rankingfinebuchholzcomponent',
-  'ranking/rankingsonneborncomponent',
-  'ranking/rankingwinscomponent',
-  'ranking/rankingheadtoheadcomponent',
-  'ranking/rankingtaccomponent',
-  'ranking/rankingformulexcomponent',
-  'ranking/rankingvotescomponent',
-  'ranking/rankingnumgamescomponent',
-  'ranking/rankingkocomponent',
-  'ranking/rankingthreepointcomponent',
-  'ranking/rankingtwopointcomponent',
-  'ranking/rankingplacementcomponent',
-  'ranking/rankingpouleidcomponent',
-  'ranking/rankingpoulerankcomponent'
-],
-function () {
-  var RankingComponentIndex, index, Component, allComponents
+import './rankingidcomponent.js';
+import './rankingpointscomponent.js';
+import './rankinglostpointscomponent.js';
+import './rankingsaldocomponent.js';
+import './rankingbuchholzcomponent.js';
+import './rankingfinebuchholzcomponent.js';
+import './rankingsonneborncomponent.js';
+import './rankingwinscomponent.js';
+import './rankingheadtoheadcomponent.js';
+import './rankingtaccomponent.js';
+import './rankingformulexcomponent.js';
+import './rankingvotescomponent.js';
+import './rankingnumgamescomponent.js';
+import './rankingkocomponent.js';
+import './rankingthreepointcomponent.js';
+import './rankingtwopointcomponent.js';
+import './rankingplacementcomponent.js';
+import './rankingpouleidcomponent.js';
+import './rankingpoulerankcomponent.js';
+var RankingComponentIndex, index, Component, allComponents;
 
-  // build the index from the XXXRankingComponent.NAME fields
-  RankingComponentIndex = {}
-  allComponents = {}
-  for (index = 0; index < arguments.length; index += 1) {
-    Component = arguments[index]
-    allComponents[Component.NAME.toLowerCase()] = Component
-  }
+// build the index from the XXXRankingComponent.NAME fields
+RankingComponentIndex = {};
+allComponents = {};
+for (index = 0; index < arguments.length; index += 1) {
+  Component = arguments[index];
+  allComponents[Component.NAME.toLowerCase()] = Component;
+}
 
-  /**
-     * from a list of components, create a chain of RankingComponent instances to
-     * be used for sorting and comparison
-     *
-     * @param ranking
-     *          a RankingModel instance
-     * @param components
-     *          an array of strings
-     * @return the topmost element of the component chain, which corresponds to
-     *         the first element in the components array
-     */
-  RankingComponentIndex.createComponentChain = function (ranking, components) {
-    var chainfront
+/**
+   * from a list of components, create a chain of RankingComponent instances to
+   * be used for sorting and comparison
+   *
+   * @param ranking
+   *          a RankingModel instance
+   * @param components
+   *          an array of strings
+   * @return the topmost element of the component chain, which corresponds to
+   *         the first element in the components array
+   */
+RankingComponentIndex.createComponentChain = function (ranking, components) {
+  var chainfront;
+  chainfront = undefined;
 
-    chainfront = undefined
+  // copy the array and revert it: we'll construct the chain from its end
+  components = components.slice(0);
+  components.reverse();
 
-    // copy the array and revert it: we'll construct the chain from its end
-    components = components.slice(0)
-    components.reverse()
-
-    // iterate over the components and chain them in order.
-    // Abort if a component is not defined.
-    if (!components.every(function (component) {
-      component = component.toLowerCase()
-      var constructor = allComponents[component]
-      if (constructor === undefined) {
-        console.error('RankingComponentIndex.createComponentChain error: ' +
-              'undefined component name: ' + component)
-        return false
-      }
-
-      chainfront = new constructor(ranking, chainfront)
-
-      return true
-    })) {
-      // some component could not be created. Abort.
-      return undefined
+  // iterate over the components and chain them in order.
+  // Abort if a component is not defined.
+  if (!components.every(function (component) {
+    component = component.toLowerCase();
+    var constructor = allComponents[component];
+    if (constructor === undefined) {
+      console.error('RankingComponentIndex.createComponentChain error: ' + 'undefined component name: ' + component);
+      return false;
     }
-
-    return chainfront
+    chainfront = new constructor(ranking, chainfront);
+    return true;
+  })) {
+    // some component could not be created. Abort.
+    return undefined;
   }
-
-  RankingComponentIndex.components = Object.keys(allComponents).sort()
-
-  return RankingComponentIndex
-})
+  return chainfront;
+};
+RankingComponentIndex.components = Object.keys(allComponents).sort();
+export default RankingComponentIndex;

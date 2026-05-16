@@ -5,27 +5,23 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'core/listener', 'ui/toast', 'ui/strings'], function (
-  State, Listener, Toast, Strings) {
-  var StateToasts
+import State from '../ui/state.js';
+import Listener from '../core/listener.js';
+import Toast from '../ui/toast.js';
+import Strings from '../ui/strings.js';
+var StateToasts;
+StateToasts = {};
 
-  StateToasts = {}
-
-  /*
-   * show error toasts
-   */
-  StateToasts.errorListener = Listener.bind(State, 'error', function (emitter,
-    event, message) {
-    Toast.once(message, Toast.LONG)
-  })
-
-  StateToasts.clearListener = Listener.bind(State, 'clear', function (emitter,
-    event, message) {
-    // TODO replace with Toast.isInitialized or similar.
-    if (Toast.$container !== undefined) {
-      Toast.once(Strings.newtournament, Toast.LONG)
-    }
-  })
-
-  return StateToasts
-})
+/*
+ * show error toasts
+ */
+StateToasts.errorListener = Listener.bind(State, 'error', function (emitter, event, message) {
+  Toast.once(message, Toast.LONG);
+});
+StateToasts.clearListener = Listener.bind(State, 'clear', function (emitter, event, message) {
+  // TODO replace with Toast.isInitialized or similar.
+  if (Toast.$container !== undefined) {
+    Toast.once(Strings.newtournament, Toast.LONG);
+  }
+});
+export default StateToasts;

@@ -5,18 +5,18 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'ui/listcollectormodel', 'tournament/tournamentmodel',
-  'ui/toast', 'ui/strings'], function (State, ListCollectorModel,
-  TournamentModel, Toast, Strings) {
-  var TournamentErrorToasts
+import State from '../ui/state.js';
+import ListCollectorModel from '../ui/listcollectormodel.js';
+import TournamentModel from '../tournament/tournamentmodel.js';
+import Toast from '../ui/toast.js';
+import Strings from '../ui/strings.js';
+var TournamentErrorToasts;
 
-  // save on player name change
-  TournamentErrorToasts = new ListCollectorModel(State.tournaments,
-    TournamentModel)
-  TournamentErrorToasts.onerror = function (emitter, event, message) {
-    return new Toast(Strings.tournamenterrorprefix + ': ' + message, //
-      Toast.LONG)
-  }
-
-  return TournamentErrorToasts
-})
+// save on player name change
+TournamentErrorToasts = new ListCollectorModel(State.tournaments, TournamentModel);
+TournamentErrorToasts.onerror = function (emitter, event, message) {
+  return new Toast(Strings.tournamenterrorprefix + ': ' + message,
+  //
+  Toast.LONG);
+};
+export default TournamentErrorToasts;

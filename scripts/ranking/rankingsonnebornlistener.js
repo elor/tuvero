@@ -6,27 +6,23 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
-  extend, RankingDataListener, VectorModel) {
-  /**
-   * Constructor
-   *
-   * @param ranking
-   *          a RankingModel instance
-   */
-  function RankingSonnebornListener (ranking) {
-    RankingSonnebornListener.superconstructor.call(this, ranking,
-      new VectorModel())
-  }
-  extend(RankingSonnebornListener, RankingDataListener)
-
-  RankingSonnebornListener.NAME = 'sonneborn'
-  RankingSonnebornListener.DEPENDENCIES = ['winsmatrix', 'wins']
-
-  RankingSonnebornListener.prototype.onrecalc = function () {
-    // TODO exclude bye from sonneborn points?
-    this.winsmatrix.multVector(this.sonneborn, this.wins)
-  }
-
-  return RankingSonnebornListener
-})
+import extend from '../lib/extend.js';
+import RankingDataListener from './rankingdatalistener.js';
+import VectorModel from '../math/vectormodel.js';
+/**
+ * Constructor
+ *
+ * @param ranking
+ *          a RankingModel instance
+ */
+function RankingSonnebornListener(ranking) {
+  RankingSonnebornListener.superconstructor.call(this, ranking, new VectorModel());
+}
+extend(RankingSonnebornListener, RankingDataListener);
+RankingSonnebornListener.NAME = 'sonneborn';
+RankingSonnebornListener.DEPENDENCIES = ['winsmatrix', 'wins'];
+RankingSonnebornListener.prototype.onrecalc = function () {
+  // TODO exclude bye from sonneborn points?
+  this.winsmatrix.multVector(this.sonneborn, this.wins);
+};
+export default RankingSonnebornListener;

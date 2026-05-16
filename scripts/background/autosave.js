@@ -5,62 +5,60 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
-  'tournament/tournamentmodel', 'ui/statesaver', 'core/listener', 'background/upload'],
-function (State, ListCollectorModel, TeamModel, TournamentModel, StateSaver, Listener, upload) {
-  var updatePending, nameListener, AutoSave
-
-  AutoSave = undefined
-  updatePending = undefined
-
-  function save () {
-    if (updatePending === undefined) {
-      updatePending = window.setTimeout(function () {
-        updatePending = undefined
-        if (StateSaver.canSave()) {
-          if (!StateSaver.saveState()) {
-            // TODO display as Toast!
-            console.error('autosave failed')
-          }
-
-          if (State.tabOptions.autouploadState.get()) {
-            upload()
-          }
-        } else {
-          console.warn('cannot autosave: No state loaded.')
+import State from '../ui/state.js';
+import ListCollectorModel from '../ui/listcollectormodel.js';
+import TeamModel from '../ui/teammodel.js';
+import TournamentModel from '../tournament/tournamentmodel.js';
+import StateSaver from '../ui/statesaver.js';
+import Listener from '../core/listener.js';
+import upload from './upload.js';
+var updatePending, nameListener, AutoSave;
+AutoSave = undefined;
+updatePending = undefined;
+function save() {
+  if (updatePending === undefined) {
+    updatePending = window.setTimeout(function () {
+      updatePending = undefined;
+      if (StateSaver.canSave()) {
+        if (!StateSaver.saveState()) {
+          // TODO display as Toast!
+          console.error('autosave failed');
         }
-      }, 10)
-    }
+        if (State.tabOptions.autouploadState.get()) {
+          upload();
+        }
+      } else {
+        console.warn('cannot autosave: No state loaded.');
+      }
+    }, 10);
   }
+}
 
-  // save on player name change
-  Listener.bind(new ListCollectorModel(State.teams, TeamModel), 'update', save//
-  )
+// save on player name change
+Listener.bind(new ListCollectorModel(State.teams, TeamModel), 'update', save //
+);
 
-  // save on team insertion/removal
-  Listener.bind(State.teams, 'resize', save)
+// save on team insertion/removal
+Listener.bind(State.teams, 'resize', save);
 
-  // save on tournament property change
-  Listener.bind(new ListCollectorModel(State.tournaments, TournamentModel),
-    'update', save)
+// save on tournament property change
+Listener.bind(new ListCollectorModel(State.tournaments, TournamentModel), 'update', save);
 
-  // save on tournament insertion/removal
-  Listener.bind(State.tournaments, 'resize', save)
+// save on tournament insertion/removal
+Listener.bind(State.tournaments, 'resize', save);
 
-  // save on global ranking change (i.e. after every match, etc.
-  Listener.bind(State.tournaments, 'update', save)
+// save on global ranking change (i.e. after every match, etc.
+Listener.bind(State.tournaments, 'update', save);
 
-  // save on tournament name change
-  nameListener = new Listener()
-  nameListener.onupdate = save
+// save on tournament name change
+nameListener = new Listener();
+nameListener.onupdate = save;
 
-  // register tournament listeners
-  Listener.bind(State.tournaments, 'insert', function (emitter, event, data) {
-    data.object.getName().registerListener(nameListener)
-  })
-  Listener.bind(State.tournaments, 'remove', function (emitter, event, data) {
-    data.object.getName().unregisterListener(nameListener)
-  })
-
-  return AutoSave
-})
+// register tournament listeners
+Listener.bind(State.tournaments, 'insert', function (emitter, event, data) {
+  data.object.getName().registerListener(nameListener);
+});
+Listener.bind(State.tournaments, 'remove', function (emitter, event, data) {
+  data.object.getName().unregisterListener(nameListener);
+});
+export default AutoSave;

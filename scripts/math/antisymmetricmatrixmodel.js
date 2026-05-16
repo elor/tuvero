@@ -16,56 +16,52 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/matrixmodel'], function (extend, MatrixModel) {
-  /**
-   * Constructor
-   *
-   * @param size
-   *          size of the matrix. defaults to 0
-   */
-  function AntisymmetricMatrixModel (size) {
-    AntisymmetricMatrixModel.superconstructor.call(this, size)
+import extend from '../lib/extend.js';
+import MatrixModel from './matrixmodel.js';
+/**
+ * Constructor
+ *
+ * @param size
+ *          size of the matrix. defaults to 0
+ */
+function AntisymmetricMatrixModel(size) {
+  AntisymmetricMatrixModel.superconstructor.call(this, size);
+}
+extend(AntisymmetricMatrixModel, MatrixModel);
+
+/**
+ * get() function, which maps super-diagonal elements to a lower triangular
+ * matrix, including the necessary additive inversion
+ *
+ * @param row
+ *          row
+ * @param col
+ *          column
+ * @return the stored value
+ */
+AntisymmetricMatrixModel.prototype.get = function (row, col) {
+  if (row < col) {
+    return -AntisymmetricMatrixModel.superclass.get.call(this, col, row);
   }
-  extend(AntisymmetricMatrixModel, MatrixModel)
+  return AntisymmetricMatrixModel.superclass.get.call(this, row, col);
+};
 
-  /**
-   * get() function, which maps super-diagonal elements to a lower triangular
-   * matrix, including the necessary additive inversion
-   *
-   * @param row
-   *          row
-   * @param col
-   *          column
-   * @return the stored value
-   */
-  AntisymmetricMatrixModel.prototype.get = function (row, col) {
-    if (row < col) {
-      return -AntisymmetricMatrixModel.superclass.get.call(this, col, row)
-    }
-
-    return AntisymmetricMatrixModel.superclass.get.call(this, row, col)
+/**
+ * set() function, which maps super-diagonal writes to the lower triangular
+ * matrix, with an additive inversion
+ *
+ * @param row
+ *          row
+ * @param col
+ *          column
+ * @param value
+ *          value
+ * @return this on success, undefined otherwise
+ */
+AntisymmetricMatrixModel.prototype.set = function (row, col, value) {
+  if (row < col) {
+    return AntisymmetricMatrixModel.superclass.set.call(this, col, row, -value);
   }
-
-  /**
-   * set() function, which maps super-diagonal writes to the lower triangular
-   * matrix, with an additive inversion
-   *
-   * @param row
-   *          row
-   * @param col
-   *          column
-   * @param value
-   *          value
-   * @return this on success, undefined otherwise
-   */
-  AntisymmetricMatrixModel.prototype.set = function (row, col, value) {
-    if (row < col) {
-      return AntisymmetricMatrixModel.superclass.set.call(this, col, row,
-        -value)
-    }
-
-    return AntisymmetricMatrixModel.superclass.set.call(this, row, col, value)
-  }
-
-  return AntisymmetricMatrixModel
-})
+  return AntisymmetricMatrixModel.superclass.set.call(this, row, col, value);
+};
+export default AntisymmetricMatrixModel;

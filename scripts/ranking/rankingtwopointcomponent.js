@@ -6,31 +6,28 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], function (extend, //
-  RankingComponent) {
-  /**
-   * Constructor
-   *
-   * @param ranking
-   *          a RankingModel instance
-   * @param nextcomponent
-   *          the next component in the chain
-   */
-  function RankingTwoPointComponent (ranking, nextcomponent) {
-    RankingTwoPointComponent.superconstructor.call(this, ranking, nextcomponent)
-  }
-  extend(RankingTwoPointComponent, RankingComponent)
+import extend from '../lib/extend.js';
+import RankingComponent from './rankingcomponent.js';
+/**
+ * Constructor
+ *
+ * @param ranking
+ *          a RankingModel instance
+ * @param nextcomponent
+ *          the next component in the chain
+ */
+function RankingTwoPointComponent(ranking, nextcomponent) {
+  RankingTwoPointComponent.superconstructor.call(this, ranking, nextcomponent);
+}
+extend(RankingTwoPointComponent, RankingComponent);
+RankingTwoPointComponent.NAME = 'twopoint';
 
-  RankingTwoPointComponent.NAME = 'twopoint'
-
-  /**
-   * @param i
-   *          a team index
-   * @return the number of won games
-   */
-  RankingTwoPointComponent.prototype.value = function (i) {
-    return this.ranking.twopoint.get(i)
-  }
-
-  return RankingTwoPointComponent
-})
+/**
+ * @param i
+ *          a team index
+ * @return the number of won games
+ */
+RankingTwoPointComponent.prototype.value = function (i) {
+  return this.ranking.twopoint.get(i);
+};
+export default RankingTwoPointComponent;

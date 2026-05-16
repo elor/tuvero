@@ -6,31 +6,28 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], //
-  function (extend, RankingComponent) {
-  /**
-   * Constructor
-   *
-   * @param ranking
-   *          a RankingModel instance
-   * @param nextcomponent
-   *          the next component in the chain
-   */
-    function RankingSaldoComponent (ranking, nextcomponent) {
-      RankingSaldoComponent.superconstructor.call(this, ranking, nextcomponent)
-    }
-    extend(RankingSaldoComponent, RankingComponent)
+import extend from '../lib/extend.js';
+import RankingComponent from './rankingcomponent.js';
+/**
+ * Constructor
+ *
+ * @param ranking
+ *          a RankingModel instance
+ * @param nextcomponent
+ *          the next component in the chain
+ */
+function RankingSaldoComponent(ranking, nextcomponent) {
+  RankingSaldoComponent.superconstructor.call(this, ranking, nextcomponent);
+}
+extend(RankingSaldoComponent, RankingComponent);
+RankingSaldoComponent.NAME = 'saldo';
 
-    RankingSaldoComponent.NAME = 'saldo'
-
-    /**
-   * @param i
-   *          a team index
-   * @return the point difference, aka. saldo points
-   */
-    RankingSaldoComponent.prototype.value = function (i) {
-      return this.ranking.saldo.get(i)
-    }
-
-    return RankingSaldoComponent
-  })
+/**
+* @param i
+*          a team index
+* @return the point difference, aka. saldo points
+*/
+RankingSaldoComponent.prototype.value = function (i) {
+  return this.ranking.saldo.get(i);
+};
+export default RankingSaldoComponent;

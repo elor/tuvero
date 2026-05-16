@@ -6,47 +6,41 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
-  extend, RankingDataListener, VectorModel) {
-  /**
-   * Constructor
-   *
-   * @param ranking
-   *          a RankingModel instance
-   */
-  function RankingVotesListener (ranking) {
-    RankingVotesListener.superconstructor
-      .call(this, ranking, new VectorModel())
-  }
-  extend(RankingVotesListener, RankingDataListener)
+import extend from '../lib/extend.js';
+import RankingDataListener from './rankingdatalistener.js';
+import VectorModel from '../math/vectormodel.js';
+/**
+ * Constructor
+ *
+ * @param ranking
+ *          a RankingModel instance
+ */
+function RankingVotesListener(ranking) {
+  RankingVotesListener.superconstructor.call(this, ranking, new VectorModel());
+}
+extend(RankingVotesListener, RankingDataListener);
+RankingVotesListener.NAME = 'votes';
+RankingVotesListener.DEPENDENCIES = ['upvotes', 'downvotes', 'byes'];
+RankingVotesListener.prototype.onrecalc = function () {
+  this.votes.map(function (oldVote, teamID) {
+    var i, string;
+    string = '';
 
-  RankingVotesListener.NAME = 'votes'
-  RankingVotesListener.DEPENDENCIES = ['upvotes', 'downvotes', 'byes']
+    // byes
+    for (i = 0; i < this.byes.get(teamID); i += 1) {
+      string += '∅';
+    }
 
-  RankingVotesListener.prototype.onrecalc = function () {
-    this.votes.map(function (oldVote, teamID) {
-      var i, string
+    // upvotes
+    for (i = 0; i < this.upvotes.get(teamID); i += 1) {
+      string += '▲';
+    }
 
-      string = ''
-
-      // byes
-      for (i = 0; i < this.byes.get(teamID); i += 1) {
-        string += '∅'
-      }
-
-      // upvotes
-      for (i = 0; i < this.upvotes.get(teamID); i += 1) {
-        string += '▲'
-      }
-
-      // downvotes
-      for (i = 0; i < this.downvotes.get(teamID); i += 1) {
-        string += '▼'
-      }
-
-      this.votes.set(teamID, string)
-    }, this)
-  }
-
-  return RankingVotesListener
-})
+    // downvotes
+    for (i = 0; i < this.downvotes.get(teamID); i += 1) {
+      string += '▼';
+    }
+    this.votes.set(teamID, string);
+  }, this);
+};
+export default RankingVotesListener;

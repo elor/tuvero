@@ -6,34 +6,32 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/valuemodel'], function (extend, ValueModel) {
-  /**
-   * Constructor
-   *
-   * @param list
-   *          a ListModel instance
-   */
-  function LengthModel (list) {
-    LengthModel.superconstructor.call(this, list.length)
+import extend from '../lib/extend.js';
+import ValueModel from '../core/valuemodel.js';
+/**
+ * Constructor
+ *
+ * @param list
+ *          a ListModel instance
+ */
+function LengthModel(list) {
+  LengthModel.superconstructor.call(this, list.length);
+  list.registerListener(this);
+}
+extend(LengthModel, ValueModel);
 
-    list.registerListener(this)
-  }
-  extend(LengthModel, ValueModel)
+/**
+ * callback listener
+ *
+ * @param list
+ *          the emitter, i.e. the ListModel instance
+ */
+LengthModel.prototype.onresize = function (list) {
+  LengthModel.superclass.set.call(this, list.length);
+};
 
-  /**
-   * callback listener
-   *
-   * @param list
-   *          the emitter, i.e. the ListModel instance
-   */
-  LengthModel.prototype.onresize = function (list) {
-    LengthModel.superclass.set.call(this, list.length)
-  }
-
-  /**
-   * disable the set() function. This is a passive ValueModel
-   */
-  LengthModel.prototype.set = undefined
-
-  return LengthModel
-})
+/**
+ * disable the set() function. This is a passive ValueModel
+ */
+LengthModel.prototype.set = undefined;
+export default LengthModel;

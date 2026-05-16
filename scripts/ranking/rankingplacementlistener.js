@@ -6,20 +6,18 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
-  extend, RankingDataListener, VectorModel) {
-  /**
-   * Constructor
-   *
-   * @param ranking
-   *          a RankingModel instance
-   */
-  function RankingPlacementListener (ranking) {
-    RankingPlacementListener.superconstructor.call(this, ranking, new VectorModel())
-  }
-  extend(RankingPlacementListener, RankingDataListener)
-
-  RankingPlacementListener.NAME = 'placement'
-
-  return RankingPlacementListener
-})
+import extend from '../lib/extend.js';
+import RankingDataListener from './rankingdatalistener.js';
+import VectorModel from '../math/vectormodel.js';
+/**
+ * Constructor
+ *
+ * @param ranking
+ *          a RankingModel instance
+ */
+function RankingPlacementListener(ranking) {
+  RankingPlacementListener.superconstructor.call(this, ranking, new VectorModel());
+}
+extend(RankingPlacementListener, RankingDataListener);
+RankingPlacementListener.NAME = 'placement';
+export default RankingPlacementListener;

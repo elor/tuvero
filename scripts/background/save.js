@@ -6,20 +6,18 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'ui/filesavermodel', 'ui/toast', 'ui/strings'], function ($,
-  FileSaverModel, Toast, Strings) {
-  var Save
-
-  $(function ($) {
-    $('#tabs').on('click', 'button.save', function () {
-      var fileSaver
-
-      fileSaver = new FileSaverModel()
-      if (!fileSaver.save()) {
-        Toast.once(Strings.savefailed)
-      }
-    })
-  })
-
-  return Save
-})
+import $ from 'jquery';
+import FileSaverModel from '../ui/filesavermodel.js';
+import Toast from '../ui/toast.js';
+import Strings from '../ui/strings.js';
+var Save;
+$(function ($) {
+  $('#tabs').on('click', 'button.save', function () {
+    var fileSaver;
+    fileSaver = new FileSaverModel();
+    if (!fileSaver.save()) {
+      Toast.once(Strings.savefailed);
+    }
+  });
+});
+export default Save;
