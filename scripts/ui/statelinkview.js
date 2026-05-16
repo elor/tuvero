@@ -6,42 +6,38 @@
  * @license MIT License
  * @see LICENSE
  */
+import extend from '../lib/extend.js';
+import ClassView from '../core/classview.js';
+/**
+ * Constructor
+ *
+ * @param model
+ *          a ValueModel instance, which implements get() and emits update
+ * @param $view
+ *          the associated DOM element
+ */
+function StateLinkView(model, $view, propertyPath) {
+  StateLinkView.superconstructor.call(this, model, $view, undefined, 'hidden');
+  this.propertyPath = propertyPath || '';
+  this.update();
+}
+extend(StateLinkView, ClassView);
 
-define(['lib/extend', 'core/classview'], function (extend, ClassView) {
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a ValueModel instance, which implements get() and emits update
-   * @param $view
-   *          the associated DOM element
-   */
-  function StateLinkView (model, $view, propertyPath) {
-    StateLinkView.superconstructor.call(this, model, $view, undefined, 'hidden')
-
-    this.propertyPath = propertyPath || ''
-
-    this.update()
+/**
+ * write the contents of get() to the DOM
+ */
+StateLinkView.prototype.update = function () {
+  StateLinkView.superclass.update.call(this);
+  var tournamentid = this.model.get();
+  if (tournamentid) {
+    this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath);
   }
-  extend(StateLinkView, ClassView)
+};
 
-  /**
-   * write the contents of get() to the DOM
-   */
-  StateLinkView.prototype.update = function () {
-    StateLinkView.superclass.update.call(this)
-    var tournamentid = this.model.get()
-    if (tournamentid) {
-      this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath)
-    }
-  }
-
-  /**
-   * Callback listener
-   */
-  StateLinkView.prototype.onupdate = function (event, emitter, data) {
-    this.update()
-  }
-
-  return StateLinkView
-})
+/**
+ * Callback listener
+ */
+StateLinkView.prototype.onupdate = function (event, emitter, data) {
+  this.update();
+};
+export default StateLinkView;

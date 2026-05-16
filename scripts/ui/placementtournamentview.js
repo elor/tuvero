@@ -6,11 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/tournamentview'], function (extend, TournamentView) {
-  function PlacementTournamentView (model, $view, tournaments) {
-    PlacementTournamentView.superconstructor.call(this, model, $view, tournaments)
-  }
-  extend(PlacementTournamentView, TournamentView)
-
-  return PlacementTournamentView
-})
+import extend from '../lib/extend.js';
+import TournamentView from './tournamentview.js';
+function PlacementTournamentView(model, $view, tournaments) {
+  PlacementTournamentView.superconstructor.call(this, model, $view, tournaments);
+}
+extend(PlacementTournamentView, TournamentView);
+export default PlacementTournamentView;

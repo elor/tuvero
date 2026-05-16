@@ -7,77 +7,65 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['background/online', 'ui/update'], function (Online, Update) {
-  var Browser
-
-  Browser = {
-    name: undefined,
-    version: undefined,
-    online: undefined,
-    cached: undefined,
-    local: undefined,
-    secure: undefined,
-    legit: undefined,
-    inithash: window.location.hash.replace(/^#/, '')
-  }
-
-  Browser.update = function () {
-    /**
-     * original code copied from:
-     * http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
-     *
-     * @return browser information: "Browsername 13.0.0.1" or similar
-     */
-    var sayswho = (function () {
-      var ua, tem, M, regex
-
-      ua = navigator.userAgent
-      regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i
-      M = ua.match(regex) || []
-      if (/trident/i.test(M[1])) {
-        tem = /\brv[ :]+(\d+)/g.exec(ua) || []
-        return 'IE ' + (tem[1] || '')
-      }
-      if (M[1] === 'Chrome') {
-        tem = ua.match(/\b(OPR|Edge)\/(\d+)/)
-        if (tem !== null) {
-          return tem.slice(1).join(' ').replace('OPR', 'Opera')
-        }
-      }
-      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, //
-        '-?']
-      if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
-        M.splice(1, 1, tem[1])
-      }
-      return M.join(' ')
-    })()
-
-    Browser.name = sayswho.match(/^\S+/)[0]
-    if (Browser.name === 'undefined') {
-      Browser.name = undefined
+import Online from '../background/online.js';
+import Update from './update.js';
+var Browser;
+Browser = {
+  name: undefined,
+  version: undefined,
+  online: undefined,
+  cached: undefined,
+  local: undefined,
+  secure: undefined,
+  legit: undefined,
+  inithash: window.location.hash.replace(/^#/, '')
+};
+Browser.update = function () {
+  /**
+   * original code copied from:
+   * http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
+   *
+   * @return browser information: "Browsername 13.0.0.1" or similar
+   */
+  var sayswho = function () {
+    var ua, tem, M, regex;
+    ua = navigator.userAgent;
+    regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i;
+    M = ua.match(regex) || [];
+    if (/trident/i.test(M[1])) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      return 'IE ' + (tem[1] || '');
     }
-
-    Browser.version = sayswho.match(/\S+$/)[0]
-    if (Browser.version === 'undefined') {
-      Browser.version = undefined
-    } else {
-      Browser.version = Number(Browser.version)
+    if (M[1] === 'Chrome') {
+      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      if (tem !== null) {
+        return tem.slice(1).join(' ').replace('OPR', 'Opera');
+      }
     }
-
-    Browser.online = Online()
-
-    Browser.cached = Update.isCached
-
-    Browser.local = document.location.protocol === 'file:'
-
-    Browser.secure = document.location.protocol === 'https:'
-
-    Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host)
-
-    return Browser
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,
+    //
+    '-?'];
+    if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
+      M.splice(1, 1, tem[1]);
+    }
+    return M.join(' ');
+  }();
+  Browser.name = sayswho.match(/^\S+/)[0];
+  if (Browser.name === 'undefined') {
+    Browser.name = undefined;
   }
-
-  Browser.update()
-
-  return Browser
-})
+  Browser.version = sayswho.match(/\S+$/)[0];
+  if (Browser.version === 'undefined') {
+    Browser.version = undefined;
+  } else {
+    Browser.version = Number(Browser.version);
+  }
+  Browser.online = Online();
+  Browser.cached = Update.isCached;
+  Browser.local = document.location.protocol === 'file:';
+  Browser.secure = document.location.protocol === 'https:';
+  Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host);
+  return Browser;
+};
+Browser.update();
+export default Browser;

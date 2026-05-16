@@ -6,10 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/servermodel', 'ui/storage', 'presets'], function (ServerModel, Storage, Presets) {
-  var Server
-
-  Server = Storage.register(Presets.names.apitoken, ServerModel)
-
-  return Server
-})
+import ServerModel from './servermodel.js';
+import Storage from './storage.js';
+import Presets from 'presets';
+var Server;
+Server = Storage.register(Presets.names.apitoken, ServerModel);
+export default Server;

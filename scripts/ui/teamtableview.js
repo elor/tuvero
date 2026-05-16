@@ -16,60 +16,53 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view'], function ($, extend, View) {
-  /**
-   * Constructor
-   *
-   * @param teamview
-   *          a ListView of the table
-   * @param teamsize
-   *          a ValueModel instance of the team size
-   */
-  function TeamTableView (teamview, teamsize) {
-    TeamTableView.superconstructor.call(this, teamsize, teamview.$view)
+import $ from 'jquery';
+import extend from '../lib/extend.js';
+import View from '../core/view.js';
+/**
+ * Constructor
+ *
+ * @param teamview
+ *          a ListView of the table
+ * @param teamsize
+ *          a ValueModel instance of the team size
+ */
+function TeamTableView(teamview, teamsize) {
+  TeamTableView.superconstructor.call(this, teamsize, teamview.$view);
+  this.teamlist = teamview.model;
+  this.teamlist.registerListener(this);
+  this.$names = this.$view.find('tr>th');
+  this.updatePlayerColumns();
+}
+extend(TeamTableView, View);
 
-    this.teamlist = teamview.model
-    this.teamlist.registerListener(this)
-
-    this.$names = this.$view.find('tr>th')
-
-    this.updatePlayerColumns()
-  }
-  extend(TeamTableView, View)
-
-  /**
-   * show one column for each player in a team (teamsize)
-   */
-  TeamTableView.prototype.updatePlayerColumns = function () {
-    var teamsize, teamindex
-
-    teamsize = this.model.get()
-    teamindex = 0
-
-    this.$names.each(function (index, elem) {
-      var $elem
-
-      $elem = $(elem)
-
-      if ($elem.hasClass('playercol')) {
-        if (teamindex < teamsize) {
-          $elem.removeClass('hidden')
-        } else {
-          $elem.addClass('hidden')
-        }
-        teamindex += 1
+/**
+ * show one column for each player in a team (teamsize)
+ */
+TeamTableView.prototype.updatePlayerColumns = function () {
+  var teamsize, teamindex;
+  teamsize = this.model.get();
+  teamindex = 0;
+  this.$names.each(function (index, elem) {
+    var $elem;
+    $elem = $(elem);
+    if ($elem.hasClass('playercol')) {
+      if (teamindex < teamsize) {
+        $elem.removeClass('hidden');
       } else {
-        teamindex = 0
+        $elem.addClass('hidden');
       }
-    })
-  }
+      teamindex += 1;
+    } else {
+      teamindex = 0;
+    }
+  });
+};
 
-  /**
-   * the team size changed. check player column visibility
-   */
-  TeamTableView.prototype.onupdate = function () {
-    this.updatePlayerColumns()
-  }
-
-  return TeamTableView
-})
+/**
+ * the team size changed. check player column visibility
+ */
+TeamTableView.prototype.onupdate = function () {
+  this.updatePlayerColumns();
+};
+export default TeamTableView;

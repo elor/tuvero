@@ -11,49 +11,41 @@
  * @license MIT License
  * @see LICENSE
  */
-define([], function () { // NOTE TO SELF: Don't remove the '[],' from this line
+// NOTE TO SELF: Don't remove the '[],' from this line
 // Removing it WILL break EVERYTHING after r.js compilation !!!
-  var OptionsTemplate, Default
+var OptionsTemplate, Default;
+Default = {};
+OptionsTemplate = {};
+OptionsTemplate.toBlob = function () {
+  return JSON.stringify(OptionsTemplate);
+};
+OptionsTemplate.fromBlob = function (blob) {
+  var opts, key;
+  opts = JSON.parse(blob);
 
-  Default = {}
-  OptionsTemplate = {}
-
-  OptionsTemplate.toBlob = function () {
-    return JSON.stringify(OptionsTemplate)
-  }
-
-  OptionsTemplate.fromBlob = function (blob) {
-    var opts, key
-    opts = JSON.parse(blob)
-
-    // delete everything
-    for (key in OptionsTemplate) {
-      if (typeof (OptionsTemplate[key]) !== 'function') {
-        delete OptionsTemplate[key]
-      }
-    }
-
-    // apply default options
-    for (key in Default) {
-      OptionsTemplate[key] = Default[key]
-    }
-
-    // reset everything
-    for (key in opts) {
-      OptionsTemplate[key] = opts[key]
+  // delete everything
+  for (key in OptionsTemplate) {
+    if (typeof OptionsTemplate[key] !== 'function') {
+      delete OptionsTemplate[key];
     }
   }
 
-  OptionsTemplate.setDefault = function (newDefault) {
-    Default = newDefault
+  // apply default options
+  for (key in Default) {
+    OptionsTemplate[key] = Default[key];
   }
 
-  OptionsTemplate.reset = function () {
-    // just use available functions instead of cloning
-    OptionsTemplate.fromBlob(JSON.stringify(Default))
+  // reset everything
+  for (key in opts) {
+    OptionsTemplate[key] = opts[key];
   }
-
-  OptionsTemplate.reset()
-
-  return OptionsTemplate
-})
+};
+OptionsTemplate.setDefault = function (newDefault) {
+  Default = newDefault;
+};
+OptionsTemplate.reset = function () {
+  // just use available functions instead of cloning
+  OptionsTemplate.fromBlob(JSON.stringify(Default));
+};
+OptionsTemplate.reset();
+export default OptionsTemplate;

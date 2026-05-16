@@ -11,77 +11,70 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
-  'ui/fontsizemodel'], function ($, extend, View, FontSizeController,
-  FontSizeModel) {
-  var classprefix
+import $ from 'jquery';
+import extend from '../lib/extend.js';
+import View from '../core/view.js';
+import FontSizeController from './fontsizecontroller.js';
+import FontSizeModel from './fontsizemodel.js';
+var classprefix;
+classprefix = 'fontsize';
 
-  classprefix = 'fontsize'
+/**
+ * Constructor, which also calls update() for the first time
+ *
+ * @param $view
+ *          the container of the widget
+ * @param $container
+ *          the container of the size-adjusted text. If undefined, it defaults
+ *          to <body>
+ */
+function FontSizeView($view, $container) {
+  $container = $container || $('body');
+  FontSizeView.superconstructor.call(this, FontSizeView.getModelOfContainer($container), $view);
+  this.$container = $container;
+  this.update();
+  this.controller = new FontSizeController(this);
+}
+extend(FontSizeView, View);
 
-  /**
-   * Constructor, which also calls update() for the first time
-   *
-   * @param $view
-   *          the container of the widget
-   * @param $container
-   *          the container of the size-adjusted text. If undefined, it defaults
-   *          to <body>
-   */
-  function FontSizeView ($view, $container) {
-    $container = $container || $('body')
+/**
+ * removes all font size information
+ */
+FontSizeView.prototype.reset = function () {
+  FontSizeModel.SIZES.map(function (size) {
+    this.$container.removeClass(classprefix + size);
+    this.$view.removeClass(classprefix + size);
+  }, this);
+};
 
-    FontSizeView.superconstructor.call(this, FontSizeView
-      .getModelOfContainer($container), $view)
+/**
+ * sets the current font size, as defined by the model
+ */
+FontSizeView.prototype.update = function () {
+  this.reset();
+  this.$container.addClass(classprefix + this.model.getFontSize());
+  this.$view.addClass(classprefix + this.model.getFontSize());
+};
 
-    this.$container = $container
+/**
+ * model.emit() callback function
+ */
+FontSizeView.prototype.onupdate = function () {
+  this.update();
+};
 
-    this.update()
-
-    this.controller = new FontSizeController(this)
+/**
+ * Retrieves the model for the given container. Allocates a new FontSizeModel,
+ * if not set yet.
+ *
+ * @param $container
+ *          the container
+ * @return the model for the given container
+ */
+FontSizeView.getModelOfContainer = function ($container) {
+  if (!$container.data('FontSizeModel')) {
+    $container.data('FontSizeModel', new FontSizeModel());
   }
-  extend(FontSizeView, View)
-
-  /**
-   * removes all font size information
-   */
-  FontSizeView.prototype.reset = function () {
-    FontSizeModel.SIZES.map(function (size) {
-      this.$container.removeClass(classprefix + size)
-      this.$view.removeClass(classprefix + size)
-    }, this)
-  }
-
-  /**
-   * sets the current font size, as defined by the model
-   */
-  FontSizeView.prototype.update = function () {
-    this.reset()
-    this.$container.addClass(classprefix + this.model.getFontSize())
-    this.$view.addClass(classprefix + this.model.getFontSize())
-  }
-
-  /**
-   * model.emit() callback function
-   */
-  FontSizeView.prototype.onupdate = function () {
-    this.update()
-  }
-
-  /**
-   * Retrieves the model for the given container. Allocates a new FontSizeModel,
-   * if not set yet.
-   *
-   * @param $container
-   *          the container
-   * @return the model for the given container
-   */
-  FontSizeView.getModelOfContainer = function ($container) {
-    if (!$container.data('FontSizeModel')) {
-      $container.data('FontSizeModel', new FontSizeModel())
-    }
-
-    return $container.data('FontSizeModel')
-  }
-
-  return FontSizeView
-})
+  return $container.data('FontSizeModel');
+};
+export default FontSizeView;

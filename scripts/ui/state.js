@@ -6,14 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/statemodel', 'core/listener'], function (StateModel, Listener) {
-  var State
-
-  State = new StateModel()
-
-  Listener.bind(State, 'error', function (emitter, event, message) {
-    console.error(message)
-  })
-
-  return State
-})
+import StateModel from './statemodel.js';
+import Listener from '../core/listener.js';
+var State;
+State = new StateModel();
+Listener.bind(State, 'error', function (emitter, event, message) {
+  console.error(message);
+});
+export default State;

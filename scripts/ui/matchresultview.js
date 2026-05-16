@@ -6,59 +6,54 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/matchview', 'ui/matchresultcontroller'], function (
-  extend, MatchView, MatchResultController) {
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a MatchResult instance
-   * @param $view
-   *          the container element
-   * @param teamlist
-   *          a ListModel of TeamModel instances
-   * @param tournament
-   *          a TournamentModel instance
-   */
-  function MatchResultView (model, $view, teamlist, tournament) {
-    MatchResultView.superconstructor.call(this, model, $view, teamlist)
-
-    this.$result = this.$view.find('.result')
-    this.$scores = this.$result.find('.score')
-    this.$correctionform = this.$view.find('.correct')
-
-    if (this.model.isResult()) {
-      if (this.model.isBye()) {
-        this.$correctionform.remove()
-        this.$correctionform = undefined
-      } else {
-        if (tournament) {
-          this.controller = new MatchResultController(this,
-            this.$correctionform, tournament)
-        }
-      }
+import extend from '../lib/extend.js';
+import MatchView from './matchview.js';
+import MatchResultController from './matchresultcontroller.js';
+/**
+ * Constructor
+ *
+ * @param model
+ *          a MatchResult instance
+ * @param $view
+ *          the container element
+ * @param teamlist
+ *          a ListModel of TeamModel instances
+ * @param tournament
+ *          a TournamentModel instance
+ */
+function MatchResultView(model, $view, teamlist, tournament) {
+  MatchResultView.superconstructor.call(this, model, $view, teamlist);
+  this.$result = this.$view.find('.result');
+  this.$scores = this.$result.find('.score');
+  this.$correctionform = this.$view.find('.correct');
+  if (this.model.isResult()) {
+    if (this.model.isBye()) {
+      this.$correctionform.remove();
+      this.$correctionform = undefined;
     } else {
-      this.$result.remove()
-      this.$result = undefined
-      this.$scores = undefined
-      this.$correctionform.remove()
-      this.$correctionform = undefined
+      if (tournament) {
+        this.controller = new MatchResultController(this, this.$correctionform, tournament);
+      }
     }
-
-    this.updateScore()
+  } else {
+    this.$result.remove();
+    this.$result = undefined;
+    this.$scores = undefined;
+    this.$correctionform.remove();
+    this.$correctionform = undefined;
   }
-  extend(MatchResultView, MatchView)
+  this.updateScore();
+}
+extend(MatchResultView, MatchView);
 
-  /**
-   * display the score of the MatchResult
-   */
-  MatchResultView.prototype.updateScore = function () {
-    if (this.model.isResult()) {
-      this.model.score.forEach(function (score, index) {
-        this.$scores.eq(index).text(score)
-      }, this)
-    }
+/**
+ * display the score of the MatchResult
+ */
+MatchResultView.prototype.updateScore = function () {
+  if (this.model.isResult()) {
+    this.model.score.forEach(function (score, index) {
+      this.$scores.eq(index).text(score);
+    }, this);
   }
-
-  return MatchResultView
-})
+};
+export default MatchResultView;

@@ -6,37 +6,33 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/timemachinecommitview', 'ui/listview',
-  'timemachine/timemachine', 'ui/timemachinenewtreecontroller'], function (
-  extend, View, TimeMachineCommitView, ListView, TimeMachine,
-  TimeMachineNewTreeController) {
-  /**
-   * Constructor
+import extend from '../lib/extend.js';
+import View from '../core/view.js';
+import TimeMachineCommitView from './timemachinecommitview.js';
+import ListView from './listview.js';
+import TimeMachine from '../timemachine/timemachine.js';
+import TimeMachineNewTreeController from './timemachinenewtreecontroller.js';
+/**
+ * Constructor
+ */
+function TimeMachineView($view) {
+  TimeMachineView.superconstructor.call(this, undefined, $view);
+  this.init();
+}
+extend(TimeMachineView, View);
+TimeMachineView.prototype.init = function () {
+  var $container, $template;
+  /*
+   * Time Machine Commits
    */
-  function TimeMachineView ($view) {
-    TimeMachineView.superconstructor.call(this, undefined, $view)
+  $container = this.$view.find('.rootcommits');
+  $template = $container.find('.timemachinecommitview.template');
+  this.initCommits = new ListView(TimeMachine.roots, $container, $template, TimeMachineCommitView);
 
-    this.init()
-  }
-  extend(TimeMachineView, View)
-
-  TimeMachineView.prototype.init = function () {
-    var $container, $template
-    /*
-     * Time Machine Commits
-     */
-    $container = this.$view.find('.rootcommits')
-    $template = $container.find('.timemachinecommitview.template')
-    this.initCommits = new ListView(TimeMachine.roots, $container, $template,
-      TimeMachineCommitView)
-
-    /*
-     * Time Machine New Tree
-     */
-    $container = this.$view.find('.newcommittree')
-    this.newcommitTreeController = new TimeMachineNewTreeController(new View(
-      undefined, $container))
-  }
-
-  return TimeMachineView
-})
+  /*
+   * Time Machine New Tree
+   */
+  $container = this.$view.find('.newcommittree');
+  this.newcommitTreeController = new TimeMachineNewTreeController(new View(undefined, $container));
+};
+export default TimeMachineView;

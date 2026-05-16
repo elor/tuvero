@@ -6,58 +6,55 @@
  * @license MIT License
  * @see LICENSE
  */
+import extend from '../lib/extend.js';
+import View from '../core/view.js';
+/**
+ * constructor
+ *
+ * @param text
+ *          the initial text
+ * @param $view
+ *          the containing DOM element
+ */
+function TextView(text, $view) {
+  TextView.superconstructor.call(this, undefined, $view);
+  this.setText(text);
+}
+extend(TextView, View);
 
-define(['lib/extend', 'core/view'], function (extend, View) {
-  /**
-   * constructor
-   *
-   * @param text
-   *          the initial text
-   * @param $view
-   *          the containing DOM element
-   */
-  function TextView (text, $view) {
-    TextView.superconstructor.call(this, undefined, $view)
-
-    this.setText(text)
+/**
+ * change the text of this element
+ *
+ * @param text
+ *          the new text
+ */
+TextView.prototype.setText = function (text) {
+  if (text === undefined) {
+    this.model.text = 'undefined';
+  } else {
+    this.model.text = text;
   }
-  extend(TextView, View)
+  this.model.emit('update');
+};
 
-  /**
-   * change the text of this element
-   *
-   * @param text
-   *          the new text
-   */
-  TextView.prototype.setText = function (text) {
-    if (text === undefined) {
-      this.model.text = 'undefined'
-    } else {
-      this.model.text = text
-    }
-    this.model.emit('update')
-  }
+/**
+ * reset the text to an empty string
+ */
+TextView.prototype.reset = function () {
+  this.setText('');
+};
 
-  /**
-   * reset the text to an empty string
-   */
-  TextView.prototype.reset = function () {
-    this.setText('')
-  }
+/**
+ * write the current text to the DOM element
+ */
+TextView.prototype.update = function () {
+  this.$view.text(this.model.text);
+};
 
-  /**
-   * write the current text to the DOM element
-   */
-  TextView.prototype.update = function () {
-    this.$view.text(this.model.text)
-  }
-
-  /**
-   * Callback listener
-   */
-  TextView.prototype.onupdate = function () {
-    this.update()
-  }
-
-  return TextView
-})
+/**
+ * Callback listener
+ */
+TextView.prototype.onupdate = function () {
+  this.update();
+};
+export default TextView;

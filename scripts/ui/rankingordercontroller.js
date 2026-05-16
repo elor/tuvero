@@ -10,34 +10,31 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller'], function ($, extend, Controller) {
-  /**
-   * Constructor
-   *
-   * @param view
-   *          a valid RankingOrderView instance
-   */
-  function RankingOrderController (view) {
-    RankingOrderController.superconstructor.call(this, view)
-
-    var tournament = this.model
-    var allComponents = this.view.allComponents
-
-    this.view.$selectedList.on('click', '.component', function () {
-      var components = tournament.ranking.componentnames
-      components.splice($(this).index(), 1)
-      tournament.setRankingOrder(components)
-      view.updateFromScratch()
-    })
-
-    this.view.$availableList.on('click', '.component', function () {
-      var components = tournament.ranking.componentnames
-      components.push(allComponents.get($(this).index()))
-      tournament.setRankingOrder(components)
-      view.updateFromScratch()
-    })
-  }
-  extend(RankingOrderController, Controller)
-
-  return RankingOrderController
-})
+import $ from 'jquery';
+import extend from '../lib/extend.js';
+import Controller from '../core/controller.js';
+/**
+ * Constructor
+ *
+ * @param view
+ *          a valid RankingOrderView instance
+ */
+function RankingOrderController(view) {
+  RankingOrderController.superconstructor.call(this, view);
+  var tournament = this.model;
+  var allComponents = this.view.allComponents;
+  this.view.$selectedList.on('click', '.component', function () {
+    var components = tournament.ranking.componentnames;
+    components.splice($(this).index(), 1);
+    tournament.setRankingOrder(components);
+    view.updateFromScratch();
+  });
+  this.view.$availableList.on('click', '.component', function () {
+    var components = tournament.ranking.componentnames;
+    components.push(allComponents.get($(this).index()));
+    tournament.setRankingOrder(components);
+    view.updateFromScratch();
+  });
+}
+extend(RankingOrderController, Controller);
+export default RankingOrderController;

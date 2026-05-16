@@ -6,22 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller'],
-  function ($, extend, Controller) {
-  /**
-   * Constructor
-   */
-    function InputValueController (view) {
-      var controller
-      InputValueController.superconstructor.call(this, view)
-
-      controller = this
-
-      this.view.$view.change(function () {
-        controller.model.set(Number(controller.view.$view.val()))
-      })
-    }
-    extend(InputValueController, Controller)
-
-    return InputValueController
-  })
+import $ from 'jquery';
+import extend from '../lib/extend.js';
+import Controller from '../core/controller.js';
+/**
+ * Constructor
+ */
+function InputValueController(view) {
+  var controller;
+  InputValueController.superconstructor.call(this, view);
+  controller = this;
+  this.view.$view.change(function () {
+    controller.model.set(Number(controller.view.$view.val()));
+  });
+}
+extend(InputValueController, Controller);
+export default InputValueController;

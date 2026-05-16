@@ -6,39 +6,35 @@
  * @license MIT License
  * @see LICENSE
  */
+import extend from '../lib/extend.js';
+import View from '../core/view.js';
+import InputValueController from './inputvaluecontroller.js';
+/**
+ * Constructor
+ *
+ * @param model
+ *          a ValueModel instance, which implements get() and emits update
+ * @param $view
+ *          the associated DOM element
+ */
+function InputValueView(model, $view) {
+  InputValueView.superconstructor.call(this, model, $view);
+  this.update();
+  this.controller = new InputValueController(this);
+}
+extend(InputValueView, View);
 
-define(['lib/extend', 'core/view', 'ui/inputvaluecontroller'],
-  function (extend, View, InputValueController) {
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a ValueModel instance, which implements get() and emits update
-   * @param $view
-   *          the associated DOM element
-   */
-    function InputValueView (model, $view) {
-      InputValueView.superconstructor.call(this, model, $view)
+/**
+* write the contents of get() to the DOM
+*/
+InputValueView.prototype.update = function () {
+  this.$view.val(this.model.get());
+};
 
-      this.update()
-
-      this.controller = new InputValueController(this)
-    }
-    extend(InputValueView, View)
-
-    /**
-   * write the contents of get() to the DOM
-   */
-    InputValueView.prototype.update = function () {
-      this.$view.val(this.model.get())
-    }
-
-    /**
-   * Callback listener
-   */
-    InputValueView.prototype.onupdate = function () {
-      this.update()
-    }
-
-    return InputValueView
-  })
+/**
+* Callback listener
+*/
+InputValueView.prototype.onupdate = function () {
+  this.update();
+};
+export default InputValueView;

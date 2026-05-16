@@ -5,43 +5,38 @@
  * @license MIT License
  * @see LICENSE
  */
+import $ from 'jquery';
+import extend from '../lib/extend.js';
+import Controller from '../core/controller.js';
+/**
+ * Constructor
+ *
+ * @param view
+ *          a CheckboxView instance
+ */
+function CheckboxController(view) {
+  var model, $checkbox, $parent;
+  CheckboxController.superconstructor.call(this, view);
+  model = this.model;
+  $checkbox = this.view.$view;
+  $parent = $checkbox.parent().filter('span');
+  $parent.click(function (e) {
+    if ($(e.target).prop('tagName') === 'SPAN') {
+      $checkbox.click();
+    }
+  });
 
-define(['jquery', 'lib/extend', 'core/controller'], function ($, extend, Controller) {
   /**
-   * Constructor
-   *
-   * @param view
-   *          a CheckboxView instance
+   * apply checkbox state to model state
    */
-  function CheckboxController (view) {
-    var model, $checkbox, $parent
-    CheckboxController.superconstructor.call(this, view)
-
-    model = this.model
-    $checkbox = this.view.$view
-    $parent = $checkbox.parent().filter('span')
-
-    $parent.click(function (e) {
-      if ($(e.target).prop('tagName') === 'SPAN') {
-        $checkbox.click()
-      }
-    })
-
-    /**
-     * apply checkbox state to model state
-     */
-    $checkbox.change(function () {
-      var viewvalue, modelvalue
-
-      viewvalue = $checkbox.prop('checked')
-      modelvalue = model.get()
-
-      if (viewvalue !== modelvalue) {
-        model.set(viewvalue)
-      }
-    })
-  }
-  extend(CheckboxController, Controller)
-
-  return CheckboxController
-})
+  $checkbox.change(function () {
+    var viewvalue, modelvalue;
+    viewvalue = $checkbox.prop('checked');
+    modelvalue = model.get();
+    if (viewvalue !== modelvalue) {
+      model.set(viewvalue);
+    }
+  });
+}
+extend(CheckboxController, Controller);
+export default CheckboxController;

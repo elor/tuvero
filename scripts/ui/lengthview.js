@@ -6,38 +6,34 @@
  * @license MIT License
  * @see LICENSE
  */
+import extend from '../lib/extend.js';
+import View from '../core/view.js';
+/**
+ * Constructor
+ *
+ * @param model
+ *          a ListModel instance
+ * @param $view
+ *          the associated DOM element
+ */
+function LengthView(model, $view, offset) {
+  LengthView.superconstructor.call(this, model, $view);
+  this.offset = offset || 0;
+  this.update();
+}
+extend(LengthView, View);
 
-define(['lib/extend', 'core/view'], function (extend, View) {
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a ListModel instance
-   * @param $view
-   *          the associated DOM element
-   */
-  function LengthView (model, $view, offset) {
-    LengthView.superconstructor.call(this, model, $view)
+/**
+ * write the playernames and teamnumber to the DOM
+ */
+LengthView.prototype.update = function () {
+  this.$view.text(this.model.length + this.offset);
+};
 
-    this.offset = offset || 0
-
-    this.update()
-  }
-  extend(LengthView, View)
-
-  /**
-   * write the playernames and teamnumber to the DOM
-   */
-  LengthView.prototype.update = function () {
-    this.$view.text(this.model.length + this.offset)
-  }
-
-  /**
-   * Callback listener
-   */
-  LengthView.prototype.onresize = function () {
-    this.update()
-  }
-
-  return LengthView
-})
+/**
+ * Callback listener
+ */
+LengthView.prototype.onresize = function () {
+  this.update();
+};
+export default LengthView;
