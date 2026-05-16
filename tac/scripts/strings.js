@@ -6,17 +6,14 @@
  * @license MIT License
  * @see LICENSE
  */
-
-define(function () {
-  return {
-    variant: 'TAC',
-    teamsicon: 'teams',
-    teamtext: 'Team',
-    teamstext: 'Teams',
-    ranking_saldo: 'Kugeldifferenz',
-    ranking_short_saldo: 'KD',
-    ranking_medium_saldo: 'Diff.',
-    matchplace: 'Tisch',
-    matchplaces: 'Tische'
-  }
-})
+export default {
+  variant: 'TAC',
+  teamsicon: 'teams',
+  teamtext: 'Team',
+  teamstext: 'Teams',
+  ranking_saldo: 'Kugeldifferenz',
+  ranking_short_saldo: 'KD',
+  ranking_medium_saldo: 'Diff.',
+  matchplace: 'Tisch',
+  matchplaces: 'Tische'
+};

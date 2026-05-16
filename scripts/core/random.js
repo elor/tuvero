@@ -1,7 +1,7 @@
-import tuvero from 'tuvero';
+import { random } from 'tuvero';
 var Random = function () {
-  this.nextInt = tuvero.random.int;
-  this.pick = tuvero.random.pick;
-  this.pickAndRemove = tuvero.random.pluck;
+  this.nextInt = random.int;
+  this.pick = random.pick;
+  this.pickAndRemove = random.pluck;
 };
 export default Random;

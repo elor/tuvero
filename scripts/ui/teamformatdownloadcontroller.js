@@ -8,8 +8,7 @@
  */
 import extend from '../lib/extend.js';
 import Controller from '../core/controller.js';
-import saveAs from '../lib/FileSaver.js';
-import Blob from '../lib/Blob.js';
+import { saveAs } from 'file-saver';
 import Toast from './toast.js';
 import Strings from './strings.js';
 import Presets from 'presets';

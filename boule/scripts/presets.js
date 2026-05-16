@@ -8,48 +8,40 @@
  * @see LICENSE
  */
 
-define(function () {
-  var Presets
-
-  Presets = {
-    target: 'boule',
-    systems: {
-      swiss: {
-        ranking: ['wins', 'buchholz', 'finebuchholz', 'headtohead', 'saldo',
-          'votes'
-        ],
-        mode: 'wins'
-      },
-      ko: {
-        mode: 'matched'
-      },
-      round: {
-        ranking: ['wins', 'sonneborn', 'headtohead', 'points']
-      },
-      placement: {},
-      poules: {}
+var Presets;
+Presets = {
+  target: 'boule',
+  systems: {
+    swiss: {
+      ranking: ['wins', 'buchholz', 'finebuchholz', 'headtohead', 'saldo', 'votes'],
+      mode: 'wins'
     },
-    ranking: {
-      components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
-        'numgames', 'wins', 'headtohead'
-      ]
+    ko: {
+      mode: 'matched'
     },
-    registration: {
-      defaultteamsize: 3,
-      minteamsize: 1,
-      maxteamsize: 3,
-      teamsizeicon: true
+    round: {
+      ranking: ['wins', 'sonneborn', 'headtohead', 'points']
     },
-    names: {
-      playernameurl: '',
-      dbplayername: 'bouleplayers',
-      apitoken: 'apitoken',
-      teamsfile: 'tuvero-anmeldungen.txt'
-    },
-    ui: {
-      rankingpoints: true
-    }
+    placement: {},
+    poules: {}
+  },
+  ranking: {
+    components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn', 'numgames', 'wins', 'headtohead']
+  },
+  registration: {
+    defaultteamsize: 3,
+    minteamsize: 1,
+    maxteamsize: 3,
+    teamsizeicon: true
+  },
+  names: {
+    playernameurl: '',
+    dbplayername: 'bouleplayers',
+    apitoken: 'apitoken',
+    teamsfile: 'tuvero-anmeldungen.txt'
+  },
+  ui: {
+    rankingpoints: true
   }
-
-  return Presets
-})
+};
+export default Presets;

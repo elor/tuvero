@@ -33,6 +33,11 @@
   "scripts": {
     "postinstall": "gulp update",
     "build": "gulp default",
+    "vite:dev": "vite",
+    "vite:build": "npm run vite:build:basic && npm run vite:build:boule && npm run vite:build:tac",
+    "vite:build:basic": "VITE_VARIANT=basic vite build",
+    "vite:build:boule": "VITE_VARIANT=boule vite build",
+    "vite:build:tac": "VITE_VARIANT=tac vite build",
     "test": "gulp test",
     "lint": "gulp lint",
     "lib": "gulp lib",

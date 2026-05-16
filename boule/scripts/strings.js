@@ -6,11 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  return {
-    teamsicon: 'teams3',
-    variant: 'Boule',
-    matchplace: 'Bahn',
-    matchplaces: 'Bahnen'
-  }
-})
+export default {
+  teamsicon: 'teams3',
+  variant: 'Boule',
+  matchplace: 'Bahn',
+  matchplaces: 'Bahnen'
+};

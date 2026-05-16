@@ -8,25 +8,20 @@
  * @license MIT License
  * @see LICENSE
  */
-
-define(['ui/optionstemplate'], function (OptionsTemplate) {
-  var Default
-
-  Default = {
-    // must stay the same across this save, hence OptionsTemplate, not Presets
-    minpoints: -999,
-    maxpoints: 999,
-    byepointswon: 1,
-    byepointslost: 0,
-    defaultscore: 0,
-    tiesforbidden: false,
-    maxpointtiesforbidden: true,
-    formulexbyescore: [13, 7],
-    formulexpoints: 100
-  }
-
-  OptionsTemplate.setDefault(Default)
-  OptionsTemplate.reset()
-
-  return OptionsTemplate
-})
+import OptionsTemplate from '../../scripts/ui/optionstemplate.js';
+var Default;
+Default = {
+  // must stay the same across this save, hence OptionsTemplate, not Presets
+  minpoints: -999,
+  maxpoints: 999,
+  byepointswon: 1,
+  byepointslost: 0,
+  defaultscore: 0,
+  tiesforbidden: false,
+  maxpointtiesforbidden: true,
+  formulexbyescore: [13, 7],
+  formulexpoints: 100
+};
+OptionsTemplate.setDefault(Default);
+OptionsTemplate.reset();
+export default OptionsTemplate;

@@ -9,10 +9,9 @@
  */
 import extend from '../lib/extend.js';
 import Model from '../core/model.js';
-import saveAs from '../lib/FileSaver.js';
+import { saveAs } from 'file-saver';
 import TimeMachine from '../timemachine/timemachine.js';
 import Presets from 'presets';
-import Blob from '../lib/Blob.js';
 /**
  * Constructor: Constructs a FileSaverModel instance around the given commit
  *

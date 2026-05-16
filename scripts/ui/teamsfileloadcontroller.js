@@ -1,4 +1,4 @@
-import tuvero from 'tuvero';
+import { io } from 'tuvero';
 import extend from '../lib/extend.js';
 import FileLoadController from './fileloadcontroller.js';
 import Toast from './toast.js';
@@ -13,8 +13,8 @@ function TeamsFileLoadController($button) {
 extend(TeamsFileLoadController, FileLoadController);
 TeamsFileLoadController.prototype.readFile = TeamsFileLoadController.load;
 TeamsFileLoadController.prototype.unreadFile = function () {};
-TeamsFileLoadController.parseCSVString = tuvero.io.csv.read;
-TeamsFileLoadController.parseDPVString = tuvero.io.dpv.import.csv;
+TeamsFileLoadController.parseCSVString = io.csv.read;
+TeamsFileLoadController.parseDPVString = io.dpv.import.csv;
 function dpv2player(dpv) {
   var name, player;
   name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr;
@@ -82,7 +82,7 @@ TeamsFileLoadController.guessCSVTeamsize = function (teams) {
    */
 TeamsFileLoadController.load = function (input) {
   var teams, teamsize;
-  input = tuvero.io.utf8.latin2utf8(input);
+  input = io.utf8.latin2utf8(input);
   if (State.teams.length !== 0) {
     Toast.once(Strings.teamsnotempty);
     return false;

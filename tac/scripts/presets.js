@@ -7,48 +7,44 @@
  * @see LICENSE
  */
 
-define(function () {
-  var Presets
-
-  Presets = {
-    target: 'tac',
-    systems: {
-      swiss: {
-        ranking: ['tac', 'numgames', 'wins', 'headtohead'],
-        mode: 'ranks'
-      },
-      ko: {
-        mode: 'matched'
-      },
-      round: {
-        ranking: ['tac', 'numgames', 'wins', 'headtohead']
-      },
-      placement: {}
+var Presets;
+Presets = {
+  target: 'tac',
+  systems: {
+    swiss: {
+      ranking: ['tac', 'numgames', 'wins', 'headtohead'],
+      mode: 'ranks'
     },
-    ranking: {
-      components: ['tac', 'numgames', 'wins', 'saldo', 'headtohead', 'buchholz', 'finebuchholz', 'sonneborn']
+    ko: {
+      mode: 'matched'
     },
-    registration: {
-      defaultteamsize: 1,
-      minteamsize: 1,
-      maxteamsize: 3,
-      teamsizeicon: false
+    round: {
+      ranking: ['tac', 'numgames', 'wins', 'headtohead']
     },
-    taboptions: {
-      namemaxwidth: false,
-      showmatchtables: true
-    },
-    names: {
-      playernameurl: '',
-      dbplayername: 'tacplayers',
-      apitoken: 'apitoken',
-      teamsfile: 'tuvero-anmeldungen.txt'
-    },
-    ui: {
-      rankingpoints: false,
-      hiderankingorder: true
-    }
+    placement: {}
+  },
+  ranking: {
+    components: ['tac', 'numgames', 'wins', 'saldo', 'headtohead', 'buchholz', 'finebuchholz', 'sonneborn']
+  },
+  registration: {
+    defaultteamsize: 1,
+    minteamsize: 1,
+    maxteamsize: 3,
+    teamsizeicon: false
+  },
+  taboptions: {
+    namemaxwidth: false,
+    showmatchtables: true
+  },
+  names: {
+    playernameurl: '',
+    dbplayername: 'tacplayers',
+    apitoken: 'apitoken',
+    teamsfile: 'tuvero-anmeldungen.txt'
+  },
+  ui: {
+    rankingpoints: false,
+    hiderankingorder: true
   }
-
-  return Presets
-})
+};
+export default Presets;

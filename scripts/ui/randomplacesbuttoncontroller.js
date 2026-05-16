@@ -3,7 +3,7 @@ import Controller from '../core/controller.js';
 import View from '../core/view.js';
 import State from './state.js';
 import Toast from './toast.js';
-import tuvero from 'tuvero';
+import { random } from 'tuvero';
 function RandomPlacesButtonController($button) {
   RandomPlacesButtonController.superconstructor.call(this, new View(undefined, $button));
   this.view.$view.click(this.randomizeplaces.bind(this));
@@ -17,7 +17,7 @@ RandomPlacesButtonController.prototype.randomizeplaces = function () {
       allmatches.push(match);
     });
   });
-  places = tuvero.random.range(1, allmatches.length + 1);
+  places = random.range(1, allmatches.length + 1);
   allmatches.forEach(function (match, index) {
     match.setPlace(places[index].toString());
   });

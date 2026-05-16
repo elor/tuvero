@@ -4,24 +4,25 @@ import { fileURLToPath } from 'node:url'
 
 const here = (...p) => resolve(fileURLToPath(new URL('.', import.meta.url)), ...p)
 
+const variant = process.env.VITE_VARIANT || 'basic'
+const validVariants = ['basic', 'boule', 'tac']
+if (!validVariants.includes(variant)) {
+  throw new Error(`Unknown VITE_VARIANT="${variant}". Must be one of: ${validVariants.join(', ')}`)
+}
+
 export default defineConfig({
   resolve: {
     alias: {
-      filesaver: 'file-saver',
-      options: here('basic/scripts/options.js'),
-      presets: here('basic/scripts/presets.js'),
-      strings: here('basic/scripts/strings.js')
+      options: here(`${variant}/scripts/options.js`),
+      presets: here(`${variant}/scripts/presets.js`),
+      strings: here(`${variant}/scripts/strings.js`)
     }
   },
   build: {
-    outDir: 'build',
+    outDir: `build/${variant}`,
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        basic: here('basic/index.html'),
-        boule: here('boule/index.html'),
-        tac: here('tac/index.html')
-      }
+      input: { app: here(`${variant}/index.html`) }
     }
   }
 })
