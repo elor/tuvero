@@ -25,3 +25,5 @@ test/style/qunit.css
 tmp/
 npm-debug.log
 /.idea/
+/CLAUDE.md
+/.claude
