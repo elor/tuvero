@@ -1,31 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "skipLibCheck": true,
-    "types": [],
-    "noImplicitAny": true,
-    "strictNullChecks": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "alwaysStrict": true,
     "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
-    }
+    "declaration": true,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts"
   ]
 }

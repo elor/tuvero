@@ -2,7 +2,16 @@
   "name": "tuvero",
   "version": "1.7.3",
   "description": "Tuvero Tournament Software Library",
-  "main": "./dist/index",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "doc"
@@ -10,56 +19,34 @@
   "author": {
     "name": "Erik E. Lorenz"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "all": "npm run lint && npm run test-src && npm run build && npm run coverage && npm run doc && npm run bundle",
-    "build-watch": "tsc -w",
-    "build": "tsc",
-    "bundle-watch": "webpack --watch",
-    "bundle": "webpack",
-    "dist": "npm run build && npm run bundle",
-    "coverage": "nyc npm test",
+    "all": "npm run lint && npm run test && npm run build && npm run coverage && npm run doc",
+    "build": "tsup",
+    "build-watch": "tsup --watch",
+    "coverage": "vitest run --coverage",
     "doc": "typedoc --out doc/ --exclude \"**/+(*.spec.ts|index.ts)\" src/",
-    "lint-fix": "tslint --config tslint.json --project tsconfig.json --fix",
-    "lint": "tslint --config tslint.json --project tsconfig.json",
+    "lint": "eslint src/",
+    "lint-fix": "eslint src/ --fix",
     "prepublish": "npm run all",
     "preversion": "npm run all",
-    "test-src": "mocha -r node_modules/ts-node/register src/**/*.spec.ts",
-    "test-watch": "mocha dist/**/*.spec.js --watch",
-    "test": "mocha dist/**/*.spec.js"
+    "test": "vitest run",
+    "test-watch": "vitest"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "lodash": "^4.17.15",
-    "mathjs": "3.20.1",
+    "lodash": "^4.17.21",
     "mersenne": "0.0.4"
   },
   "devDependencies": {
-    "@types/chai": "4.1.2",
-    "@types/lodash": "4.14.104",
-    "@types/mathjs": "0.0.37",
-    "@types/mocha": "2.2.48",
-    "chai": "4.1.2",
-    "mocha": "5.0.1",
-    "nyc": "^14.1.1",
-    "ts-node": "4.1.0",
-    "tslint": "5.9.1",
-    "typedoc": "^0.15.0",
-    "typescript": "2.7.2",
-    "uglifyjs-webpack-plugin": "1.2.0",
-    "webpack": "3.11.0"
-  },
-  "nyc": {
-    "all": true,
-    "include": "dist/**/*.js",
-    "exclude": [
-      "dist/**/*.spec.js",
-      "dist/*.js",
-      "dist/**/index.js"
-    ],
-    "lines": 80,
-    "statements": 80,
-    "functions": 80,
-    "branches": 80,
-    "check-coverage": true
+    "@types/lodash": "^4.17.16",
+    "@vitest/coverage-v8": "^3.2.0",
+    "eslint": "^9.27.0",
+    "tsup": "^8.5.0",
+    "typedoc": "^0.27.9",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.33.0",
+    "vitest": "^3.2.0"
   }
 }

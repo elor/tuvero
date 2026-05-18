@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, it, expect } from "vitest";
 
 import dpv from "./dpv";
 
@@ -292,8 +292,7 @@ describe("io/dpv.ts", () => {
         dpv.import.csv_tournament_name(excel_verbose_dpv_masters)
       ).to.equal(excel_tournament_name);
 
-      expect(dpv.import.csv_tournament_name(excel_exported_dpv_masters)).to.be
-        .undefined;
+      expect(dpv.import.csv_tournament_name(excel_exported_dpv_masters)).toBeUndefined();
     });
 
     it("handles varying line lengths gracefully", () => {

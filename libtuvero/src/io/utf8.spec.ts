@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, it, expect } from "vitest";
 import { range } from "lodash";
 
 import utf8 from "./utf8";

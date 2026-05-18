@@ -111,11 +111,10 @@ const utf8 = {
    * no utf8 encoding is found.
    */
   latin2utf8(string: string): string {
-    let symbolindex, ret, symbol;
-    ret = [];
+    const ret: string[] = [];
 
-    for (symbolindex = 0; symbolindex < string.length; symbolindex += 1) {
-      symbol = string.substr(symbolindex, 6);
+    for (let symbolindex = 0; symbolindex < string.length; symbolindex += 1) {
+      const symbol = string.substr(symbolindex, 6);
       if (internal.isutf8codepoint(symbol)) {
         // skip utf8 bytes
         symbolindex += internal.numutfbytes(symbol) - 1;
