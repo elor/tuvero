@@ -9,7 +9,13 @@
 import extend from '../lib/extend.js';
 import RankingDataListener from './rankingdatalistener.js';
 import VectorModel from '../math/vectormodel.js';
-import KOTournamentModel from '../tournament/kotournamentmodel.js';
+
+// Set by kotournamentmodel.js after initialization to break the circular import cycle
+let _KOTournamentModel = null;
+export function _registerKOTournamentModel(cls) {
+  _KOTournamentModel = cls;
+}
+
 function getWinnerPoints(result) {
   return -2 * result.getGroup();
 }
@@ -19,7 +25,7 @@ function getLoserPoints(result) {
   if (matchID <= 1) {
     return -2 * group - 1;
   } else {
-    return -2 * KOTournamentModel.loserGroupID(group, matchID);
+    return -2 * _KOTournamentModel.loserGroupID(group, matchID);
   }
 }
 

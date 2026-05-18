@@ -7,32 +7,55 @@
  * @license MIT License
  * @see LICENSE
  */
-import './rankingidcomponent.js';
-import './rankingpointscomponent.js';
-import './rankinglostpointscomponent.js';
-import './rankingsaldocomponent.js';
-import './rankingbuchholzcomponent.js';
-import './rankingfinebuchholzcomponent.js';
-import './rankingsonneborncomponent.js';
-import './rankingwinscomponent.js';
-import './rankingheadtoheadcomponent.js';
-import './rankingtaccomponent.js';
-import './rankingformulexcomponent.js';
-import './rankingvotescomponent.js';
-import './rankingnumgamescomponent.js';
-import './rankingkocomponent.js';
-import './rankingthreepointcomponent.js';
-import './rankingtwopointcomponent.js';
-import './rankingplacementcomponent.js';
-import './rankingpouleidcomponent.js';
-import './rankingpoulerankcomponent.js';
+import RankingIDComponent from './rankingidcomponent.js';
+import RankingPointsComponent from './rankingpointscomponent.js';
+import RankingLostPointsComponent from './rankinglostpointscomponent.js';
+import RankingSaldoComponent from './rankingsaldocomponent.js';
+import RankingBuchholzComponent from './rankingbuchholzcomponent.js';
+import RankingFineBuchholzComponent from './rankingfinebuchholzcomponent.js';
+import RankingSonnebornComponent from './rankingsonneborncomponent.js';
+import RankingWinsComponent from './rankingwinscomponent.js';
+import RankingHeadToHeadComponent from './rankingheadtoheadcomponent.js';
+import RankingTacComponent from './rankingtaccomponent.js';
+import RankingFormulexComponent from './rankingformulexcomponent.js';
+import RankingVotesComponent from './rankingvotescomponent.js';
+import RankingNumGamesComponent from './rankingnumgamescomponent.js';
+import RankingKOComponent from './rankingkocomponent.js';
+import RankingThreePointComponent from './rankingthreepointcomponent.js';
+import RankingTwoPointComponent from './rankingtwopointcomponent.js';
+import RankingPlacementComponent from './rankingplacementcomponent.js';
+import RankingPouleIDComponent from './rankingpouleidcomponent.js';
+import RankingPouleRankComponent from './rankingpoulerankcomponent.js';
+
 var RankingComponentIndex, index, Component, allComponents;
+
+var allComponentList = [
+  RankingIDComponent,
+  RankingPointsComponent,
+  RankingLostPointsComponent,
+  RankingSaldoComponent,
+  RankingBuchholzComponent,
+  RankingFineBuchholzComponent,
+  RankingSonnebornComponent,
+  RankingWinsComponent,
+  RankingHeadToHeadComponent,
+  RankingTacComponent,
+  RankingFormulexComponent,
+  RankingVotesComponent,
+  RankingNumGamesComponent,
+  RankingKOComponent,
+  RankingThreePointComponent,
+  RankingTwoPointComponent,
+  RankingPlacementComponent,
+  RankingPouleIDComponent,
+  RankingPouleRankComponent
+];
 
 // build the index from the XXXRankingComponent.NAME fields
 RankingComponentIndex = {};
 allComponents = {};
-for (index = 0; index < arguments.length; index += 1) {
-  Component = arguments[index];
+for (index = 0; index < allComponentList.length; index += 1) {
+  Component = allComponentList[index];
   allComponents[Component.NAME.toLowerCase()] = Component;
 }
 

@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 import extend from '../lib/extend.js';
-import MatchModel from './matchmodel.js';
+import MatchModel, { _registerMatchResult } from './matchmodel.js';
 function min(array) {
   return Math.min.apply(Math, array);
 }
@@ -37,6 +37,7 @@ function MatchResult(match, score) {
   this.score = score.slice(0);
 }
 extend(MatchResult, MatchModel);
+_registerMatchResult(MatchResult);
 
 /**
  * Disable the finish() function

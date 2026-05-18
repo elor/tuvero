@@ -9,7 +9,12 @@
 import extend from '../lib/extend.js';
 import IndexedModel from '../list/indexedmodel.js';
 import Type from './type.js';
-import MatchResult from './matchresult.js';
+
+// Populated by matchresult.js after it extends MatchModel, breaking the circular import cycle
+let _MatchResult = null;
+export function _registerMatchResult(cls) {
+  _MatchResult = cls;
+}
 /**
  * Constructor
  *
@@ -124,7 +129,7 @@ MatchModel.prototype.finish = function (points) {
     return undefined;
   }
 
-  result = new MatchResult(this, points);
+  result = new _MatchResult(this, points);
   this.emit('finish', result);
   return result;
 };

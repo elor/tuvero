@@ -13,39 +13,62 @@
  * @license MIT License
  * @see LICENSE
  */
-import './rankinglostpointslistener.js';
-import './rankingpointslistener.js';
-import './rankingsaldolistener.js';
-import './rankingupvoteslistener.js';
-import './rankingdownvoteslistener.js';
-import './rankingvoteslistener.js';
-import './rankingbyelistener.js';
-import './rankingwinslistener.js';
-import './rankinggamematrixlistener.js';
-import './rankingbuchholzlistener.js';
-import './rankingfinebuchholzlistener.js';
-import './rankingwinsmatrixlistener.js';
-import './rankingtaclistener.js';
-import './rankingformulexlistener.js';
-import './rankingsonnebornlistener.js';
-import './rankingheadtoheadlistener.js';
-import './rankingnumgameslistener.js';
-import './rankingkolistener.js';
-import './rankingthreepointlistener.js';
-import './rankingtwopointlistener.js';
-import './rankingplacementlistener.js';
-import './rankingpouleidlistener.js';
-import './rankingpouleranklistener.js';
+import RankingLostPointsListener from './rankinglostpointslistener.js';
+import RankingPointsListener from './rankingpointslistener.js';
+import RankingSaldoListener from './rankingsaldolistener.js';
+import RankingUpvotesListener from './rankingupvoteslistener.js';
+import RankingDownvotesListener from './rankingdownvoteslistener.js';
+import RankingVotesListener from './rankingvoteslistener.js';
+import RankingByeListener from './rankingbyelistener.js';
+import RankingWinsListener from './rankingwinslistener.js';
+import RankingGameMatrixListener from './rankinggamematrixlistener.js';
+import RankingBuchholzListener from './rankingbuchholzlistener.js';
+import RankingFineBuchholzListener from './rankingfinebuchholzlistener.js';
+import RankingWinsMatrixListener from './rankingwinsmatrixlistener.js';
+import RankingTacListener from './rankingtaclistener.js';
+import RankingFormuleXListener from './rankingformulexlistener.js';
+import RankingSonnebornListener from './rankingsonnebornlistener.js';
+import RankingHeadToHeadListener from './rankingheadtoheadlistener.js';
+import RankingNumGamesListener from './rankingnumgameslistener.js';
+import RankingKOListener from './rankingkolistener.js';
+import RankingThreePointListener from './rankingthreepointlistener.js';
+import RankingTwoPointListener from './rankingtwopointlistener.js';
+import RankingPlacementListener from './rankingplacementlistener.js';
+import RankingPouleIDListener from './rankingpouleidlistener.js';
+import RankingPouleRankListener from './rankingpouleranklistener.js';
+
+var allListeners = [
+  RankingLostPointsListener,
+  RankingPointsListener,
+  RankingSaldoListener,
+  RankingUpvotesListener,
+  RankingDownvotesListener,
+  RankingVotesListener,
+  RankingByeListener,
+  RankingWinsListener,
+  RankingGameMatrixListener,
+  RankingBuchholzListener,
+  RankingFineBuchholzListener,
+  RankingWinsMatrixListener,
+  RankingTacListener,
+  RankingFormuleXListener,
+  RankingSonnebornListener,
+  RankingHeadToHeadListener,
+  RankingNumGamesListener,
+  RankingKOListener,
+  RankingThreePointListener,
+  RankingTwoPointListener,
+  RankingPlacementListener,
+  RankingPouleIDListener,
+  RankingPouleRankListener
+];
+
 var RankingDataListenerIndex;
 
 /**
-   * build the index from the RankingXXXListener.NAME fields
-   *
-   * @param DataListeners
-   *          the arguments object of the outer function. NOT an array!
-   * @return a RankingDataListenerIndex object (no class)
-   */
-RankingDataListenerIndex = function (DataListeners) {
+ * build the index from the RankingXXXListener.NAME fields
+ */
+RankingDataListenerIndex = (function (DataListeners) {
   var RDLI, index, DataListener;
   RDLI = {};
   for (index = 0; index < DataListeners.length; index += 1) {
@@ -53,7 +76,7 @@ RankingDataListenerIndex = function (DataListeners) {
     RDLI[DataListener.NAME.toLowerCase()] = DataListener;
   }
   return RDLI;
-}(arguments);
+}(allListeners));
 
 /**
    * return the DataListener as referenced by its name

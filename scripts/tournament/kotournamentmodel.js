@@ -14,6 +14,7 @@ import MatchModel from '../core/matchmodel.js';
 import ByeResult from '../core/byeresult.js';
 import Options from 'options';
 import Presets from 'presets';
+import { _registerKOTournamentModel } from '../ranking/rankingkolistener.js';
 var rng = new Random();
 
 /**
@@ -488,4 +489,5 @@ KOTournamentModel.roundsInGroup = function (group) {
   }
   return rounds + 1;
 };
+_registerKOTournamentModel(KOTournamentModel);
 export default KOTournamentModel;
