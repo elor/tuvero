@@ -13,7 +13,7 @@
  */
 import extend from '../lib/extend.js';
 import ListModel from './listmodel.js';
-import diff from '../lib/diff.js';
+import { diffLines } from 'diff';
 /**
  * get a diffresult of two integer arrays
  *
@@ -36,7 +36,7 @@ function getdiff(a, b) {
   if (b.length > 0) {
     b += '\n';
   }
-  diffresult = diff.diffLines(a, b);
+  diffresult = diffLines(a, b);
   diffresult.forEach(function (lines) {
     lines.value = lines.value.replace(/\n$/, '').split('\n').map(Number);
   });

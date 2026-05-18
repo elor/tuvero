@@ -12,7 +12,7 @@ build-chromeapp/
 dev/
 sprite_new.png
 node_modules/
-lib/
+/lib/
 .vs
 *.user
 *.dll
