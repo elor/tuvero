@@ -8,21 +8,30 @@
  * @see LICENSE
  */
 import Type from '../core/type.js';
-import './roundtournamentmodel.js';
-import './swisstournamentmodel.js';
-import './kotournamentmodel.js';
-import './placementtournamentmodel.js';
-import './poulestournamentmodel.js';
-import './formulextournamentmodel.js';
+import RoundTournamentModel from './roundtournamentmodel.js';
+import SwissTournamentModel from './swisstournamentmodel.js';
+import KOTournamentModel from './kotournamentmodel.js';
+import PlacementTournamentModel from './placementtournamentmodel.js';
+import PoulesTournamentModel from './poulestournamentmodel.js';
+import FormuleXTournamentModel from './formulextournamentmodel.js';
+
+var allTournamentModels = [
+  RoundTournamentModel,
+  SwissTournamentModel,
+  KOTournamentModel,
+  PlacementTournamentModel,
+  PoulesTournamentModel,
+  FormuleXTournamentModel
+];
+
 var TournamentIndex, tournamentSystems, i, sys;
 tournamentSystems = {};
-// i starts at 1 to ignore the "Type" object
-for (i = 1; i < arguments.length; i += 1) {
-  sys = arguments[i].prototype.SYSTEM;
+for (i = 0; i < allTournamentModels.length; i += 1) {
+  sys = allTournamentModels[i].prototype.SYSTEM;
   if (tournamentSystems[sys]) {
     console.error('ERROR: duplicate tournament sys: ' + sys);
   }
-  tournamentSystems[sys] = arguments[i];
+  tournamentSystems[sys] = allTournamentModels[i];
 }
 TournamentIndex = {
   /**
