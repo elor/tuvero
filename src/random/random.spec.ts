@@ -1,10 +1,10 @@
-import { expect } from "chai";
+import { describe, it, expect } from "vitest";
 import { range } from "lodash";
 
 import random from "./random";
 
 const ITERATIONS = 100;
-type mapCall = (v: number, i: number, a: number[]) => any;
+type mapCall = (v: number, i: number, a: number[]) => unknown;
 const repeat = (fn: mapCall, start?: number) => range(start || 0, ITERATIONS).map(fn);
 
 const numerically = (a: number, b: number) => a - b;
@@ -37,7 +37,7 @@ describe("random/random.ts", () => {
 
   describe("range()", () => {
     it("is empty for range(0)", () => {
-      expect(random.range(0)).to.be.empty;
+      expect(random.range(0)).toHaveLength(0);
     });
 
     it("range(1) to contain only 0", () => {
@@ -55,7 +55,7 @@ describe("random/random.ts", () => {
 
   describe("range1()", () => {
     it("is empty for range1(0)", () => {
-      expect(random.range1(0)).to.be.empty;
+      expect(random.range1(0)).toHaveLength(0);
     });
 
     it("range1(1) to contain only 1", () => {
@@ -134,7 +134,7 @@ describe("random/random.ts", () => {
         .map(() => random.pluck(array))
         .forEach(i => copy[i - 10] = i);
 
-      expect(array).to.be.empty;
+      expect(array).toHaveLength(0);
       expect(copy).to.deep.equal(original);
     });
   });
