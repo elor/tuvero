@@ -34,7 +34,7 @@ import ValueModel from '../core/valuemodel.js';
  *          Optional. An option object. See above
  */
 function ListClickController(view, callback, options) {
-  var listview, listmodel;
+  let listview, listmodel;
   ListClickController.superconstructor.call(this, view);
   options = options || {};
   options.active = options.active || new ValueModel(true);
@@ -52,7 +52,7 @@ function ListClickController(view, callback, options) {
    * handle the click action
    */
   this.view.$view.on(options.event, options.selector, function (e) {
-    var $subview, index;
+    let $subview, index;
     if (options.active.get()) {
       $subview = $(this);
       index = listview.indexOf($subview);

@@ -27,7 +27,7 @@ extend(LoadedImagesView, View);
  *         data-img attribute
  */
 LoadedImagesView.imageList = function ($container) {
-  var $images, images;
+  let $images, images;
   $images = $container.find('[data-img]');
   images = {};
   $images.each(function () {
@@ -45,10 +45,10 @@ LoadedImagesView.imageList = function ($container) {
  * @param $container
  */
 LoadedImagesView.prototype.appendImages = function ($container) {
-  var images;
+  let images;
   images = LoadedImagesView.imageList($container);
   images.forEach(function (image) {
-    var $image = $('<div>').attr('data-img', image);
+    const $image = $('<div>').attr('data-img', image);
     this.$view.append($image);
   }, this);
 };

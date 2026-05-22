@@ -15,7 +15,7 @@
  */
 import $ from 'jquery';
 import Type from '../core/type.js';
-var initialized, pending;
+let initialized, pending;
 
 // pending toasts which have been issued before jquery was available
 initialized = false;
@@ -25,7 +25,7 @@ pending = [];
  * read the transition durations
  */
 function getTransitionDuration() {
-  var transition;
+  let transition;
   transition = Toast.$template.css('transition');
   if (transition === undefined) {
     console.error('could not read any transition lengths. ' + "What's your browser?");
@@ -64,7 +64,7 @@ Toast.$template = undefined;
  * display a toast
  */
 Toast.prototype.display = function () {
-  var $toast;
+  let $toast;
   if (!initialized) {
     console.error('Cannot display Toast: ' + 'Toast.init() has not been called yet.');
     return;
@@ -108,7 +108,7 @@ Toast.prototype.display = function () {
  * @return a close function
  */
 Toast.prototype.close = function () {
-  var $toast;
+  let $toast;
   if (initialized && this.$toast) {
     $toast = this.$toast;
 
@@ -165,7 +165,7 @@ Toast.init = function () {
 };
 Toast.closeTemporaryToasts = function () {
   Toast.$container.find('.toast.temporary').map(function () {
-    var $toast = $(this);
+    const $toast = $(this);
     $toast.next().hide();
     $toast.hide();
   });

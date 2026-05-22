@@ -26,7 +26,7 @@ extend(ValueView, View);
  * write the contents of get() to the DOM
  */
 ValueView.prototype.update = function () {
-  var value = this.model.get();
+  const value = this.model.get();
   if (value === undefined) {
     this.$view.text('undefined');
   } else {

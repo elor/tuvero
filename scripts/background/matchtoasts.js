@@ -9,7 +9,7 @@ import State from '../ui/state.js';
 import Toast from '../ui/toast.js';
 import Strings from '../ui/strings.js';
 import Listener from '../core/listener.js';
-var MatchToasts;
+let MatchToasts;
 MatchToasts = {};
 
 /*

@@ -15,9 +15,9 @@ import { saveAs } from 'file-saver';
 import Toast from './toast.js';
 import Strings from './strings.js';
 import TimeMachine from '../timemachine/timemachine.js';
-var validsets = ['teams', 'ranking', 'history', 'dpv'];
+const validsets = ['teams', 'ranking', 'history', 'dpv'];
 function player2dpv(player, team, ranking, tournaments) {
-  var teamID, tournamentID, tournament, tournamentName;
+  let teamID, tournamentID, tournament, tournamentName;
   teamID = team.getID();
   tournamentID = ranking.tournamentIDs[teamID];
   if (tournamentID === undefined) {
@@ -53,12 +53,12 @@ function player2dpv(player, team, ranking, tournaments) {
  * @returns {CSVExportController} an instance
  */
 function CSVExportController(view) {
-  var controller;
+  let controller;
   CSVExportController.superconstructor.call(this, view);
   controller = this;
   this.$buttons = this.view.$view.find('button');
   this.$buttons.click(function () {
-    var $button, classes;
+    let $button, classes;
     $button = $(this);
     classes = $button.attr('class').split(' ').filter(function (dataset) {
       return validsets.indexOf(dataset) !== -1;
@@ -68,7 +68,7 @@ function CSVExportController(view) {
 }
 extend(CSVExportController, Controller);
 CSVExportController.prototype.saveCSV = function (datasets) {
-  var data, blob, filename, basename;
+  let data, blob, filename, basename;
   if (!TimeMachine.isInitialized()) {
     Toast.once(Strings.notournament, Toast.LONG);
     return;
@@ -99,7 +99,7 @@ CSVExportController.prototype.saveCSV = function (datasets) {
  * @return {string} a combined CSV string of all datasets
  */
 CSVExportController.prototype.generateCSV = function (datasets) {
-  var csvDataSets = datasets.filter(function (dataset) {
+  const csvDataSets = datasets.filter(function (dataset) {
     return validsets.indexOf(dataset) !== -1;
   }).map(function (dataset) {
     if (this[dataset + 'ToCSV']) {
@@ -115,9 +115,9 @@ CSVExportController.prototype.generateCSV = function (datasets) {
  * @returns {string} a CSV string which represents the registered teams
  */
 CSVExportController.prototype.teamsToCSV = function () {
-  var csvLines;
+  let csvLines;
   csvLines = State.teams.map(function (team) {
-    var i, line;
+    let i, line;
     line = [team.getID() + 1];
     for (i = 0; i < team.length; i += 1) {
       line.push(this.escape(team.getPlayer(i).getName()));
@@ -132,11 +132,11 @@ CSVExportController.prototype.teamsToCSV = function () {
  * @returns {string} a CSV string which represents the ranking
  */
 CSVExportController.prototype.rankingToCSV = function () {
-  var tournaments = State.tournaments.map(function (tournament) {
-    var lines, ranking;
+  const tournaments = State.tournaments.map(function (tournament) {
+    let lines, ranking;
     ranking = tournament.getRanking().get();
     lines = ranking.displayOrder.map(function (displayID) {
-      var teamID, fields;
+      let teamID, fields;
       teamID = ranking.ids[displayID];
       fields = [ranking.ranks[displayID] + 1, teamID + 1];
       ranking.components.map(function (componentname) {
@@ -156,11 +156,11 @@ CSVExportController.prototype.rankingToCSV = function () {
  *         placeholders
  */
 CSVExportController.prototype.historyToCSV = function () {
-  var csvTournaments;
+  let csvTournaments;
   csvTournaments = State.tournaments.map(function (tournament) {
-    var lines = [this.escape(tournament.getName().get()), Strings.csvheader_history];
+    const lines = [this.escape(tournament.getName().get()), Strings.csvheader_history];
     tournament.getHistory().map(function (result) {
-      var fields, i;
+      let fields, i;
       fields = [];
       fields.push(result.getGroup() + 1);
       fields.push(result.getID() + 1);
@@ -183,7 +183,7 @@ CSVExportController.prototype.historyToCSV = function () {
   return csvTournaments.join('\r\n\r\n');
 };
 CSVExportController.prototype.dpvToCSV = function () {
-  var teams, fields, fieldNames, ranking;
+  let teams, fields, fieldNames, ranking;
   fieldNames = ['Platz', 'Unterturnier', 'Platz_Unterturnier', 'Name/Pseudonym', 'Nachname', 'Vorname', 'LizNr', 'Verein', 'TeamNummer', 'TeamPseudonym', 'TeamRLpunkte', 'TeamVerein'];
   ranking = State.tournaments.getGlobalRanking(State.teams.length);
   teams = ranking.displayOrder.map(function (teamID) {
@@ -192,9 +192,9 @@ CSVExportController.prototype.dpvToCSV = function () {
   fields = [fieldNames];
   teams.forEach(function (team) {
     team.players.forEach(function (player) {
-      var dpvPlayer = player2dpv(player, team, ranking, State.tournaments);
+      const dpvPlayer = player2dpv(player, team, ranking, State.tournaments);
       fields.push(fieldNames.map(function (name) {
-        var value = dpvPlayer[name];
+        const value = dpvPlayer[name];
         return value;
         // return value === undefined ? "" : value;
       }));

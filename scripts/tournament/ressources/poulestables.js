@@ -1,4 +1,4 @@
-var roundrobinByes, acbdRanking, winner, loser;
+let roundrobinByes, acbdRanking, winner, loser;
 winner = 'winner';
 loser = 'loser';
 roundrobinByes = [[0, 2], [1, 2], [0, 1]];

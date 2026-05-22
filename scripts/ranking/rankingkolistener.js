@@ -20,8 +20,8 @@ function getWinnerPoints(result) {
   return -2 * result.getGroup();
 }
 function getLoserPoints(result) {
-  var group = result.getGroup();
-  var matchID = result.getID();
+  const group = result.getGroup();
+  const matchID = result.getID();
   if (matchID <= 1) {
     return -2 * group - 1;
   } else {
@@ -71,7 +71,7 @@ RankingKOListener.prototype.onresult = function (r, e, result) {
  *          a game correction
  */
 RankingKOListener.prototype.oncorrect = function (r, e, correction) {
-  var winner, loser, winnerPoints, loserPoints;
+  let winner, loser, winnerPoints, loserPoints;
   winner = correction.before.getWinner();
   loser = correction.before.getWinner();
   winnerPoints = getWinnerPoints(correction.before);

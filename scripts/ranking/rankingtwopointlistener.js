@@ -35,7 +35,7 @@ RankingTwoPointListener.DEPENDENCIES = undefined;
  *          a game result
  */
 RankingTwoPointListener.prototype.onresult = function (r, e, result) {
-  var winner, maxpoints;
+  let winner, maxpoints;
   winner = result.getWinner();
   if (winner !== undefined) {
     this.twopoint.add(winner, 2);
@@ -77,7 +77,7 @@ RankingTwoPointListener.prototype.onbye = function (r, e, data) {
  *          a game correction
  */
 RankingTwoPointListener.prototype.oncorrect = function (r, e, correction) {
-  var winner, maxpoints;
+  let winner, maxpoints;
   winner = correction.before.getWinner();
   if (winner !== undefined) {
     this.twopoint.set(winner, this.twopoint.get(winner) - 2);

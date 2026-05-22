@@ -54,7 +54,7 @@ function Model() {
 }
 extend(Model, Emitter);
 Model.prototype.clone = function () {
-  var clone = new this.constructor();
+  const clone = new this.constructor();
   if (!clone.restore(this.save())) {
     throw new Error('Cannot clone object ' + this);
   }

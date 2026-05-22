@@ -11,7 +11,7 @@
  * @see LICENSE
  */
 
-var types;
+let types;
 
 /**
  * helper function to capitalize a string
@@ -98,7 +98,7 @@ Type.is = function (obj, typestring) {
  *          a reference object
  */
 types.map(function (reference) {
-  var typestring = Type(reference);
+  const typestring = Type(reference);
   /**
    * Type.isSomething() closure
    */

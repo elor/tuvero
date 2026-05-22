@@ -14,7 +14,7 @@ import TeamModel from './teammodel.js';
 import PlayerModel from './playermodel.js';
 import Random from '../core/random.js';
 import StateSaver from './statesaver.js';
-var rng;
+let rng;
 rng = new Random();
 
 /**
@@ -33,7 +33,7 @@ function RegisterTeamsController($button, $numteams) {
 }
 extend(RegisterTeamsController, Controller);
 RegisterTeamsController.prototype.registerTeams = function () {
-  var numTeams;
+  let numTeams;
   numTeams = Number(this.$numteams.val());
   if (isNaN(numTeams)) {
     return;
@@ -46,7 +46,7 @@ RegisterTeamsController.prototype.registerTeams = function () {
   }
 };
 RegisterTeamsController.createTeam = function () {
-  var players, team;
+  let players, team;
   players = [];
   while (players.length < State.teamsize.get()) {
     players.push(new PlayerModel(RegisterTeamsController.randomName()));
@@ -55,7 +55,7 @@ RegisterTeamsController.createTeam = function () {
   return team;
 };
 RegisterTeamsController.randomName = function () {
-  var first, last, length, i, letters, Letters;
+  let first, last, length, i, letters, Letters;
   letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä', 'ö', 'ü', 'ß'];
   Letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü'];
   length = rng.nextInt(6) + 3;

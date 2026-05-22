@@ -13,7 +13,7 @@
  * @see LICENSE
  */
 import Type from './type.js';
-var RLE = {};
+const RLE = {};
 function isNestedEmptyArray(array) {
   if (!Type.isArray(array)) {
     return false;
@@ -32,7 +32,7 @@ function isNestedEmptyArray(array) {
  * @return a string representation of array
  */
 RLE.encode = function (array) {
-  var i, nullstart, str, elem, notnull;
+  let i, nullstart, str, elem, notnull;
   switch (Type(array)) {
     case 'array':
       break;
@@ -110,7 +110,7 @@ RLE.encode = function (array) {
  *         failure
  */
 RLE.decode = function (blob) {
-  var array, nesting, i, num, char, isnull, nullsleft, newarray;
+  let array, nesting, i, num, char, isnull, nullsleft, newarray;
   if (Type(blob) !== 'string') {
     console.error('RLE.decode: input is no string, but of type "' + Type(blob) + "'");
     return undefined;

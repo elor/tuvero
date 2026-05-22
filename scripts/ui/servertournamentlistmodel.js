@@ -23,7 +23,7 @@ ServerTournamentListModel.prototype.parseResult = function (data) {
   this.clear();
   if (data.logged_in) {
     Object.keys(data.tournaments).forEach(function (tournamentID) {
-      var tournament, tournamentData;
+      let tournament, tournamentData;
       tournamentData = data.tournaments[tournamentID];
       if (tournamentData.target === Presets.target) {
         tournament = new ServerTournamentModel(this.server, tournamentData);
@@ -33,7 +33,7 @@ ServerTournamentListModel.prototype.parseResult = function (data) {
   }
 };
 ServerTournamentListModel.prototype.update = function () {
-  var message = this.server.message('t', {
+  const message = this.server.message('t', {
     publiconly: false,
     showarchive: true
   });

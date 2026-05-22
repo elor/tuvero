@@ -40,7 +40,7 @@ extend(MapListModel, ListModel);
  *          the id to insert at
  */
 MapListModel.insertID = function (list, pos) {
-  var ref;
+  let ref;
   ref = list.map.get(list.indices.get(pos));
   ListModel.prototype.insert.call(list, pos, ref);
 };

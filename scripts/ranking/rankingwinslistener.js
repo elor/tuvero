@@ -35,7 +35,7 @@ RankingWinsListener.DEPENDENCIES = undefined;
  *          a game result
  */
 RankingWinsListener.prototype.onresult = function (r, e, result) {
-  var winner = result.getWinner();
+  const winner = result.getWinner();
   if (winner !== undefined) {
     this.wins.add(winner, 1);
   }
@@ -69,7 +69,7 @@ RankingWinsListener.prototype.onbye = function (r, e, data) {
  *          a game correction
  */
 RankingWinsListener.prototype.oncorrect = function (r, e, correction) {
-  var winner = correction.before.getWinner();
+  const winner = correction.before.getWinner();
   if (winner !== undefined) {
     this.wins.set(winner, this.wins.get(winner) - 1);
   }

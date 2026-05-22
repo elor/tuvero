@@ -24,7 +24,7 @@ function MessageModel(server, apipath, data) {
 }
 extend(MessageModel, Model);
 MessageModel.prototype.send = function () {
-  var server = this.server;
+  const server = this.server;
   if (this.server.tokenvalid.get() === false || !this.server.token.get()) {
     return false;
   }

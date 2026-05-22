@@ -29,7 +29,7 @@ extend(AbsoluteMatrix, DelegateMatrix);
  * @return the absolute value at position (row,col)
  */
 AbsoluteMatrix.prototype.get = function (row, col) {
-  var value = this.superget(row, col);
+  const value = this.superget(row, col);
   if (value < 0) {
     return -value;
   }

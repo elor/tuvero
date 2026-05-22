@@ -9,7 +9,7 @@
 import State from './state.js';
 import TimeMachine from '../timemachine/timemachine.js';
 import StateLoader from './stateloader.js';
-var StateSaver;
+let StateSaver;
 
 /**
  * Constructor of the singleton StateSaver
@@ -39,7 +39,7 @@ StateSaverModel.prototype.canSave = function () {
  * @return true on success, false otherwise
  */
 StateSaverModel.prototype.saveState = function () {
-  var data = State.save();
+  const data = State.save();
   return this.saveData(data);
 };
 
@@ -51,7 +51,7 @@ StateSaverModel.prototype.saveState = function () {
  * @return true on success, false otherwise
  */
 StateSaverModel.prototype.saveData = function (data) {
-  var string;
+  let string;
   if (!data) {
     return false;
   }
@@ -67,7 +67,7 @@ StateSaverModel.prototype.saveData = function (data) {
  * @return true on success, false otherwise
  */
 StateSaverModel.prototype.saveString = function (string) {
-  var commit, success;
+  let commit, success;
   if (!string) {
     return false;
   }

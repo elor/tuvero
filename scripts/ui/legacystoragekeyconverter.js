@@ -9,7 +9,7 @@
  */
 import CommitModel from '../timemachine/commitmodel.js';
 import Presets from 'presets';
-var keyRegex = new RegExp('^' + Presets.target + 's?tournament$');
+const keyRegex = new RegExp('^' + Presets.target + 's?tournament$');
 
 /**
  * Constructor. Does nothing.
@@ -21,7 +21,7 @@ function LegacyStorageKeyConverter() {}
  * convert them.
  */
 LegacyStorageKeyConverter.prototype.convertAll = function () {
-  var allKeys, legacyKeys;
+  let allKeys, legacyKeys;
   if (window.localStorage) {
     allKeys = Object.keys(window.localStorage);
   } else {
@@ -40,7 +40,7 @@ LegacyStorageKeyConverter.prototype.convertAll = function () {
  * @return true on success, false otherwise
  */
 LegacyStorageKeyConverter.prototype.convert = function (legacyKey) {
-  var storedString, commit;
+  let storedString, commit;
   if (!legacyKey) {
     return true;
   }

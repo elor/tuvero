@@ -16,7 +16,7 @@ import extend from '../../lib/extend.js';
 import SortedReferenceListModel from '../sortedreferencelistmodel.js';
 import ListModel from '../listmodel.js';
 test('SortedReferenceListModel', () => {
-  var list, sorted, sortfunc, success;
+  let list, sorted, sortfunc, success;
   expect(
     extend.isSubclass(SortedReferenceListModel, ListModel),
     'SortedReferenceListModel is subclass of ReferenceListModel'

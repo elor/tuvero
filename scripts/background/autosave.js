@@ -12,7 +12,7 @@ import TournamentModel from '../tournament/tournamentmodel.js';
 import StateSaver from '../ui/statesaver.js';
 import Listener from '../core/listener.js';
 import upload from './upload.js';
-var updatePending, nameListener, AutoSave;
+let updatePending, nameListener, AutoSave;
 AutoSave = undefined;
 updatePending = undefined;
 function save() {

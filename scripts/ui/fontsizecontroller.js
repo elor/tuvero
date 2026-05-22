@@ -17,7 +17,7 @@ import Controller from '../core/controller.js';
  *          the FontSizeView
  */
 function FontSizeController(view) {
-  var model;
+  let model;
   FontSizeController.superconstructor.call(this, view);
   model = this.model;
 

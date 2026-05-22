@@ -15,7 +15,7 @@ import Controller from '../core/controller.js';
  *          a CheckboxView instance
  */
 function CheckboxController(view) {
-  var model, $checkbox, $parent;
+  let model, $checkbox, $parent;
   CheckboxController.superconstructor.call(this, view);
   model = this.model;
   $checkbox = this.view.$view;
@@ -30,7 +30,7 @@ function CheckboxController(view) {
    * apply checkbox state to model state
    */
   $checkbox.change(function () {
-    var viewvalue, modelvalue;
+    let viewvalue, modelvalue;
     viewvalue = $checkbox.prop('checked');
     modelvalue = model.get();
     if (viewvalue !== modelvalue) {

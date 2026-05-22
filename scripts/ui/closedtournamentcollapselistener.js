@@ -12,7 +12,7 @@ import Listener from '../core/listener.js';
  * Constructor
  */
 function ClosedTournamentCollapseListener(tournamentlistview) {
-  var tournaments = tournamentlistview.model;
+  const tournaments = tournamentlistview.model;
   ClosedTournamentCollapseListener.superconstructor.call(this, tournaments.closedTournaments);
   this.tournaments = tournaments;
   this.tournamentlistview = tournamentlistview;
@@ -26,7 +26,7 @@ extend(ClosedTournamentCollapseListener, Listener);
  *          the tournament id
  */
 ClosedTournamentCollapseListener.prototype.collapse = function (tournamentID) {
-  var tournamentView, boxView;
+  let tournamentView, boxView;
   tournamentView = this.tournamentlistview.getSubview(tournamentID);
   boxView = tournamentView.boxview;
   if (!boxView.$view.hasClass('collapsed')) {
@@ -43,7 +43,7 @@ ClosedTournamentCollapseListener.prototype.collapse = function (tournamentID) {
  *          a data object
  */
 ClosedTournamentCollapseListener.prototype.oninsert = function (emitter, event, data) {
-  var listener = this;
+  const listener = this;
   // Use a timeout to avoid runtime concurrency problems during pageload.
   window.setTimeout(function () {
     listener.collapse(data.object);

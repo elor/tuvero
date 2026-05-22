@@ -8,7 +8,7 @@ extend(RankingPouleRankListener, RankingDataListener);
 RankingPouleRankListener.NAME = 'poulerank';
 RankingPouleRankListener.DEPENDENCIES = undefined;
 RankingPouleRankListener.prototype.onresult = function (r, e, result) {
-  var ranks;
+  let ranks;
   ranks = this.ranking.tournament.getRanksFromTable(result.getID(), result.getGroup());
   if (ranks) {
     this.poulerank.set(result.getWinner(), ranks.winner);

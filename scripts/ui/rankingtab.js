@@ -38,7 +38,7 @@ extend(RankingTab, View);
  * TODO maybe split it into multiple autodetected functions?
  */
 RankingTab.prototype.init = function () {
-  var $template, $container, value;
+  let $template, $container, value;
 
   // name maxwidth checkbox
   value = State.tabOptions.nameMaxWidth;
@@ -76,7 +76,7 @@ RankingTab.prototype.init = function () {
  * show/hide the tab and update it as necessary
  */
 RankingTab.prototype.update = function () {
-  var i, isRunning;
+  let i, isRunning;
   isRunning = false;
   for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
     isRunning = State.tournaments.get(i).getState().get() !== 'initial';
@@ -127,7 +127,7 @@ RankingTab.prototype.onremove = function (emitter, event, data) {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="ranking"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new RankingTab($tab);

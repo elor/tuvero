@@ -12,7 +12,7 @@ import MatchModel from '../matchmodel.js';
 import MatchResult from '../matchresult.js';
 import Listener from '../listener.js';
 test('MatchModel', () => {
-  var game, array, ref, listener, data;
+  let game, array, ref, listener, data;
   game = new MatchModel();
   expect(game, 'empty initialization works').toBeTruthy();
   game = new MatchModel([15]);

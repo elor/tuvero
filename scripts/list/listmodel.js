@@ -44,7 +44,7 @@ ListModel.prototype.EVENTS = {
  * @return the new length of the array. undefined on failure
  */
 ListModel.prototype.push = function (object) {
-  var retval;
+  let retval;
   retval = this.list.push(object);
   this.emit('insert', {
     id: this.list.length - 1,
@@ -60,7 +60,7 @@ ListModel.prototype.push = function (object) {
  *         during this function call
  */
 ListModel.prototype.pop = function () {
-  var object;
+  let object;
   object = this.list.pop();
   this.emit('remove', {
     id: this.list.length,
@@ -98,7 +98,7 @@ ListModel.prototype.insert = function (index, object) {
  * @return the removed object
  */
 ListModel.prototype.remove = function (index) {
-  var object;
+  let object;
   if (index >= 0 && index < this.list.length) {
     object = this.list.splice(index, 1)[0];
     this.emit('remove', {
@@ -180,7 +180,7 @@ ListModel.prototype.set = function (index, object) {
  *         failure
  */
 ListModel.prototype.erase = function (object) {
-  var num, index;
+  let num, index;
   num = 0;
   while ((index = this.indexOf(object)) >= 0) {
     if (this.remove(index) === object) {
@@ -201,7 +201,7 @@ ListModel.prototype.erase = function (object) {
  * @return an array of the functions return values
  */
 ListModel.prototype.map = function (callback, thisArg) {
-  var index, ret;
+  let index, ret;
   thisArg = thisArg || undefined;
   ret = [];
   for (index = 0; index < this.length; index += 1) {
@@ -249,7 +249,7 @@ ListModel.prototype.makeReadonly = function () {
  * @return a list that can be used to restore the current list state
  */
 ListModel.prototype.save = function () {
-  var data;
+  let data;
   /*
    * Note to self: ListModel ignores the default data object format in favor
    * of a list representation. Types aren't checked, so in the worst case,
@@ -297,7 +297,7 @@ ListModel.prototype.restore = function (data, ElementModel) {
   if (Type.isFunction(ElementModel)) {
     // path for constructor/Model types
     return data.every(function (element, index) {
-      var instance;
+      let instance;
       try {
         if (extend.isSubclass(ElementModel, Model)) {
           instance = new ElementModel();

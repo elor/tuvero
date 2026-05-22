@@ -16,7 +16,7 @@ TeamsFileLoadController.prototype.unreadFile = function () {};
 TeamsFileLoadController.parseCSVString = io.csv.read;
 TeamsFileLoadController.parseDPVString = io.dpv.import.csv;
 function dpv2player(dpv) {
-  var name, player;
+  let name, player;
   name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr;
   player = new PlayerModel(name);
   player.club = dpv.Verein;
@@ -26,7 +26,7 @@ function dpv2player(dpv) {
   return player;
 }
 function dpv2team(dpv) {
-  var team = new TeamModel(dpv.Spieler.map(dpv2player), dpv.Teamnummer);
+  const team = new TeamModel(dpv.Spieler.map(dpv2player), dpv.Teamnummer);
   team.number = dpv.Teamnummer;
   team.alias = dpv.Pseudonym;
   team.club = dpv['Anmeldender Verein'];
@@ -58,7 +58,7 @@ TeamsFileLoadController.guessCSVType = function (teams) {
    * @returns {number} the team size, or 0 on failure.
    */
 TeamsFileLoadController.guessCSVTeamsize = function (teams) {
-  var teamsizes, teamsize;
+  let teamsizes, teamsize;
   if (teams.length === 0) {
     return 0;
   }
@@ -81,7 +81,7 @@ TeamsFileLoadController.guessCSVTeamsize = function (teams) {
    * @returns {boolean} true on success, false otherwise
    */
 TeamsFileLoadController.load = function (input) {
-  var teams, teamsize;
+  let teams, teamsize;
   input = io.utf8.latin2utf8(input);
   if (State.teams.length !== 0) {
     Toast.once(Strings.teamsnotempty);
@@ -104,7 +104,7 @@ TeamsFileLoadController.load = function (input) {
   return true;
 };
 TeamsFileLoadController.loadCSV = function (input) {
-  var teams, type;
+  let teams, type;
   teams = TeamsFileLoadController.parseCSVString(input);
   type = TeamsFileLoadController.guessCSVType(teams);
   switch (type) {
@@ -119,7 +119,7 @@ TeamsFileLoadController.loadCSV = function (input) {
   }
 };
 TeamsFileLoadController.loadTuveroTeamExport = function (teams) {
-  var teamsize, header, hasTeamNumber;
+  let teamsize, header, hasTeamNumber;
   header = teams.shift();
   hasTeamNumber = header[0] === 'No.';
   teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
@@ -129,11 +129,11 @@ TeamsFileLoadController.loadTuveroTeamExport = function (teams) {
   if (teamsize >= Presets.registration.minteamsize && teamsize <= Presets.registration.maxteamsize) {
     // create TeamModels
     return teams.map(function (names) {
-      var teamNumber, team;
+      let teamNumber, team;
       if (hasTeamNumber) {
         teamNumber = names.shift();
       }
-      var players = names.map(function (name) {
+      const players = names.map(function (name) {
         return new PlayerModel(name);
       });
       team = new TeamModel(players);
@@ -148,13 +148,13 @@ TeamsFileLoadController.loadTuveroTeamExport = function (teams) {
   return undefined;
 };
 TeamsFileLoadController.loadPureCSV = function (teams) {
-  var teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
+  const teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
 
   // validate team size
   if (teamsize >= Presets.registration.minteamsize && teamsize <= Presets.registration.maxteamsize) {
     // create TeamModels
     return teams.map(function (names) {
-      var players = names.map(function (name) {
+      const players = names.map(function (name) {
         return new PlayerModel(name);
       });
       return new TeamModel(players);
@@ -165,7 +165,7 @@ TeamsFileLoadController.loadPureCSV = function (teams) {
   return undefined;
 };
 TeamsFileLoadController.loadDPV = function (input) {
-  var teams;
+  let teams;
   try {
     teams = TeamsFileLoadController.parseDPVString(input);
     if (teams.length > 0) {

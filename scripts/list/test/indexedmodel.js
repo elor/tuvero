@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import Model from '../../core/model.js';
 import IndexedModel from '../indexedmodel.js';
 test('IndexedModel', () => {
-  var model, listener, data;
+  let model, listener, data;
   expect(
     extend.isSubclass(IndexedModel, Model),
     'IndexedModel is subclass of Model'

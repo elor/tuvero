@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import RankingComponentIndex from '../rankingcomponentindex.js';
 import Type from '../../core/type.js';
 test('RankingComponentIndex', () => {
-  var chain, ranking, components, chainlength;
+  let chain, ranking, components, chainlength;
   ranking = {};
   components = [];
   chain = RankingComponentIndex.createComponentChain(ranking, components);

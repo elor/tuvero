@@ -18,7 +18,7 @@ import PropertyValueModel from '../core/propertyvaluemodel.js';
  *          a SwissTournamentView instance
  */
 function SwissTournamentController(view) {
-  var $mode, tournament, noshuffle;
+  let $mode, tournament, noshuffle;
   SwissTournamentController.superconstructor.call(this, view);
   tournament = this.model.tournament;
   noshuffle = this.model.noshuffle;
@@ -40,7 +40,7 @@ extend(SwissTournamentController, Controller);
  * update the visibility and properties
  */
 SwissTournamentController.prototype.initSpecialWinsProperties = function () {
-  var modevalue, votesenabled, byeafterbye;
+  let modevalue, votesenabled, byeafterbye;
   modevalue = new PropertyValueModel(this.model.tournament, 'swissmode');
   votesenabled = new PropertyValueModel(this.model.tournament,
   //

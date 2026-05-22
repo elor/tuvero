@@ -13,7 +13,7 @@ import KeyModel from '../keymodel.js';
 import Model from '../../core/model.js';
 import Presets from 'presets';
 test('KeyModel', () => {
-  var key, key2, ref, date;
+  let key, key2, ref, date;
   expect(extend.isSubclass(KeyModel, Model), 'KeyModel is subclass of Model').toBeTruthy();
 
   /*
@@ -86,7 +86,7 @@ test('KeyModel', () => {
   expect(KeyModel.isTuveroKey(ref), 'cross-target key is a tuvero key: ' + ref).toBe(true);
   expect(KeyModel.isValidKey(ref), 'cross-target key is not valid: ' + ref).toBe(false);
   function testkey(keystring, keydescription) {
-    var success = false;
+    let success = false;
     key = undefined;
     try {
       key = KeyModel.fromString(keystring);

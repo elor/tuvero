@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 import LocalStrings from 'strings';
-var Strings;
+let Strings;
 Strings = {
   autosaveoff: 'Automatisches  Speichern aus',
   autosaveon: 'Automatisches Speichern an',

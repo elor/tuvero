@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import MatchModel from '../matchmodel.js';
 import MatchResult from '../matchresult.js';
 test('MatchResult', () => {
-  var match, result, score, success, teams, data;
+  let match, result, score, success, teams, data;
   match = new MatchModel([1, 2], 2, 5);
   result = undefined;
   try {

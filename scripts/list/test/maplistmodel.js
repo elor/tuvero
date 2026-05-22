@@ -12,7 +12,7 @@ import Listener from '../../core/listener.js';
 import ListModel from '../listmodel.js';
 import MapListModel from '../maplistmodel.js';
 test('MapListModel', () => {
-  var teams, refs, listener, indices;
+  let teams, refs, listener, indices;
   teams = new ListModel();
   teams.push(5);
   teams.push(4);

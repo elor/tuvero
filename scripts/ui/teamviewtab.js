@@ -27,7 +27,7 @@ TeamViewTab.prototype.onupdate = function () {
   this.update();
 };
 TeamViewTab.prototype.init = function () {
-  var $container, $template;
+  let $container, $template;
   $container = this.$view.find('.hasteam');
   this.hasnoteam = new ClassView(State.focusedteam, $container, undefined, 'hidden');
   $container = this.$view.find('.hasnoteam');
@@ -73,7 +73,7 @@ TeamViewTab.prototype.updateTeamNo = function () {
   this.$view.find('.teamno').text(this.team.getNumber());
 };
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="team"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new TeamViewTab($tab);

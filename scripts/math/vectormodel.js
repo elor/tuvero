@@ -46,7 +46,7 @@ VectorModel.prototype.resize = function (size) {
  *          Optional. The value. Defaults to 0.
  */
 VectorModel.prototype.fill = function (value) {
-  var index;
+  let index;
   value = value || 0;
   for (index = 0; index < this.length; index += 1) {
     this.set(index, value);
@@ -63,7 +63,7 @@ VectorModel.prototype.fill = function (value) {
  * @return this
  */
 VectorModel.prototype.mult = function (vecA, vecB) {
-  var index;
+  let index;
   if (Type.isNumber(vecB)) {
     throw new Error('VectorModel.prototype.mult: ' + 'second argument must be undefined or a VectorModel instance: ' + vecB);
   }
@@ -96,7 +96,7 @@ VectorModel.prototype.mult = function (vecA, vecB) {
  * @return the dot product, (this . vec)
  */
 VectorModel.prototype.dot = function (vec) {
-  var index, sum;
+  let index, sum;
   if (this.length !== vec.length) {
     console.error('VectorModel.dot: different input lengths: ' + this.length + '<>' + vec.length);
     return undefined;
@@ -119,7 +119,7 @@ VectorModel.prototype.dot = function (vec) {
  * @return this on success, undefined otherwise
  */
 VectorModel.prototype.sum = function (vec1, vec2) {
-  var index;
+  let index;
   vec2 = vec2 || this;
   if (vec1.length !== vec2.length) {
     console.error('VectorModel.prototype.sum: different input lengths: ' + vec1.length + '<>' + vec2.length);
@@ -141,7 +141,7 @@ VectorModel.prototype.add = function (index, summand) {
  * @return a data object
  */
 VectorModel.prototype.save = function () {
-  var data = VectorModel.superclass.save.call(this);
+  let data = VectorModel.superclass.save.call(this);
   data = RLE.encode(data);
   return data;
 };
@@ -154,7 +154,7 @@ VectorModel.prototype.save = function () {
  * @return true on success, false otherwise
  */
 VectorModel.prototype.restore = function (data) {
-  var index;
+  let index;
   try {
     data = RLE.decode(data);
   } catch (e) {

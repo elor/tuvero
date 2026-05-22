@@ -20,7 +20,7 @@ import Strings from './strings.js';
  *          file selection/open
  */
 function FileLoadController($button) {
-  var controller, view;
+  let controller, view;
   view = new InputView($('<input>').attr('type', 'file'));
   FileLoadController.superconstructor.call(this, view);
   controller = this;
@@ -81,7 +81,7 @@ FileLoadController.prototype.buttonDragOver = function (evt) {
  * @return false
  */
 FileLoadController.prototype.buttonDrop = function (evt) {
-  var files = evt.originalEvent.dataTransfer.files;
+  const files = evt.originalEvent.dataTransfer.files;
   if (files.length < 1) {
     Toast.once(Strings.nofiles, Toast.LONG);
     return;

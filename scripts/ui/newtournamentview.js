@@ -33,7 +33,7 @@ function NewTournamentView(firstTeamID, numTeams, $view, tournaments, teams) {
   this.model.tournaments = tournaments;
   this.model.teams = teams;
   this.$view.find('button').each(function () {
-    var $button, system;
+    let $button, system;
     $button = $(this);
     system = $button.attr('data-system');
     if (system && !Presets.systems[system]) {

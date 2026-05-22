@@ -16,7 +16,7 @@ import BoxController from './boxcontroller.js';
  *          the .boxview jQuery object
  */
 function setTabbing($box) {
-  var i, $inputs, $input, enable;
+  let i, $inputs, $input, enable;
   enable = !$box.hasClass('collapsed');
   $inputs = $box.find('a, button, input, select, textarea');
   for (i = 0; i < $inputs.length; i += 1) {
@@ -68,7 +68,7 @@ BoxView.prototype.reset = function () {
 BoxView.prototype.update = function () {
   /* jshint expr: true */
 
-  var $box, oldheight, targetheight;
+  let $box, oldheight, targetheight;
   $box = this.$view;
   if ($box.hasClass('collapsed')) {
     targetheight = 0;

@@ -13,7 +13,7 @@ import TeamModel from '../teammodel.js';
 import IndexedModel from '../../list/indexedmodel.js';
 import PlayerModel from '../playermodel.js';
 test('TeamModel', () => {
-  var team, players, names, listener;
+  let team, players, names, listener;
   expect(
     extend.isSubclass(TeamModel, IndexedModel),
     'TeamModel is subclass of IndexedModel'

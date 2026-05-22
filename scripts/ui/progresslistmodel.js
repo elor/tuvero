@@ -27,7 +27,7 @@ extend(ProgressListModel, BinningReferenceListModel);
  * @return a ListModel containing all matches and their reversed counterparts
  */
 ProgressListModel.prototype.createCombinedList = function (tournament) {
-  var matches, reverseMatches, history, reverseHistory;
+  let matches, reverseMatches, history, reverseHistory;
   matches = tournament.getMatches();
   reverseMatches = new ReferenceListModel(matches, undefined, ReverseMatchReferenceModel);
   history = tournament.getHistory();

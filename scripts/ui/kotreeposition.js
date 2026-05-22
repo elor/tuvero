@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 import KOTournamentModel from '../tournament/kotournamentmodel.js';
-var leftPadding, topPadding, width, height, shortWidth;
+let leftPadding, topPadding, width, height, shortWidth;
 width = 17;
 shortWidth = 7;
 height = 4;
@@ -61,7 +61,7 @@ KOTreePosition.prototype.getWidth = function () {
  * @return the y position
  */
 KOTreePosition.prototype.calcYPosition = function () {
-  var y, yFactor;
+  let y, yFactor;
   yFactor = Math.pow(2, this.firstRound - this.round - 1);
 
   // padding
@@ -86,7 +86,7 @@ KOTreePosition.prototype.calcYPosition = function () {
  *
  */
 KOTreePosition.prototype.getFollowingPosition = function () {
-  var nextID = KOTournamentModel.nextRoundMatchID(this.id);
+  const nextID = KOTournamentModel.nextRoundMatchID(this.id);
   return new KOTreePosition(nextID, this.group, this.numTeams,
   //
   this.fullwidth);

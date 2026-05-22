@@ -12,7 +12,7 @@ import ListModel from '../listmodel.js';
 import UniqueListModel from '../../core/uniquelistmodel.js';
 import extend from '../../lib/extend.js';
 test('UniqueListModel', () => {
-  var list;
+  let list;
   expect(
     extend.isSubclass(UniqueListModel, ListModel),
     'UniqueListModel is subclass of ListModel'

@@ -1,5 +1,5 @@
 import { random } from 'tuvero';
-var Random = function () {
+const Random = function () {
   this.nextInt = random.int;
   this.pick = random.pick;
   this.pickAndRemove = random.pluck;

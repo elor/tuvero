@@ -12,7 +12,7 @@ import Query from '../query.js';
 import KeyModel from '../keymodel.js';
 import Type from '../../core/type.js';
 import Presets from 'presets';
-var localStorage;
+let localStorage;
 try {
   localStorage = window.localStorage;
 } catch (e) {
@@ -27,12 +27,12 @@ try {
 }
 Query.source = localStorage;
 test('Query', () => {
-  var query, key, key2, key3, key4, ref;
+  let query, key, key2, key3, key4, ref;
   query = new Query(Query.ALLKEYS);
   expect(query, 'ALLKEYS construction successful').toBeTruthy();
   expect(Type.isArray(query.filter()), 'filter() result is an array').toBeTruthy();
   query.filter().forEach(function (key) {
-    var match = new RegExp('^' + Presets.target + '_').test(key);
+    const match = new RegExp('^' + Presets.target + '_').test(key);
     expect(match, 'saved key matches target: ' + key).toBe(true);
     if (match) {
       if (localStorage) {

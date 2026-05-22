@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 import $ from 'jquery';
-var Print;
+let Print;
 $(function ($) {
   $('#tabs').on('click', 'button.print', function () {
     window.print();

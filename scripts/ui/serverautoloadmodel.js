@@ -27,7 +27,7 @@ function ServerAutoloadModel(server) {
 }
 extend(ServerAutoloadModel, Model);
 ServerAutoloadModel.prototype.readTournamentID = function () {
-  var testresult;
+  let testresult;
   if (Browser.inithash) {
     testresult = Browser.inithash.match(/^\/?t\/([0-9a-f]+)$/);
     if (testresult && testresult[0] && testresult[1]) {
@@ -43,12 +43,12 @@ ServerAutoloadModel.prototype.readTournamentID = function () {
  * @returns {undefined}
  */
 ServerAutoloadModel.prototype.onlogin = function () {
-  var message;
+  let message;
   if (this.tournamentID) {
     message = this.server.message('t/' + this.tournamentID);
     message.onreceive = function (emitter, event, data) {
       if (data && data.registrations && data.target === Presets.target) {
-        var model = new ServerTournamentModel(this.server, data);
+        const model = new ServerTournamentModel(this.server, data);
         Listener.bind(model, 'ready', function () {
           ServerTournamentLoader.loadTournament(model);
         });

@@ -14,7 +14,7 @@ import PropertyModel from '../propertymodel.js';
 import ValueModel from '../valuemodel.js';
 import Listener from '../listener.js';
 test('PropertyValueModel', () => {
-  var model, value, listener;
+  let model, value, listener;
   expect(
     extend.isSubclass(PropertyValueModel, ValueModel),
     'PropertyValueModel is subclass of ValueModel'

@@ -17,7 +17,7 @@ import Options from 'options';
 import extend from '../../lib/extend.js';
 import CorrectionModel from '../../core/correctionmodel.js';
 test('RankingModel', () => {
-  var ranking, rankingobject, ref, listener, savedata, ret;
+  let ranking, rankingobject, ref, listener, savedata, ret;
   expect(Options.byepointswon, 'Options.byepointswon is set properly').toBe(13);
   expect(Options.byepointslost, 'Options.byepointslost is set properly').toBe(7);
   listener = new Listener();

@@ -13,7 +13,7 @@ import ListModel from '../listmodel.js';
 import LengthModel from '../lengthmodel.js';
 import ValueModel from '../../core/valuemodel.js';
 test('LengthModel', () => {
-  var length, list, success;
+  let length, list, success;
   expect(
     extend.isSubclass(LengthModel, ValueModel),
     'LengthModel is subclass of ValueModel'

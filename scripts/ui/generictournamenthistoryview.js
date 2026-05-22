@@ -10,7 +10,7 @@ import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import ProgressTableView from './progresstableview.js';
 import KOHistoryView from './kohistoryview.js';
-var types;
+let types;
 types = {
   swiss: {
     constructor: ProgressTableView,
@@ -51,7 +51,7 @@ types = {
  *          a ValueModel, which evaluates to true if any names should be shown
  */
 function GenericTournamentHistoryView(tournament, $view, groups, teamlist, teamsize, fullwidth) {
-  var Constructor, $subview, type;
+  let Constructor, $subview, type;
   GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
   this.tournament = tournament;
   type = types[tournament.SYSTEM];

@@ -13,7 +13,7 @@ import TournamentListModel from '../tournamentlistmodel.js';
 import TournamentIndex from '../tournamentindex.js';
 import IndexedListModel from '../../list/indexedlistmodel.js';
 test('TournamentListModel', () => {
-  var tournament, list, ref, savedata, ranking;
+  let tournament, list, ref, savedata, ranking;
   expect(
     extend.isSubclass(TournamentListModel, IndexedListModel),
     'TournamentListModel is subclass of IndexedListModel'

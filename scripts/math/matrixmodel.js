@@ -108,7 +108,7 @@ MatrixModel.prototype.get = function (row, col) {
  * @return {MatrixModel} this
  */
 MatrixModel.prototype.set = function (row, col, value) {
-  var rowref;
+  let rowref;
   if (Math.min(row, col) < 0 || Math.max(row, col) >= this.length) {
     console.warn('MatrixModel.set(): out of bounds');
     return undefined;
@@ -133,7 +133,7 @@ MatrixModel.prototype.set = function (row, col, value) {
  * @return vector on success, undefined otherwise
  */
 MatrixModel.prototype.diagonal = function (vector) {
-  var index;
+  let index;
   vector.resize(this.length);
   for (index = 0; index < vector.length; index += 1) {
     vector.set(index, this.get(index, index));
@@ -152,7 +152,7 @@ MatrixModel.prototype.diagonal = function (vector) {
  * @return outVec on success, containing this*vec. undefined otherwise.
  */
 MatrixModel.prototype.multVector = function (outVec, vec) {
-  var row, col, sum;
+  let row, col, sum;
   if (vec.length !== this.length) {
     console.warn('MatrixModel.multVector: different input lengths: ' + this.length + '<>' + vec.length);
     return undefined;
@@ -179,7 +179,7 @@ MatrixModel.prototype.multVector = function (outVec, vec) {
  * @return outVec on success, containing this*vec. undefined otherwise.
  */
 MatrixModel.prototype.vectorMult = function (outVec, vec) {
-  var row, col, sum;
+  let row, col, sum;
   if (vec.length !== this.length) {
     console.warn('MatrixModel.multVector: different input lengths: ' + this.length + '<>' + vec.length);
     return undefined;
@@ -205,7 +205,7 @@ MatrixModel.prototype.vectorMult = function (outVec, vec) {
  *          Optional. The value. Defaults to 0.
  */
 MatrixModel.prototype.fill = function (value) {
-  var row, col;
+  let row, col;
   value = value || 0;
   if (value === 0) {
     // discard all data, since get() defaults to 0.
@@ -230,7 +230,7 @@ MatrixModel.prototype.fill = function (value) {
  * @return a serializable data object
  */
 MatrixModel.prototype.save = function () {
-  var data, mat;
+  let data, mat;
   data = MatrixModel.superclass.save.call(this);
   mat = this.data.map(function (row) {
     return row.map(function (cell) {
@@ -242,7 +242,7 @@ MatrixModel.prototype.save = function () {
   return data;
 };
 MatrixModel.prototype.restore = function (data) {
-  var mat;
+  let mat;
   if (!MatrixModel.superclass.restore.call(this, data)) {
     return false;
   }

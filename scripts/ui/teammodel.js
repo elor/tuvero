@@ -74,7 +74,7 @@ TeamModel.prototype.getNames = function () {
   });
 };
 TeamModel.prototype.getName = function () {
-  var name = this.alias;
+  let name = this.alias;
   if (this.getID() === undefined || this.getID() === '') {
     return '';
   }
@@ -95,7 +95,7 @@ TeamModel.prototype.setName = function (alias) {
   }
 };
 TeamModel.prototype.getNumber = function () {
-  var number = this.number;
+  let number = this.number;
   if (number) {
     return number;
   }
@@ -119,7 +119,7 @@ TeamModel.prototype.getNumber = function () {
  *
  */
 TeamModel.prototype.onupdate = function (emitter, event) {
-  var data;
+  let data;
   data = {
     id: this.players.indexOf(emitter)
   };
@@ -150,7 +150,7 @@ TeamModel.prototype.updateRankingPointSum = function () {
  * @return a serializable data object, which can be used for restoring
  */
 TeamModel.prototype.save = function () {
-  var data = TeamModel.superclass.save.call(this);
+  const data = TeamModel.superclass.save.call(this);
   data.p = this.players.map(function (player) {
     return player.save();
   });
@@ -187,7 +187,7 @@ TeamModel.prototype.restore = function (data) {
     return false;
   }
   this.setPlayers(data.p.map(function (player) {
-    var p = new PlayerModel();
+    const p = new PlayerModel();
     p.restore(player);
     return p;
   }));

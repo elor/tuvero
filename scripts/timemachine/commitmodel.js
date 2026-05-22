@@ -68,14 +68,14 @@ CommitModel.prototype.getChildren = function () {
  * @return the youngest ancestor of this commit
  */
 CommitModel.prototype.getYoungestDescendant = function () {
-  var children, youngestChild;
+  let children, youngestChild;
   children = this.getChildren();
   if (children.length === 0) {
     return undefined;
   }
   youngestChild = children[children.length - 1];
   children.forEach(function (child) {
-    var youngestGrandChild = child.getYoungestDescendant();
+    const youngestGrandChild = child.getYoungestDescendant();
     if (!youngestGrandChild) {
       return;
     }
@@ -101,7 +101,7 @@ CommitModel.prototype.getParent = function () {
  * @return a new CommitModel instance of the root of this tree
  */
 CommitModel.prototype.getRoot = function () {
-  var rootKey;
+  let rootKey;
   if (this.isRoot()) {
     return this;
   }
@@ -141,7 +141,7 @@ CommitModel.prototype.isEqual = function (commit) {
  *         otherwise
  */
 CommitModel.prototype.isAncestorOf = function (descendant) {
-  var parent;
+  let parent;
   if (!descendant || this.isRoot()) {
     return false;
   }
@@ -163,7 +163,7 @@ CommitModel.prototype.isAncestorOf = function (descendant) {
  * are cleaned up, too.
  */
 CommitModel.prototype.eraseTree = function () {
-  var query;
+  let query;
 
   // first: properly delete all children to send the proper events
   this.getChildren().forEach(function (child) {
@@ -225,7 +225,7 @@ CommitModel.prototype.load = function () {
  * @return the newly created child commit
  */
 CommitModel.prototype.createChild = function (data) {
-  var newKey = RefLog.newSaveKey(this.key);
+  const newKey = RefLog.newSaveKey(this.key);
   if (window.localStorage) {
     window.localStorage[newKey] = data;
   }
@@ -241,7 +241,7 @@ CommitModel.prototype.createChild = function (data) {
  * @return the newly created root commit
  */
 CommitModel.createRoot = function (data, name) {
-  var newKey = RefLog.newInitKey(name);
+  const newKey = RefLog.newInitKey(name);
   if (window.localStorage) {
     window.localStorage[newKey] = data;
   }

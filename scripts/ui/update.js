@@ -13,7 +13,7 @@
 import Strings from './strings.js';
 import Toast from './toast.js';
 import Debug from './debug.js';
-var Update, appCache, downloadToast, uncachedToast;
+let Update, appCache, downloadToast, uncachedToast;
 downloadToast = undefined;
 Update = function () {
   cacheStatus();

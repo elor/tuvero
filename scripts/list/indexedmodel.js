@@ -51,7 +51,7 @@ IndexedModel.prototype.setID = function (id) {
  * @return the current state, as a data object
  */
 IndexedModel.prototype.save = function () {
-  var data = IndexedModel.superclass.save.call(this);
+  const data = IndexedModel.superclass.save.call(this);
   data.id = this.id;
   return data;
 };

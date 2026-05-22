@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 import $ from 'jquery';
-var DropStyle;
+let DropStyle;
 DropStyle = undefined;
 function initDrop($body) {
   $body.on('dragover', function (e) {

@@ -53,7 +53,7 @@ KOLineView.prototype.render = function () {
  * @return a jquery object of a KO line, ready to be inserted
  */
 KOLineView.prototype.createLine = function () {
-  var line, from, to, pos;
+  let line, from, to, pos;
   pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.numTeams, this.fullwidth.get());
   this.x = pos.x;
   this.y = pos.y;

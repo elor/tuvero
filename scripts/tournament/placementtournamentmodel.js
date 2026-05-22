@@ -26,7 +26,7 @@ PlacementTournamentModel.prototype.SYSTEM = 'placement';
    * @return true on success, false otherwise
    */
 PlacementTournamentModel.prototype.initialMatches = function () {
-  var indices, teams, match, matchID;
+  let indices, teams, match, matchID;
   indices = this.teams.map(function (teamid, index) {
     return index;
   });

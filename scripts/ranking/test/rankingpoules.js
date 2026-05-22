@@ -1,7 +1,7 @@
 import { test, expect } from 'vitest';
 import RankingModel from '../rankingmodel.js';
 test('Poules Ranking', () => {
-  var ranking, ret, ref;
+  let ranking, ret, ref;
   ranking = new RankingModel(['pouleid', 'wins', 'saldo', 'points'], 5);
   ref = {
     components: ['pouleid', 'wins', 'saldo', 'points'],

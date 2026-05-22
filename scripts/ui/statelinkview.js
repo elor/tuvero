@@ -28,7 +28,7 @@ extend(StateLinkView, ClassView);
  */
 StateLinkView.prototype.update = function () {
   StateLinkView.superclass.update.call(this);
-  var tournamentid = this.model.get();
+  const tournamentid = this.model.get();
   if (tournamentid) {
     this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath);
   }

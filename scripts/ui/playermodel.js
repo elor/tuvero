@@ -76,7 +76,7 @@ PlayerModel.prototype.SAVEFORMAT.n = String;
  * @return a serializable data object, which can be used for restoring
  */
 PlayerModel.prototype.save = function () {
-  var data = PlayerModel.superclass.save.call(this);
+  const data = PlayerModel.superclass.save.call(this);
   data.n = this.getName();
   if (this.club) {
     data.club = this.club;

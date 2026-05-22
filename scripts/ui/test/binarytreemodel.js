@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import BinaryTreeModel from '../binarytreemodel.js';
 import IndexedModel from '../../list/indexedmodel.js';
 test('BinaryTreeModel', () => {
-  var node;
+  let node;
   expect(
     extend.isSubclass(BinaryTreeModel, IndexedModel),
     'BinaryTreeModel is subclass of IndexedModel'

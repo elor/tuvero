@@ -31,7 +31,7 @@ import TournamentRenameController from './tournamentrenamecontroller.js';
    *          a ValueModel which evaluates to true if any name should be shown
    */
 function TournamentHistoryView(model, $view, teamlist, teamsize, fullwidth) {
-  var $popoutTemplate = $view.clone();
+  const $popoutTemplate = $view.clone();
   TournamentHistoryView.superconstructor.call(this, model, $view);
   this.renameController = new TournamentRenameController(new View(model, this.$view.find('.tournamentname.rename')));
   this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function ($view) {

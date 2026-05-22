@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import ByeResult from '../byeresult.js';
 import MatchResult from '../matchresult.js';
 test('ByeResult', () => {
-  var bye, data;
+  let bye, data;
   expect(
    extend.isSubclass(ByeResult, MatchResult),
    'ByeResult is subclass of MatchResult'

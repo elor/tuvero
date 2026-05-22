@@ -21,7 +21,7 @@ import Listener from '../core/listener.js';
  *          the object for the field this class is calculating
  */
 function RankingDataListener(ranking, fieldobject) {
-  var Const;
+  let Const;
   RankingDataListener.superconstructor.call(this);
 
   /**
@@ -128,7 +128,7 @@ RankingDataListener.prototype.onrecalc = function () {
   // do something to this.NAME, where NAME is the value of constructor.NAME
 };
 RankingDataListener.prototype.zero = function () {
-  var data = this[this.constructor.NAME];
+  const data = this[this.constructor.NAME];
   if (data.fill) {
     data.fill(0);
   }
@@ -147,7 +147,7 @@ RankingDataListener.prototype.onreset = function () {
  * @param ranking
  */
 RankingDataListener.prototype.onresize = function (ranking) {
-  var dataobject = this[this.constructor.NAME];
+  const dataobject = this[this.constructor.NAME];
   if (dataobject && dataobject.resize) {
     this[this.constructor.NAME].resize(ranking.length);
   }

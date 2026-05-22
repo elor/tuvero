@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import SelectionValueModel from '../selectionvaluemodel.js';
 import ListModel from '../../list/listmodel.js';
 test('SelectionValueModel', () => {
-  var model, allowed, defaultvalue;
+  let model, allowed, defaultvalue;
   defaultvalue = 123;
   allowed = new ListModel();
   model = new SelectionValueModel(defaultvalue, allowed);

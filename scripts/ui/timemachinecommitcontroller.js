@@ -25,7 +25,7 @@ function TimeMachineCommitController(view) {
 }
 extend(TimeMachineCommitController, RenameController);
 TimeMachineCommitController.prototype.remove = function () {
-  var active, confirmtext, name;
+  let active, confirmtext, name;
   active = TimeMachine.isRelatedToActive(this.model);
   name = this.model.getTreeName() || 'noname';
   confirmtext = active ? Strings.confirmactivetreeremoval : Strings.confirmtreeremoval;
@@ -43,7 +43,7 @@ TimeMachineCommitController.prototype.load = function () {
   StateLoader.loadCommit(this.model.getYoungestDescendant() || this.model);
 };
 TimeMachineCommitController.prototype.download = function () {
-  var fileSaver;
+  let fileSaver;
   fileSaver = new FileSaverModel(this.model.getYoungestDescendant() || this.model);
   if (!fileSaver.save()) {
     Toast.once(Strings.savefailed);

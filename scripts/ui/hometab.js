@@ -46,7 +46,7 @@ extend(HomeTab, View);
  * TODO maybe split it into multiple autodetected functions?
  */
 HomeTab.prototype.init = function () {
-  var $button, $errorlink, $container, $template;
+  let $button, $errorlink, $container, $template;
 
   // TODO move to a controller
   $button = this.$view.find('button.reset');
@@ -93,7 +93,7 @@ HomeTab.prototype.init = function () {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="home"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new HomeTab($tab);

@@ -31,7 +31,7 @@ extend(SettingsTab, View);
  * TODO maybe split it into multiple autodetected functions?
  */
 SettingsTab.prototype.init = function () {
-  var $container;
+  let $container;
   this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
   this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
 
@@ -44,7 +44,7 @@ SettingsTab.prototype.init = function () {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="settings"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new SettingsTab($tab);

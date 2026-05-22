@@ -46,7 +46,7 @@ MatchResultController.prototype.cancel = function () {
   this.disableCorrection();
 };
 MatchResultController.prototype.accept = function () {
-  var score;
+  let score;
   score = [];
   score.push(Number(this.$scores.eq(0).val()));
   score.push(Number(this.$scores.eq(1).val()));

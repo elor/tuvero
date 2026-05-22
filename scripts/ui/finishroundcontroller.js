@@ -12,7 +12,7 @@ import View from '../core/view.js';
 import State from './state.js';
 import Options from 'options';
 import Random from '../core/random.js';
-var rng = new Random();
+const rng = new Random();
 
 /**
  * Constructor
@@ -29,7 +29,7 @@ extend(FinishRoundController, Controller);
  */
 FinishRoundController.prototype.finishRound = function () {
   State.tournaments.map(function (tournament) {
-    var matches, finished;
+    let matches, finished;
     matches = tournament.getMatches();
     do {
       finished = true;
@@ -43,7 +43,7 @@ FinishRoundController.prototype.finishRound = function () {
   }, this);
 };
 FinishRoundController.prototype.getScore = function (numTeams) {
-  var score, min, max;
+  let score, min, max;
   min = Options.minpoints;
   max = Options.maxpoints;
   score = [];

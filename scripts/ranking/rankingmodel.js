@@ -18,7 +18,7 @@ import RankingDataListenerIndex from './rankingdatalistenerindex.js';
  * @return an array of ids, where the index matches the value
  */
 function getIDs() {
-  var ids;
+  let ids;
   ids = [];
   while (ids.length < this.length) {
     ids.push(ids.length);
@@ -34,7 +34,7 @@ function getIDs() {
  * @return an array of ids, sorted by rank
  */
 function getRankingOrder(ids) {
-  var order, chain;
+  let order, chain;
   order = ids.slice(0);
   chain = this.componentchain;
   order.sort(function (a, b) {
@@ -53,7 +53,7 @@ function getRankingOrder(ids) {
  * @return an array of ranks, as retrieved from the ids
  */
 function getRanks(ids) {
-  var ranks;
+  let ranks;
   ranks = new Array(this.length);
   ids.forEach(function (teamid, index) {
     if (index === 0) {
@@ -80,7 +80,7 @@ function getRanks(ids) {
  *          false otherwise.
  */
 function updateRanking(norecalc) {
-  var newRanking, components;
+  let newRanking, components;
   if (!norecalc) {
     this.emit('recalc');
   }
@@ -93,7 +93,7 @@ function updateRanking(norecalc) {
   if (this.componentchain !== undefined) {
     components = this.componentchain.getValues();
     components.forEach(function (component, index) {
-      var name;
+      let name;
       if (component !== undefined) {
         name = this.componentnames[index];
         newRanking[name] = component;
@@ -157,7 +157,7 @@ RankingModel.prototype.EVENTS = {
  * @return true on success, false otherwise
  */
 RankingModel.prototype.init = function (components, size, extDependencies) {
-  var dependencies, dataListenerArray;
+  let dependencies, dataListenerArray;
 
   // abort if the ranking object has not been reset
   if (this.componentchain || this.componentnames.length !== 0 || Object.keys(this.dataListeners).length !== 0) {
@@ -326,7 +326,7 @@ RankingModel.prototype.resize = function (size) {
  * @return a serializable data object
  */
 RankingModel.prototype.save = function () {
-  var data = RankingModel.superclass.save.call(this);
+  const data = RankingModel.superclass.save.call(this);
   data.len = this.length;
   data.comps = this.componentnames.slice(0);
   data.edep = this.extDeps.slice(0);
@@ -334,7 +334,7 @@ RankingModel.prototype.save = function () {
 
   // only store primary dataListeners. Abort on error
   if (!Object.keys(this.dataListeners).every(function (name) {
-    var listener;
+    let listener;
     listener = this.dataListeners[name];
     if (listener.isPrimary(listener)) {
       if (this[name] && Type.isFunction(this[name].save)) {

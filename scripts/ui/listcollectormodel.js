@@ -67,7 +67,7 @@ ListCollectorModel.prototype.createListListener = function () {
  *          the class of which the list elements are instances
  */
 ListCollectorModel.prototype.createEventCallbacks = function (ContentModel) {
-  var event;
+  let event;
   this.EVENTS = {};
   for (event in ContentModel.prototype.EVENTS) {
     if (ContentModel.prototype.EVENTS[event]) {

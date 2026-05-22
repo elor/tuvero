@@ -10,7 +10,7 @@ import { test, expect } from 'vitest';
 
 import Type from '../type.js';
 test('Type', () => {
-  var types, ref, functionnames, constructors;
+  let types, ref, functionnames, constructors;
 
   /*
    * Preparation
@@ -62,7 +62,7 @@ test('Type', () => {
 
   types.forEach(function (type, typeindex) {
     functionnames.forEach(function (functionname, functionindex) {
-      var expected = functionindex === typeindex;
+      const expected = functionindex === typeindex;
       expect(
         Type[functionname](type),
         'Type.' + functionname + ' on a ' + Type(type) + ' is ' + expected
@@ -76,7 +76,7 @@ test('Type', () => {
 
   types.forEach(function (type, typeindex) {
     ref.forEach(function (refname, functionindex) {
-      var expected = functionindex === typeindex;
+      const expected = functionindex === typeindex;
       expect(
         Type.is(type, refname),
         'Type.is(obj, "' + refname + '") on a ' + Type(type) + ' is ' + expected
@@ -85,7 +85,7 @@ test('Type', () => {
   });
   types.forEach(function (type, typeindex) {
     constructors.forEach(function (constructor, functionindex) {
-      var expected = functionindex === typeindex;
+      const expected = functionindex === typeindex;
       expect(
         Type.is(type, constructor),
         'Type.is(obj, ' + constructor + ') on a ' + Type(type) + ' is ' + expected

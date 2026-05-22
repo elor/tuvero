@@ -22,7 +22,7 @@ function PoulesTournamentView(model, $view, tournaments) {
 }
 extend(PoulesTournamentView, TournamentView);
 PoulesTournamentView.prototype.updateNumPoules = function () {
-  var numpoules, numbyepoules, minpoules, maxpoules;
+  let numpoules, numbyepoules, minpoules, maxpoules;
   minpoules = this.tournament.minPoules();
   maxpoules = this.tournament.maxPoules();
   numpoules = this.tournament.numpoules.get();

@@ -49,7 +49,7 @@ StateValueModel.prototype.updateStates = function () {
    * way, but it avoids any assumptions about possible subclasses
    */
   Object.keys(this.transitions).forEach(function (state) {
-    var transition;
+    let transition;
     transition = this.transitions[this.get()];
     if (this.get() === state) {
       // retain the current state to avoid the default value

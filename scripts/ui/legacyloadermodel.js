@@ -28,7 +28,7 @@ function LegacyLoaderModel() {
 }
 extend(LegacyLoaderModel, Model);
 LegacyLoaderModel.prototype.load = function (glob) {
-  var tournamentDataArray, tournamentRankingArray;
+  let tournamentDataArray, tournamentRankingArray;
   State.clear();
   console.log('starting conversion');
   tournamentDataArray = [];
@@ -67,11 +67,11 @@ LegacyLoaderModel.prototype.load = function (glob) {
   return true;
 };
 LegacyLoaderModel.prototype.loadTeams = function (blob) {
-  var teams;
+  let teams;
   console.log('converting teams');
   teams = JSON.parse(blob);
   teams.forEach(function (teamData) {
-    var players, team;
+    let players, team;
     players = teamData.names.map(function (playername) {
       return new PlayerModel(playername);
     });
@@ -82,7 +82,7 @@ LegacyLoaderModel.prototype.loadTeams = function (blob) {
   console.log('conversion finished: ' + State.teams.length + ' teams converted');
 };
 LegacyLoaderModel.prototype.loadOptions = function (blob) {
-  var optionsData;
+  let optionsData;
   optionsData = JSON.parse(blob);
   if (optionsData.savefile === undefined) {
     if (Presets.target !== 'boule') {
@@ -102,14 +102,22 @@ LegacyLoaderModel.prototype.loadOptions = function (blob) {
   console.log('conversion finished: options');
 };
 LegacyLoaderModel.prototype.loadTournaments = function (blob, tournamentDataArray, tournamentRankingArray) {
-  var tournaments, subtournamentOffsets;
+  let tournaments, subtournamentOffsets;
   console.log('converting tournaments');
   tournaments = JSON.parse(blob);
   subtournamentOffsets = [];
   tournaments.forEach(function (data, tournamentID) {
-    var tournament, system, name, blob, teams, ranking, parent,
-      //
-      rankingorder, tournamentData, startIndex;
+    let tournament,
+        system,
+        name,
+        blob,
+        teams,
+        ranking,
+        parent,
+        //
+        rankingorder,
+        tournamentData,
+        startIndex;
     system = data[0];
     name = data[1];
     blob = data[2];
@@ -157,7 +165,7 @@ LegacyLoaderModel.prototype.loadTournaments = function (blob, tournamentDataArra
 
       // add matches
       tournamentData.games.forEach(function (data) {
-        var teams, match, id, group;
+        let teams, match, id, group;
         teams = [data.teams[0][0], data.teams[1][0]];
         id = data.id;
         if (system === 'swiss') {
@@ -200,16 +208,16 @@ LegacyLoaderModel.prototype.loadTournaments = function (blob, tournamentDataArra
 LegacyLoaderModel.prototype.loadHistory = function (blob,
 //
 tournamentDataArray) {
-  var history = JSON.parse(blob);
+  const history = JSON.parse(blob);
   console.log('converting history');
   history.forEach(function (tournamenthistory, tournamentID) {
-    var tournament, round, system;
+    let tournament, round, system;
     console.log('converting history for tournament ' + tournamentID);
     tournament = State.tournaments.get(tournamentID);
     round = tournament.round;
     system = tournament.SYSTEM;
     function restoreMatchResult(match) {
-      var result, teams, score, id, group;
+      let result, teams, score, id, group;
       teams = [match[0], match[1]];
       score = [match[2], match[3]];
       group = match[4];
@@ -234,7 +242,7 @@ tournamentDataArray) {
         tournament.state.forceState('idle');
       }
       tournamenthistory.games.forEach(function (match) {
-        var result = restoreMatchResult(match);
+        const result = restoreMatchResult(match);
         console.log('converting match result ' + result.getID() + ': ' + result.teams.join(' vs. ') + ':  ' + result.score.join(':'));
         tournament.history.push(result);
         tournament.ranking.result(result);
@@ -255,7 +263,7 @@ tournamentDataArray) {
      */
     if (tournamenthistory.corrections) {
       tournamenthistory.corrections.forEach(function (correctionData, id) {
-        var before, after, correction;
+        let before, after, correction;
         before = restoreMatchResult(correctionData[0]);
         after = restoreMatchResult(correctionData[1]);
         correction = new CorrectionModel(before, after);
@@ -269,7 +277,7 @@ tournamentDataArray) {
      * Votes
      */
     tournamenthistory.votes.forEach(function (data) {
-      var type, teamid, round, vote, id;
+      let type, teamid, round, vote, id;
       type = data[0];
       teamid = data[1];
       round = data[2];
@@ -310,7 +318,7 @@ LegacyLoaderModel.prototype.createMissingObjectsswiss = function (tournament) {
 LegacyLoaderModel.prototype.loadVotes = function (tournamentDataArray, tournamentRankingArray) {
   console.log('converting votes');
   tournamentDataArray.forEach(function (tournamentData, tournamentID) {
-    var tournament, system, ranking, upvoteArray, downvoteArray, displayOrder;
+    let tournament, system, ranking, upvoteArray, downvoteArray, displayOrder;
     console.log('converting votes of tournament ' + tournamentID);
     tournament = State.tournaments.get(tournamentID);
     ranking = tournamentRankingArray[tournamentID];
@@ -335,7 +343,7 @@ LegacyLoaderModel.prototype.loadVotes = function (tournamentDataArray, tournamen
     if (system === 'swiss') {
       if (tournament.ranking.upvotes && upvoteArray) {
         upvoteArray.forEach(function (upvotes, displayID) {
-          var teamID = displayOrder[displayID];
+          const teamID = displayOrder[displayID];
           if (upvotes > 0) {
             console.log('converting ' + upvotes + ' upvotes for team ' + teamID);
             tournament.ranking.upvotes.set(teamID, tournament.ranking.upvotes.get(teamID) + upvotes);
@@ -344,7 +352,7 @@ LegacyLoaderModel.prototype.loadVotes = function (tournamentDataArray, tournamen
       }
       if (tournament.ranking.downvotes && downvoteArray) {
         downvoteArray.forEach(function (downvotes, displayID) {
-          var teamID = displayOrder[displayID];
+          const teamID = displayOrder[displayID];
           if (downvotes > 0) {
             console.log('converting ' + downvotes + ' downvotes for team ' + teamID);
             tournament.ranking.downvotes.set(teamID, tournament.ranking.downvotes.get(teamID) + downvotes);

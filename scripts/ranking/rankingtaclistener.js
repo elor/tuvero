@@ -10,7 +10,7 @@ import extend from '../lib/extend.js';
 import RankingDataListener from './rankingdatalistener.js';
 import VectorModel from '../math/vectormodel.js';
 import Options from 'options';
-var winscore;
+let winscore;
 
 // FIXME extract "12" to the config.in
 winscore = 12;
@@ -39,7 +39,7 @@ function RankingTacListener(ranking) {
 extend(RankingTacListener, RankingDataListener);
 RankingTacListener.NAME = 'tac';
 RankingTacListener.prototype.onresult = function (r, e, result) {
-  var winner, loser, difference, points;
+  let winner, loser, difference, points;
   if (result.teams.length !== 2) {
     throw new Error('TAC ranking requires exactly two teams in a result');
   }
@@ -98,14 +98,14 @@ RankingTacListener.prototype.onresult = function (r, e, result) {
  */
 RankingTacListener.prototype.onbye = function (r, e, data) {
   data.teams.forEach(function (team) {
-    var points = this.tac.get(team) + Options.byepointswon - Options.byepointslost + 12;
+    const points = this.tac.get(team) + Options.byepointswon - Options.byepointslost + 12;
     this.tac.set(team, points);
   }, this);
 };
 RankingTacListener.prototype.oncorrect = function (r, e, correction) {
   // TODO DRY - Don't Repeat Yourself!
   // TODO extract a method for use by onresult and oncorrect
-  var winner, loser, difference, points;
+  let winner, loser, difference, points;
   if (correction.before.teams.length !== 2) {
     throw new Error('TAC ranking requires exactly two teams in a result');
   }

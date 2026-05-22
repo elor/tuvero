@@ -57,7 +57,7 @@ Query.ALLTUVEROKEYS = {};
  * @return an array of stored key strings which match the selection
  */
 Query.prototype.filter = function () {
-  var keys, trees, last, lastDate;
+  let keys, trees, last, lastDate;
   if (this.source) {
     keys = Object.keys(this.source);
   } else {
@@ -78,14 +78,14 @@ Query.prototype.filter = function () {
       break;
     case Query.ROOTKEYS:
       keys = keys.filter(function (keyString) {
-        var key = KeyModel.fromString(keyString);
+        const key = KeyModel.fromString(keyString);
         return key.isRoot();
       });
       break;
     case Query.LASTKEYS:
       trees = {};
       keys.forEach(function (keyString) {
-        var startDate = KeyModel.fromString(keyString).startDate;
+        const startDate = KeyModel.fromString(keyString).startDate;
         if (!trees[startDate] || trees[startDate] < keyString) {
           trees[startDate] = keyString;
         }
@@ -97,7 +97,7 @@ Query.prototype.filter = function () {
     case Query.LATESTSAVE:
       last = undefined;
       keys.forEach(function (keyString) {
-        var saveDate = KeyModel.fromString(keyString).saveDate;
+        const saveDate = KeyModel.fromString(keyString).saveDate;
         if (!last || lastDate < saveDate) {
           last = keyString;
           lastDate = saveDate;

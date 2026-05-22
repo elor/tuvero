@@ -10,7 +10,7 @@ import extend from '../lib/extend.js';
 import RenameController from './renamecontroller.js';
 import Toast from './toast.js';
 import Strings from './strings.js';
-var pendingNameChange;
+let pendingNameChange;
 pendingNameChange = undefined;
 
 /**
@@ -20,7 +20,7 @@ pendingNameChange = undefined;
 *          a TournamentView instance
 */
 function TournamentController(view, tournaments) {
-  var tournament, $runbutton;
+  let tournament, $runbutton;
   TournamentController.superconstructor.call(this, view, false);
   tournament = this.model.tournament;
   this.toast = undefined;

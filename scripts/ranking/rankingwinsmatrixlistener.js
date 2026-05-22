@@ -40,7 +40,7 @@ RankingWinsMatrixListener.NAME = 'winsmatrix';
  *          a game result
  */
 RankingWinsMatrixListener.prototype.onresult = function (r, e, result) {
-  var maxpoints, draw, score;
+  let maxpoints, draw, score;
 
   // get the max points, remember if there's a draw
   maxpoints = undefined;
@@ -60,11 +60,11 @@ RankingWinsMatrixListener.prototype.onresult = function (r, e, result) {
   // find every winner and apply the score over his opponents (i.e. everyone
   // else)
   result.score.forEach(function (points, index) {
-    var teamid;
+    let teamid;
     if (points === maxpoints) {
       teamid = result.teams[index];
       result.teams.forEach(function (opponent) {
-        var value;
+        let value;
         if (teamid !== opponent) {
           value = this.winsmatrix.get(teamid, opponent) + score;
           this.winsmatrix.set(teamid, opponent, value);
@@ -88,7 +88,7 @@ RankingWinsMatrixListener.prototype.onresult = function (r, e, result) {
 RankingWinsMatrixListener.prototype.oncorrect = function (r, e, correction) {
   // TODO DRY - Don't Repeat Yourself!
   // TODO extract a method for use by onresult and oncorrect
-  var maxpoints, draw, score;
+  let maxpoints, draw, score;
 
   // get the max points, remember if there's a draw
   maxpoints = undefined;
@@ -108,11 +108,11 @@ RankingWinsMatrixListener.prototype.oncorrect = function (r, e, correction) {
   // find every winner and apply the score over his opponents (i.e. everyone
   // else)
   correction.before.score.forEach(function (points, index) {
-    var teamid;
+    let teamid;
     if (points === maxpoints) {
       teamid = correction.before.teams[index];
       correction.before.teams.forEach(function (opponent) {
-        var value;
+        let value;
         if (teamid !== opponent) {
           value = this.winsmatrix.get(teamid, opponent) - score;
           this.winsmatrix.set(teamid, opponent, value);

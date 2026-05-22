@@ -33,7 +33,7 @@ function KOMatchResultView(model, $view, teamlist, tournament, fullwidth) {
 }
 extend(KOMatchResultView, MatchResultView);
 KOMatchResultView.prototype.reposition = function () {
-  var pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.tournament.getTeams().length, this.fullwidth.get());
+  const pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.tournament.getTeams().length, this.fullwidth.get());
   this.x = pos.x;
   this.y = pos.y;
   this.$view.css('left', this.x + 'em');

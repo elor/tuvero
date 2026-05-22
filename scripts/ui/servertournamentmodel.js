@@ -30,7 +30,7 @@ ServerTournamentModel.prototype.EVENTS = {
   'ready': true
 };
 ServerTournamentModel.prototype.downloadState = function () {
-  var message = this.server.message('t/' + this.id + '/state/latest/state');
+  const message = this.server.message('t/' + this.id + '/state/latest/state');
   message.onreceive = function (emitter, event, statejson) {
     if (!statejson.error) {
       this.statejson = statejson;

@@ -19,13 +19,13 @@ import SortedReferenceListModel from '../list/sortedreferencelistmodel.js';
 import ListCollectorModel from '../ui/listcollectormodel.js';
 import Presets from 'presets';
 import ValueModel from '../core/valuemodel.js';
-var TimeMachine;
+let TimeMachine;
 
 /**
  * Constructor
  */
 function TimeMachineModel() {
-  var latestKey;
+  let latestKey;
   TimeMachineModel.superconstructor.call(this);
   latestKey = RefLog.getLatestGlobalKey();
 
@@ -67,7 +67,7 @@ TimeMachineModel.prototype.EVENTS = {
  * reflects on this.roots
  */
 TimeMachineModel.prototype.updateRoots = function () {
-  var rootCommits, rootKeyStrings, index, keyString;
+  let rootCommits, rootKeyStrings, index, keyString;
   rootCommits = RefLog.getInitKeys().map(function (key) {
     return new CommitModel(key);
   });
@@ -148,7 +148,7 @@ TimeMachineModel.prototype.save = function (state) {
  *         (serialized save state)
  */
 TimeMachineModel.prototype.load = function (commit) {
-  var data;
+  let data;
   if (commit === undefined && this.isInitialized()) {
     return this.commit.get().load();
   }
@@ -172,7 +172,7 @@ TimeMachineModel.prototype.unload = function () {
   this.emit('unload');
 };
 TimeMachineModel.prototype.getOrphans = function () {
-  var query, orphanedCommits;
+  let query, orphanedCommits;
 
   /*
    * check all localStorage keys
@@ -213,11 +213,11 @@ TimeMachineModel.prototype.isRelatedToActive = function (commit) {
  * @return the size in the localStorage, in unicode symbols.
  */
 TimeMachineModel.prototype.usedRelatedStorage = function (commit) {
-  var total, query;
+  let total, query;
   total = 0;
   query = new Query(commit.key);
   query.filter().forEach(function (key) {
-    var data;
+    let data;
     if (window.localStorage) {
       data = window.localStorage[key] || '';
     } else {
@@ -235,11 +235,11 @@ TimeMachineModel.prototype.usedRelatedStorage = function (commit) {
  *         stored targets, and where object.total is the total of all targets
  */
 TimeMachineModel.prototype.usedStorage = function () {
-  var tuveroQuery, targetSizes, total;
+  let tuveroQuery, targetSizes, total;
   targetSizes = {};
   tuveroQuery = new Query(Query.ALLTUVEROKEYS);
   tuveroQuery.filter().forEach(function (key) {
-    var target, data;
+    let target, data;
     target = key.split('_')[0];
     if (window.localStorage) {
       data = window.localStorage[key] || '';
@@ -272,7 +272,7 @@ TimeMachineModel.prototype.usedStorage = function () {
  *          the number of commits to keep, excluding root and latest
  */
 TimeMachineModel.prototype.cleanup = function (relatedCommit, keepNum) {
-  var query, relatedKeys;
+  let query, relatedKeys;
   if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
     return;
   }
@@ -300,7 +300,7 @@ TimeMachineModel.prototype.cleanup = function (relatedCommit, keepNum) {
  */
 TimeMachineModel.prototype.onremove = function (event, emitter, data) {
   if (data.source.isRoot()) {
-    var index = this.unsortedRoots.indexOf(data.source);
+    const index = this.unsortedRoots.indexOf(data.source);
     this.unsortedRoots.get(index).destroy();
     this.unsortedRoots.remove(index);
   }

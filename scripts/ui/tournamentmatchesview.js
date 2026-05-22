@@ -29,7 +29,7 @@ import TournamentRenameController from './tournamentrenamecontroller.js';
  *          a ValueModel which represents the number of players in a team
  */
 function TournamentMatchesView(model, $view, teamlist, teamsize) {
-  var $popoutTemplate = $view.clone();
+  const $popoutTemplate = $view.clone();
   TournamentMatchesView.superconstructor.call(this, model, $view,
   //
   $view.find('.template.voteview'));
@@ -68,11 +68,11 @@ TournamentMatchesView.prototype.updateVisibility = function () {
  * initialize all vote lists and tables
  */
 TournamentMatchesView.prototype.initVotes = function () {
-  var $votetemplate;
+  let $votetemplate;
   this.$view.find('.votelist').hide();
   $votetemplate = this.$template;
   this.votelistmodels = this.model.VOTES.map(function (votetype) {
-    var $votes, votelist;
+    let $votes, votelist;
     $votes = this.$view.find('.votelist.' + votetype);
     if ($votes.length === 0) {
       return undefined;

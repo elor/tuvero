@@ -25,7 +25,7 @@ function RegisterIDsController($button, $numteams) {
 }
 extend(RegisterIDsController, Controller);
 RegisterIDsController.prototype.registerTeams = function () {
-  var numTeams, id;
+  let numTeams, id;
   numTeams = Number(this.$numteams.val());
   if (isNaN(numTeams)) {
     return;
@@ -38,7 +38,7 @@ RegisterIDsController.prototype.registerTeams = function () {
   }
 };
 RegisterIDsController.createTeam = function (id) {
-  var players, team;
+  let players, team;
   players = [];
   while (players.length < State.teamsize.get()) {
     players.push(new PlayerModel('' + id));

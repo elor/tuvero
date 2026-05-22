@@ -13,7 +13,7 @@ import Toast from '../ui/toast.js';
 import TimeMachine from '../timemachine/timemachine.js';
 import Strings from '../ui/strings.js';
 import $ from 'jquery';
-var Reset;
+let Reset;
 function hashcheck() {
   if (window.location.hash === '#reset') {
     console.log('clearing localstorage');

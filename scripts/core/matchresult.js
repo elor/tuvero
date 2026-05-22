@@ -57,7 +57,7 @@ MatchResult.prototype.isBye = function () {
  * @return a serializable data object on success, undefined otherwise
  */
 MatchResult.prototype.save = function () {
-  var data = MatchResult.superclass.save.call(this);
+  const data = MatchResult.superclass.save.call(this);
   data.s = this.score;
   return data;
 };
@@ -77,7 +77,7 @@ MatchResult.prototype.restore = function (data) {
   return true;
 };
 MatchResult.prototype.getWinner = function () {
-  var maxpoints, winner, winnerIndex;
+  let maxpoints, winner, winnerIndex;
   maxpoints = max(this.score);
   winnerIndex = this.score.indexOf(maxpoints);
   if (winnerIndex === this.score.lastIndexOf(maxpoints)) {
@@ -87,7 +87,7 @@ MatchResult.prototype.getWinner = function () {
   return undefined;
 };
 MatchResult.prototype.getLoser = function () {
-  var loser, loser2, minpoints;
+  let loser, loser2, minpoints;
   minpoints = min(this.score);
   loser = this.teams[this.score.indexOf(minpoints)];
   loser2 = this.teams[this.score.lastIndexOf(minpoints)];

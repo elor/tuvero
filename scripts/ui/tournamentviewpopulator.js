@@ -10,9 +10,9 @@ import Listener from '../core/listener.js';
  *          a list of DOM elements which are templates
  */
 function TournamentViewPopulator($templatesArray, tournaments) {
-  var $templates = {};
+  const $templates = {};
   $templatesArray.each(function () {
-    var $template, type;
+    let $template, type;
     $template = $(this);
     type = $template.attr('data-system');
     $templates[type] = $template;
@@ -22,11 +22,11 @@ function TournamentViewPopulator($templatesArray, tournaments) {
   this.teamReservation = [];
   this.viewCache = [];
   Listener.bind(tournaments, 'insert', function (emitter, event, data) {
-    var index = data.id;
-    var tournament = data.object;
-    var $view = $('<td>').addClass('system');
+    const index = data.id;
+    const tournament = data.object;
+    const $view = $('<td>').addClass('system');
     this.populate(tournament, $view);
-    var view = new GenericTournamentView(tournament, $view, this.tournaments);
+    const view = new GenericTournamentView(tournament, $view, this.tournaments);
     if (index === this.viewCache.length) {
       this.viewCache.push(view);
     } else {
@@ -34,8 +34,8 @@ function TournamentViewPopulator($templatesArray, tournaments) {
     }
   }, this);
   Listener.bind(tournaments, 'remove', function (emitter, event, data) {
-    var index = data.id;
-    var view = this.viewCache[index];
+    const index = data.id;
+    const view = this.viewCache[index];
     this.viewCache.splice(index, 1);
     this.teamReservation.splice(index, 1);
     view.destroy();
@@ -55,7 +55,7 @@ extend(GenericTournamentView, View);
  *          an empty container for the actual view
  */
 TournamentViewPopulator.prototype.populate = function (tournament, $view) {
-  var type;
+  let type;
   type = tournament && tournament.SYSTEM;
   if (this.$templates[type] === undefined) {
     console.error('system template has not been loaded: ' + type);

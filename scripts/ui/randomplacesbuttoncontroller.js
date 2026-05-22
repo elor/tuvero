@@ -10,7 +10,7 @@ function RandomPlacesButtonController($button) {
 }
 extend(RandomPlacesButtonController, Controller);
 RandomPlacesButtonController.prototype.randomizeplaces = function () {
-  var allmatches, places;
+  let allmatches, places;
   allmatches = [];
   State.tournaments.forEach(function (tournament) {
     tournament.matches.forEach(function (match) {

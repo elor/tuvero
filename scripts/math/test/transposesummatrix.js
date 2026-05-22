@@ -17,7 +17,7 @@ import MatrixModel from '../matrixmodel.js';
 import extend from '../../lib/extend.js';
 test('TransposeSumMatrix', () => {
   // constructor validation
-  var a, m;
+  let a, m;
   expect(
     extend.isSubclass(TransposeSumMatrix, DelegateMatrix),
     'TransposeSumMatrix is a DelegateMatrix subclass'

@@ -16,7 +16,7 @@ import TriangleMatrixModel from '../trianglematrixmodel.js';
 import extend from '../../lib/extend.js';
 test('TriangleMatrixModel', () => {
   // constructor validation
-  var a;
+  let a;
   expect(
    extend.isSubclass(TriangleMatrixModel, MatrixModel),
    'TriangleMatrixModel is subclass of MatrixModel'

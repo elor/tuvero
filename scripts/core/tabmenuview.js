@@ -63,12 +63,12 @@ TabMenuView.prototype.initTabs = function () {
  * read the data-tab of the tabs, remove them and store them in tabnames
  */
 TabMenuView.prototype.extractTabNames = function () {
-  var tabnames, $tabs, keys;
+  let tabnames, $tabs, keys;
   tabnames = this.tabnames;
   $tabs = this.$tabs;
   keys = this.keys;
   this.$view.find('> div').each(function (index) {
-    var $this, tabname;
+    let $this, tabname;
     $this = $(this);
     tabname = $this.attr('data-tab');
     keys[tabname] = $this.attr('accesskey');
@@ -89,7 +89,7 @@ TabMenuView.prototype.createTabModels = function () {
      * keep them active for other parts of the code. This is bad coding, but I
      * don't want another reference outside of emitters and listeners.
      */
-    var tmp, model;
+    let tmp, model;
     model = new TabModel();
     this.tabmodels[tabname] = model;
     tmp = new ClassView(model.visibility, this.$tabicons[tabname], undefined, 'hidden');
@@ -132,7 +132,7 @@ TabMenuView.prototype.getTabModel = function (tabname) {
 TabMenuView.prototype.createTabMenu = function () {
   this.$menu = $('<span>').addClass('tabmenu');
   this.tabnames.map(function (tabname) {
-    var $tab = $('<a>').attr('tabindex', -1);
+    const $tab = $('<a>').attr('tabindex', -1);
     $tab.attr('href', '#' + tabname);
     if (this.keys[tabname]) {
       $tab.attr('accesskey', this.keys[tabname]);
@@ -147,7 +147,7 @@ TabMenuView.prototype.createTabMenu = function () {
  * shows the currently active tab
  */
 TabMenuView.prototype.update = function () {
-  var tabname;
+  let tabname;
 
   // guaranteed to be a valid index, because of SelectionValueModel
   tabname = this.model.get();

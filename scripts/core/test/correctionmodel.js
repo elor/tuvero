@@ -14,7 +14,7 @@ import MatchResult from '../matchresult.js';
 import CorrectionModel from '../correctionmodel.js';
 import Model from '../model.js';
 test('CorrectionModel', () => {
-  var match, result, result2, correction, data, success;
+  let match, result, result2, correction, data, success;
   expect(
     extend.isSubclass(CorrectionModel, Model),
     'CorrectionModel is subclass of Model'

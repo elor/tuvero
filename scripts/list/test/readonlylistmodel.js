@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import ListModel from '../listmodel.js';
 import ReadonlyListModel from '../readonlylistmodel.js';
 test('ReadonlyListModel', () => {
-  var list, obj, i, ret, res, listener, rolist;
+  let list, obj, i, ret, res, listener, rolist;
   listener = {
     reset: function () {
       listener.length = 0;

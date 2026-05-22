@@ -48,11 +48,11 @@ RankingMapper.translateIDs = function (rankingcomponent, map) {
  * ranking.get().displayOrder
  */
 RankingMapper.updateCache = function () {
-  var ranks, newcache;
+  let ranks, newcache;
   ranks = this.ranking.get();
   newcache = {};
   Object.keys(ranks).forEach(function (key) {
-    var values;
+    let values;
     if (key === 'ids') {
       values = RankingMapper.translateIDs(ranks[key], this.teams);
     } else {

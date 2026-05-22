@@ -48,7 +48,7 @@ CorrectionModel.prototype.EVENTS = {};
  * @return a serializable data object
  */
 CorrectionModel.prototype.save = function () {
-  var data = CorrectionModel.superclass.save.call(this);
+  const data = CorrectionModel.superclass.save.call(this);
   data.b = this.before.save();
   data.a = this.after.save();
   return data;

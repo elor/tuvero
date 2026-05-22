@@ -17,7 +17,7 @@ import extend from '../lib/extend.js';
 import Model from '../core/model.js';
 import Type from '../core/type.js';
 import Presets from 'presets';
-var delimiter, dateRegexSource, dateRegex, targetRegex, keyRegex, tuveroKeyRegex;
+let delimiter, dateRegexSource, dateRegex, targetRegex, keyRegex, tuveroKeyRegex;
 
 /*
  * local regexes, which are used internally for format validation
@@ -67,7 +67,7 @@ extend(KeyModel, Model);
  * @return a localStorage-compatible string representation of the key
  */
 KeyModel.prototype.toString = function () {
-  var key = [this.target, this.startDate, this.saveDate].join(delimiter);
+  const key = [this.target, this.startDate, this.saveDate].join(delimiter);
   if (!keyRegex.test(key)) {
     throw new Error('created KeyModel does not match format: ' + key);
   }
@@ -94,7 +94,7 @@ KeyModel.prototype.isRoot = function () {
  * @return true if target and start date match, false otherwise.
  */
 KeyModel.prototype.isRelated = function (key) {
-  var relatedRegex;
+  let relatedRegex;
   relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate + ')' + delimiter + '(' + dateRegexSource + ')$', 'i');
   return relatedRegex.test(key.toString());
 };
@@ -165,7 +165,7 @@ KeyModel.isTuveroKey = function (key) {
  * @return a new key with a later saveDate but the same startDate
  */
 KeyModel.createChild = function (parentKey) {
-  var startDate, saveDate;
+  let startDate, saveDate;
   if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
     throw new Error('createChild(): parentKey is not valid');
   }
@@ -194,7 +194,7 @@ KeyModel.createChild = function (parentKey) {
  * @return a KeyModel instance with the extracted startDate and saveDate.
  */
 KeyModel.fromString = function (keyString) {
-  var startDate, saveDate, matches;
+  let startDate, saveDate, matches;
   if (!targetRegex.test(keyString)) {
     throw new Error('KeyModel reference string has wrong target: ' + keyString);
   }
@@ -216,7 +216,7 @@ KeyModel.fromString = function (keyString) {
  * @return a new root key with the current date
  */
 KeyModel.createRoot = function () {
-  var startDate = new Date().toISOString();
+  const startDate = new Date().toISOString();
   return new KeyModel(startDate, startDate);
 };
 

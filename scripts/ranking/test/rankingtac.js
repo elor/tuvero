@@ -14,7 +14,7 @@ import MatchModel from '../../core/matchmodel.js';
 import CorrectionModel from '../../core/correctionmodel.js';
 import Options from 'options';
 test('TAC Ranking', () => {
-  var ranking, ret, ref, optionbak;
+  let ranking, ret, ref, optionbak;
 
   /*
    * adjust options to fit typical TAC options

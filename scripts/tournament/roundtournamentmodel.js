@@ -65,7 +65,7 @@ RoundTournamentModel.prototype.isLastRound = function () {
  * be a RoundTournamentModel instance.
  */
 RoundTournamentModel.generateSlideSystemMatches = function () {
-  var slideList, teamA, teamB, id;
+  let slideList, teamA, teamB, id;
   slideList = RoundTournamentModel.generateSlideList(this.teams.length, this.round);
   if (slideList.length % 2 === 1) {
     teamA = slideList.pop();
@@ -93,7 +93,7 @@ RoundTournamentModel.generateSlideSystemMatches = function () {
  *         first team. Undefined on error.
  */
 RoundTournamentModel.generateSlideList = function (numteams, round) {
-  var teams, slideteam;
+  let teams, slideteam;
   if (!Type.isNumber(numteams) || !Type.isNumber(round)) {
     return undefined;
   }
@@ -149,7 +149,7 @@ RoundTournamentModel.prototype.numRounds = function () {
  * @return a serializable data object
  */
 RoundTournamentModel.prototype.save = function () {
-  var data = RoundTournamentModel.superclass.save.call(this);
+  const data = RoundTournamentModel.superclass.save.call(this);
   data.round = this.round;
   return data;
 };

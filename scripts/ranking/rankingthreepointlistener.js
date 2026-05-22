@@ -35,7 +35,7 @@ RankingThreePointListener.DEPENDENCIES = undefined;
  *          a game result
  */
 RankingThreePointListener.prototype.onresult = function (r, e, result) {
-  var winner, maxpoints;
+  let winner, maxpoints;
   winner = result.getWinner();
   if (winner !== undefined) {
     this.threepoint.add(winner, 3);
@@ -77,7 +77,7 @@ RankingThreePointListener.prototype.onbye = function (r, e, data) {
  *          a game correction
  */
 RankingThreePointListener.prototype.oncorrect = function (r, e, correction) {
-  var winner, maxpoints;
+  let winner, maxpoints;
   winner = correction.before.getWinner();
   if (winner !== undefined) {
     this.threepoint.set(winner, this.threepoint.get(winner) - 3);

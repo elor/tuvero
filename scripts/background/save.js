@@ -10,10 +10,10 @@ import $ from 'jquery';
 import FileSaverModel from '../ui/filesavermodel.js';
 import Toast from '../ui/toast.js';
 import Strings from '../ui/strings.js';
-var Save;
+let Save;
 $(function ($) {
   $('#tabs').on('click', 'button.save', function () {
-    var fileSaver;
+    let fileSaver;
     fileSaver = new FileSaverModel();
     if (!fileSaver.save()) {
       Toast.once(Strings.savefailed);

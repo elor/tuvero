@@ -12,7 +12,7 @@ import RankingModel from '../rankingmodel.js';
 import MatchResult from '../../core/matchresult.js';
 import MatchModel from '../../core/matchmodel.js';
 test('Head-to-Head Ranking', () => {
-  var ranking, ret, ref;
+  let ranking, ret, ref;
   ranking = new RankingModel(['wins', 'headtohead'], 5);
   ref = {
     components: ['wins', 'headtohead'],

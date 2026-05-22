@@ -8,7 +8,7 @@
  */
 import $ from 'jquery';
 import Browser from './browser.js';
-var Splash;
+let Splash;
 Splash = {
   hide: function () {
     console.error('Splash.hide() called before pageload');
@@ -18,7 +18,7 @@ Splash = {
   }
 };
 $(function ($) {
-  var $splash;
+  let $splash;
   function setState(state) {
     $splash.removeClass();
     $splash.addClass(state);

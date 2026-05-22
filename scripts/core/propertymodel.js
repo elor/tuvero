@@ -89,7 +89,7 @@ PropertyModel.prototype.getPropertyKeys = function () {
  * @return a data object
  */
 PropertyModel.prototype.save = function () {
-  var data = PropertyModel.superclass.save.call(this);
+  const data = PropertyModel.superclass.save.call(this);
   data.props = {};
   this.getPropertyKeys().forEach(function (key) {
     data.props[key] = this.getProperty(key);
@@ -108,7 +108,7 @@ PropertyModel.prototype.restore = function (data) {
     return false;
   }
   Object.keys(data.props).forEach(function (key) {
-    var val = data.props[key];
+    const val = data.props[key];
     this.setProperty(key, val);
   }, this);
   return true;

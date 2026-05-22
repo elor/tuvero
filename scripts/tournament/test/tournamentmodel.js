@@ -12,9 +12,20 @@ import extend from '../../lib/extend.js';
 import TournamentModel from '../tournamentmodel.js';
 import PropertyModel from '../../core/propertymodel.js';
 test('TournamentModel', () => {
-  var tournament, state, teams, matches, byes, match, ranking, ref, data,
-    //
-    history, combinedHistory, corrections, result;
+  let tournament,
+      state,
+      teams,
+      matches,
+      byes,
+      match,
+      ranking,
+      ref,
+      data,
+      //
+      history,
+      combinedHistory,
+      corrections,
+      result;
   expect(
     extend.isSubclass(TournamentModel, PropertyModel),
     'TournamentModel is subclass of PropertyModel'

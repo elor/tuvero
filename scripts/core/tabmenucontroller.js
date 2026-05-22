@@ -17,7 +17,7 @@ import Listener from './listener.js';
  *          the associated TabMenuView
  */
 function TabMenuController(view) {
-  var model, listener;
+  let model, listener;
   TabMenuController.superconstructor.call(this, view);
   model = this.model;
   function followHash() {

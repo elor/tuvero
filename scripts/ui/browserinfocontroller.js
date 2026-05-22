@@ -12,7 +12,7 @@ import Controller from '../core/controller.js';
  * Constructor
  */
 function BrowserInfoController(view) {
-  var model;
+  let model;
   BrowserInfoController.superconstructor.call(this, view);
   this.$updateButton = this.view.$view.find('button.update');
   model = this.model;

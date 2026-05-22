@@ -49,7 +49,7 @@ RankingView.prototype.reset = function () {
   this.teamViews = [];
 };
 RankingView.prototype.update = function () {
-  var ranks, teamsize, i;
+  let ranks, teamsize, i;
   ranks = this.model.get();
   if (!ranks) {
     return false;
@@ -57,7 +57,7 @@ RankingView.prototype.update = function () {
   this.reset();
   teamsize = 0;
   ranks.displayOrder.forEach(function (teamIndex) {
-    var size = this.teamList.get(teamIndex) && this.teamList.get(teamIndex).length || 0;
+    const size = this.teamList.get(teamIndex) && this.teamList.get(teamIndex).length || 0;
     if (teamsize < size) {
       teamsize = size;
     }
@@ -68,7 +68,7 @@ RankingView.prototype.update = function () {
   }
   this.$view.find('.rankingheader .component').remove();
   ranks.components.forEach(function (componentName) {
-    var name;
+    let name;
     if (this.useAbbreviations()) {
       name = Strings['ranking_short_' + componentName];
     } else {
@@ -77,7 +77,7 @@ RankingView.prototype.update = function () {
     this.$rankingheader.append(this.$headercomponenttemplate.clone().text(name));
   }, this);
   ranks.displayOrder.forEach(function (teamIndex, rank) {
-    var $row, team;
+    let $row, team;
     team = this.teamList.get(ranks.ids[teamIndex]);
     $row = this.$template.clone();
     $row.find('.rank').text(ranks.ranks[teamIndex] + 1);
@@ -89,7 +89,7 @@ RankingView.prototype.update = function () {
   }, this);
 };
 RankingView.prototype.onupdate = function (emitter, event, data) {
-  var rankingview = this;
+  const rankingview = this;
   if (this.updateTimeout === undefined) {
     this.updateTimeout = window.setTimeout(function () {
       rankingview.update();

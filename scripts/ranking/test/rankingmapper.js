@@ -17,7 +17,7 @@ import MatchModel from '../../core/matchmodel.js';
 import Model from '../../core/model.js';
 import Listener from '../../core/listener.js';
 test('RankingMapper', () => {
-  var internal, ranking, listener, teams, ref;
+  let internal, ranking, listener, teams, ref;
   expect(
     extend.isSubclass(RankingMapper, Model),
     'RankingMapper is subclass of Model'
@@ -54,7 +54,7 @@ test('RankingMapper', () => {
   expect(ranking.get(), 'ids remapped after first result').toEqual(ref);
   listener = new Listener(ranking);
   listener.onupdate = function (emitter) {
-    var reference;
+    let reference;
     this.success = true;
     reference = {
       components: ['wins', 'saldo'],

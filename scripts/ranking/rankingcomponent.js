@@ -91,7 +91,7 @@ RankingComponent.DUMMYCOMPONENT = {
  *          level does not have any values, its entry will be set to undefined
  */
 RankingComponent.prototype.getValues = function (outArray) {
-  var values, index;
+  let values, index;
   if (outArray === undefined) {
     outArray = [];
   }

@@ -15,7 +15,7 @@ import MatrixModel from '../matrixmodel.js';
 import VectorModel from '../vectormodel.js';
 test('MatrixModel', () => {
   // constructor validation
-  var a, v, v2, ref, savedata;
+  let a, v, v2, ref, savedata;
   a = new MatrixModel();
   expect(a.length, 'empty size initialization').toBe(0);
   expect(a.get(0, 0), 'get(0,0): out of bounds').toBe(undefined);

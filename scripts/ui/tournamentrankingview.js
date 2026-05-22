@@ -30,7 +30,7 @@ import ClassView from '../core/classview.js';
  *          TournamentModel.getRanking()
  */
 function TournamentRankingView(model, $view, teams, abbreviate) {
-  var $popout = $view.clone();
+  const $popout = $view.clone();
   TournamentRankingView.superconstructor.call(this, model, $view);
   this.renameController = new TournamentRenameController(new View(model, this.$view.find('.tournamentname.rename')));
   this.boxview = new PopoutBoxView(this.$view, $popout, function ($view) {

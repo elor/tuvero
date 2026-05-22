@@ -43,7 +43,7 @@ TournamentListModel.prototype.EVENTS = {
  * @return an array of tournament IDs for every team in a tournament
  */
 TournamentListModel.prototype.tournamentIDsForEachTeam = function () {
-  var ids = [];
+  const ids = [];
   this.map(function (tournament) {
     if (tournament.getState().get() !== 'finished') {
       tournament.getTeams().map(function (team) {
@@ -67,7 +67,7 @@ TournamentListModel.prototype.invalidateGlobalRanking = function () {
  * @return true on success, false otherwise.
  */
 TournamentListModel.prototype.closeTournament = function (tournamentID) {
-  var tournament = this.get(tournamentID);
+  const tournament = this.get(tournamentID);
   if (tournament === undefined) {
     console.error('tournament ID ' + tournamentID + ' is undefined');
     return false;
@@ -91,7 +91,7 @@ TournamentListModel.prototype.closeTournament = function (tournamentID) {
  * @return an array with a 'true' or 'false' entry for every tournament.
  */
 TournamentListModel.prototype.areTournamentsClosed = function () {
-  var closed;
+  let closed;
   closed = [];
   while (closed.length < this.length) {
     closed.push(false);
@@ -111,7 +111,7 @@ TournamentListModel.prototype.areTournamentsClosed = function () {
  * @return a globalRanking object
  */
 TournamentListModel.prototype.getGlobalRanking = function (numTeams) {
-  var teams, undefinedTeams, zeroTeams;
+  let teams, undefinedTeams, zeroTeams;
   if (numTeams === undefined || numTeams < 0) {
     console.error('invalid numTeams argument');
     return undefined;
@@ -151,10 +151,10 @@ TournamentListModel.prototype.getGlobalRanking = function (numTeams) {
   return this.rankingCache;
 };
 TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
-  var tournamentOrder = rankingCache.displayOrder.map(function (teamID) {
+  const tournamentOrder = rankingCache.displayOrder.map(function (teamID) {
     return rankingCache.tournamentIDs[teamID];
   });
-  var begin = tournamentOrder.indexOf(undefined);
+  const begin = tournamentOrder.indexOf(undefined);
   if (begin === -1) {
     this.interlaceMaximum.set(1);
     setTimeout(function () {
@@ -162,12 +162,12 @@ TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
     }.bind(this), 1);
     return;
   }
-  var end = begin;
+  let end = begin;
   while (end < tournamentOrder.length && tournamentOrder[end] === undefined) {
     end++;
   }
-  var displayOrder = rankingCache.displayOrder.slice(begin, end);
-  var tournamentIDs = displayOrder.map(function (teamID) {
+  let displayOrder = rankingCache.displayOrder.slice(begin, end);
+  const tournamentIDs = displayOrder.map(function (teamID) {
     return rankingCache.lastTournamentIDs[teamID];
   }).filter(function (tournamentID, index, list) {
     return tournamentID !== undefined && list.indexOf(tournamentID) === index;
@@ -179,13 +179,13 @@ TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
     }.bind(this), 1);
   }
   tournamentIDs.splice(this.interlaceCount.get());
-  var tournamentTeams = {};
+  const tournamentTeams = {};
   tournamentIDs.forEach(function (tournamentID) {
     tournamentTeams[tournamentID] = [];
   });
-  var leftoverTeams = [];
+  const leftoverTeams = [];
   displayOrder.forEach(function (teamID) {
-    var tournamentID = rankingCache.lastTournamentIDs[teamID];
+    const tournamentID = rankingCache.lastTournamentIDs[teamID];
     if (tournamentTeams[tournamentID]) {
       tournamentTeams[tournamentID].push(teamID);
     } else {
@@ -195,7 +195,7 @@ TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
   displayOrder = [];
   while (Object.keys(tournamentTeams).length > 0) {
     tournamentIDs.forEach(function (tournamentID) {
-      var teams = tournamentTeams[tournamentID];
+      const teams = tournamentTeams[tournamentID];
       if (teams === undefined) {
         return;
       }
@@ -210,7 +210,7 @@ TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
   leftoverTeams.forEach(function (teamID) {
     displayOrder.push(teamID);
   });
-  for (var position = begin; position < end; position += 1) {
+  for (let position = begin; position < end; position += 1) {
     rankingCache.displayOrder[position] = displayOrder[position - begin];
   }
 };
@@ -227,13 +227,13 @@ TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
  *          a globalRanking object.
  */
 TournamentListModel.prototype.applyTournamentToRanks = function (tournament, globalRanking) {
-  var tournamentID, tournamentRanking, startIndex, isClosed;
+  let tournamentID, tournamentRanking, startIndex, isClosed;
   tournamentID = tournament.getID();
   tournamentRanking = tournament.getRanking().get();
   startIndex = this.startIndex.get(tournamentID);
   isClosed = this.closedTournaments.indexOf(tournamentID) !== -1;
   tournamentRanking.displayOrder.map(function (tournamentTeamID, displayID) {
-    var globalTeamID, globalDisplayID, tournamentRank, oldDisplayPlace;
+    let globalTeamID, globalDisplayID, tournamentRank, oldDisplayPlace;
     globalTeamID = tournamentRanking.ids[tournamentTeamID];
     globalDisplayID = startIndex + displayID;
     tournamentRank = tournamentRanking.ranks[tournamentTeamID];
@@ -256,12 +256,12 @@ TournamentListModel.prototype.applyTournamentToRanks = function (tournament, glo
  *          a global ranking object, as will be returned by getGlobalRanking()
  */
 TournamentListModel.prototype.calculateGlobalRanks = function (ranking) {
-  var lastTournamentID, lastTournamentRank, rank;
+  let lastTournamentID, lastTournamentRank, rank;
   lastTournamentID = undefined;
   lastTournamentRank = 0;
   rank = undefined;
   ranking.displayOrder.map(function (teamID, displayID) {
-    var tournamentID, tournamentRank;
+    let tournamentID, tournamentRank;
     tournamentID = ranking.lastTournamentIDs[teamID];
     tournamentRank = ranking.tournamentRanks[teamID];
     if (rank === undefined || tournamentID !== lastTournamentID || lastTournamentRank !== tournamentRank) {
@@ -352,7 +352,7 @@ TournamentListModel.prototype.clear = function () {
   TournamentListModel.superclass.clear.call(this);
 };
 TournamentListModel.prototype.save = function () {
-  var data = Model.prototype.save.call(this);
+  const data = Model.prototype.save.call(this);
   data.tournaments = TournamentListModel.superclass.save.call(this);
   data.startIndex = this.startIndex.save();
   data.closedTournaments = this.closedTournaments.save();

@@ -10,7 +10,7 @@ import { test, expect } from 'vitest';
 
 import RLE from '../rle.js';
 test('RLE', () => {
-  var success, data, exp, e, d;
+  let success, data, exp, e, d;
 
   /*
    * encoding tests: static function

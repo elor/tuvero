@@ -10,7 +10,7 @@ function StartRoundController($button) {
 }
 extend(StartRoundController, Controller);
 StartRoundController.prototype.startRound = function () {
-  var tournament;
+  let tournament;
   if (State.tournaments.length === 0) {
     tournament = TournamentIndex.createTournament('swiss', Presets.systems.swiss.ranking);
     tournament.getName().set('Vorrunde');
@@ -20,7 +20,7 @@ StartRoundController.prototype.startRound = function () {
     State.tournaments.push(tournament);
   }
   State.tournaments.map(function (tournament) {
-    var state = tournament.getState().get();
+    const state = tournament.getState().get();
     if (state === 'idle' || state === 'initial') {
       tournament.run();
     }

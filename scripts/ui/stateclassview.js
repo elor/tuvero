@@ -28,7 +28,7 @@ extend(StateClassView, View);
  * change the class to the value of this.model.get()
  */
 StateClassView.prototype.update = function () {
-  var newClass;
+  let newClass;
   newClass = this.model.get();
   if (newClass !== this.currentClass) {
     this.$view.removeClass(this.currentClass);

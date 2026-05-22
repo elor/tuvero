@@ -30,7 +30,7 @@ function TeamsTab($tab) {
 }
 extend(TeamsTab, View);
 function sortTeamsByRankingPoints() {
-  var teams;
+  let teams;
   teams = State.teams.asArray();
   teams.sort(function (a, b) {
     return b.rankingpoints - a.rankingpoints || a.getID() - b.getID();
@@ -41,7 +41,7 @@ function sortTeamsByRankingPoints() {
   });
 }
 TeamsTab.prototype.init = function () {
-  var $container, $button, value;
+  let $container, $button, value;
 
   // teamsize bugfix
   if (State.teamsize.get() < Presets.registration.minteamsize) {
@@ -125,7 +125,7 @@ TeamsTab.prototype.update = function () {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="teams"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new TeamsTab($tab);

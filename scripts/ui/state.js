@@ -8,7 +8,7 @@
  */
 import StateModel from './statemodel.js';
 import Listener from '../core/listener.js';
-var State;
+let State;
 State = new StateModel();
 Listener.bind(State, 'error', function (emitter, event, message) {
   console.error(message);

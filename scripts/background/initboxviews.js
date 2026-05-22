@@ -7,10 +7,10 @@
  */
 import BoxView from '../ui/boxview.js';
 import $ from 'jquery';
-var InitViews;
+let InitViews;
 $(function ($) {
   $('.boxview:not(.template)').each(function () {
-    var $box;
+    let $box;
     $box = $(this);
     if ($box.parents('.template').length === 0) {
       return new BoxView($box);

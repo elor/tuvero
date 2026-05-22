@@ -10,7 +10,7 @@ import { test, expect } from 'vitest';
 
 import Emitter from '../emitter.js';
 test('Emitter', () => {
-  var emitter, listener, listener2, eventcounter, resetcounter, retval;
+  let emitter, listener, listener2, eventcounter, resetcounter, retval;
   eventcounter = resetcounter = 0;
   emitter = undefined;
   listener = undefined;

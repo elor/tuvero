@@ -59,7 +59,7 @@ BinningReferenceListModel.prototype.getBinNames = function () {
 *         couldn't be found and shouldn't be created
 */
 BinningReferenceListModel.prototype.getBin = function (binName) {
-  var index;
+  let index;
   index = this.sortedBins.indexOf(binName);
   if (index === -1) {
     return undefined;
@@ -79,7 +79,7 @@ BinningReferenceListModel.prototype.getBin = function (binName) {
 *         already exists
 */
 BinningReferenceListModel.prototype.createBinWithObject = function (binName, object) {
-  var index, bin;
+  let index, bin;
   bin = undefined;
   index = this.sortedBins.indexOf(binName);
   if (index === -1) {
@@ -109,7 +109,7 @@ BinningReferenceListModel.prototype.getBinName = function (binIndex) {
 *          the name of the bin
 */
 BinningReferenceListModel.prototype.removeEmptyBin = function (binName) {
-  var binIndex, sortedBinIndex;
+  let binIndex, sortedBinIndex;
   binIndex = this.bins.indexOf(binName);
   sortedBinIndex = this.sortedBins.indexOf(binName);
   if (binIndex !== -1 && sortedBinIndex !== -1) {
@@ -131,7 +131,7 @@ BinningReferenceListModel.prototype.removeEmptyBin = function (binName) {
 * @return the bin into which the element was inserted.
 */
 BinningReferenceListModel.insertElement = function (list, elementIndex) {
-  var bin, binName, element, nextElementIndex;
+  let bin, binName, element, nextElementIndex;
   element = list.refList.get(elementIndex);
   binName = list.binningFunction(element);
   bin = list.getBin(binName);
@@ -165,7 +165,7 @@ BinningReferenceListModel.insertElement = function (list, elementIndex) {
 *         if such an element does not exist.
 */
 BinningReferenceListModel.getNextBinElementIndex = function (list, begin, binName) {
-  var index;
+  let index;
   for (index = begin + 1; index < list.refList.length; index += 1) {
     if (list.binningFunction(list.refList.get(index)) === binName) {
       return index;
@@ -183,7 +183,7 @@ BinningReferenceListModel.getNextBinElementIndex = function (list, begin, binNam
 *          the element to remove
 */
 BinningReferenceListModel.removeElement = function (list, element) {
-  var bin, binName, index;
+  let bin, binName, index;
   binName = list.binningFunction(element);
   bin = list.getBin(binName);
   if (bin === undefined) {

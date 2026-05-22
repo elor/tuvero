@@ -13,7 +13,7 @@ import MatchResult from '../matchresult.js';
 import MatchModel from '../matchmodel.js';
 import ListModel from '../../list/listmodel.js';
 test('ResultReferenceModel', () => {
-  var game, result, ref, teamlist;
+  let game, result, ref, teamlist;
   teamlist = new ListModel();
   teamlist.push(5);
   teamlist.push(7);

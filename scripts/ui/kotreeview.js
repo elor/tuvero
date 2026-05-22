@@ -53,7 +53,7 @@ extend(KOTreeView, TemplateView);
  * print the best possible rank for this group
  */
 KOTreeView.prototype.updateGroupInformation = function () {
-  var bestrank = this.group * 2 + 1;
+  const bestrank = this.group * 2 + 1;
   this.$bestrank.text(bestrank);
 };
 
@@ -63,7 +63,7 @@ KOTreeView.prototype.updateGroupInformation = function () {
  * automatically.
  */
 KOTreeView.prototype.setSize = function () {
-  var numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID;
+  let numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID;
   numTeams = this.tournament.getTeams().length;
   thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams, this.fullwidth.get());
   lowestID = KOTournamentModel.firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;

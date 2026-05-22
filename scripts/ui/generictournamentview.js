@@ -14,7 +14,7 @@ import SwissTournamentView from './swisstournamentview.js';
 import KOTournamentView from './kotournamentview.js';
 import PlacementTournamentView from './placementtournamentview.js';
 import PoulesTournamentView from './poulestournamentview.js';
-var constructors, defaultConstructor;
+let constructors, defaultConstructor;
 constructors = {
   swiss: SwissTournamentView,
   formulex: SwissTournamentView,
@@ -29,7 +29,7 @@ defaultConstructor = TournamentView;
    * Constructor
    */
 function GenericTournamentView(tournament, $view, tournaments) {
-  var Constructor;
+  let Constructor;
   GenericTournamentView.superconstructor.call(this, undefined, $view);
   this.tournament = tournament;
   if (tournament) {

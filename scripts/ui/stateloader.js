@@ -12,7 +12,7 @@ import TimeMachine from '../timemachine/timemachine.js';
 import LegacyLoaderModel from './legacyloadermodel.js';
 import LegacyStorageKeyConverter from './legacystoragekeyconverter.js';
 import TeamsFileLoadController from './teamsfileloadcontroller.js';
-var StateLoader, versionFixers;
+let StateLoader, versionFixers;
 versionFixers = {
   '1.5.25': function (data) {
     data.tournaments.tournaments.forEach(function (tournament) {
@@ -44,7 +44,7 @@ versionFixers = {
    * @returns {StateLoaderModel} instance
    */
 function StateLoaderModel() {
-  var converter = new LegacyStorageKeyConverter();
+  const converter = new LegacyStorageKeyConverter();
   converter.convertAll();
 }
 
@@ -54,7 +54,7 @@ function StateLoaderModel() {
    * @returns {boolean} true on success, false otherwise
    */
 StateLoaderModel.prototype.loadLatest = function () {
-  var lastCommit;
+  let lastCommit;
   if (TimeMachine.roots.length === 0) {
     return false;
   }
@@ -71,7 +71,7 @@ StateLoaderModel.prototype.loadLatest = function () {
    * @returns {boolean} true on success, false otherwise
    */
 StateLoaderModel.prototype.loadCommit = function (commit) {
-  var string;
+  let string;
   if (!commit || !commit.isValid()) {
     return false;
   }
@@ -90,7 +90,7 @@ StateLoaderModel.prototype.loadCommit = function (commit) {
    * @return {boolean} true on success, false otherwise
    */
 StateLoaderModel.prototype.loadString = function (string) {
-  var data;
+  let data;
   if (!string) {
     return false;
   }
@@ -112,7 +112,7 @@ StateLoaderModel.prototype.loadString = function (string) {
    * @returns {boolean} true on success, false otherwise.
    */
 StateLoaderModel.prototype.loadData = function (data) {
-  var success;
+  let success;
   if (!data) {
     return false;
   }
@@ -137,7 +137,7 @@ StateLoaderModel.prototype.loadData = function (data) {
    * @return {boolean} true on success, false otherwise
    */
 StateLoaderModel.prototype.loadLegacyData = function (data) {
-  var loader;
+  let loader;
   console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly');
   loader = new LegacyLoaderModel();
   try {
@@ -151,7 +151,7 @@ StateLoaderModel.prototype.loadLegacyData = function (data) {
   return false;
 };
 StateLoaderModel.prototype.fixVersions = function (data) {
-  var versions = Object.keys(versionFixers).filter(function (version) {
+  const versions = Object.keys(versionFixers).filter(function (version) {
     return semver.lt(data.version, version);
   }).sort(semver.compare);
   versions.forEach(function (version) {

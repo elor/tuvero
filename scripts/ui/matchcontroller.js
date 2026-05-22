@@ -32,7 +32,7 @@ function MatchController(view, $form) {
 }
 extend(MatchController, Controller);
 MatchController.prototype.initKeyListeners = function () {
-  var controller, $lastinput;
+  let controller, $lastinput;
   controller = this;
   this.$form.keydown(function (e) {
     switch (e.which) {
@@ -68,7 +68,7 @@ MatchController.prototype.initKeyListeners = function () {
   });
 };
 MatchController.prototype.initNumberValidation = function () {
-  var controller = this;
+  const controller = this;
 
   // select the whole input field on focus. make id DAU-safe.
   this.$scores.click(function () {
@@ -79,7 +79,7 @@ MatchController.prototype.initNumberValidation = function () {
   // when
   // the focus is lost or the value is changed incrementally
   this.$scores.on('change keyup', function () {
-    var $this, value, valid;
+    let $this, value, valid;
     valid = true;
     $this = $(this);
     value = $this.val();
@@ -107,13 +107,13 @@ MatchController.prototype.updateButtonStatus = function () {
   this.$acceptbutton.prop('disabled', !this.validateScore());
 };
 MatchController.prototype.validateScore = function () {
-  var valid, tie, firstpoints, maxpoints;
+  let valid, tie, firstpoints, maxpoints;
   valid = this.$scores.filter('.invalid').length === 0;
   if (valid && (Options.tiesforbidden || Options.maxpointtiesforbidden)) {
     tie = true;
     firstpoints = undefined;
     this.$scores.each(function () {
-      var points = Number($(this).val());
+      const points = Number($(this).val());
       if (firstpoints === undefined) {
         firstpoints = points;
       }
@@ -138,7 +138,7 @@ MatchController.prototype.validateScore = function () {
  * @return true on success, false otherwise
  */
 MatchController.prototype.accept = function () {
-  var points;
+  let points;
   if (!this.validateScore()) {
     return false;
   }

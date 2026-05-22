@@ -32,7 +32,7 @@ extend(FileSaverModel, Model);
  * @return true on success, false otherwise
  */
 FileSaverModel.prototype.save = function () {
-  var commit, basename, filename, data, blob, saveState;
+  let commit, basename, filename, data, blob, saveState;
   commit = this.commit || TimeMachine.commit.get();
   if (!commit) {
     console.error('FileSaver: There is no commit to save');

@@ -17,7 +17,7 @@ import Listener from '../core/listener.js';
  *          a SwissTournamentView instance
  */
 function KOTournamentController(view) {
-  var $mode, tournament, initialByes;
+  let $mode, tournament, initialByes;
   KOTournamentController.superconstructor.call(this, view);
   tournament = this.model.tournament;
   initialByes = this.model.initialByes;

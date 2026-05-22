@@ -17,7 +17,7 @@ import MatrixModel from '../matrixmodel.js';
 import extend from '../../lib/extend.js';
 test('AbsoluteMatrix', () => {
   // constructor validation
-  var a, m;
+  let a, m;
   expect(
     extend.isSubclass(AbsoluteMatrix, DelegateMatrix),
     'AbsoluteMatrix is a DelegateMatrix subclass'

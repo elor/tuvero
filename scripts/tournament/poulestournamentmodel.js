@@ -7,7 +7,7 @@ import Random from '../core/random.js';
 import ValueModel from '../core/valuemodel.js';
 import Type from '../core/type.js';
 import VectorModel from '../math/vectormodel.js';
-var rng = new Random();
+const rng = new Random();
 function getTeamIDFromWho(result, who) {
   switch (who) {
     case 'winner':
@@ -63,16 +63,16 @@ PoulesTournamentModel.BYETEAMS = {
   lastteams: 'lastteams'
 };
 PoulesTournamentModel.prototype.initialMatches = function () {
-  var drawtables;
+  let drawtables;
   this.groups = this.createGroups();
   drawtables = this.getDrawTables();
   this.groups.forEach(function (group, groupID) {
-    var draws = drawtables[group.length];
+    const draws = drawtables[group.length];
     if (!draws) {
       throw new Error('no draw mode for group of size ' + group.length);
     }
     draws.forEach(function (draw, matchID) {
-      var teamA, teamB;
+      let teamA, teamB;
       teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined;
       teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined;
       if (this.ranking.pouleid) {
@@ -93,7 +93,7 @@ PoulesTournamentModel.prototype.initialMatches = function () {
   return true;
 };
 PoulesTournamentModel.prototype.finalizeGroupRankings = function (groupID) {
-  var rankingdata, poulerankdata, rankingranks;
+  let rankingdata, poulerankdata, rankingranks;
   if (this.matches.asArray().some(function (match) {
     return match.getGroup() === groupID;
   })) {
@@ -122,7 +122,7 @@ PoulesTournamentModel.prototype.finalizeGroupRankings = function (groupID) {
   }
 };
 PoulesTournamentModel.prototype.resetGroupRankingsFromPoints = function (groupID) {
-  var rankingdata, poulerankdata;
+  let rankingdata, poulerankdata;
   rankingdata = this.ranking.save();
   poulerankdata = new VectorModel();
   poulerankdata.restore(rankingdata.vals.poulerank);
@@ -133,7 +133,7 @@ PoulesTournamentModel.prototype.resetGroupRankingsFromPoints = function (groupID
   this.ranking.restore(rankingdata);
 };
 PoulesTournamentModel.prototype.flipGroupRankings = function (firstTwo) {
-  var rankingdata = this.ranking.save();
+  const rankingdata = this.ranking.save();
   firstTwo = firstTwo || rankingdata.comps.slice(0, 2).reverse();
   rankingdata.comps = firstTwo.concat(rankingdata.comps.slice(2));
   this.ranking.restore(rankingdata);
@@ -146,7 +146,7 @@ PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
   }
 };
 PoulesTournamentModel.prototype.postprocessCorrection = function (correction) {
-  var groupID;
+  let groupID;
   groupID = correction.before.getGroup();
   if (correction.before.getGroup() !== groupID) {
     this.emit('error', 'cannot correct one poule match with a completely different one');
@@ -158,7 +158,7 @@ PoulesTournamentModel.prototype.postprocessCorrection = function (correction) {
   }
 };
 PoulesTournamentModel.prototype.findMatch = function (matchID, groupID) {
-  var searchResult;
+  let searchResult;
   searchResult = this.matches.asArray().filter(function (match) {
     return groupID === match.getGroup() && matchID === match.getID();
   });
@@ -171,7 +171,7 @@ PoulesTournamentModel.prototype.findMatch = function (matchID, groupID) {
   throw new Error('Duplicate Match. ID/Group: ' + matchID + '/' + groupID);
 };
 PoulesTournamentModel.prototype.getDependentDraws = function (matchID, groupID, who) {
-  var groupSize, draws, drawsindexed;
+  let groupSize, draws, drawsindexed;
   groupSize = this.groups[groupID].length;
   draws = this.getDrawTables()[groupSize];
   if (!draws) {
@@ -193,7 +193,7 @@ PoulesTournamentModel.prototype.getDependentDraws = function (matchID, groupID, 
   });
 };
 PoulesTournamentModel.prototype.getRanksFromTable = function (matchID, groupID) {
-  var groupSize, ranks;
+  let groupSize, ranks;
   groupSize = this.groups[groupID].length;
   ranks = this.getRankTables()[groupSize];
   if (ranks === undefined) {
@@ -207,19 +207,19 @@ PoulesTournamentModel.prototype.checkForFollowupMatches = function (result) {
   this.checkFollowupMatch(result, 'loser');
 };
 PoulesTournamentModel.prototype.checkFollowupMatch = function (result, who) {
-  var dependencies, groupID, teamID;
+  let dependencies, groupID, teamID;
   teamID = getTeamIDFromWho(result, who);
   groupID = result.getGroup();
   dependencies = this.getDependentDraws(result.getID(), groupID, who);
   dependencies.forEach(function (dependency) {
-    var match = this.findMatch(dependency.drawindex, groupID);
+    const match = this.findMatch(dependency.drawindex, groupID);
     if (match) {
       this.createFollowupMatch(match, dependency, teamID);
     }
   }, this);
 };
 PoulesTournamentModel.prototype.createFollowupMatch = function (match, dependencyDraw, teamID) {
-  var groupID, matchID;
+  let groupID, matchID;
   matchID = match.getID();
   groupID = match.getGroup();
   switch (dependencyDraw.draw.length) {
@@ -237,7 +237,7 @@ PoulesTournamentModel.prototype.createFollowupMatch = function (match, dependenc
   }
 };
 PoulesTournamentModel.prototype.getDrawTables = function () {
-  var drawmode, defaultmode, byemode, poulesmode, poulesbyemode;
+  let drawmode, defaultmode, byemode, poulesmode, poulesbyemode;
   poulesmode = this.getProperty('poulesmode');
   poulesbyemode = this.getProperty('poulesbyeteams');
   drawmode = PoulesTables.MATCHES[poulesmode];
@@ -258,7 +258,7 @@ PoulesTournamentModel.prototype.getDrawTables = function () {
   };
 };
 PoulesTournamentModel.prototype.getRankTables = function () {
-  var drawmode, defaultranks, byeranks, poulesmode, poulesbyemode;
+  let drawmode, defaultranks, byeranks, poulesmode, poulesbyemode;
   poulesmode = this.getProperty('poulesmode');
   poulesbyemode = this.getProperty('poulesbyeteams');
   drawmode = PoulesTables.RANKING[poulesmode];
@@ -279,7 +279,7 @@ PoulesTournamentModel.prototype.maxPoules = function () {
   return Math.floor(this.teams.length / 3);
 };
 PoulesTournamentModel.prototype.isByePoule = function (pouleID) {
-  var numPoules, numByePoules;
+  let numPoules, numByePoules;
   numPoules = this.numpoules.get();
   numByePoules = this.numbyepoules.get();
   switch (this.getProperty('poulesbyepoules')) {
@@ -310,14 +310,14 @@ PoulesTournamentModel.prototype.createGroups = function () {
   }
 };
 PoulesTournamentModel.prototype.createEmptyPoules = function () {
-  var poules = [];
+  const poules = [];
   while (poules.length < this.numpoules.get()) {
     poules.push([]);
   }
   return poules;
 };
 PoulesTournamentModel.prototype.createGroupsOrder = function () {
-  var groups, teams;
+  let groups, teams;
   groups = this.createEmptyPoules();
   teams = this.getInternalTeamIDs();
   return groups.map(function (group, groupID) {
@@ -329,17 +329,17 @@ PoulesTournamentModel.prototype.createGroupsOrder = function () {
   }, this);
 };
 PoulesTournamentModel.prototype.createGroupsQuarters = function () {
-  var groups, teams;
+  let groups, teams;
   groups = this.createEmptyPoules();
   teams = this.getInternalTeamIDs();
   teams.forEach(function (teamID) {
-    var groupID = teamID % this.numpoules.get();
+    const groupID = teamID % this.numpoules.get();
     groups[groupID].push(teamID);
   }, this);
   return groups;
 };
 PoulesTournamentModel.prototype.createGroupsHeads = function () {
-  var groups, left, heads;
+  let groups, left, heads;
   groups = this.createEmptyPoules();
   left = this.getInternalTeamIDs();
   heads = left.splice(0, this.numpoules.get());
@@ -354,7 +354,7 @@ PoulesTournamentModel.prototype.createGroupsHeads = function () {
   return groups;
 };
 PoulesTournamentModel.prototype.createGroupsRandom = function () {
-  var groups, left;
+  let groups, left;
   groups = this.createEmptyPoules();
   left = this.getInternalTeamIDs();
   groups.forEach(function (group, groupID) {
@@ -373,7 +373,7 @@ PoulesTournamentModel.prototype.destroy = function () {
   PoulesTournamentModel.superclass.destroy.call(this);
 };
 PoulesTournamentModel.prototype.save = function () {
-  var data = PoulesTournamentModel.superclass.save.call(this);
+  const data = PoulesTournamentModel.superclass.save.call(this);
   data.numpoules = this.numpoules.get();
   data.groups = this.groups.slice();
   return data;

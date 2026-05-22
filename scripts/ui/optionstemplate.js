@@ -13,14 +13,14 @@
  */
 // NOTE TO SELF: Don't remove the '[],' from this line
 // Removing it WILL break EVERYTHING after r.js compilation !!!
-var OptionsTemplate, Default;
+let OptionsTemplate, Default;
 Default = {};
 OptionsTemplate = {};
 OptionsTemplate.toBlob = function () {
   return JSON.stringify(OptionsTemplate);
 };
 OptionsTemplate.fromBlob = function (blob) {
-  var opts, key;
+  let opts, key;
   opts = JSON.parse(blob);
 
   // delete everything

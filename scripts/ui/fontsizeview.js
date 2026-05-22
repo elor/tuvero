@@ -16,7 +16,7 @@ import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import FontSizeController from './fontsizecontroller.js';
 import FontSizeModel from './fontsizemodel.js';
-var classprefix;
+let classprefix;
 classprefix = 'fontsize';
 
 /**

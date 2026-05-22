@@ -16,7 +16,7 @@ import ListModel from './listmodel.js';
  *          are merged into a single list (i.e. this)
  */
 function CombinedReferenceListModel(list1, list2) {
-  var i;
+  let i;
   CombinedReferenceListModel.superconstructor.call(this);
   this.makeReadonly();
   if (list1 === undefined) {
@@ -49,7 +49,7 @@ extend(CombinedReferenceListModel, ListModel);
  *          a data object, as emitted by insert() from the original list
  */
 CombinedReferenceListModel.prototype.oninsert = function (emitter, evt, data) {
-  var listIndex = this.refLists.indexOf(emitter);
+  const listIndex = this.refLists.indexOf(emitter);
   if (listIndex !== -1) {
     CombinedReferenceListModel.insertElement(this, listIndex, data.id);
   }
@@ -66,7 +66,7 @@ CombinedReferenceListModel.prototype.oninsert = function (emitter, evt, data) {
  *          a data object, as emitted by remove() from the original list
  */
 CombinedReferenceListModel.prototype.onremove = function (emitter, evt, data) {
-  var listIndex = this.refLists.indexOf(emitter);
+  const listIndex = this.refLists.indexOf(emitter);
   if (listIndex !== -1) {
     CombinedReferenceListModel.removeElement(this, listIndex, data.id);
   }
@@ -81,7 +81,7 @@ CombinedReferenceListModel.prototype.onremove = function (emitter, evt, data) {
  *          the element to insert into the list
  */
 CombinedReferenceListModel.insertElement = function (list, listID, elementID) {
-  var index = list.findPosition(listID, elementID);
+  const index = list.findPosition(listID, elementID);
   if (index !== -1) {
     CombinedReferenceListModel.superclass.insert.call(list, index, list.refLists[listID].get(elementID));
     list.increaseOffsets(listID);
@@ -97,7 +97,7 @@ CombinedReferenceListModel.insertElement = function (list, listID, elementID) {
  *          the element to remove from the list
  */
 CombinedReferenceListModel.removeElement = function (list, listID, elementID) {
-  var index = list.findPosition(listID, elementID);
+  const index = list.findPosition(listID, elementID);
   if (index !== -1) {
     CombinedReferenceListModel.superclass.remove.call(list, index);
     list.reduceOffsets(listID);
@@ -118,13 +118,13 @@ CombinedReferenceListModel.prototype.findPosition = function (listID, elementID)
   return this.listOffsets[listID] + elementID;
 };
 CombinedReferenceListModel.prototype.increaseOffsets = function (startingListIndex) {
-  var id;
+  let id;
   for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
     this.listOffsets[id] += 1;
   }
 };
 CombinedReferenceListModel.prototype.reduceOffsets = function (startingListIndex) {
-  var id;
+  let id;
   for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
     this.listOffsets[id] -= 1;
   }

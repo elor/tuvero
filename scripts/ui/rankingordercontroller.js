@@ -21,16 +21,16 @@ import Controller from '../core/controller.js';
  */
 function RankingOrderController(view) {
   RankingOrderController.superconstructor.call(this, view);
-  var tournament = this.model;
-  var allComponents = this.view.allComponents;
+  const tournament = this.model;
+  const allComponents = this.view.allComponents;
   this.view.$selectedList.on('click', '.component', function () {
-    var components = tournament.ranking.componentnames;
+    const components = tournament.ranking.componentnames;
     components.splice($(this).index(), 1);
     tournament.setRankingOrder(components);
     view.updateFromScratch();
   });
   this.view.$availableList.on('click', '.component', function () {
-    var components = tournament.ranking.componentnames;
+    const components = tournament.ranking.componentnames;
     components.push(allComponents.get($(this).index()));
     tournament.setRankingOrder(components);
     view.updateFromScratch();

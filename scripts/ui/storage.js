@@ -48,7 +48,7 @@ Storage.values = {};
  *         anything fails (e.g. Implementation is the wrong type)
  */
 Storage.register = function (key, Implementation) {
-  var stored, model;
+  let stored, model;
   key = key || undefined;
   Implementation = Implementation || Model;
   if (!key || !Type.isString(key)) {

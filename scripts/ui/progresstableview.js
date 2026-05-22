@@ -65,10 +65,10 @@ extend(ProgressTableView, TemplateView);
  * components to the list of components, to be displayed via a ListView
  */
 ProgressTableView.prototype.updateRankingComponents = function () {
-  var order = this.ranking.get().components.slice();
+  const order = this.ranking.get().components.slice();
   order.push('ranks');
   order.forEach(function (componentName, index) {
-    var name = Strings['ranking_medium_' + componentName];
+    const name = Strings['ranking_medium_' + componentName];
     if (this.rankingComponents.length === index) {
       this.rankingComponents.push(name);
     } else if (this.rankingComponents.get(index) !== name) {

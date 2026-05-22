@@ -25,7 +25,7 @@ extend(IndexedListModel, ListModel);
  *          event callback data
  */
 IndexedListModel.prototype.updateIDs = function (data) {
-  var index, startindex;
+  let index, startindex;
   if (data === undefined) {
     // 'reset' event, where no data is sent
     return;

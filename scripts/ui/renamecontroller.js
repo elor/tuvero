@@ -18,7 +18,7 @@ import FileSaverModel from './filesavermodel.js';
  * Constructor
  */
 function RenameController(view, mouseSupport) {
-  var events;
+  let events;
   RenameController.superconstructor.call(this, view);
   this.$anchor = undefined;
   this.$rename = undefined;
@@ -44,7 +44,7 @@ RenameController.prototype.initRenameInput = function () {
   }
 };
 RenameController.prototype.startRename = function (evt) {
-  var name;
+  let name;
   if (this.$anchor) {
     return;
   }
@@ -66,7 +66,7 @@ RenameController.prototype.startRename = function (evt) {
   return false;
 };
 RenameController.prototype.endRename = function (evt) {
-  var name;
+  let name;
   if (!this.$anchor) {
     return;
   }

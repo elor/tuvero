@@ -10,7 +10,7 @@ import { test, expect } from 'vitest';
 
 import PropertyModel from '../propertymodel.js';
 test('PropertyModel', () => {
-  var prop, listener, ref, savedata;
+  let prop, listener, ref, savedata;
   prop = new PropertyModel();
   expect(prop !== undefined, 'empty initialization is allowed').toBeTruthy();
   expect(prop.getProperty('someprop'), 'access to undefined keys returns undefined').toBe(undefined);

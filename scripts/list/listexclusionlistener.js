@@ -34,7 +34,7 @@ extend(ListExclusionListener, Listener);
  * push the value, if it's not in the list already
  */
 ListExclusionListener.prototype.add = function () {
-  var index;
+  let index;
   index = this.list.indexOf(this.value);
   if (index === -1) {
     this.list.push(this.value);
@@ -45,7 +45,7 @@ ListExclusionListener.prototype.add = function () {
  * remove all appearances of the value from the list
  */
 ListExclusionListener.prototype.remove = function () {
-  var index;
+  let index;
   while ((index = this.list.indexOf(this.value)) !== -1) {
     this.list.remove(index);
   }

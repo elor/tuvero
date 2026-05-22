@@ -10,7 +10,7 @@ import { test, expect } from 'vitest';
 
 import TeamsFileLoadController from '../teamsfileloadcontroller.js';
 test('TeamsFileLoadController', () => {
-  var input, output, reference;
+  let input, output, reference;
 
   /*
    * Single Teams

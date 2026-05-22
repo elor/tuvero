@@ -14,7 +14,7 @@ import Controller from '../core/controller.js';
  *          the TeamSizeView
  */
 function TeamSizeController(view) {
-  var $buttons, model;
+  let $buttons, model;
   TeamSizeController.superconstructor.call(this, view);
   $buttons = this.view.$buttons;
   model = this.model;
@@ -24,7 +24,7 @@ function TeamSizeController(view) {
    * the team size from it. Increment and set.
    */
   $buttons.click(function () {
-    var teamsize;
+    let teamsize;
     teamsize = $buttons.index($(this)) + 1;
     if (teamsize > 0) {
       model.set(teamsize);

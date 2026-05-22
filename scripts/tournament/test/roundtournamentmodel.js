@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import RoundTournamentModel from '../roundtournamentmodel.js';
 import TournamentModel from '../tournamentmodel.js';
 test('RoundTournamentModel', () => {
-  var tournament, ret, ref, data, numteams, matches, teams, byes, state;
+  let tournament, ret, ref, data, numteams, matches, teams, byes, state;
   expect(
     extend.isSubclass(RoundTournamentModel, TournamentModel),
     'RoundTournamentModel is subclass of TournamentModel'

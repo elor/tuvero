@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import ListModel from '../listmodel.js';
 import ListUpdateListener from '../listupdatelistener.js';
 test('ListUpdateListener', () => {
-  var list, listener, ref;
+  let list, listener, ref;
   list = new ListModel();
   list.push(1);
 

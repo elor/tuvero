@@ -37,7 +37,7 @@ import RankingPlacementListener from './rankingplacementlistener.js';
 import RankingPouleIDListener from './rankingpouleidlistener.js';
 import RankingPouleRankListener from './rankingpouleranklistener.js';
 
-var allListeners = [
+const allListeners = [
   RankingLostPointsListener,
   RankingPointsListener,
   RankingSaldoListener,
@@ -63,13 +63,13 @@ var allListeners = [
   RankingPouleRankListener
 ];
 
-var RankingDataListenerIndex;
+let RankingDataListenerIndex;
 
 /**
  * build the index from the RankingXXXListener.NAME fields
  */
 RankingDataListenerIndex = (function (DataListeners) {
-  var RDLI, index, DataListener;
+  let RDLI, index, DataListener;
   RDLI = {};
   for (index = 0; index < DataListeners.length; index += 1) {
     DataListener = DataListeners[index];
@@ -98,7 +98,7 @@ function getDataListener(name) {
    *         dependencies
    */
 function getDataDependencies(name) {
-  var DataListener = getDataListener(name);
+  const DataListener = getDataListener(name);
   if (!DataListener) {
     console.warn('DataListener is undefined: ' + name);
     return undefined;
@@ -138,7 +138,7 @@ function dependenciesFulfilled(required, provided) {
    *          from
    */
 function addMissingDependencies(dependencies) {
-  var index, dataDependencies;
+  let index, dataDependencies;
   for (index = 0; index < dependencies.length; index += 1) {
     dataDependencies = getDataDependencies(dependencies[index]);
     if (dataDependencies) {
@@ -158,7 +158,7 @@ function addMissingDependencies(dependencies) {
    *          an array of dependency names
    */
 function removeMultipleDependencies(dependencies) {
-  var index;
+  let index;
   for (index = dependencies.length - 1; index >= 0; index -= 1) {
     if (dependencies.indexOf(dependencies[index]) < index) {
       dependencies.splice(index, 1);
@@ -177,7 +177,7 @@ function removeMultipleDependencies(dependencies) {
    * @return true of an element has been moved, false otherwise
    */
 function orderDependenciesOnce(input, output) {
-  var added;
+  let added;
   added = []; // array of indices
 
   // transfer every name whose dependencies have been fulfilled
@@ -206,7 +206,7 @@ function orderDependenciesOnce(input, output) {
    * @return false on failure, true on success
    */
 function orderDependencies(names) {
-  var input;
+  let input;
   input = names.splice(0).reverse();
   addMissingDependencies(input);
   removeMultipleDependencies(input);
@@ -232,7 +232,7 @@ function orderDependencies(names) {
    *          an array of dependency names
    */
 function extractUndefinedNames(names) {
-  var index;
+  let index;
   for (index = names.length - 1; index >= 0; index -= 1) {
     if (getDataListener(names[index]) !== undefined) {
       names.splice(index, 1);
@@ -254,7 +254,7 @@ function extractUndefinedNames(names) {
    *         otherwise
    */
 RankingDataListenerIndex.registerDataListeners = function (ranking, names) {
-  var DataListeners;
+  let DataListeners;
   if (!names) {
     return undefined;
   }

@@ -91,7 +91,7 @@ MatchModel.prototype.isResult = function () {
  *         IDs are valid (not undefined). false otherwise.
  */
 MatchModel.prototype.isRunningMatch = function () {
-  var valid;
+  let valid;
   valid = true;
   if (valid) {
     valid = !this.isResult();
@@ -123,7 +123,7 @@ MatchModel.prototype.setID = undefined;
  *         otherwise
  */
 MatchModel.prototype.finish = function (points) {
-  var result;
+  let result;
   if (!points || points.length !== this.length) {
     console.error("MatchModel.finish(): lengths don't match");
     return undefined;
@@ -140,7 +140,7 @@ MatchModel.prototype.finish = function (points) {
  * @return a data object
  */
 MatchModel.prototype.save = function () {
-  var data = MatchModel.superclass.save.call(this);
+  const data = MatchModel.superclass.save.call(this);
   data.g = this.group;
   data.t = this.teams.map(function (team) {
     if (team && team.getID) {

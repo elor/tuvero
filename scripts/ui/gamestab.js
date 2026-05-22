@@ -37,7 +37,7 @@ extend(GamesTab, View);
  * TODO maybe split it into multiple autodetected functions?
  */
 GamesTab.prototype.init = function () {
-  var $template, $container, value;
+  let $template, $container, value;
 
   // tournamentlist
   $container = this.$view.find('.tournamentlist');
@@ -67,7 +67,7 @@ GamesTab.prototype.init = function () {
  * show/hide the tab and update it as necessary
  */
 GamesTab.prototype.update = function () {
-  var i, isRunning;
+  let i, isRunning;
   isRunning = false;
   for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
     isRunning = State.tournaments.get(i).getState().get() === 'running';
@@ -124,7 +124,7 @@ data) {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="games"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new GamesTab($tab);

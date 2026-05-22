@@ -19,7 +19,7 @@ function TeamToastsListener(emitter) {
 }
 extend(TeamToastsListener, Listener);
 TeamToastsListener.prototype.onupdate = function (teamlist, event, data) {
-  var newname, team, player;
+  let newname, team, player;
   team = data.source;
   if (team) {
     player = team.getPlayer(data.id);
@@ -30,12 +30,12 @@ TeamToastsListener.prototype.onupdate = function (teamlist, event, data) {
   }
 };
 TeamToastsListener.prototype.oninsert = function (teamlist, event, data) {
-  var teamno;
+  let teamno;
   teamno = data.id;
   return new Toast(Strings.teamadded.replace('%s', teamno + 1));
 };
 TeamToastsListener.prototype.onremove = function (teamlist, event, data) {
-  var teamno;
+  let teamno;
   teamno = data.id;
   return new Toast(Strings.teamdeleted.replace('%s', teamno + 1));
 };

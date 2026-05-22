@@ -28,14 +28,14 @@ import SystemTableRowView from './systemtablerowview.js';
  *
  */
 function SystemListView(teams, $view, tournaments, teamsize, tournamentViewFactory) {
-  var orderList, updateTimeout;
+  let orderList, updateTimeout;
   orderList = new OrderListModel();
   SystemListView.superconstructor.call(this, orderList, $view, $view.find('.team.template'), SystemTableRowView, teams, tournaments, tournamentViewFactory);
   this.teams = teams;
   this.tournaments = tournaments;
   updateTimeout = undefined;
   Listener.bind(tournaments, 'update', function (model, event, data) {
-    var list = this;
+    const list = this;
     if (updateTimeout === undefined) {
       window.setTimeout(function () {
         list.updateOrder();
@@ -44,7 +44,7 @@ function SystemListView(teams, $view, tournaments, teamsize, tournamentViewFacto
     }
   }, this);
   Listener.bind(teams, 'insert,remove', function (model, event, data) {
-    var list = this;
+    const list = this;
     if (event === 'remove') {
       list.removeAfter(data.id);
     }
@@ -64,7 +64,7 @@ extend(SystemListView, ListView);
  * Update the row order to match the global ranking displayOrder
  */
 SystemListView.prototype.updateOrder = function () {
-  var ranking, order;
+  let ranking, order;
   if (this.teams.length > 0) {
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     order = ranking.displayOrder;
@@ -80,7 +80,7 @@ SystemListView.prototype.updateOrder = function () {
  *          the first ID to remove
  */
 SystemListView.prototype.removeAfter = function (firstID) {
-  var order = this.model.map(function (teamID) {
+  const order = this.model.map(function (teamID) {
     return teamID;
   }).filter(function (id) {
     return id < firstID;

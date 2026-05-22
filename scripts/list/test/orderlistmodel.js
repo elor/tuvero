@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import OrderListModel from '../orderlistmodel.js';
 import ListModel from '../listmodel.js';
 test('OrderListModel', () => {
-  var list, ref;
+  let list, ref;
   expect(
     extend.isSubclass(OrderListModel, ListModel),
     'OrderListModel is subclass of ListModel'

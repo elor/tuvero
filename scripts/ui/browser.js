@@ -9,7 +9,7 @@
  */
 import Online from '../background/online.js';
 import Update from './update.js';
-var Browser;
+let Browser;
 Browser = {
   name: undefined,
   version: undefined,
@@ -27,8 +27,8 @@ Browser.update = function () {
    *
    * @return browser information: "Browsername 13.0.0.1" or similar
    */
-  var sayswho = function () {
-    var ua, tem, M, regex;
+  const sayswho = function () {
+    let ua, tem, M, regex;
     ua = navigator.userAgent;
     regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i;
     M = ua.match(regex) || [];

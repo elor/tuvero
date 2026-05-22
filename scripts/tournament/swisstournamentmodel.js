@@ -11,7 +11,7 @@ import RoundTournamentModel from './roundtournamentmodel.js';
 import Random from '../core/random.js';
 import MatchModel from '../core/matchmodel.js';
 import Presets from 'presets';
-var rng = new Random();
+const rng = new Random();
 /**
  * Constructor
  *
@@ -57,7 +57,7 @@ SwissTournamentModel.MODES = {
  * @return true on success, false otherwise
  */
 SwissTournamentModel.prototype.idleMatches = function () {
-  var rankGroups, matches, votes, mode;
+  let rankGroups, matches, votes, mode;
 
   /*
    * validate swiss mode
@@ -140,7 +140,7 @@ SwissTournamentModel.prototype.setRankingOrder = function (rankingorder) {
   }
 };
 SwissTournamentModel.prototype.correctWinGroupRankingOrder = function () {
-  var components, windex;
+  let components, windex;
   components = this.ranking.componentnames;
   if (this.getProperty('swissmode') === 'wins' && components[0] !== 'wins') {
     windex = components.indexOf('wins');
@@ -165,7 +165,7 @@ SwissTournamentModel.prototype.correctWinGroupRankingOrder = function () {
  * @return a 2d groups array where the groups are transposed
  */
 SwissTournamentModel.transposeGroups = function (groups) {
-  var transposed = [];
+  const transposed = [];
   groups.forEach(function (group) {
     group.forEach(function (teamid, index) {
       if (transposed[index] === undefined) {
@@ -189,7 +189,7 @@ SwissTournamentModel.transposeGroups = function (groups) {
  *         rank
  */
 SwissTournamentModel.getGroups = function (ranking, mode) {
-  var allGroups, currentGroup, lastID, getID;
+  let allGroups, currentGroup, lastID, getID;
 
   /*
    * build different getIDs for different models
@@ -229,7 +229,7 @@ SwissTournamentModel.getGroups = function (ranking, mode) {
   allGroups = [currentGroup];
   lastID = undefined;
   ranking.displayOrder.forEach(function (teamid, rankingid) {
-    var id = getID(rankingid);
+    const id = getID(rankingid);
     if (id !== lastID) {
       lastID = id;
       if (currentGroup && currentGroup.length) {
@@ -253,7 +253,7 @@ SwissTournamentModel.getGroups = function (ranking, mode) {
  */
 SwissTournamentModel.shuffleGroupTeams = function (rankGroups) {
   return rankGroups.map(function (group) {
-    var newgroup;
+    let newgroup;
     newgroup = [];
     while (group.length) {
       newgroup.push(rng.pickAndRemove(group));
@@ -277,7 +277,7 @@ SwissTournamentModel.shuffleGroupTeams = function (rankGroups) {
  * @return true on success, false otherwise
  */
 SwissTournamentModel.prototype.findSwissByesAndMatches = function (outMatches, outVotes, rankGroups) {
-  var reverseRankGroups;
+  let reverseRankGroups;
   outVotes.byes = [];
   outVotes.ups = [];
   outVotes.downs = [];
@@ -285,7 +285,7 @@ SwissTournamentModel.prototype.findSwissByesAndMatches = function (outMatches, o
     reverseRankGroups = rankGroups.slice(0).reverse();
     if (!reverseRankGroups.some(function (group) {
       return group.slice(0).reverse().some(function (teamid) {
-        var index;
+        let index;
         if (!this.canGetBye(teamid)) {
           return false;
         }
@@ -318,7 +318,7 @@ SwissTournamentModel.prototype.findSwissByesAndMatches = function (outMatches, o
  * @return the number of teams in the rank group
  */
 SwissTournamentModel.getGroupsTeamCount = function (rankGroups) {
-  var sum = 0;
+  let sum = 0;
   rankGroups.forEach(function (group) {
     sum += group.length;
   });
@@ -335,12 +335,12 @@ SwissTournamentModel.getGroupsTeamCount = function (rankGroups) {
  * @return true if there's no obvious error, false otherwise
  */
 SwissTournamentModel.prototype.prefilterSwissMatches = function (rankGroups) {
-  var downvote = false;
+  let downvote = false;
 
   // verify up/downvotes
   if (this.getProperty('enableupdown')) {
     if (!rankGroups.every(function (group) {
-      var teams = group.length;
+      let teams = group.length;
       if (downvote) {
         // upvote required
         if (!group.some(this.canGetUpvote.bind(this))) {
@@ -375,7 +375,7 @@ SwissTournamentModel.prototype.prefilterSwissMatches = function (rankGroups) {
  * @return true on success, false otherwise
  */
 SwissTournamentModel.prototype.findSwissMatches = function (outMatches, outVotes, rankGroups) {
-  var currentGroup, teamA, teamB, updown;
+  let currentGroup, teamA, teamB, updown;
 
   // console.log(getGroupsTeamCount(rankGroups));
   // console.log(JSON.stringify(rankGroups));
@@ -416,7 +416,7 @@ SwissTournamentModel.prototype.findSwissMatches = function (outMatches, outVotes
       }
     }
     return group.some(function (team, index) {
-      var secondGroup, teamBindex;
+      let secondGroup, teamBindex;
       if (this.canPlayMatch(teamA, team, updown)) {
         secondGroup = group;
         teamB = team;

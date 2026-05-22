@@ -43,7 +43,7 @@ extend(ReferenceListModel, ListModel);
  *          the id to insert at
  */
 ReferenceListModel.insertMatch = function (referenceList, id) {
-  var ref;
+  let ref;
   ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams);
   ListModel.prototype.insert.call(referenceList, id, ref);
 };

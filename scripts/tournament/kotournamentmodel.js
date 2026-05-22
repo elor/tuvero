@@ -15,7 +15,7 @@ import ByeResult from '../core/byeresult.js';
 import Options from 'options';
 import Presets from 'presets';
 import { _registerKOTournamentModel } from '../ranking/rankingkolistener.js';
-var rng = new Random();
+const rng = new Random();
 
 /**
  * Constructor
@@ -40,7 +40,7 @@ KOTournamentModel.MODES = {
  * @return true on success, false otherwise
  */
 KOTournamentModel.prototype.initialMatches = function () {
-  var mode, indices, indexFunction, matchID, roundID, match, teams;
+  let mode, indices, indexFunction, matchID, roundID, match, teams;
   mode = this.getProperty('komode');
   indexFunction = KOTournamentModel[mode + 'Indices'];
   if (!Type.isFunction(indexFunction)) {
@@ -101,7 +101,7 @@ KOTournamentModel.prototype.postprocessMatch = function (matchresult) {
  * @return the match (MatchModel) on success, undefined otherwise
  */
 KOTournamentModel.prototype.findMatch = function (group, id) {
-  var index, match;
+  let index, match;
   for (index = 0; index < this.matches.length; index += 1) {
     match = this.matches.get(index);
     if (match.getID() === id && match.getGroup() === group) {
@@ -122,7 +122,7 @@ KOTournamentModel.prototype.findMatch = function (group, id) {
  *         otherwise
  */
 KOTournamentModel.prototype.findMatchInHistory = function (group, id) {
-  var index, match;
+  let index, match;
   for (index = 0; index < this.history.length; index += 1) {
     match = this.history.get(index);
     if (match.getID() === id && match.getGroup() === group) {
@@ -136,7 +136,7 @@ KOTournamentModel.prototype.findMatchInHistory = function (group, id) {
  * create all placeholder matches
  */
 KOTournamentModel.prototype.createPlaceholderMatches = function () {
-  var groups, groupMatchIDLimit, id, maxgroup, existingMatches;
+  let groups, groupMatchIDLimit, id, maxgroup, existingMatches;
   maxgroup = Math.min(this.getProperty('komaxgroup'), (this.teams.length - 1) / 2);
   groups = [];
   while (groups.length <= maxgroup) {
@@ -170,7 +170,7 @@ KOTournamentModel.prototype.createPlaceholderMatches = function () {
  * to be used for repairs only.
  */
 KOTournamentModel.prototype.createWaitingMatches = function () {
-  var teamMatches, lastresults;
+  let teamMatches, lastresults;
   teamMatches = this.teams.map(function () {
     return undefined;
   });
@@ -181,7 +181,7 @@ KOTournamentModel.prototype.createWaitingMatches = function () {
   });
   lastresults = [];
   teamMatches.forEach(function (team, teamid) {
-    var lastHistoryResult;
+    let lastHistoryResult;
     if (team === undefined) {
       this.history.map(function (result) {
         if (result.teams.indexOf(teamid) !== -1) {
@@ -208,7 +208,7 @@ KOTournamentModel.prototype.createWaitingMatches = function () {
  *          a MatchResult (or MatchModel or ByeResult)
  */
 KOTournamentModel.prototype.checkForFollowupMatches = function (result) {
-  var currentMatchID, nextMatchID, winnergroup, losergroup, winner, loser;
+  let currentMatchID, nextMatchID, winnergroup, losergroup, winner, loser;
   currentMatchID = result.getID();
   if (currentMatchID === 0) {
     // don't advance beyond the finale
@@ -253,7 +253,7 @@ KOTournamentModel.prototype.checkForFollowupMatches = function (result) {
  *          the current match, which has just ended
  */
 KOTournamentModel.prototype.createFollowupMatch = function (teamID, nextMatchID, nextGroupID, currentMatch) {
-  var opponent, match, complementaryMatchID, currentMatchID, currentGroupID, teams;
+  let opponent, match, complementaryMatchID, currentMatchID, currentGroupID, teams;
   currentMatchID = currentMatch.getID();
   currentGroupID = currentMatch.getGroup();
   if (currentMatchID <= 1) {
@@ -306,7 +306,7 @@ KOTournamentModel.prototype.createFollowupMatch = function (teamID, nextMatchID,
  * @return an array of team indices for a matched tournament
  */
 KOTournamentModel.matchedIndices = function (length) {
-  var indices, index, value, length2;
+  let indices, index, value, length2;
   if (length === 1) {
     indices = [0];
   } else if (length > 1) {
@@ -333,7 +333,7 @@ KOTournamentModel.matchedIndices = function (length) {
  *         for the init function
  */
 KOTournamentModel.orderedIndices = function (length) {
-  var indices, length2, index;
+  let indices, length2, index;
   length2 = KOTournamentModel.ceilPowerOfTwo(length);
   indices = [];
   while (indices.length < length) {
@@ -353,7 +353,7 @@ KOTournamentModel.orderedIndices = function (length) {
  *         matches
  */
 KOTournamentModel.shuffledIndices = function (length) {
-  var indices, length2, index, teamids;
+  let indices, length2, index, teamids;
   length2 = KOTournamentModel.ceilPowerOfTwo(length);
   teamids = [];
   while (teamids.length < length) {
@@ -441,7 +441,7 @@ KOTournamentModel.roundOfMatchID = function (matchID) {
  * @return the next group ID
  */
 KOTournamentModel.loserGroupID = function (groupID, lostMatchID) {
-  var round = KOTournamentModel.roundOfMatchID(lostMatchID);
+  const round = KOTournamentModel.roundOfMatchID(lostMatchID);
   if (round === 0) {
     return groupID;
   }
@@ -478,7 +478,7 @@ KOTournamentModel.initialRoundForTeams = function (numTeams) {
  * @return the number of rounds which are played exclusively in this group
  */
 KOTournamentModel.roundsInGroup = function (group) {
-  var rounds;
+  let rounds;
   if (group === 0) {
     return 30;
   }

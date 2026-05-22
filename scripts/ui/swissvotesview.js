@@ -34,11 +34,11 @@ extend(SwissVotesView, View);
  * for every .prop subview, initiate a SwissVotePropView
  */
 SwissVotesView.prototype.initProps = function () {
-  var tournament, regex;
+  let tournament, regex;
   tournament = this.model;
   regex = /^(\S*\s)*(\S+after\S+)(\s\S*)*$/; // extract "XafterY" string
   this.$view.find('.prop').each(function () {
-    var prop, $view;
+    let prop, $view;
     $view = $(this);
     prop = $view.attr('class').replace(regex, '$2');
     return new SwissVotePropView(new PropertyValueModel(tournament, prop), $view);

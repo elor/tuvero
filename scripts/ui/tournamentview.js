@@ -18,7 +18,7 @@ import Presets from 'presets';
 import RankingOrderView from './rankingorderview.js';
 import Strings from './strings.js';
 function TournamentView(tournament, $view, tournaments) {
-  var advancedOptions;
+  let advancedOptions;
   TournamentView.superconstructor.call(this, undefined, $view);
   this.$view.attr('rowspan', tournament.getTeams().length);
   this.model.tournament = tournament;
@@ -53,7 +53,7 @@ function TournamentView(tournament, $view, tournaments) {
 }
 extend(TournamentView, View);
 TournamentView.prototype.initRankingOrderViews = function () {
-  var availableComponents;
+  let availableComponents;
   this.$rankingOrderViews = this.$view.find('.rankingorderview');
   if (this.$rankingOrderViews.length > 0) {
     availableComponents = Presets.ranking.components.slice(0);
@@ -68,14 +68,14 @@ TournamentView.prototype.initRankingOrderViews = function () {
       return a.localeCompare(b);
     });
     this.rankingOrderViews = [];
-    for (var i = 0; i < this.$rankingOrderViews.length; i += 1) {
+    for (let i = 0; i < this.$rankingOrderViews.length; i += 1) {
       this.rankingOrderViews.push(new RankingOrderView(this.model.tournament, this.$rankingOrderViews.eq(i), new ListModel(availableComponents)));
     }
   }
 };
 TournamentView.prototype.hideRankingOrder = function () {
   this.$view.find('.rankingorder').each(function () {
-    var $anchor, $this;
+    let $anchor, $this;
     $this = $(this);
     $anchor = $this.parent().find('.tournamentoptions.boxview');
     if ($anchor.length === 1) {

@@ -11,7 +11,7 @@
  */
 import TabMenuView from '../core/tabmenuview.js';
 import $ from 'jquery';
-var tabmenu, TabsHandle;
+let tabmenu, TabsHandle;
 tabmenu = {
   getTabModel: function () {
     return undefined;
@@ -24,7 +24,7 @@ $(function () {
 });
 TabsHandle = {
   hide: function (tabname) {
-    var tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname);
     if (!tab) {
       return;
     }
@@ -32,7 +32,7 @@ TabsHandle = {
     tab.accessibility.set(false);
   },
   show: function (tabname) {
-    var tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname);
     if (!tab) {
       return;
     }
@@ -40,7 +40,7 @@ TabsHandle = {
     tab.accessibility.set(true);
   },
   secret: function (tabname) {
-    var tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname);
     if (!tab) {
       return;
     }
@@ -51,7 +51,7 @@ TabsHandle = {
     tabmenu.focus(tabname);
   },
   bindTabOpts: function (tabname, valueModel) {
-    var tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname);
     if (!tab) {
       return undefined;
     }

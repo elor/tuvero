@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 import $ from 'jquery';
-var FontHotkeys, $buttons;
+let FontHotkeys, $buttons;
 FontHotkeys = undefined;
 $buttons = undefined;
 function hashcheck() {
@@ -22,7 +22,7 @@ function hashcheck() {
   }
 }
 function getFontSize() {
-  var fontSize = -1;
+  let fontSize = -1;
   $buttons.each(function (index) {
     if ($(this).parent().hasClass($(this).attr('class'))) {
       fontSize = index;
@@ -31,7 +31,7 @@ function getFontSize() {
   return fontSize;
 }
 function setFontSize(fontSize) {
-  var index = Math.min(Math.max(fontSize, 0), $buttons.length - 1);
+  const index = Math.min(Math.max(fontSize, 0), $buttons.length - 1);
   $buttons.eq(index).click();
 }
 $(window).on('hashchange', function () {

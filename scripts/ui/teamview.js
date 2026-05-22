@@ -21,7 +21,7 @@ function TeamView(model, $view, teamlist) {
 }
 extend(TeamView, View);
 TeamView.prototype.update = function () {
-  var $names, i, $name, $teamno, player, $rankingpoints, $teamname;
+  let $names, i, $name, $teamno, player, $rankingpoints, $teamname;
   $teamno = this.$view.find('.teamno');
   if ($teamno.length === 0) {
     $teamno = this.$view.filter('.teamno');

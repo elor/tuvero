@@ -36,7 +36,7 @@ function Listener(emitter) {
  * @return the internally created Listener, e.g. for destroy() calls
  */
 Listener.bind = function (emitter, events, callback, thisArg) {
-  var listener, initialCallback;
+  let listener, initialCallback;
   if (thisArg) {
     initialCallback = function (_emitter, _event, data) {
       callback.call(thisArg, _emitter, _event, data);

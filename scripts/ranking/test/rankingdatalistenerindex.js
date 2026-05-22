@@ -13,7 +13,7 @@ import MatchResult from '../../core/matchresult.js';
 import MatchModel from '../../core/matchmodel.js';
 import Emitter from '../../core/emitter.js';
 test('RankingDataListenerIndex', () => {
-  var names, listeners, dummyRanking, result, ref;
+  let names, listeners, dummyRanking, result, ref;
   dummyRanking = new Emitter();
   dummyRanking.length = 5;
   dummyRanking.EVENTS = {

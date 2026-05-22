@@ -34,7 +34,7 @@ RankingHeadToHeadListener.DEPENDENCIES = ['winsmatrix'];
  *         but stops its ranking just before the 'headtohead' component
  */
 RankingHeadToHeadListener.prototype.createDummyRanking = function () {
-  var components, dummyRanking;
+  let components, dummyRanking;
   components = this.ranking.componentnames.slice(0);
   components.splice(components.indexOf(RankingHeadToHeadComponent.NAME));
   dummyRanking = new RankingModel(components, this.ranking.length);
@@ -54,7 +54,7 @@ RankingHeadToHeadListener.prototype.createDummyRanking = function () {
  * @return the 2D array of equally-ranked teams
  */
 RankingHeadToHeadListener.prototype.getGroups = function (ranks) {
-  var groups = [];
+  const groups = [];
   ranks.ranks.forEach(function (rank, internalid) {
     if (groups[rank] === undefined) {
       groups[rank] = [];
@@ -75,7 +75,7 @@ RankingHeadToHeadListener.prototype.calculatePoints = function (groups) {
   this.headtohead.fill(0);
   groups.forEach(function (group) {
     group.forEach(function (teamA) {
-      var points = this.headtohead.get(teamA);
+      let points = this.headtohead.get(teamA);
       group.forEach(function (teamB) {
         points += this.winsmatrix.get(teamA, teamB);
       }, this);
@@ -92,7 +92,7 @@ RankingHeadToHeadListener.prototype.calculatePoints = function (groups) {
  * equally-ranked teams
  */
 RankingHeadToHeadListener.prototype.onrecalc = function () {
-  var dummyRanking, ranks, groups;
+  let dummyRanking, ranks, groups;
   dummyRanking = this.createDummyRanking();
   ranks = dummyRanking.getNoRecalc();
   groups = this.getGroups(ranks);

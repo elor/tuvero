@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import Emitter from '../emitter.js';
 import Listener from '../listener.js';
 test('Listener', () => {
-  var emitter, emitter2, listener, ref;
+  let emitter, emitter2, listener, ref;
   emitter = new Emitter();
   emitter2 = new Emitter();
   emitter2.numListeners = function () {

@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import ListModel from '../../list/listmodel.js';
 import VectorModel from '../vectormodel.js';
 test('VectorModel', () => {
-  var vec, vec2, retvec, ref, success, data;
+  let vec, vec2, retvec, ref, success, data;
   expect(
     extend.isSubclass(VectorModel, ListModel),
     'VectorModel is subclass of ListModel'

@@ -20,7 +20,7 @@ function generateCacheID(from, midx, to) {
  * @return a combined string of the styles, as used by the HTML style attr.
  */
 function styleToString(style) {
-  var key, strings;
+  let key, strings;
   strings = [];
   for (key in style) {
     if (style.hasOwnProperty(key)) {
@@ -44,7 +44,7 @@ function styleToString(style) {
  * @return a newly instantiated svg DOM element
  */
 function createSVG(width, height, left, top) {
-  var svg, style;
+  let svg, style;
   style = {
     position: 'absolute',
     width: width + 'em',
@@ -68,7 +68,7 @@ function createSVG(width, height, left, top) {
  * @return the SVG line DOM object
  */
 function createSVGLine(from, to) {
-  var line;
+  let line;
   line = document.createElementNS(KOLine.SVGNS, 'line');
   line.setAttributeNS(null, 'x1', from[0] + 'em');
   line.setAttributeNS(null, 'y1', from[1] + 'em');
@@ -90,7 +90,7 @@ function createSVGLine(from, to) {
  * @return a SVG object, which correctly represents the path
  */
 function createSVGPath(from, to) {
-  var midx, mid1, mid2, group, pathid;
+  let midx, mid1, mid2, group, pathid;
   midx = (from[0] + to[0]) / 2;
   pathid = generateCacheID(from, midx, to);
   if (KOLine.pathCache[pathid]) {
@@ -122,7 +122,7 @@ function createSVGPath(from, to) {
  *          this.svg and is supposed to be jQuery-compatible
  */
 function KOLine(from, to) {
-  var width, height, left, right, top, bottom;
+  let width, height, left, right, top, bottom;
   left = Math.min(from[0], to[0]);
   right = Math.max(from[0], to[0]);
   top = Math.min(from[1], to[1]);

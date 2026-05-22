@@ -21,7 +21,7 @@ function TimeMachineView($view) {
 }
 extend(TimeMachineView, View);
 TimeMachineView.prototype.init = function () {
-  var $container, $template;
+  let $container, $template;
   /*
    * Time Machine Commits
    */

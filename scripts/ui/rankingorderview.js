@@ -41,9 +41,9 @@ extend(RankingOrderView, TemplateView);
  * items
  */
 RankingOrderView.prototype.update = function () {
-  var selected = this.selectedComponents;
+  const selected = this.selectedComponents;
   this.$availableList.find('.component').each(function (index) {
-    var $option = $(this);
+    const $option = $(this);
     if (selected.indexOf($option.val()) === -1) {
       $option.removeClass('hidden');
     } else {

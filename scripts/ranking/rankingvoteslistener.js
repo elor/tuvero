@@ -23,7 +23,7 @@ RankingVotesListener.NAME = 'votes';
 RankingVotesListener.DEPENDENCIES = ['upvotes', 'downvotes', 'byes'];
 RankingVotesListener.prototype.onrecalc = function () {
   this.votes.map(function (oldVote, teamID) {
-    var i, string;
+    let i, string;
     string = '';
 
     // byes

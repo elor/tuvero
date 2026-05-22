@@ -12,7 +12,7 @@ import ValueModel from '../../core/valuemodel.js';
 import ListModel from '../../list/listmodel.js';
 import ListCollectorModel from '../listcollectormodel.js';
 test('ListCollectorModel', () => {
-  var model, list, listener, obj;
+  let model, list, listener, obj;
   listener = {
     updatecount: 0,
     onupdate: function () {

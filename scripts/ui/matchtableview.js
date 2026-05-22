@@ -16,7 +16,7 @@ import Strings from './strings.js';
 import ListCollectorModel from './listcollectormodel.js';
 import MatchModel from '../core/matchmodel.js';
 function MatchTableView(model, $view, teamlist, tournament, teamsize) {
-  var $listview;
+  let $listview;
   MatchTableView.superconstructor.call(this, model, $view, $view.find('.match'));
   $listview = this.$view.children('table');
   this.listView = new ListView(this.model, $listview, this.$template, MatchResultView, teamlist, tournament);
@@ -30,7 +30,7 @@ function MatchTableView(model, $view, teamlist, tournament, teamsize) {
   this.updateGroupNumber();
   this.updateCount();
   this.updatePlaceHeader();
-  var view = this;
+  const view = this;
   this.groupListener = new Listener(this.model);
   this.groupListener.onresize = function (emitter, event, data) {
     view.updateGroupNumber();
@@ -46,7 +46,7 @@ extend(MatchTableView, TemplateView);
  * print the group ID as soon as it's available
  */
 MatchTableView.prototype.updateGroupNumber = function () {
-  var min, max, groupIDs;
+  let min, max, groupIDs;
   if (this.model.length > 0) {
     groupIDs = this.model.map(function (match) {
       return Number(match.getGroup()) + 1;
@@ -73,7 +73,7 @@ MatchTableView.prototype.updatePlaceHeader = function () {
   }
 };
 MatchTableView.prototype.updateRunningState = function () {
-  var i, isRunning;
+  let i, isRunning;
   isRunning = false;
   for (i = 0; i < this.model.length; i += 1) {
     if (!this.model.get(i).isResult()) {

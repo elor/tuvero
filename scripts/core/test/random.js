@@ -12,7 +12,7 @@ import { test, expect } from 'vitest';
 
 import Random from '../random.js';
 test('Random', () => {
-  var min, max, r, x, i;
+  let min, max, r, x, i;
   r = new Random();
   max = min = r.nextInt(64);
   for (i = 0; i < 10000; i += 1) {

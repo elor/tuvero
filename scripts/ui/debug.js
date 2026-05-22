@@ -9,10 +9,10 @@
 import Toast from './toast.js';
 import Strings from './strings.js';
 import $ from 'jquery';
-var Debug;
+let Debug;
 Debug = {
   stackTrace: function () {
-    var e, stack;
+    let e, stack;
     e = new Error('dummy');
     stack = e.stack.replace(/^[^(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@');
     console.log(stack);

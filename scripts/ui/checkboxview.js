@@ -31,7 +31,7 @@ extend(CheckBoxView, View);
 * apply model state to checkbox state
 */
 CheckBoxView.prototype.update = function () {
-  var viewvalue, modelvalue;
+  let viewvalue, modelvalue;
   viewvalue = this.$view.prop('checked');
   modelvalue = this.model.get();
   if (viewvalue !== modelvalue) {

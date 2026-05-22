@@ -2,7 +2,7 @@ import $ from 'jquery';
 import extend from '../lib/extend.js';
 import Controller from '../core/controller.js';
 import State from './state.js';
-var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 function numberToAlphaString(number) {
   if (number < 0) {
     return '';
@@ -13,7 +13,7 @@ function numberToAlphaString(number) {
   return alphabet[number];
 }
 function PoulesTournamentController(view) {
-  var $mode, $seed, $byepoules, $byeteams, $numpoules, tournament;
+  let $mode, $seed, $byepoules, $byeteams, $numpoules, tournament;
   PoulesTournamentController.superconstructor.call(this, view);
   tournament = this.model.tournament;
   $mode = this.view.$mode;
@@ -30,7 +30,7 @@ function PoulesTournamentController(view) {
   this.view.$view.find('button.canonicalteamnames').click(function () {
     tournament.getGroups().forEach(function (group, groupID) {
       group.forEach(function (teamID, teamNumber) {
-        var team = State.teams.get(teamID);
+        const team = State.teams.get(teamID);
         team.number = numberToAlphaString(groupID) + (teamNumber + 1);
         team.emit('update');
       });

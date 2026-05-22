@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import CombinedReferenceListModel from '../combinedreferencelistmodel.js';
 import ListModel from '../listmodel.js';
 test('CombinedReferenceListModel', () => {
-  var list1, list2, combined, success;
+  let list1, list2, combined, success;
   expect(
     extend.isSubclass(CombinedReferenceListModel, ListModel),
     'CombinedReferenceListModel is subclass of ListModel'

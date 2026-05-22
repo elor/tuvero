@@ -39,7 +39,7 @@ extend(HistoryTab, View);
  * TODO maybe split it into multiple autodetected functions?
  */
 HistoryTab.prototype.init = function () {
-  var $template, $container, value, fullwidth;
+  let $template, $container, value, fullwidth;
   fullwidth = new ValueModel();
   fullwidth.dependencies = [State.tabOptions.showNames, State.tabOptions.showTeamName];
   fullwidth.onupdate = function () {
@@ -95,7 +95,7 @@ HistoryTab.prototype.init = function () {
  * show/hide the tab and update it as necessary
  */
 HistoryTab.prototype.update = function () {
-  var i, hasHistory;
+  let i, hasHistory;
   hasHistory = false;
   for (i = 0; !hasHistory && i < State.tournaments.length; i += 1) {
     hasHistory = State.tournaments.get(i).getCombinedHistory().length > 0;
@@ -157,7 +157,7 @@ data) {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="history"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new HistoryTab($tab);

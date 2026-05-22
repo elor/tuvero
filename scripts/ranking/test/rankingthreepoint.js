@@ -13,7 +13,7 @@ import MatchResult from '../../core/matchresult.js';
 import MatchModel from '../../core/matchmodel.js';
 import CorrectionModel from '../../core/correctionmodel.js';
 test('ThreePoint Ranking', () => {
-  var ranking, ret, ref;
+  let ranking, ret, ref;
   ranking = new RankingModel(['threepoint', 'wins', 'points'], 5);
   expect(
     ranking.dataListeners.threepoint.isPrimary(),

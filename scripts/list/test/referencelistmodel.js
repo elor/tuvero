@@ -15,7 +15,7 @@ import '../../core/matchresult.js';
 import MatchReferenceModel from '../../core/matchreferencemodel.js';
 import ReferenceListModel from '../referencelistmodel.js';
 test('ReferenceListModel', () => {
-  var teams, matches, refs, listener, matchref;
+  let teams, matches, refs, listener, matchref;
   teams = new ListModel();
   teams.push(5);
   teams.push(4);

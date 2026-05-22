@@ -18,7 +18,7 @@ import MatchResultView from './matchresultview.js';
  * Constructor
  */
 function ProgressRowView(matches, $view, teamlist, tournament) {
-  var teamno = matches.get(0).getTeamID(0);
+  const teamno = matches.get(0).getTeamID(0);
   ProgressRowView.superconstructor.call(this, teamlist.get(teamno), $view, $view.find('.template'));
   this.ranking = tournament.getRanking();
   this.$separator = this.$view.find('.hidden.separator');
@@ -39,13 +39,13 @@ function ProgressRowView(matches, $view, teamlist, tournament) {
 }
 extend(ProgressRowView, TemplateView);
 ProgressRowView.prototype.updateRank = function () {
-  var ranking, rankIndex, order;
+  let ranking, rankIndex, order;
   ranking = this.ranking.get();
   rankIndex = ranking.ids.indexOf(this.model.getID());
   order = ranking.components.slice(0);
   order.push('ranks');
   order.forEach(function (component, index) {
-    var value = ranking[component][rankIndex];
+    let value = ranking[component][rankIndex];
     if (component === 'ranks') {
       value += 1;
     }

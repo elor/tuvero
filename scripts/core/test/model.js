@@ -12,7 +12,7 @@ import Model from '../model.js';
 import Emitter from '../emitter.js';
 import extend from '../../lib/extend.js';
 test('Model', () => {
-  var model, success;
+  let model, success;
   expect(extend.isSubclass(Model, Emitter), 'Model is an Emitter subclass').toBeTruthy();
   model = new Model();
   expect(model.save(), 'Model.save() returns empty object').toEqual({});

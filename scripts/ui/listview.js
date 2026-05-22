@@ -27,7 +27,7 @@ import TextView from './textview.js';
  *          SubView constructor
  */
 function ListView(model, $view, $template, SubView) {
-  var i;
+  let i;
   ListView.superconstructor.call(this, model, $view, $template);
   this.SubView = SubView || TextView;
   this.optArgs = [];
@@ -52,7 +52,7 @@ ListView.prototype.reset = function () {
  * redraw everything
  */
 ListView.prototype.update = function () {
-  var index;
+  let index;
   this.reset();
   for (index = 0; index < this.model.length; index += 1) {
     this.insertItem(index);
@@ -66,7 +66,7 @@ ListView.prototype.update = function () {
  *          the index of the item inside the underlying list
  */
 ListView.prototype.insertItem = function (index) {
-  var $subview, subview, model, $previousView, args;
+  let $subview, subview, model, $previousView, args;
   $subview = this.$template.clone();
   model = this.model.get(index);
   args = this.optArgs.slice(0);
@@ -101,7 +101,7 @@ ListView.prototype.insertItem = function (index) {
  * @return the index of the DOM element inside the underlying list
  */
 ListView.prototype.indexOf = function ($view) {
-  var $parents, parentindex, index;
+  let $parents, parentindex, index;
 
   // verify the descendance and ascend to the subview level of the DOM
   $parents = $view.parents();
@@ -165,7 +165,7 @@ ListView.prototype.getSubview = function (index) {
  *          the index of the item upon removal
  */
 ListView.prototype.removeItem = function (index) {
-  var subview;
+  let subview;
   subview = this.subviews[index];
   if (subview) {
     subview.destroy();

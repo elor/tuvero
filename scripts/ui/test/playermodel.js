@@ -13,7 +13,7 @@ import PlayerModel from '../playermodel.js';
 // TODO test the emitted events
 
 test('PlayerModel', () => {
-  var model, res, ref, listener;
+  let model, res, ref, listener;
   listener = {
     updatecount: 0,
     /**

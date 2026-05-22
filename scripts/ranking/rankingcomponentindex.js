@@ -27,9 +27,9 @@ import RankingPlacementComponent from './rankingplacementcomponent.js';
 import RankingPouleIDComponent from './rankingpouleidcomponent.js';
 import RankingPouleRankComponent from './rankingpoulerankcomponent.js';
 
-var RankingComponentIndex, index, Component, allComponents;
+let RankingComponentIndex, index, Component, allComponents;
 
-var allComponentList = [
+const allComponentList = [
   RankingIDComponent,
   RankingPointsComponent,
   RankingLostPointsComponent,
@@ -71,7 +71,7 @@ for (index = 0; index < allComponentList.length; index += 1) {
    *         the first element in the components array
    */
 RankingComponentIndex.createComponentChain = function (ranking, components) {
-  var chainfront;
+  let chainfront;
   chainfront = undefined;
 
   // copy the array and revert it: we'll construct the chain from its end
@@ -82,7 +82,7 @@ RankingComponentIndex.createComponentChain = function (ranking, components) {
   // Abort if a component is not defined.
   if (!components.every(function (component) {
     component = component.toLowerCase();
-    var constructor = allComponents[component];
+    const constructor = allComponents[component];
     if (constructor === undefined) {
       console.error('RankingComponentIndex.createComponentChain error: ' + 'undefined component name: ' + component);
       return false;

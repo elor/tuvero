@@ -16,7 +16,7 @@ import State from './state.js';
 import Listener from '../core/listener.js';
 import TimeMachine from '../timemachine/timemachine.js';
 import FontSizeView from './fontsizeview.js';
-var mainPopout, $fontsizeview, fontsizeview;
+let mainPopout, $fontsizeview, fontsizeview;
 
 // TODO close a popout when its parent is removed from the DOM
 
@@ -65,7 +65,7 @@ function PopoutController(view, cloneFunction) {
 }
 extend(PopoutController, Controller);
 PopoutController.prototype.popout = function (e) {
-  var $popoutView, stylepath, $style, $title, $body;
+  let $popoutView, stylepath, $style, $title, $body;
   $popoutView = this.view.$popoutTemplate.clone();
   if (!isMainPopoutOpen()) {
     console.log('opening new popout');

@@ -10,7 +10,7 @@ import { test, expect } from 'vitest';
 
 import ValueModel from '../valuemodel.js';
 test('ValueModel', () => {
-  var model, listener, obj, model2;
+  let model, listener, obj, model2;
   listener = {
     lastdata: undefined,
     updatecount: 0,

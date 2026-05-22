@@ -11,7 +11,7 @@ import { test, expect } from 'vitest';
 import ListModel from '../listmodel.js';
 import Model from '../../core/model.js';
 import extend from '../../lib/extend.js';
-var DummyModel;
+let DummyModel;
 
 /*
  * dummy Model, which can be saved/restored for testing
@@ -32,7 +32,7 @@ DummyModel = function (optional) {
 };
 extend(DummyModel, Model);
 test('ListModel', () => {
-  var list, obj, i, ret, res, listener, data;
+  let list, obj, i, ret, res, listener, data;
   listener = {
     reset: function () {
       listener.length = 0;

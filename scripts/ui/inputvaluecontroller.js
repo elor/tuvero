@@ -13,7 +13,7 @@ import Controller from '../core/controller.js';
  * Constructor
  */
 function InputValueController(view) {
-  var controller;
+  let controller;
   InputValueController.superconstructor.call(this, view);
   controller = this;
   this.view.$view.change(function () {

@@ -15,7 +15,7 @@ import PlayerModel from './playermodel.js';
 import TeamModel from './teammodel.js';
 import Strings from './strings.js';
 import Type from '../core/type.js';
-var emptyPlayer, byePlayer;
+let emptyPlayer, byePlayer;
 
 // player name for bye votes
 byePlayer = new PlayerModel(Strings.byename);
@@ -30,7 +30,7 @@ emptyPlayer.setName = function () {};
  *         bye players and a (textual) team id which represents a bye vote
  */
 function createByeTeam(length) {
-  var players, team;
+  let players, team;
   players = [];
   while (players.length < length) {
     players.push(byePlayer);
@@ -40,7 +40,7 @@ function createByeTeam(length) {
   return team;
 }
 function createEmptyTeam(length) {
-  var players, team;
+  let players, team;
   players = [];
   while (players.length < length) {
     players.push(emptyPlayer);
@@ -50,7 +50,7 @@ function createEmptyTeam(length) {
   return team;
 }
 function $createTeamsLists($elements) {
-  var team, teams, i, $element;
+  let team, teams, i, $element;
   team = undefined;
   teams = [];
   for (i = 0; i <= $elements.length; i += 1) {
@@ -119,7 +119,7 @@ MatchView.prototype.destroyTeamViews = function () {
  * update all the values
  */
 MatchView.prototype.update = function () {
-  var $teams, i, $team, teamid, isBye, team, teamsize;
+  let $teams, i, $team, teamid, isBye, team, teamsize;
   $teams = this.$view.find('.team');
   if ($teams.length === 0) {
     $teams = $createTeamsLists(this.$view.find('>.teamno , >.name , >.teamname'));

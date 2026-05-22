@@ -12,9 +12,11 @@ import BoxView from './boxview.js';
 import PopoutController from './popoutcontroller.js';
 import ValueModel from '../core/valuemodel.js';
 import ClassView from '../core/classview.js';
-var $iconTemplate, $popoutIconTemplate, $closeIconTemplate,
-  //
-  $pageBreakIconTemplate;
+let $iconTemplate,
+    $popoutIconTemplate,
+    $closeIconTemplate,
+    //
+    $pageBreakIconTemplate;
 $iconTemplate = $('<div>').addClass('icon').addClass('noprint');
 
 // TODO read this from DOM.

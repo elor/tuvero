@@ -13,7 +13,7 @@ import Toast from './toast.js';
 import Strings from './strings.js';
 import Presets from 'presets';
 import State from './state.js';
-var examplefiles;
+let examplefiles;
 examplefiles = [];
 examplefiles[1] = 'Teilnehmer 1\n' + 'Teilnehmer 2\n' + 'Teilnehmer 3\n' + 'Teilnehmer 4\n' + '\n# Hinweis: Tete-a-tete -> ein Name pro Zeile\n';
 examplefiles[2] = 'Erik E. Lorenz, Fabian "Fabe" Böttcher\n' + 'Spieler 3, Spieler 4\n' + 'Spieler 5, Spieler 6\n' + 'Spieler 7, Spieler 8\n' + '\n# Hinweis: Doublette -> Zwei Namen pro Zeile, mit Komma getrennt\n';
@@ -31,7 +31,7 @@ function TeamFormatDownloadController(view) {
 }
 extend(TeamFormatDownloadController, Controller);
 TeamFormatDownloadController.prototype.save = function () {
-  var blob;
+  let blob;
   try {
     blob = new Blob([examplefiles[State.teamsize.get()] || examplefiles[2]]);
     saveAs(blob, Presets.names.teamsfile);

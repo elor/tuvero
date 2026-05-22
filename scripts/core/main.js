@@ -18,7 +18,7 @@ function notifyAboutLoadError (err) {
   console.log(err)
 
   $(function () {
-    var $splash
+    let $splash;
 
     // Splash.setState(), but without splash being loaded
     $('body').addClass('splash')
@@ -39,7 +39,7 @@ $(function () {
 
   // using a timeout to let the browser update the splashtext
   setTimeout(function () {
-    var loaded
+    let loaded;
 
     try {
       try {

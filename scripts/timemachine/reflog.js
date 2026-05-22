@@ -24,7 +24,7 @@ import Query from './query.js';
 import ListModel from '../list/listmodel.js';
 import Listener from '../core/listener.js';
 import KeyModel from './keymodel.js';
-var RefLog;
+let RefLog;
 
 /**
  * Constructor of the singleton. Don't expose.
@@ -53,7 +53,7 @@ RefLogModel.prototype.EVENTS = {
  * @return true on success, false otherwise
  */
 RefLogModel.prototype.refresh = function () {
-  var newSource, newData;
+  let newSource, newData;
   if (window.localStorage) {
     newSource = window.localStorage[this.storageKey];
   } else {
@@ -90,7 +90,7 @@ RefLogModel.prototype.refresh = function () {
  * currently opened tournament, not others.
  */
 RefLogModel.prototype.store = function () {
-  var dataString;
+  let dataString;
   if (!this.isValid()) {
     this.emit('error', 'RefLogModel: this.data is not valid!');
     return false;
@@ -123,7 +123,7 @@ RefLogModel.prototype.isValid = function () {
  * @return the new key. Returns undefined on error.
  */
 RefLogModel.prototype.newSaveKey = function (parentKey) {
-  var newKey, startDate, refDate, saveDate;
+  let newKey, startDate, refDate, saveDate;
   if (!parentKey) {
     this.emit('error', 'newSaveKey: no parent key given');
     return undefined;
@@ -149,7 +149,7 @@ RefLogModel.prototype.newSaveKey = function (parentKey) {
  * @return a new root key which hasn't been in the reflog before
  */
 RefLogModel.prototype.newInitKey = function (name) {
-  var newKey;
+  let newKey;
 
   /*
    * Creating keys within milliseconds of another can cause rootkey collision
@@ -291,7 +291,7 @@ RefLogModel.prototype.getChildren = function (refKey) {
     return [];
   }
   return this.listSaveDates(refKey.startDate).filter(function (saveDate) {
-    var parentDate = this.data[refKey.startDate][saveDate];
+    const parentDate = this.data[refKey.startDate][saveDate];
     return parentDate === refKey.saveDate;
   }, this).map(function (saveDate) {
     return new KeyModel(refKey.startDate, saveDate);
@@ -302,7 +302,7 @@ RefLogModel.prototype.getChildren = function (refKey) {
  * @return an array of all keys in the reflog.
  */
 RefLogModel.prototype.getAllKeys = function () {
-  var keys;
+  let keys;
   keys = this.getInitKeys();
   this.listStartDates().forEach(function (startDate) {
     this.listSaveDates(startDate).forEach(function (saveDate) {
@@ -326,9 +326,9 @@ RefLogModel.prototype.getInitKeys = function () {
  *         latest save state
  */
 RefLogModel.prototype.getLatestGlobalKey = function () {
-  var latestKey;
+  let latestKey;
   latestKey = this.listStartDates().map(function (startDate) {
-    var saveDate = this.listSaveDates(startDate).sort().pop() || startDate;
+    const saveDate = this.listSaveDates(startDate).sort().pop() || startDate;
     return new KeyModel(startDate, saveDate);
   }, this).sort(KeyModel.sortFunction).pop();
   if (!latestKey) {
@@ -344,7 +344,7 @@ RefLogModel.prototype.getLatestGlobalKey = function () {
  * @return the youngest key in the whole tree
  */
 RefLogModel.prototype.getLatestRelatedKey = function (refKey) {
-  var startDate, saveDate, rootKey;
+  let startDate, saveDate, rootKey;
   if (!KeyModel.isValidKey(refKey)) {
     this.emit('error', 'getLatestRelatedKey(): refKey is invalid');
     return undefined;
@@ -404,7 +404,7 @@ RefLogModel.prototype.deleteTree = function (refKey) {
  *          save key. root keys cannot be deleted.
  */
 RefLogModel.prototype.deleteKey = function (refKey) {
-  var parentKey, children;
+  let parentKey, children;
   if (refKey.isRoot()) {
     this.emit('error', 'cannot delete a single init key. ' + 'use deleteTree() instead');
     return;

@@ -9,6 +9,6 @@
 import ServerModel from './servermodel.js';
 import Storage from './storage.js';
 import Presets from 'presets';
-var Server;
+let Server;
 Server = Storage.register(Presets.names.apitoken, ServerModel);
 export default Server;

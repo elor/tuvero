@@ -37,7 +37,7 @@ NewTeamView.prototype.resetFields = function () {
 };
 NewTeamView.prototype.focusEmpty = function () {
   this.$players.each(function () {
-    var $this;
+    let $this;
     $this = $(this);
     if (!$this.attr('disabled') && /^\s*$/.test($this.val())) {
       $(this).focus();
@@ -46,7 +46,7 @@ NewTeamView.prototype.focusEmpty = function () {
   });
 };
 NewTeamView.prototype.updateTeamSize = function () {
-  var teamsize;
+  let teamsize;
   if (!this.teamsize) {
     console.error('NewTeamView.updateTeamSize called ' + 'without a valid teamsize model');
     return;

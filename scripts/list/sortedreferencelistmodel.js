@@ -113,7 +113,7 @@ SortedReferenceListModel.descending = function (a, b) {
  *          the element to insert into the list
  */
 SortedReferenceListModel.insertElement = function (list, element) {
-  var index = SortedReferenceListModel.findPosition(list, element);
+  const index = SortedReferenceListModel.findPosition(list, element);
   if (list.unique && index !== 0) {
     if (list.sortFunction(list.get(index - 1), element) === 0) {
       return;
@@ -131,7 +131,7 @@ SortedReferenceListModel.insertElement = function (list, element) {
  *          the element to remove from the list
  */
 SortedReferenceListModel.removeElement = function (list, element) {
-  var index = list.indexOf(element);
+  const index = list.indexOf(element);
   if (index >= 0) {
     SortedReferenceListModel.superclass.remove.call(list, index);
   }
@@ -155,7 +155,7 @@ SortedReferenceListModel.removeElement = function (list, element) {
  *         0 to list.length.
  */
 SortedReferenceListModel.findPosition = function (list, element, begin, end) {
-  var relation, mid;
+  let relation, mid;
   if (begin === undefined) {
     begin = 0;
   }

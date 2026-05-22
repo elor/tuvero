@@ -16,7 +16,7 @@ import AntisymmetricMatrixModel from '../antisymmetricmatrixmodel.js';
 import extend from '../../lib/extend.js';
 test('AntisymmetricMatrixModel', () => {
   // constructor validation
-  var a;
+  let a;
   expect(
    extend.isSubclass(AntisymmetricMatrixModel, MatrixModel),
    'AntisymmetricMatrixModel is subclass of MatrixModel'

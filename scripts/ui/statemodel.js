@@ -96,7 +96,7 @@ StateModel.prototype.SAVEFORMAT.version = String; // e.g. '1.5.0'
  * @returns {Object} a serializable data object, which can be used for restoring
  */
 StateModel.prototype.save = function () {
-  var data = StateModel.superclass.save.call(this);
+  const data = StateModel.superclass.save.call(this);
   data.teams = this.teams.save();
   data.teamsize = this.teamsize.get();
   data.tournaments = this.tournaments.save();

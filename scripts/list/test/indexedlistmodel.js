@@ -13,7 +13,7 @@ import IndexedListModel from '../indexedlistmodel.js';
 import ListModel from '../listmodel.js';
 import IndexedModel from '../indexedmodel.js';
 test('IndexedListModel', () => {
-  var list;
+  let list;
   expect(
     extend.isSubclass(IndexedListModel, ListModel),
     'IndexedListModel is subclass of ListModel'

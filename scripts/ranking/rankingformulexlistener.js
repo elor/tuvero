@@ -14,7 +14,7 @@ function winscore(round) {
   return (Math.floor(round / 4) + 1) * Options['formulexpoints'];
 }
 function formulePoints(score, round) {
-  var winner, points, difference;
+  let winner, points, difference;
   if (score.length !== 2) {
     throw new Error('FormuleX ranking requires exactly two teams per match');
   }
@@ -39,9 +39,9 @@ function RankingFormuleXListener(ranking) {
 extend(RankingFormuleXListener, RankingDataListener);
 RankingFormuleXListener.NAME = 'formulex';
 RankingFormuleXListener.prototype.onresult = function (r, e, result) {
-  var points = formulePoints(result.score, result.group);
+  const points = formulePoints(result.score, result.group);
   points.forEach(function (p, index) {
-    var team = result.teams[index];
+    const team = result.teams[index];
     this.formulex.add(team, p);
   }, this);
 };
@@ -57,15 +57,15 @@ RankingFormuleXListener.prototype.onresult = function (r, e, result) {
  *          an array of teams, as prepared and provided by RankingModel.bye()
  */
 RankingFormuleXListener.prototype.onbye = function (r, e, data) {
-  var points = formulePoints(Options['formulexbyescore'], data.round)[0];
+  const points = formulePoints(Options['formulexbyescore'], data.round)[0];
   data.teams.forEach(function (team) {
     this.formulex.add(team, points);
   }, this);
 };
 RankingFormuleXListener.prototype.oncorrect = function (r, e, correction) {
-  var pointsBefore = formulePoints(correction.before.score, correction.before.group);
+  const pointsBefore = formulePoints(correction.before.score, correction.before.group);
   pointsBefore.forEach(function (points, index) {
-    var team = correction.before.teams[index];
+    const team = correction.before.teams[index];
     this.formulex.add(team, -points);
   }, this);
   this.onresult(r, e, correction.after);

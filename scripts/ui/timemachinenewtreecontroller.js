@@ -27,7 +27,7 @@ extend(TimeMachineNewTreeController, Controller);
  * @return true. always.
  */
 TimeMachineNewTreeController.prototype.create = function () {
-  var name;
+  let name;
   name = this.$input.val();
   if (!name) {
     this.$input.focus();

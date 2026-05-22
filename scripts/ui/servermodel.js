@@ -35,7 +35,7 @@ ServerModel.prototype.EVENTS = {
   'update': true
 };
 ServerModel.prototype.validateToken = function () {
-  var message;
+  let message;
   this.tokenvalid.set(undefined);
   if (!this.token.get()) {
     return;
@@ -87,7 +87,7 @@ ServerModel.prototype.createToken = function (token) {
   });
 };
 ServerModel.prototype.invalidateToken = function () {
-  var message;
+  let message;
   if (!this.token.get()) {
     this.tokenvalid.set(false);
     return;
@@ -122,7 +122,7 @@ ServerModel.prototype.unregisterMessage = function () {
   this.openTransactions.set(this.openTransactions.get() - 1);
 };
 ServerModel.prototype.communicationStatus = function () {
-  var causes = {
+  const causes = {
     'https': Browser.secure,
     'tuvero': Browser.legit,
     'online': Online(),
@@ -143,7 +143,7 @@ ServerModel.prototype.onupdate = function () {
   this.emit('update');
 };
 ServerModel.prototype.save = function () {
-  var data = ServerModel.superclass.save.call(this);
+  const data = ServerModel.superclass.save.call(this);
   data.token = this.token.get() || '';
   return data;
 };

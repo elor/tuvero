@@ -8,7 +8,7 @@
  */
 import extend from '../lib/extend.js';
 import Listener from './listener.js';
-var depth;
+let depth;
 depth = 0;
 function getClassName(instance) {
   return instance.constructor.toString().split('\n')[0].replace(/function (\S+)\(.*/, '$1');
@@ -51,7 +51,7 @@ Emitter.prototype.EVENTS = {
  * @return true if the some listener received the event, false otherwise
  */
 Emitter.prototype.emit = function (event, data) {
-  var success, indentation;
+  let success, indentation;
   success = false;
   if (!this.validEvent(event)) {
     console.error('Emitter: unspecified event type: ' + event);
@@ -127,7 +127,7 @@ Emitter.prototype.registerListener = function (listener) {
  * @return this
  */
 Emitter.prototype.unregisterListener = function (listener) {
-  var index;
+  let index;
   index = this.listeners.indexOf(listener);
   if (index !== -1) {
     this.listeners.splice(index, 1);

@@ -15,7 +15,7 @@ import PlacementTournamentModel from './placementtournamentmodel.js';
 import PoulesTournamentModel from './poulestournamentmodel.js';
 import FormuleXTournamentModel from './formulextournamentmodel.js';
 
-var allTournamentModels = [
+const allTournamentModels = [
   RoundTournamentModel,
   SwissTournamentModel,
   KOTournamentModel,
@@ -24,7 +24,7 @@ var allTournamentModels = [
   FormuleXTournamentModel
 ];
 
-var TournamentIndex, tournamentSystems, i, sys;
+let TournamentIndex, tournamentSystems, i, sys;
 tournamentSystems = {};
 for (i = 0; i < allTournamentModels.length; i += 1) {
   sys = allTournamentModels[i].prototype.SYSTEM;

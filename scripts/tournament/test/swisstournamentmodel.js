@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import SwissTournamentModel from '../swisstournamentmodel.js';
 import TournamentModel from '../tournamentmodel.js';
 test('SwissTournamentModel', () => {
-  var groups, matches, votes, result, tournament;
+  let groups, matches, votes, result, tournament;
   expect(
    extend.isSubclass(SwissTournamentModel, TournamentModel),
    'SwissTournamentModel is subclass of TournamentModel'

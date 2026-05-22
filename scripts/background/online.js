@@ -12,7 +12,7 @@
 import $ from 'jquery';
 import Strings from '../ui/strings.js';
 import Update from '../ui/update.js';
-var Online;
+let Online;
 
 /**
  * Check for an internet connection. Does not check for an active connection
@@ -28,7 +28,7 @@ Online = function () {
 
 $(function ($) {
   $(window).on('beforeunload', function (e) {
-    var message = Strings.offlineconfirmexit;
+    const message = Strings.offlineconfirmexit;
     if (!Online() && !Update.isCached && document.location.protocol !== 'file:') {
       if (e) {
         e.returnValue = message;

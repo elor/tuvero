@@ -12,7 +12,7 @@ import extend from '../../lib/extend.js';
 import BinningReferenceListModel from '../binningreferencelistmodel.js';
 import ListModel from '../listmodel.js';
 test('BinningReferenceListModel', () => {
-  var success, binlist, bin, list, binningFunction;
+  let success, binlist, bin, list, binningFunction;
   expect(
     extend.isSubclass(BinningReferenceListModel, ListModel),
     'BinningReferenceListModel is subclass of ListModel'

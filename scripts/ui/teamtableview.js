@@ -40,11 +40,11 @@ extend(TeamTableView, View);
  * show one column for each player in a team (teamsize)
  */
 TeamTableView.prototype.updatePlayerColumns = function () {
-  var teamsize, teamindex;
+  let teamsize, teamindex;
   teamsize = this.model.get();
   teamindex = 0;
   this.$names.each(function (index, elem) {
-    var $elem;
+    let $elem;
     $elem = $(elem);
     if ($elem.hasClass('playercol')) {
       if (teamindex < teamsize) {

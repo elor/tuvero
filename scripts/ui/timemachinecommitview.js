@@ -43,17 +43,17 @@ TimeMachineCommitView.prototype.updateName = function () {
   this.nameView.model.set(this.model.getTreeName());
 };
 TimeMachineCommitView.prototype.updateStartDate = function () {
-  var startDate = new Date(this.model.key.startDate);
+  const startDate = new Date(this.model.key.startDate);
   this.startDateView.model.set(startDate.toLocaleString());
 };
 TimeMachineCommitView.prototype.updateSaveDate = function () {
-  var youngestAncestor, saveDate;
+  let youngestAncestor, saveDate;
   youngestAncestor = this.model.getYoungestDescendant() || this.model;
   saveDate = new Date(youngestAncestor.key.saveDate);
   this.saveDateView.model.set(saveDate.toLocaleString());
 };
 TimeMachineCommitView.prototype.updateSize = function () {
-  var size = TimeMachine.usedRelatedStorage(this.model);
+  let size = TimeMachine.usedRelatedStorage(this.model);
   size = Math.round(size / 102.4) / 10;
   this.sizeView.model.set(size + 'kB');
 };

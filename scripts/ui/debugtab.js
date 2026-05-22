@@ -46,7 +46,7 @@ extend(DebugTab, View);
  * TODO maybe split it into multiple autodetected functions?
  */
 DebugTab.prototype.init = function () {
-  var $container, $button;
+  let $container, $button;
 
   /*
    * Show Tab in dev versions
@@ -122,7 +122,7 @@ DebugTab.prototype.init = function () {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  var $tab;
+  let $tab;
   $tab = $('#tabs > [data-tab="debug"]');
   if ($tab.length && $('#testmain').length === 0) {
     return new DebugTab($tab);

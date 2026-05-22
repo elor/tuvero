@@ -47,7 +47,7 @@ function SystemTableRowView(index, $view, teams, tournaments, viewPopulator, $ne
 }
 extend(SystemTableRowView, View);
 SystemTableRowView.prototype.updateRankTexts = function () {
-  var ranking, globalRank, tournamentRank;
+  let ranking, globalRank, tournamentRank;
   ranking = this.tournaments.getGlobalRanking(this.teams.length);
   globalRank = ranking.globalRanks[this.teamID];
   tournamentRank = ranking.tournamentRanks[this.teamID];
@@ -68,7 +68,7 @@ SystemTableRowView.prototype.updateRankTexts = function () {
  *          a global ranking object
  */
 SystemTableRowView.prototype.updateLastRowClass = function () {
-  var tournamentID, displayID, nextTeamID, nextTournamentID, ranking;
+  let tournamentID, displayID, nextTeamID, nextTournamentID, ranking;
   ranking = this.getRanking();
   tournamentID = this.getTournamentID();
   displayID = this.getDisplayID();
@@ -90,7 +90,7 @@ SystemTableRowView.prototype.updateLastRowClass = function () {
  * creates a new TournamentView, if necessary.
  */
 SystemTableRowView.prototype.updateSystem = function () {
-  var tournament, newView, $view;
+  let tournament, newView, $view;
   if (!this.isFirstInTournament()) {
     this.clearTournamentView();
     this.$view.removeClass('firstrow');
@@ -114,19 +114,19 @@ SystemTableRowView.prototype.updateSystem = function () {
   this.$view.addClass('firstrow');
 };
 SystemTableRowView.prototype.estimateNewTournamentSize = function () {
-  var ranking = this.getRanking();
-  var displayID = this.getDisplayID();
-  var tournamentID = this.getTournamentID();
-  var rankingLength = ranking.displayOrder.length;
-  var nextDisplayID = displayID + 1;
-  var nextTeamID;
+  const ranking = this.getRanking();
+  const displayID = this.getDisplayID();
+  const tournamentID = this.getTournamentID();
+  const rankingLength = ranking.displayOrder.length;
+  let nextDisplayID = displayID + 1;
+  let nextTeamID;
   for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
     nextTeamID = ranking.displayOrder[nextDisplayID];
     if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
       break;
     }
   }
-  var tournamentSize = nextDisplayID - displayID;
+  const tournamentSize = nextDisplayID - displayID;
   return tournamentSize;
 };
 SystemTableRowView.prototype.updateEverything = function () {
@@ -135,7 +135,7 @@ SystemTableRowView.prototype.updateEverything = function () {
   this.updateSystem();
 };
 SystemTableRowView.prototype.onupdate = function (emitter, event, data) {
-  var rowview = this;
+  const rowview = this;
   if (emitter === this.tournaments) {
     if (this.updatepending === undefined) {
       this.updatepending = true;
@@ -161,27 +161,27 @@ SystemTableRowView.prototype.destroy = function () {
   SystemTableRowView.superclass.destroy.call(this);
 };
 SystemTableRowView.prototype.getDisplayID = function () {
-  var ranking = this.getRanking();
-  var displayID = ranking.displayOrder.indexOf(this.teamID);
+  const ranking = this.getRanking();
+  const displayID = ranking.displayOrder.indexOf(this.teamID);
   return displayID;
 };
 SystemTableRowView.prototype.getTournamentID = function () {
-  var ranking = this.tournaments.getGlobalRanking(this.teams.length);
-  var tournamentID = ranking.tournamentIDs[this.teamID];
+  const ranking = this.tournaments.getGlobalRanking(this.teams.length);
+  const tournamentID = ranking.tournamentIDs[this.teamID];
   return tournamentID;
 };
 SystemTableRowView.prototype.getRanking = function () {
   return this.tournaments.getGlobalRanking(this.teams.length);
 };
 SystemTableRowView.prototype.isFirstInTournament = function () {
-  var displayID = this.getDisplayID();
-  var tournamentID = this.getTournamentID();
-  var ranking = this.getRanking();
-  var isFirstInTournament = false;
+  const displayID = this.getDisplayID();
+  const tournamentID = this.getTournamentID();
+  const ranking = this.getRanking();
+  let isFirstInTournament = false;
   if (displayID === 0) {
     isFirstInTournament = true;
   } else {
-    var previousTeamID = ranking.displayOrder[displayID - 1];
+    const previousTeamID = ranking.displayOrder[displayID - 1];
     if (ranking.tournamentIDs[previousTeamID] !== tournamentID) {
       isFirstInTournament = true;
     }

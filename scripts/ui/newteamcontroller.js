@@ -23,9 +23,9 @@ function NewTeamController(view) {
 }
 extend(NewTeamController, Controller);
 NewTeamController.prototype.readPlayerNames = function () {
-  var names;
+  let names;
   names = this.$players.map(function (id, player) {
-    var $player;
+    let $player;
     $player = $(player);
     if ($player.prop('disabled')) {
       return undefined;
@@ -45,7 +45,7 @@ NewTeamController.prototype.filterEnterKeyDown = function (e) {
   }
 };
 NewTeamController.prototype.createPlayers = function () {
-  var names;
+  let names;
   names = this.readPlayerNames();
   if (names.length === 0) {
     console.error('NewTeamController: all input fields disabled?');
@@ -56,7 +56,7 @@ NewTeamController.prototype.createPlayers = function () {
   });
 };
 NewTeamController.prototype.createNewTeam = function () {
-  var team, players;
+  let team, players;
   players = this.createPlayers();
   if (players.every(function (player) {
     return player.getName() !== PlayerModel.NONAME;
@@ -70,7 +70,7 @@ NewTeamController.prototype.createNewTeam = function () {
   this.view.focusEmpty();
 };
 NewTeamController.prototype.createAdvanced = function () {
-  var players, team;
+  let players, team;
   players = this.createPlayers();
   team = new TeamModel(players);
   this.model.push(team);

@@ -16,7 +16,7 @@ import SymmetricMatrixModel from '../symmetricmatrixmodel.js';
 import extend from '../../lib/extend.js';
 test('SymmetricMatrixModel', () => {
   // constructor validation
-  var a;
+  let a;
   expect(
    extend.isSubclass(SymmetricMatrixModel, MatrixModel),
    'SymmetricMatrixModel is subclass of MatrixModel'

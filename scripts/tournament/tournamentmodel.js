@@ -36,7 +36,7 @@ import CorrectionReferenceModel from '../core/correctionreferencemodel.js';
 import SortedReferenceListModel from '../list/sortedreferencelistmodel.js';
 import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js';
 import ByeResult from '../core/byeresult.js';
-var STATETRANSITIONS, INITIALSTATE;
+let STATETRANSITIONS, INITIALSTATE;
 
 /*
  * STATES lists the possible states.The following states are possible:
@@ -72,7 +72,7 @@ INITIALSTATE = 'initial';
  *          an array of ranking orders, e.g. ['wins', 'buchholz']
  */
 function TournamentModel(rankingorder) {
-  var collector;
+  let collector;
   TournamentModel.superconstructor.call(this);
   IndexedModel.call(this);
 
@@ -139,7 +139,7 @@ TournamentModel.prototype.VOTES = ['bye'];
  * @return a dictionary of vote lists
  */
 TournamentModel.initVoteLists = function (types) {
-  var votes;
+  let votes;
   votes = {};
   types.forEach(function (type) {
     votes[type] = new ListModel();
@@ -187,7 +187,7 @@ TournamentModel.prototype.setRankingOrder = function (rankingorder) {
   }
 };
 TournamentModel.prototype.verifyRanking = function () {
-  var rankingcopy;
+  let rankingcopy;
   rankingcopy = new RankingModel();
   rankingcopy.clone(this.ranking);
   rankingcopy.recalculate(this.history, this.totalvotes);
@@ -232,7 +232,7 @@ TournamentModel.prototype.addTeam = function (teamid) {
   return false;
 };
 TournamentModel.prototype.removeTeam = function (externalTeamID) {
-  var mapID, toRemove;
+  let mapID, toRemove;
   mapID = this.teams.indexOf(externalTeamID);
   if (mapID === -1) {
     return;
@@ -248,7 +248,7 @@ TournamentModel.prototype.removeTeam = function (externalTeamID) {
     return val;
   });
   toRemove.reverse().forEach(function (values) {
-    var index, match, matchID, groupID, opponent;
+    let index, match, matchID, groupID, opponent;
     index = values[0];
     match = values[1];
     groupID = match.getGroup();
@@ -270,7 +270,7 @@ TournamentModel.prototype.removeTeam = function (externalTeamID) {
     return val;
   });
   toRemove.reverse().forEach(function (values) {
-    var index, match, matchID, groupID, opponent;
+    let index, match, matchID, groupID, opponent;
     index = values[0];
     match = values[1];
     groupID = match.getGroup();
@@ -532,7 +532,7 @@ TournamentModel.prototype.finish = function () {
  *          instance
  */
 TournamentModel.prototype.onfinish = function (emitter, event, matchresult) {
-  var match;
+  let match;
   match = matchresult.source;
   if (this.matches.indexOf(match) === -1) {
     this.emit('error', 'onfinish: match is not open anymore or does not exist');
@@ -562,7 +562,7 @@ TournamentModel.prototype.onfinish = function (emitter, event, matchresult) {
  * @return true if the result is valid, false otherwise
  */
 TournamentModel.prototype.validateMatchResult = function (matchresult) {
-  var valid;
+  let valid;
   valid = matchresult.score.every(function (score) {
     return score >= Options.minpoints && score <= Options.maxpoints;
   });
@@ -648,7 +648,7 @@ TournamentModel.prototype.idleMatches = function () {
 TournamentModel.prototype.addBye = function (byeResultOrTeamID, matchID,
 //
 round) {
-  var teamID, byeResult;
+  let teamID, byeResult;
   if (arguments.length === 1 && Type instanceof ByeResult) {
     byeResult = byeResultOrTeamID;
   } else if (arguments.length === 3 && Type.isNumber(byeResultOrTeamID) && Type.isNumber(matchID) && Type.isNumber(round)) {
@@ -677,7 +677,7 @@ round) {
  * @return true on success, false otherwise
  */
 TournamentModel.prototype.correct = function (result, newScore) {
-  var index, correction, newResult, baseResult;
+  let index, correction, newResult, baseResult;
   baseResult = result;
   while (baseResult.result !== undefined) {
     if (baseResult.hasReversedTeams) {
@@ -714,7 +714,7 @@ TournamentModel.prototype.correct = function (result, newScore) {
  * @return a serializable data object, which can be used for restoring
  */
 TournamentModel.prototype.save = function () {
-  var data = TournamentModel.superclass.save.call(this);
+  const data = TournamentModel.superclass.save.call(this);
   data.sys = this.SYSTEM;
   data.id = this.id;
   data.name = this.name.get();

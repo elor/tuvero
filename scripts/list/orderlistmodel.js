@@ -27,7 +27,7 @@ import { diffLines } from 'diff';
  *          removed/added
  */
 function getdiff(a, b) {
-  var diffresult;
+  let diffresult;
   a = a.join('\n');
   if (a.length > 0) {
     a += '\n';
@@ -60,7 +60,7 @@ extend(OrderListModel, ListModel);
  *          The wanted end result
  */
 OrderListModel.prototype.enforceOrder = function (order) {
-  var index, diffresult;
+  let index, diffresult;
   diffresult = getdiff(this.list, order);
   index = 0;
   diffresult.forEach(function (lines) {

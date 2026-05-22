@@ -10,7 +10,7 @@ import ListCollectorModel from '../ui/listcollectormodel.js';
 import TournamentModel from '../tournament/tournamentmodel.js';
 import Toast from '../ui/toast.js';
 import Strings from '../ui/strings.js';
-var TournamentErrorToasts;
+let TournamentErrorToasts;
 
 // save on player name change
 TournamentErrorToasts = new ListCollectorModel(State.tournaments, TournamentModel);

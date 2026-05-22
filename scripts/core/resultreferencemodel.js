@@ -19,7 +19,7 @@ import MatchReferenceModel from './matchreferencemodel.js';
  *          a ListModel instance of team ids, which is used for team mapping
  */
 function ResultReferenceModel(result, teamlist) {
-  var matchRef;
+  let matchRef;
   if (result instanceof MatchResult) {
     matchRef = new MatchReferenceModel(result, teamlist);
     ResultReferenceModel.superconstructor.call(this, matchRef, result.score);

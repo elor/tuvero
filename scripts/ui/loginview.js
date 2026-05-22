@@ -131,7 +131,7 @@ LoginView.prototype.updateProfile = function () {
     return;
   }
   this.errorModel.set(false);
-  var msg = this.model.message('/profile');
+  const msg = this.model.message('/profile');
   msg.onreceive = function (emitter, event, data) {
     this.username.set(data.displayname);
     this.avatar.set(data.avatar_url);

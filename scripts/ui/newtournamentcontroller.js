@@ -20,7 +20,7 @@ import ClassView from '../core/classview.js';
  * Constructor
  */
 function NewTournamentController(view) {
-  var controller;
+  let controller;
   NewTournamentController.superconstructor.call(this, view);
   controller = this;
   this.$interlacecount = this.view.$view.find('input.interlacecount');
@@ -39,7 +39,7 @@ function NewTournamentController(view) {
     window.setTimeout(controller.updateViewHeight.bind(controller), 1);
   });
   this.$buttons.click(function (e) {
-    var $button, type, size;
+    let $button, type, size;
     $button = $(this);
     type = $button.attr('data-system');
     size = Number(controller.$tournamentsize.val());
@@ -57,14 +57,14 @@ NewTournamentController.prototype.validateSize = function (size) {
   return size >= 2 && size <= this.model.numTeams;
 };
 NewTournamentController.prototype.updateViewHeight = function () {
-  var size;
+  let size;
   size = Number(this.$tournamentsize.val());
   if (this.validateSize(size)) {
     this.view.$view.attr('rowspan', size);
   }
 };
 NewTournamentController.prototype.createTournament = function (type, size) {
-  var tournament, ranking, i, imax, rankingorder;
+  let tournament, ranking, i, imax, rankingorder;
   if (!this.validateSize(size)) {
     return;
   }
@@ -87,9 +87,9 @@ NewTournamentController.prototype.createTournament = function (type, size) {
   TournamentController.initiateNameChange(tournament);
 };
 NewTournamentController.prototype.updateDisabledButtons = function () {
-  var numTeams = Number(this.$tournamentsize.val());
+  const numTeams = Number(this.$tournamentsize.val());
   this.$buttons.each(function () {
-    var $button, minTeams;
+    let $button, minTeams;
     $button = $(this);
     minTeams = Number($button.attr('data-minteams')) || 0;
     $button.prop('disabled', numTeams < minTeams);

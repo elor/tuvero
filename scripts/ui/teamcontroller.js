@@ -19,7 +19,7 @@ function TeamController(view, $input) {
 }
 extend(TeamController, RenameController);
 TeamController.prototype.getPlayer = function ($name) {
-  var index, $names;
+  let index, $names;
   $names = this.view.$view.find('.name');
   if ($names.length === 0) {
     $names = this.view.$view.filter('.name');
@@ -35,7 +35,7 @@ TeamController.prototype.getNameModel = function ($anchor) {
   }
 };
 TeamController.prototype.getName = function () {
-  var nameModel;
+  let nameModel;
   if (!this.$anchor) {
     return '';
   }
@@ -43,7 +43,7 @@ TeamController.prototype.getName = function () {
   return nameModel.getName();
 };
 TeamController.prototype.setName = function (name) {
-  var nameModel;
+  let nameModel;
   if (!this.$anchor) {
     return false;
   }

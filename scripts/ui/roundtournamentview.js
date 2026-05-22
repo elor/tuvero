@@ -19,7 +19,7 @@ import TournamentView from './tournamentview.js';
 function RoundTournamentView(model, $view, tournaments) {
   RoundTournamentView.superconstructor.call(this, model, $view, tournaments);
   this.subcontroller = undefined;
-  var $notlastround = $view.find('.notlastround');
+  const $notlastround = $view.find('.notlastround');
   this.updateButtonState = function () {
     if (model.isLastRound()) {
       $notlastround.remove();

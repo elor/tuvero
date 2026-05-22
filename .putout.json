@@ -1,0 +1,34 @@
+{
+  "rules": {
+    "nodejs/convert-esm-to-commonjs": "off",
+    "remove-console": "off",
+    "convert-quotes-to-backticks": "off",
+    "types/convert-typeof-to-is-type": "off",
+    "conditions/apply-consistent-blocks": "off",
+    "for-of/for-each": "off",
+    "esm/remove-empty-import": "off",
+    "esm/group-imports-by-source": "off",
+    "conditions/apply-early-return": "off",
+    "conditions/merge-if-statements": "off",
+    "conditions/merge-if-with-else": "off",
+    "conditions/remove-useless-else": "off",
+    "variables/remove-unused": "off",
+    "convert-to-arrow-function": "off",
+    "optional-chaining/convert-logical-to-optional": "off",
+    "spread/convert-apply-to-spread": "off",
+    "new/remove-useless": "off",
+    "apply-shorthand-properties": "off",
+    "destructuring/apply-object": "off",
+    "convert-index-of-to-includes": "off",
+    "types/remove-double-negations": "off",
+    "conditions/remove-zero": "off",
+    "remove-useless-operand": "off"
+  },
+  "ignore": [
+    "scripts/**/lib/*.js",
+    "test/scripts/main.js",
+    "test/scripts/qunit.js",
+    "test/scripts/require.js",
+    "test/scripts/test.js"
+  ]
+}
