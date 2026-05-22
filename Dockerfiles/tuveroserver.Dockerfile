@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install && npm run lib && rm -rf node_modules
+RUN npm install && rm -rf node_modules
 
 WORKDIR /app/cli
 RUN npm install && npm test

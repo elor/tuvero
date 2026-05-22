@@ -1,7 +1,6 @@
 version: "3"
 services:
   server:
-    image: server.tuvero.de:5555/elor/tuvero/tuveroserver
     build:
       context: ../
       dockerfile: Dockerfiles/tuveroserver.Dockerfile
