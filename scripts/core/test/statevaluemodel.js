@@ -6,31 +6,33 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var StateValueModel;
-  StateValueModel = getModule('core/statevaluemodel');
-  QUnit.test('StateValueModel', function (assert) {
-    var state, transitions;
-    transitions = {
-      a: ['b', 'c'],
-      b: ['a'],
-      c: []
-    };
-    state = new StateValueModel('a', transitions);
-    assert.equal(state.get(), 'a', 'initial state is accepted');
-    state.set(undefined);
-    assert.equal(state.get(), 'a', 'ignoring invalid state transition (undefined)');
-    assert.equal(state.set('d'), false, 'unallowed transition ("d")');
-    assert.equal(state.set('b'), true, 'valid state transition ("b")');
-    assert.equal(state.get(), 'b', 'state actually transitioned');
-    assert.equal(state.set('b'), true, 'transition to current state');
-    assert.equal(state.set('c'), false, 'unallowed transition ("d")');
-    assert.equal(state.set('a'), true, 'valid state transition ("a")');
-    assert.equal(state.set('c'), true, 'valid state transition ("a")');
-    assert.equal(state.forceState('invalidstate'), false, 'forceState() cannot force a nonexistant state');
-    assert.equal(state.get(), 'c', 'state is at "c"');
-    assert.equal(state.set('a'), false, 'transition to state "a" is invalid');
-    assert.equal(state.forceState('a'), true, 'transition to state "a" can be enforced');
-    assert.equal(state.get(), 'a', 'state was forced to be "a"');
-  });
+import { test, expect } from 'vitest';
+
+import StateValueModel from '../statevaluemodel.js';
+test('StateValueModel', () => {
+  var state, transitions;
+  transitions = {
+    a: ['b', 'c'],
+    b: ['a'],
+    c: []
+  };
+  state = new StateValueModel('a', transitions);
+  expect(state.get(), 'initial state is accepted').toBe('a');
+  state.set(undefined);
+  expect(state.get(), 'ignoring invalid state transition (undefined)').toBe('a');
+  expect(state.set('d'), 'unallowed transition ("d")').toBe(false);
+  expect(state.set('b'), 'valid state transition ("b")').toBe(true);
+  expect(state.get(), 'state actually transitioned').toBe('b');
+  expect(state.set('b'), 'transition to current state').toBe(true);
+  expect(state.set('c'), 'unallowed transition ("d")').toBe(false);
+  expect(state.set('a'), 'valid state transition ("a")').toBe(true);
+  expect(state.set('c'), 'valid state transition ("a")').toBe(true);
+  expect(
+    state.forceState('invalidstate'),
+    'forceState() cannot force a nonexistant state'
+  ).toBe(false);
+  expect(state.get(), 'state is at "c"').toBe('c');
+  expect(state.set('a'), 'transition to state "a" is invalid').toBe(false);
+  expect(state.forceState('a'), 'transition to state "a" can be enforced').toBe(true);
+  expect(state.get(), 'state was forced to be "a"').toBe('a');
 });

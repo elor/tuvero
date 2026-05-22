@@ -6,42 +6,44 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var extend, PropertyValueModel, ValueModel, PropertyModel, Listener;
-  extend = getModule('lib/extend');
-  PropertyValueModel = getModule('core/propertyvaluemodel');
-  PropertyModel = getModule('core/propertymodel');
-  ValueModel = getModule('core/valuemodel');
-  Listener = getModule('core/listener');
-  QUnit.test('PropertyValueModel', function (assert) {
-    var model, value, listener;
-    assert.ok(extend.isSubclass(PropertyValueModel, ValueModel), 'PropertyValueModel is subclass of ValueModel');
-    model = new PropertyModel({
-      bool: true,
-      num: 5,
-      str: 'dapfen'
-    });
-    value = new PropertyValueModel(model, 'bool');
-    assert.ok(value, 'bool value initialization');
-    assert.equal(value.get(), true, 'value is initialized to current value');
-    listener = new Listener(value);
-    listener.updates = 0;
-    listener.onupdate = function () {
-      this.updates += 1;
-    };
-    model.setProperty('bool', false);
-    assert.equal(listener.updates, 1, 'value: 1 propagate update');
-    assert.equal(value.get(), false, 'value is propagated to value');
-    listener.updates = 0;
-    value.set(true);
-    assert.equal(listener.updates, 1, 'value.set(): no event loop');
-    assert.equal(value.get(), true, 'value is properly set');
-    assert.equal(model.getProperty('bool'), true, 'value is propagated to PropertyModel');
-    listener.updates = 0;
-    value.set(value.get());
-    assert.equal(listener.updates, 0, 'value.set(value.get()): no-op');
-    listener.updates = 0;
-    model.setProperty('bool', model.getProperty('bool'));
-    assert.equal(listener.updates, 0, 'setProp(getProp()): no-op');
+import { test, expect } from 'vitest';
+
+import extend from '../../lib/extend.js';
+import PropertyValueModel from '../propertyvaluemodel.js';
+import PropertyModel from '../propertymodel.js';
+import ValueModel from '../valuemodel.js';
+import Listener from '../listener.js';
+test('PropertyValueModel', () => {
+  var model, value, listener;
+  expect(
+    extend.isSubclass(PropertyValueModel, ValueModel),
+    'PropertyValueModel is subclass of ValueModel'
+  ).toBeTruthy();
+  model = new PropertyModel({
+    bool: true,
+    num: 5,
+    str: 'dapfen'
   });
+  value = new PropertyValueModel(model, 'bool');
+  expect(value, 'bool value initialization').toBeTruthy();
+  expect(value.get(), 'value is initialized to current value').toBe(true);
+  listener = new Listener(value);
+  listener.updates = 0;
+  listener.onupdate = function () {
+    this.updates += 1;
+  };
+  model.setProperty('bool', false);
+  expect(listener.updates, 'value: 1 propagate update').toBe(1);
+  expect(value.get(), 'value is propagated to value').toBe(false);
+  listener.updates = 0;
+  value.set(true);
+  expect(listener.updates, 'value.set(): no event loop').toBe(1);
+  expect(value.get(), 'value is properly set').toBe(true);
+  expect(model.getProperty('bool'), 'value is propagated to PropertyModel').toBe(true);
+  listener.updates = 0;
+  value.set(value.get());
+  expect(listener.updates, 'value.set(value.get()): no-op').toBe(0);
+  listener.updates = 0;
+  model.setProperty('bool', model.getProperty('bool'));
+  expect(listener.updates, 'setProp(getProp()): no-op').toBe(0);
 });

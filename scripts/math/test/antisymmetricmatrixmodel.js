@@ -9,24 +9,26 @@
 /*
  * Various Matrix Tests
  */
-export default (function (QUnit, getModule) {
-  var MatrixModel, AntisymmetricMatrixModel, extend;
-  MatrixModel = getModule('math/matrixmodel');
-  AntisymmetricMatrixModel = getModule('math/antisymmetricmatrixmodel');
-  extend = getModule('lib/extend');
-  QUnit.test('AntisymmetricMatrixModel', function (assert) {
-    // constructor validation
-    var a;
-    assert.ok(extend.isSubclass(AntisymmetricMatrixModel, MatrixModel), 'AntisymmetricMatrixModel is subclass of MatrixModel');
-    a = new AntisymmetricMatrixModel(5);
-    assert.equal(a.length, 5, 'length at initialization is accepted');
-    assert.equal(a.set(0, 4, 5), a, 'set() above the main diagonal works');
-    assert.equal(a.get(0, 4), 5, 'get() confirms the written value');
-    assert.equal(a.get(4, 0), -5, 'get() confirms the antisymmetric mapping');
-    assert.equal(a.set(2, 2, 5), a, 'set() on the main diagonal works');
-    assert.equal(a.get(2, 2), 5, 'get() confirms the main diagonal value');
-    assert.equal(a.set(4, 3, 3), a, 'set() below main diagonal works');
-    assert.equal(a.get(4, 3), 3, 'get() confirms the value');
-    assert.equal(a.get(3, 4), -3, 'get() confirms the antisymmetric value');
-  });
+import { test, expect } from 'vitest';
+
+import MatrixModel from '../matrixmodel.js';
+import AntisymmetricMatrixModel from '../antisymmetricmatrixmodel.js';
+import extend from '../../lib/extend.js';
+test('AntisymmetricMatrixModel', () => {
+  // constructor validation
+  var a;
+  expect(
+   extend.isSubclass(AntisymmetricMatrixModel, MatrixModel),
+   'AntisymmetricMatrixModel is subclass of MatrixModel'
+  ).toBeTruthy();
+  a = new AntisymmetricMatrixModel(5);
+  expect(a.length, 'length at initialization is accepted').toBe(5);
+  expect(a.set(0, 4, 5), 'set() above the main diagonal works').toBe(a);
+  expect(a.get(0, 4), 'get() confirms the written value').toBe(5);
+  expect(a.get(4, 0), 'get() confirms the antisymmetric mapping').toBe(-5);
+  expect(a.set(2, 2, 5), 'set() on the main diagonal works').toBe(a);
+  expect(a.get(2, 2), 'get() confirms the main diagonal value').toBe(5);
+  expect(a.set(4, 3, 3), 'set() below main diagonal works').toBe(a);
+  expect(a.get(4, 3), 'get() confirms the value').toBe(3);
+  expect(a.get(3, 4), 'get() confirms the antisymmetric value').toBe(-3);
 });

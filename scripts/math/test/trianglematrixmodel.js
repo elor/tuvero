@@ -9,22 +9,27 @@
 /*
  * Various Matrix Tests
  */
-export default (function (QUnit, getModule) {
-  var MatrixModel, TriangleMatrixModel, extend;
-  MatrixModel = getModule('math/matrixmodel');
-  TriangleMatrixModel = getModule('math/trianglematrixmodel');
-  extend = getModule('lib/extend');
-  QUnit.test('TriangleMatrixModel', function (assert) {
-    // constructor validation
-    var a;
-    assert.ok(extend.isSubclass(TriangleMatrixModel, MatrixModel), 'TriangleMatrixModel is subclass of MatrixModel');
-    a = new TriangleMatrixModel(5);
-    assert.equal(a.length, 5, 'length at initialization is accepted');
-    assert.equal(a.set(0, 4, 5), undefined, 'set() above the main diagonal aborts, leaving the value at 0');
-    assert.equal(a.get(0, 4), 0, 'get() confirms the zero-value');
-    assert.equal(a.set(2, 2, 5), a, 'set() on the main diagonal works');
-    assert.equal(a.get(2, 2), 5, 'get() confirms the main diagonal value');
-    assert.equal(a.set(4, 3, 3), a, 'set() below main diagonal works');
-    assert.equal(a.get(4, 3), 3, 'get() confirms the value');
-  });
+import { test, expect } from 'vitest';
+
+import MatrixModel from '../matrixmodel.js';
+import TriangleMatrixModel from '../trianglematrixmodel.js';
+import extend from '../../lib/extend.js';
+test('TriangleMatrixModel', () => {
+  // constructor validation
+  var a;
+  expect(
+   extend.isSubclass(TriangleMatrixModel, MatrixModel),
+   'TriangleMatrixModel is subclass of MatrixModel'
+  ).toBeTruthy();
+  a = new TriangleMatrixModel(5);
+  expect(a.length, 'length at initialization is accepted').toBe(5);
+  expect(
+   a.set(0, 4, 5),
+   'set() above the main diagonal aborts, leaving the value at 0'
+  ).toBe(undefined);
+  expect(a.get(0, 4), 'get() confirms the zero-value').toBe(0);
+  expect(a.set(2, 2, 5), 'set() on the main diagonal works').toBe(a);
+  expect(a.get(2, 2), 'get() confirms the main diagonal value').toBe(5);
+  expect(a.set(4, 3, 3), 'set() below main diagonal works').toBe(a);
+  expect(a.get(4, 3), 'get() confirms the value').toBe(3);
 });

@@ -6,30 +6,32 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var ListModel, UniqueListModel, extend;
-  ListModel = getModule('list/listmodel');
-  UniqueListModel = getModule('core/uniquelistmodel');
-  extend = getModule('lib/extend');
-  QUnit.test('UniqueListModel', function (assert) {
-    var list;
-    assert.ok(extend.isSubclass(UniqueListModel, ListModel), 'UniqueListModel is subclass of ListModel');
-    list = new UniqueListModel();
-    assert.equal(list.push(1), 1, 'push works');
-    assert.equal(list.push(2), 2, 'push works');
-    assert.equal(list.push(1), undefined, 'push aborts');
-    assert.equal(list.push(3), 3, 'push works');
-    assert.equal(list.push(1), undefined, 'push aborts');
-    assert.equal(list.push(5), 4, 'push works');
-    assert.equal(list.push(1), undefined, 'push aborts');
-    assert.deepEqual(list.asArray(), [1, 2, 3, 5], 'push() inserts once');
-    assert.equal(list.set(2, 1), undefined, 'set aborts');
-    assert.deepEqual(list.asArray(), [1, 2, 3, 5], 'set() does not remove');
-    assert.equal(list.set(2, 4), 4, 'set works');
-    assert.deepEqual(list.asArray(), [1, 2, 4, 5], 'set() still works');
-    assert.equal(list.insert(2, 1), undefined, 'insert aborts');
-    assert.deepEqual(list.asArray(), [1, 2, 4, 5], 'insert() doesnt insert');
-    assert.equal(list.insert(2, 3), 3, 'insert still works');
-    assert.deepEqual(list.asArray(), [1, 2, 3, 4, 5], 'insert() still works');
-  });
+import { test, expect } from 'vitest';
+
+import ListModel from '../listmodel.js';
+import UniqueListModel from '../../core/uniquelistmodel.js';
+import extend from '../../lib/extend.js';
+test('UniqueListModel', () => {
+  var list;
+  expect(
+    extend.isSubclass(UniqueListModel, ListModel),
+    'UniqueListModel is subclass of ListModel'
+  ).toBeTruthy();
+  list = new UniqueListModel();
+  expect(list.push(1), 'push works').toBe(1);
+  expect(list.push(2), 'push works').toBe(2);
+  expect(list.push(1), 'push aborts').toBe(undefined);
+  expect(list.push(3), 'push works').toBe(3);
+  expect(list.push(1), 'push aborts').toBe(undefined);
+  expect(list.push(5), 'push works').toBe(4);
+  expect(list.push(1), 'push aborts').toBe(undefined);
+  expect(list.asArray(), 'push() inserts once').toEqual([1, 2, 3, 5]);
+  expect(list.set(2, 1), 'set aborts').toBe(undefined);
+  expect(list.asArray(), 'set() does not remove').toEqual([1, 2, 3, 5]);
+  expect(list.set(2, 4), 'set works').toBe(4);
+  expect(list.asArray(), 'set() still works').toEqual([1, 2, 4, 5]);
+  expect(list.insert(2, 1), 'insert aborts').toBe(undefined);
+  expect(list.asArray(), 'insert() doesnt insert').toEqual([1, 2, 4, 5]);
+  expect(list.insert(2, 3), 'insert still works').toBe(3);
+  expect(list.asArray(), 'insert() still works').toEqual([1, 2, 3, 4, 5]);
 });

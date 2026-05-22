@@ -6,47 +6,49 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var extend, ByeResult, MatchResult;
-  extend = getModule('lib/extend');
-  ByeResult = getModule('core/byeresult');
-  MatchResult = getModule('core/matchresult');
-  QUnit.test('ByeResult', function (assert) {
-    var bye, data;
-    assert.ok(extend.isSubclass(ByeResult, MatchResult), 'ByeResult is subclass of MatchResult');
+import { test, expect } from 'vitest';
 
-    /*
-     * construction
-     */
-    bye = new ByeResult(5, [13, 7], 3, 9);
-    assert.equal(bye.getID(), 3, 'id matches the argument');
-    assert.equal(bye.getGroup(), 9, 'group matches the argument');
-    assert.equal(bye.length, 2, 'bye has two teams');
-    assert.equal(bye.getTeamID(0), 5, 'first team matches the argument');
-    assert.equal(bye.getTeamID(1), 5, 'second team matches the argument');
-    assert.deepEqual(bye.score, [13, 7], 'score matches the argument');
-    assert.equal(bye.isBye(), true, 'bye.isBye() is true');
+import extend from '../../lib/extend.js';
+import ByeResult from '../byeresult.js';
+import MatchResult from '../matchresult.js';
+test('ByeResult', () => {
+  var bye, data;
+  expect(
+   extend.isSubclass(ByeResult, MatchResult),
+   'ByeResult is subclass of MatchResult'
+  ).toBeTruthy();
 
-    /*
-     * save/restore
-     */
-    data = bye.save();
-    assert.ok(data, 'save() returns');
+  /*
+   * construction
+   */
+  bye = new ByeResult(5, [13, 7], 3, 9);
+  expect(bye.getID(), 'id matches the argument').toBe(3);
+  expect(bye.getGroup(), 'group matches the argument').toBe(9);
+  expect(bye.length, 'bye has two teams').toBe(2);
+  expect(bye.getTeamID(0), 'first team matches the argument').toBe(5);
+  expect(bye.getTeamID(1), 'second team matches the argument').toBe(5);
+  expect(bye.score, 'score matches the argument').toEqual([13, 7]);
+  expect(bye.isBye(), 'bye.isBye() is true').toBe(true);
 
-    // Not a typo. Bye is supposed to be converted into a matchresult.
-    bye = new MatchResult();
-    assert.ok(bye.restore(data), 'restore() returns');
-    assert.equal(bye.getID(), 3, 'id matches the argument');
-    assert.equal(bye.getGroup(), 9, 'group matches the argument');
-    assert.equal(bye.length, 2, 'bye has two teams');
-    assert.equal(bye.getTeamID(0), 5, 'first team matches the argument');
-    assert.equal(bye.getTeamID(1), 5, 'second team matches the argument');
-    assert.deepEqual(bye.score, [13, 7], 'score matches the argument');
-    assert.equal(bye.isBye(), true, 'bye.isBye() is true');
+  /*
+   * save/restore
+   */
+  data = bye.save();
+  expect(data, 'save() returns').toBeTruthy();
 
-    /*
-     * isRunningMatch()
-     */
-    assert.equal(bye.isRunningMatch(), false, 'byes are not running matches');
-  });
+  // Not a typo. Bye is supposed to be converted into a matchresult.
+  bye = new MatchResult();
+  expect(bye.restore(data), 'restore() returns').toBeTruthy();
+  expect(bye.getID(), 'id matches the argument').toBe(3);
+  expect(bye.getGroup(), 'group matches the argument').toBe(9);
+  expect(bye.length, 'bye has two teams').toBe(2);
+  expect(bye.getTeamID(0), 'first team matches the argument').toBe(5);
+  expect(bye.getTeamID(1), 'second team matches the argument').toBe(5);
+  expect(bye.score, 'score matches the argument').toEqual([13, 7]);
+  expect(bye.isBye(), 'bye.isBye() is true').toBe(true);
+
+  /*
+   * isRunningMatch()
+   */
+  expect(bye.isRunningMatch(), 'byes are not running matches').toBe(false);
 });

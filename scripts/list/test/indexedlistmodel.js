@@ -6,38 +6,40 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var extend, IndexedListModel, IndexedModel, ListModel;
-  extend = getModule('lib/extend');
-  IndexedListModel = getModule('list/indexedlistmodel');
-  ListModel = getModule('list/listmodel');
-  IndexedModel = getModule('list/indexedmodel');
-  QUnit.test('IndexedListModel', function (assert) {
-    var list;
-    assert.ok(extend.isSubclass(IndexedListModel, ListModel), 'IndexedListModel is subclass of ListModel');
-    list = new IndexedListModel();
-    list.push(new IndexedModel());
-    list.push(new IndexedModel());
-    list.push(new IndexedModel());
-    assert.equal(list.get(0).getID(), 0, 'push into empty indexed list sets the proper id');
-    assert.equal(list.get(1).getID(), 1, 'push into empty indexed list sets the proper id');
-    assert.equal(list.get(2).getID(), 2, 'push into empty indexed list sets the proper id');
-    list.pop();
-    assert.equal(list.get(0).getID(), 0, 'pop does not affect any indices');
-    assert.equal(list.get(1).getID(), 1, 'pop does not affect any indices');
-    list.push(new IndexedModel());
-    list.push(new IndexedModel());
-    list.remove(0);
-    assert.equal(list.get(0).getID(), 0, 'remove(0) adjusts all following indices');
-    assert.equal(list.get(1).getID(), 1, 'remove(0) adjusts all following indices');
-    assert.equal(list.get(2).getID(), 2, 'remove(0) adjusts all following indices');
-    list.remove(1);
-    assert.equal(list.get(0).getID(), 0, 'remove(1) adjusts all following indices');
-    assert.equal(list.get(1).getID(), 1, 'remove(2) adjusts all following indices');
-    list.clear();
-    assert.equal(list.length, 0, 'clearing a non-empty list does not throw');
-    list = new IndexedListModel();
-    list.clear();
-    assert.equal(list.length, 0, 'clearing an empty list does not throw');
-  });
+import { test, expect } from 'vitest';
+
+import extend from '../../lib/extend.js';
+import IndexedListModel from '../indexedlistmodel.js';
+import ListModel from '../listmodel.js';
+import IndexedModel from '../indexedmodel.js';
+test('IndexedListModel', () => {
+  var list;
+  expect(
+    extend.isSubclass(IndexedListModel, ListModel),
+    'IndexedListModel is subclass of ListModel'
+  ).toBeTruthy();
+  list = new IndexedListModel();
+  list.push(new IndexedModel());
+  list.push(new IndexedModel());
+  list.push(new IndexedModel());
+  expect(list.get(0).getID(), 'push into empty indexed list sets the proper id').toBe(0);
+  expect(list.get(1).getID(), 'push into empty indexed list sets the proper id').toBe(1);
+  expect(list.get(2).getID(), 'push into empty indexed list sets the proper id').toBe(2);
+  list.pop();
+  expect(list.get(0).getID(), 'pop does not affect any indices').toBe(0);
+  expect(list.get(1).getID(), 'pop does not affect any indices').toBe(1);
+  list.push(new IndexedModel());
+  list.push(new IndexedModel());
+  list.remove(0);
+  expect(list.get(0).getID(), 'remove(0) adjusts all following indices').toBe(0);
+  expect(list.get(1).getID(), 'remove(0) adjusts all following indices').toBe(1);
+  expect(list.get(2).getID(), 'remove(0) adjusts all following indices').toBe(2);
+  list.remove(1);
+  expect(list.get(0).getID(), 'remove(1) adjusts all following indices').toBe(0);
+  expect(list.get(1).getID(), 'remove(2) adjusts all following indices').toBe(1);
+  list.clear();
+  expect(list.length, 'clearing a non-empty list does not throw').toBe(0);
+  list = new IndexedListModel();
+  list.clear();
+  expect(list.length, 'clearing an empty list does not throw').toBe(0);
 });

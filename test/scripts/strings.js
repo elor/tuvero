@@ -6,10 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-
-define(function () {
-  return {
-    teamsicon: 'teams2',
-    variant: 'Test'
-  }
-})
+export default {
+  teamsicon: 'teams2',
+  variant: 'Test'
+};

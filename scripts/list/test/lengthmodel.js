@@ -6,30 +6,32 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var extend, LengthModel, ValueModel, ListModel;
-  extend = getModule('lib/extend');
-  ListModel = getModule('list/listmodel');
-  LengthModel = getModule('list/lengthmodel');
-  ValueModel = getModule('core/valuemodel');
-  QUnit.test('LengthModel', function (assert) {
-    var length, list, success;
-    assert.ok(extend.isSubclass(LengthModel, ValueModel), 'LengthModel is subclass of ValueModel');
-    success = false;
-    try {
-      success = !new LengthModel();
-    } catch (e) {
-      success = true;
-    }
-    assert.ok(success, 'empty construction fails');
-    list = new ListModel([1, 2, 3]);
-    length = new LengthModel(list);
-    assert.equal(length.get(), 3, 'constructor reads the initial length of the list');
-    list.pop();
-    assert.equal(length.get(), 2, 'list.pop() is mirrored');
-    list.push('asd');
-    assert.equal(length.get(), 3, 'list.push() is mirrored');
-    list.clear();
-    assert.equal(length.get(), 0, 'list.clear() is mirrored');
-  });
+import { test, expect } from 'vitest';
+
+import extend from '../../lib/extend.js';
+import ListModel from '../listmodel.js';
+import LengthModel from '../lengthmodel.js';
+import ValueModel from '../../core/valuemodel.js';
+test('LengthModel', () => {
+  var length, list, success;
+  expect(
+    extend.isSubclass(LengthModel, ValueModel),
+    'LengthModel is subclass of ValueModel'
+  ).toBeTruthy();
+  success = false;
+  try {
+    success = !new LengthModel();
+  } catch (e) {
+    success = true;
+  }
+  expect(success, 'empty construction fails').toBeTruthy();
+  list = new ListModel([1, 2, 3]);
+  length = new LengthModel(list);
+  expect(length.get(), 'constructor reads the initial length of the list').toBe(3);
+  list.pop();
+  expect(length.get(), 'list.pop() is mirrored').toBe(2);
+  list.push('asd');
+  expect(length.get(), 'list.push() is mirrored').toBe(3);
+  list.clear();
+  expect(length.get(), 'list.clear() is mirrored').toBe(0);
 });

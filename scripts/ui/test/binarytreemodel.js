@@ -6,34 +6,36 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var extend, BinaryTreeModel, IndexedModel;
-  extend = getModule('lib/extend');
-  BinaryTreeModel = getModule('ui/binarytreemodel');
-  IndexedModel = getModule('list/indexedmodel');
-  QUnit.test('BinaryTreeModel', function (assert) {
-    var node;
-    assert.ok(extend.isSubclass(BinaryTreeModel, IndexedModel), 'BinaryTreeModel is subclass of IndexedModel');
-    node = new BinaryTreeModel();
-    assert.equal(node.getID(), 1, 'default ID === 1');
-    assert.equal(node.getParentID(), 0, 'parent ID === 0');
-    assert.equal(node.getLeftChildID(), 2, 'left child ID === 1');
-    assert.equal(node.getRightChildID(), 3, 'right child ID === 1');
-    assert.equal(node.getSiblingID(), 1, 'default ID === 1');
-    assert.equal(node.getDepth(), 0, 'default depth === 0');
-    node = new BinaryTreeModel(439);
-    assert.equal(node.getID(), 439, 'ID(439) === 1');
-    assert.equal(node.getParentID(), 219, 'parent ID(439) === 0');
-    assert.equal(node.getLeftChildID(), 878, 'left child ID(439) === 1');
-    assert.equal(node.getRightChildID(), 879, 'right child ID(439) === 1');
-    assert.equal(node.getSiblingID(), 438, 'sibling ID(439) === 1');
-    assert.equal(node.getDepth(), 8, 'Depth(439) === 0');
-    node = new BinaryTreeModel(0);
-    assert.equal(node.getID(), 0, 'default ID === 1');
-    assert.equal(node.getParentID(), 0, 'parent ID === 0');
-    assert.equal(node.getLeftChildID(), 1, 'left child ID === 1');
-    assert.equal(node.getRightChildID(), 1, 'right child ID === 1');
-    assert.equal(node.getSiblingID(), 0, 'default ID === 1');
-    assert.equal(node.getDepth(), 0, 'default depth === 0');
-  });
+import { test, expect } from 'vitest';
+
+import extend from '../../lib/extend.js';
+import BinaryTreeModel from '../binarytreemodel.js';
+import IndexedModel from '../../list/indexedmodel.js';
+test('BinaryTreeModel', () => {
+  var node;
+  expect(
+    extend.isSubclass(BinaryTreeModel, IndexedModel),
+    'BinaryTreeModel is subclass of IndexedModel'
+  ).toBeTruthy();
+  node = new BinaryTreeModel();
+  expect(node.getID(), 'default ID === 1').toBe(1);
+  expect(node.getParentID(), 'parent ID === 0').toBe(0);
+  expect(node.getLeftChildID(), 'left child ID === 1').toBe(2);
+  expect(node.getRightChildID(), 'right child ID === 1').toBe(3);
+  expect(node.getSiblingID(), 'default ID === 1').toBe(1);
+  expect(node.getDepth(), 'default depth === 0').toBe(0);
+  node = new BinaryTreeModel(439);
+  expect(node.getID(), 'ID(439) === 1').toBe(439);
+  expect(node.getParentID(), 'parent ID(439) === 0').toBe(219);
+  expect(node.getLeftChildID(), 'left child ID(439) === 1').toBe(878);
+  expect(node.getRightChildID(), 'right child ID(439) === 1').toBe(879);
+  expect(node.getSiblingID(), 'sibling ID(439) === 1').toBe(438);
+  expect(node.getDepth(), 'Depth(439) === 0').toBe(8);
+  node = new BinaryTreeModel(0);
+  expect(node.getID(), 'default ID === 1').toBe(0);
+  expect(node.getParentID(), 'parent ID === 0').toBe(0);
+  expect(node.getLeftChildID(), 'left child ID === 1').toBe(1);
+  expect(node.getRightChildID(), 'right child ID === 1').toBe(1);
+  expect(node.getSiblingID(), 'default ID === 1').toBe(0);
+  expect(node.getDepth(), 'default depth === 0').toBe(0);
 });

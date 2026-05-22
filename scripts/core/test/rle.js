@@ -6,179 +6,194 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var RLE;
-  RLE = getModule('core/rle');
-  QUnit.test('RLE', function (assert) {
-    var success, data, exp, e, d;
+import { test, expect } from 'vitest';
 
-    /*
-     * encoding tests: static function
-     */
-    success = true;
-    try {
-      RLE.encode(undefined);
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with undefined');
-    success = true;
-    try {
-      RLE.encode(null);
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with null');
-    success = true;
-    try {
-      RLE.encode('');
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with ""');
-    success = true;
-    try {
-      RLE.encode({});
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with {}');
-    success = true;
-    try {
-      RLE.encode(/5/);
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with /5/');
-    success = true;
-    try {
-      RLE.encode({
-        a: 4
-      });
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with {a:4}');
-    success = true;
-    try {
-      RLE.encode('loremipsum');
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with "loremipsum"');
-    success = true;
-    try {
-      RLE.encode('5');
-      success = false;
-    } catch (e) {
-      //
-    }
-    assert.ok(success, 'RLE.encode() with "5"');
-    assert.equal(RLE.encode([]), '', 'RLE.encode() with []');
-    assert.equal(RLE.encode(0), '0', 'RLE.encode() with 0');
-    assert.equal(RLE.encode(3), '3', 'RLE.encode() with 3');
-    assert.equal(RLE.encode([0]), '[n1]', 'RLE.encode() with [0]');
-    assert.equal(RLE.encode([1.3]), '[1.3]', 'RLE.encode() with [1.3]');
-    assert.equal(RLE.encode([-1.3e2]), '[-130]', 'RLE.encode() with [1.3]');
-    data = [];
-    data[3] = 5;
-    assert.equal(RLE.encode(data), '[n3,5]', 'RLE.encode() with [null,null,null,5]');
-    assert.equal(RLE.encode([[]]), '[n1]', 'RLE.encode() with [[]]');
-    assert.equal(RLE.encode([[[]]]), '[n1]', 'RLE.encode() with [[[]]]');
-    assert.equal(RLE.encode([{}]), '[undefined]', 'RLE.encode() with [{}]');
-    assert.equal(RLE.encode([/5/]), '[undefined]', 'RLE.encode() with [/5/]');
-    assert.equal(RLE.encode([undefined, null, 0]), '[n3]', 'RLE.encode() with [undefined,null,0]');
-    assert.equal(RLE.encode([undefined, null, 30]), '[n2,30]', 'RLE.encode() with [undefined,null,30]');
-    assert.equal(RLE.encode([1, undefined, null, 30]), '[1,n2,30]', 'RLE.encode() with [undefined,null,30]');
+import RLE from '../rle.js';
+test('RLE', () => {
+  var success, data, exp, e, d;
 
-    /*
-     * Nesting Tests
-     */
-
-    data = [];
-    data[3] = [1, 2, undefined, 4];
-    assert.equal(RLE.encode(data), '[n3,[1,2,n,4]]', 'RLE.encode() with singly nested data');
-    data[3] = undefined;
-    assert.equal(RLE.encode(data), '[n4]', 'RLE.encode() with singly nested data, all nulled');
-
-    /*
-     * RLE.decode()
-     */
-
-    assert.deepEqual(RLE.decode(''), [], 'RLE decode test with empty string');
-    assert.deepEqual(RLE.decode('[]'), [], 'RLE decode test with an empty string');
-    assert.deepEqual(RLE.decode('[1]'), [1], 'RLE decode test with single entry');
-    assert.deepEqual(RLE.decode('[n,1]'), [undefined, 1], 'RLE decode test with single null entry');
-    assert.deepEqual(RLE.decode('[n1,1]'), [undefined, 1], 'RLE decode test with single null entry');
-    exp = [];
-    exp[3] = 1;
-    assert.deepEqual(RLE.decode('[n3,1]'), exp, 'RLE decode test with single null entry');
-    assert.deepEqual(RLE.decode('[n3,1,n]'), exp, 'RLE decode test with single null entry');
-    assert.deepEqual(RLE.decode('[n12]'), [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined], 'RLE decode test with only null entries');
-    assert.deepEqual(RLE.decode('[n5,n6]'), [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined], 'RLE decode test with only consecutive null entries');
-
-    // Number variations
-    assert.deepEqual(RLE.decode('[+3]'), [3], 'RLE decode test with [+3]');
-    assert.deepEqual(RLE.decode('[-0]'), [0], 'RLE decode test with [-0]');
-    assert.deepEqual(RLE.decode('[1.23]'), [1.23], 'RLE decode test with [1.23]');
-    assert.deepEqual(RLE.decode('[-1.23e+4]'), [-12300], 'RLE decode test with [-1.23e+4]');
-    assert.deepEqual(RLE.decode('[5,n2]'), [5, undefined, undefined], 'RLE decode with trailing null values');
-    assert.deepEqual(RLE.decode('[5,n2]').length, 3, 'RLE decode with trailing null values');
-    assert.deepEqual(RLE.decode('[n12]').length, 12, 'RLE decode with only null values');
-
-    // invalid numbers
-    assert.deepEqual(RLE.decode('[.]'), undefined, 'RLE decode test with [.] as input');
-    assert.deepEqual(RLE.decode('[-]'), undefined, 'RLE decode test with [-] as input');
-    assert.deepEqual(RLE.decode('[+]'), undefined, 'RLE decode test with [+] as input');
-    assert.deepEqual(RLE.decode('[--6]'), undefined, 'RLE decode test with [--6] as input');
-    exp = [1, [2], [5, [6, undefined, undefined, undefined]], []];
-    exp[1][4] = 4;
-    exp[3][8] = 9;
-    exp[3][9] = [10];
-    assert.deepEqual(RLE.decode('[1,[2,n3,4],[5,[6,n3]],[n8,9,[10]]]'), exp, 'RLE decode test with nested arrays');
-    exp = [];
-    exp[3] = [1, 2, undefined, 4];
-    assert.deepEqual(RLE.decode('[n3,[1,2,n,4]]'), exp, 'RLE decode test with nested arrays');
-
-    /*
-     * wrong input
-     */
-
-    assert.equal(RLE.decode(undefined), undefined, 'RLE.decode() with undefined');
-    assert.equal(RLE.decode(null), undefined, 'RLE.decode() with null');
-    assert.equal(RLE.decode({}), undefined, 'RLE.decode() with {}');
-    assert.equal(RLE.decode(/5/), undefined, 'RLE.decode() with /5/');
-    assert.equal(RLE.decode({
+  /*
+   * encoding tests: static function
+   */
+  success = true;
+  try {
+    RLE.encode(undefined);
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with undefined').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode(null);
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with null').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode('');
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with ""').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode({});
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with {}').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode(/5/);
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with /5/').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode({
       a: 4
-    }), undefined, 'RLE.decode() with {a:4}');
+    });
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with {a:4}').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode('loremipsum');
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with "loremipsum"').toBeTruthy();
+  success = true;
+  try {
+    RLE.encode('5');
+    success = false;
+  } catch (e) {
+    //
+  }
+  expect(success, 'RLE.encode() with "5"').toBeTruthy();
+  expect(RLE.encode([]), 'RLE.encode() with []').toBe('');
+  expect(RLE.encode(0), 'RLE.encode() with 0').toBe('0');
+  expect(RLE.encode(3), 'RLE.encode() with 3').toBe('3');
+  expect(RLE.encode([0]), 'RLE.encode() with [0]').toBe('[n1]');
+  expect(RLE.encode([1.3]), 'RLE.encode() with [1.3]').toBe('[1.3]');
+  expect(RLE.encode([-1.3e2]), 'RLE.encode() with [1.3]').toBe('[-130]');
+  data = [];
+  data[3] = 5;
+  expect(RLE.encode(data), 'RLE.encode() with [null,null,null,5]').toBe('[n3,5]');
+  expect(RLE.encode([[]]), 'RLE.encode() with [[]]').toBe('[n1]');
+  expect(RLE.encode([[[]]]), 'RLE.encode() with [[[]]]').toBe('[n1]');
+  expect(RLE.encode([{}]), 'RLE.encode() with [{}]').toBe('[undefined]');
+  expect(RLE.encode([/5/]), 'RLE.encode() with [/5/]').toBe('[undefined]');
+  expect(RLE.encode([undefined, null, 0]), 'RLE.encode() with [undefined,null,0]').toBe('[n3]');
+  expect(RLE.encode([undefined, null, 30]), 'RLE.encode() with [undefined,null,30]').toBe('[n2,30]');
+  expect(
+    RLE.encode([1, undefined, null, 30]),
+    'RLE.encode() with [undefined,null,30]'
+  ).toBe('[1,n2,30]');
 
-    /*
-     * malformatted data
-     */
+  /*
+   * Nesting Tests
+   */
 
-    assert.equal(RLE.decode('5'), undefined, 'RLE.decode() with "5"');
-    assert.equal(RLE.decode('asd'), undefined, 'RLE.decode() with "asd"');
-    assert.equal(RLE.decode('{}'), undefined, 'RLE.decode() with "{}"');
-    assert.equal(RLE.decode('{asd:5}'), undefined, 'RLE.decode() with "{asd:5}"');
-    assert.equal(RLE.decode('[{asd:5}]'), undefined, 'RLE.decode() with "[{asd:5}]"');
+  data = [];
+  data[3] = [1, 2, undefined, 4];
+  expect(RLE.encode(data), 'RLE.encode() with singly nested data').toBe('[n3,[1,2,n,4]]');
+  data[3] = undefined;
+  expect(RLE.encode(data), 'RLE.encode() with singly nested data, all nulled').toBe('[n4]');
 
-    /*
-     * Self-Consistency and Stability tests
-     */
-    e = RLE.encode;
-    d = RLE.decode;
-    exp[123] = -123.433e-43;
-    assert.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLE re-encoding chain');
-    exp = [[[[[]]]]];
-    assert.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), [undefined], 'RLE re-encoding chain of nested arrays');
-    assert.equal(RLE.encode([0, 1, 1, 1]), '[n,1,1,1]', 'encoding leading null value');
-    assert.deepEqual(RLE.decode('[n,1,1,1]'), [undefined, 1, 1, 1], 'decoding leading null value');
-  });
+  /*
+   * RLE.decode()
+   */
+
+  expect(RLE.decode(''), 'RLE decode test with empty string').toEqual([]);
+  expect(RLE.decode('[]'), 'RLE decode test with an empty string').toEqual([]);
+  expect(RLE.decode('[1]'), 'RLE decode test with single entry').toEqual([1]);
+  expect(RLE.decode('[n,1]'), 'RLE decode test with single null entry').toEqual([undefined, 1]);
+  expect(RLE.decode('[n1,1]'), 'RLE decode test with single null entry').toEqual([undefined, 1]);
+  exp = [];
+  exp[3] = 1;
+  expect(RLE.decode('[n3,1]'), 'RLE decode test with single null entry').toEqual(exp);
+  expect(RLE.decode('[n3,1,n]'), 'RLE decode test with single null entry').toEqual(exp);
+  expect(RLE.decode('[n12]'), 'RLE decode test with only null entries').toEqual(
+    [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]
+  );
+  expect(
+    RLE.decode('[n5,n6]'),
+    'RLE decode test with only consecutive null entries'
+  ).toEqual(
+    [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]
+  );
+
+  // Number variations
+  expect(RLE.decode('[+3]'), 'RLE decode test with [+3]').toEqual([3]);
+  expect(RLE.decode('[-0]'), 'RLE decode test with [-0]').toEqual([-0]);
+  expect(RLE.decode('[1.23]'), 'RLE decode test with [1.23]').toEqual([1.23]);
+  expect(RLE.decode('[-1.23e+4]'), 'RLE decode test with [-1.23e+4]').toEqual([-12300]);
+  expect(RLE.decode('[5,n2]'), 'RLE decode with trailing null values').toEqual([5, undefined, undefined]);
+  expect(RLE.decode('[5,n2]').length, 'RLE decode with trailing null values').toEqual(3);
+  expect(RLE.decode('[n12]').length, 'RLE decode with only null values').toEqual(12);
+
+  // invalid numbers
+  expect(RLE.decode('[.]'), 'RLE decode test with [.] as input').toEqual(undefined);
+  expect(RLE.decode('[-]'), 'RLE decode test with [-] as input').toEqual(undefined);
+  expect(RLE.decode('[+]'), 'RLE decode test with [+] as input').toEqual(undefined);
+  expect(RLE.decode('[--6]'), 'RLE decode test with [--6] as input').toEqual(undefined);
+  exp = [1, [2], [5, [6, undefined, undefined, undefined]], []];
+  exp[1][4] = 4;
+  exp[3][8] = 9;
+  exp[3][9] = [10];
+  expect(
+    RLE.decode('[1,[2,n3,4],[5,[6,n3]],[n8,9,[10]]]'),
+    'RLE decode test with nested arrays'
+  ).toEqual(exp);
+  exp = [];
+  exp[3] = [1, 2, undefined, 4];
+  expect(RLE.decode('[n3,[1,2,n,4]]'), 'RLE decode test with nested arrays').toEqual(exp);
+
+  /*
+   * wrong input
+   */
+
+  expect(RLE.decode(undefined), 'RLE.decode() with undefined').toBe(undefined);
+  expect(RLE.decode(null), 'RLE.decode() with null').toBe(undefined);
+  expect(RLE.decode({}), 'RLE.decode() with {}').toBe(undefined);
+  expect(RLE.decode(/5/), 'RLE.decode() with /5/').toBe(undefined);
+  expect(RLE.decode({
+    a: 4
+  }), 'RLE.decode() with {a:4}').toBe(undefined);
+
+  /*
+   * malformatted data
+   */
+
+  expect(RLE.decode('5'), 'RLE.decode() with "5"').toBe(undefined);
+  expect(RLE.decode('asd'), 'RLE.decode() with "asd"').toBe(undefined);
+  expect(RLE.decode('{}'), 'RLE.decode() with "{}"').toBe(undefined);
+  expect(RLE.decode('{asd:5}'), 'RLE.decode() with "{asd:5}"').toBe(undefined);
+  expect(RLE.decode('[{asd:5}]'), 'RLE.decode() with "[{asd:5}]"').toBe(undefined);
+
+  /*
+   * Self-Consistency and Stability tests
+   */
+  e = RLE.encode;
+  d = RLE.decode;
+  exp[123] = -123.433e-43;
+  expect(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), 'RLE re-encoding chain').toEqual(exp);
+  exp = [[[[[]]]]];
+  expect(
+    d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))),
+    'RLE re-encoding chain of nested arrays'
+  ).toEqual([undefined]);
+  expect(RLE.encode([0, 1, 1, 1]), 'encoding leading null value').toBe('[n,1,1,1]');
+  expect(RLE.decode('[n,1,1,1]'), 'decoding leading null value').toEqual([undefined, 1, 1, 1]);
 });

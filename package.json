@@ -15,14 +15,13 @@
     "gulp": "^5.0.0",
     "jquery": "^3.7.1",
     "normalize.css": "^8.0.1",
-    "qunit": "^2.24.1",
-    "requirejs": "^2.3.7",
     "semver": "~4.3.6",
     "standard": "^17.1.2",
     "through2": "^4.0.2",
     "typescript": "^6.0.3",
     "vinyl": "^3.0.0",
-    "vite": "^8.0.13"
+    "vite": "^8.0.13",
+    "vitest": "^3.2.4"
   },
   "scripts": {
     "postinstall": "gulp update",
@@ -32,7 +31,7 @@
     "vite:build:basic": "VITE_VARIANT=basic vite build",
     "vite:build:boule": "VITE_VARIANT=boule vite build",
     "vite:build:tac": "VITE_VARIANT=tac vite build",
-    "test": "gulp test",
+    "test": "vitest run",
     "lint": "gulp lint",
     "update": "gulp update",
     "dev": "vite"

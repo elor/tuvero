@@ -6,66 +6,65 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var ListModel, ListUpdateListener;
-  ListModel = getModule('list/listmodel');
-  ListUpdateListener = getModule('list/listupdatelistener');
-  QUnit.test('ListUpdateListener', function (assert) {
-    var list, listener, ref;
-    list = new ListModel();
-    list.push(1);
+import { test, expect } from 'vitest';
 
-    /*
-     * Test new-constructed instances
-     */
-    ref = 0;
-    listener = new ListUpdateListener(list, function (data) {
-      if (ref === 0) {
-        assert.equal(this, list, 'callback "this" is the list');
-      }
-      ref += 1;
-    });
-    assert.ok(listener, 'construction via "new" works');
-    assert.equal(ref, 0, 'callback is not called on construction');
-    list.push(2);
-    assert.equal(ref, 1, 'callback is called on push');
-    list.insert(0, 3);
-    assert.equal(ref, 2, 'callback is called on insert');
-    list.pop();
-    assert.equal(ref, 3, 'callback is called on pop');
-    list.remove(0);
-    assert.equal(ref, 4, 'callback is called on remove');
-    list.erase(1);
-    assert.equal(ref, 5, 'callback is called on erase');
-    list.clear();
-    assert.equal(ref, 6, 'callback is called on clear');
-    listener.destroy();
-    list.push(5);
-    assert.equal(ref, 6, 'listener is unregistered on destroy');
+import ListModel from '../listmodel.js';
+import ListUpdateListener from '../listupdatelistener.js';
+test('ListUpdateListener', () => {
+  var list, listener, ref;
+  list = new ListModel();
+  list.push(1);
 
-    /*
-     * Test bind()-constructed instances
-     */
-    ref = 0;
-    ListUpdateListener.bind(list, function () {
-      if (ref === 0) {
-        assert.equal(this, list, 'callback "this" is the list');
-      }
-      ref += 1;
-    });
-    assert.ok(listener, 'construction via "bind()" works');
-    assert.equal(ref, 0, 'callback is not called on bind-construction');
-    list.push(2);
-    assert.equal(ref, 1, 'callback is called on push');
-    list.insert(0, 3);
-    assert.equal(ref, 2, 'callback is called on insert');
-    list.pop();
-    assert.equal(ref, 3, 'callback is called on pop');
-    list.remove(0);
-    assert.equal(ref, 4, 'callback is called on remove');
-    list.erase(5);
-    assert.equal(ref, 5, 'callback is called on erase');
-    list.clear();
-    assert.equal(ref, 6, 'callback is called on clear');
+  /*
+   * Test new-constructed instances
+   */
+  ref = 0;
+  listener = new ListUpdateListener(list, function (data) {
+    if (ref === 0) {
+      expect(this, 'callback "this" is the list').toBe(list);
+    }
+    ref += 1;
   });
+  expect(listener, 'construction via "new" works').toBeTruthy();
+  expect(ref, 'callback is not called on construction').toBe(0);
+  list.push(2);
+  expect(ref, 'callback is called on push').toBe(1);
+  list.insert(0, 3);
+  expect(ref, 'callback is called on insert').toBe(2);
+  list.pop();
+  expect(ref, 'callback is called on pop').toBe(3);
+  list.remove(0);
+  expect(ref, 'callback is called on remove').toBe(4);
+  list.erase(1);
+  expect(ref, 'callback is called on erase').toBe(5);
+  list.clear();
+  expect(ref, 'callback is called on clear').toBe(6);
+  listener.destroy();
+  list.push(5);
+  expect(ref, 'listener is unregistered on destroy').toBe(6);
+
+  /*
+   * Test bind()-constructed instances
+   */
+  ref = 0;
+  ListUpdateListener.bind(list, function () {
+    if (ref === 0) {
+      expect(this, 'callback "this" is the list').toBe(list);
+    }
+    ref += 1;
+  });
+  expect(listener, 'construction via "bind()" works').toBeTruthy();
+  expect(ref, 'callback is not called on bind-construction').toBe(0);
+  list.push(2);
+  expect(ref, 'callback is called on push').toBe(1);
+  list.insert(0, 3);
+  expect(ref, 'callback is called on insert').toBe(2);
+  list.pop();
+  expect(ref, 'callback is called on pop').toBe(3);
+  list.remove(0);
+  expect(ref, 'callback is called on remove').toBe(4);
+  list.erase(5);
+  expect(ref, 'callback is called on erase').toBe(5);
+  list.clear();
+  expect(ref, 'callback is called on clear').toBe(6);
 });

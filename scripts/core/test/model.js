@@ -6,22 +6,21 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var Model, Emitter, extend;
-  Model = getModule('core/model');
-  Emitter = getModule('core/emitter');
-  extend = getModule('lib/extend');
-  QUnit.test('Model', function (assert) {
-    var model, success;
-    assert.ok(extend.isSubclass(Model, Emitter), 'Model is an Emitter subclass');
-    model = new Model();
-    assert.deepEqual(model.save(), {}, 'Model.save() returns empty object');
-    try {
-      assert.equal(model.restore({}), true, 'Model.restore() returns true on success');
-      success = true;
-    } catch (e) {
-      success = false;
-    }
-    assert.ok(success, 'model.restore() exists and is a function');
-  });
+import { test, expect } from 'vitest';
+
+import Model from '../model.js';
+import Emitter from '../emitter.js';
+import extend from '../../lib/extend.js';
+test('Model', () => {
+  var model, success;
+  expect(extend.isSubclass(Model, Emitter), 'Model is an Emitter subclass').toBeTruthy();
+  model = new Model();
+  expect(model.save(), 'Model.save() returns empty object').toEqual({});
+  try {
+    expect(model.restore({}), 'Model.restore() returns true on success').toBe(true);
+    success = true;
+  } catch (e) {
+    success = false;
+  }
+  expect(success, 'model.restore() exists and is a function').toBeTruthy();
 });

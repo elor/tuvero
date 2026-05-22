@@ -6,124 +6,126 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var ListModel, VectorModel, extend;
-  extend = getModule('lib/extend');
-  ListModel = getModule('list/listmodel');
-  VectorModel = getModule('math/vectormodel');
-  QUnit.test('VectorModel', function (assert) {
-    var vec, vec2, retvec, ref, success, data;
-    assert.ok(extend.isSubclass(VectorModel, ListModel), 'VectorModel is subclass of ListModel');
-    vec = new VectorModel();
-    assert.equal(vec.length, 0, 'empty initialization: length is 0');
-    vec.resize(123);
-    assert.equal(vec.length, 123, 'resize() expands to the wanted length');
-    assert.equal(vec.get(0), 0, 'resize() fills with 0 (beg)');
-    assert.equal(vec.get(55), 0, 'resize() fills with 0 (mid)');
-    assert.equal(vec.get(122), 0, 'resize() fills with 0 (end)');
-    vec.resize(5);
-    assert.equal(vec.length, 5, 'resize() crops to the wanted length');
-    assert.equal(vec.get(122), undefined, 'get() reads removed elements as undefined');
-    vec.resize(-5);
-    assert.equal(vec.length, 0, 'resize() to negative number crops to length 0');
-    vec = new VectorModel(10);
-    vec.push(1);
-    vec.push(2);
-    vec.push(3);
-    vec.push(4);
-    vec.push(5);
-    vec.push(6);
-    vec.push(7);
-    vec.push(8);
-    retvec = new VectorModel();
-    vec2 = new VectorModel(vec.length);
-    vec2.map(function (elem, index) {
-      vec2.set(index, index);
-    });
-    assert.equal(retvec.mult(vec, vec2), retvec, 'mult does not fail');
-    assert.equal(retvec.length, 18, 'mult resizes target');
-    ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 22, 36, 52, 70, 90, 112, 136];
-    assert.deepEqual(retvec.asArray(), ref, 'mult calculates the vector product');
-    assert.equal(retvec.mult(vec), retvec, 'mult with one argument');
-    ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 44, 108, 208, 350, 540, 784, 1088];
-    assert.deepEqual(retvec.asArray(), ref, 'mult calculates the vector product');
-    assert.equal(vec.dot(vec2), 528, 'dot() calculates the dot product');
-    retvec.resize(0);
-    assert.equal(retvec.sum(vec, vec2), retvec, 'sum() returns the vector');
-    assert.equal(retvec.length, 18, 'sum() resizes the target vector');
-    ref = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19, 21, 23, 25];
-    assert.deepEqual(retvec.asArray(), ref, 'sum calculates the element sum');
+import { test, expect } from 'vitest';
 
-    // resize, so ref does not exceed the line length. This is pretty
-    // stupid,
-    // but this is not a stress test anyhow.
-    vec2.resize(15);
-    retvec.resize(15);
-    assert.equal(retvec.sum(vec2), retvec, 'sum() returns the vector');
-    ref = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 21, 24, 27, 30, 33];
-    assert.deepEqual(retvec.asArray(), ref, 'sum calculates element sum');
-    retvec.fill();
-    ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    assert.deepEqual(retvec.asArray(), ref, 'fill() resets the contents');
-    retvec.fill(5);
-    ref = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
-    assert.deepEqual(retvec.asArray(), ref, 'fill(5) sets the contents');
-    vec = new VectorModel(5);
-    vec.set(0, 5);
-    vec.set(1, 4);
-    vec.set(2, 3);
-    vec.set(3, 2);
-    vec.set(4, 1);
-    success = false;
-    try {
-      vec2.mult(vec, 5);
-    } catch (e) {
-      success = true;
-    }
-    assert.ok(success, 'mult(VectorModel, Number) aborts as intended');
-    success = true;
-    try {
-      vec2.mult(5, vec);
-    } catch (e2) {
-      success = false;
-    }
-    assert.ok(success, 'mult(Number, VectorModel) aborts as intended');
-    ref = [25, 20, 15, 10, 5];
-    assert.deepEqual(vec2.asArray(), ref, 'mult(Number) works properly');
-    success = true;
-    try {
-      vec.mult(5);
-    } catch (e) {
-      success = false;
-    }
-    assert.ok(success, 'mult(Number, VectorModel) aborts as intended');
-    ref = [25, 20, 15, 10, 5];
-    assert.deepEqual(vec.asArray(), ref, 'mult(Number) works properly');
-
-    /*
-     * save()/restore()
-     */
-
-    vec = new VectorModel();
-    vec2 = new VectorModel(15);
-    vec.push(5);
-    vec.push(3);
-    vec.push(4);
-    vec.push(1);
-    vec.push(2);
-    data = vec.save();
-    assert.ok(data, 'save() does seem to work');
-    assert.equal(vec2.restore(data), true, 'restore() works');
-    assert.deepEqual(vec2.asArray(), [5, 3, 4, 1, 2], 'restored values are correct');
-    vec = new VectorModel();
-    vec.push(0);
-    vec.push(0);
-    vec.push(1);
-    vec.push(0);
-    vec.push(0);
-    data = vec.save();
-    vec = new VectorModel();
-    vec.restore(data);
-    assert.deepEqual(vec.asArray(), [0, 0, 1, 0, 0], 'no undefined values in the array');
+import extend from '../../lib/extend.js';
+import ListModel from '../../list/listmodel.js';
+import VectorModel from '../vectormodel.js';
+test('VectorModel', () => {
+  var vec, vec2, retvec, ref, success, data;
+  expect(
+    extend.isSubclass(VectorModel, ListModel),
+    'VectorModel is subclass of ListModel'
+  ).toBeTruthy();
+  vec = new VectorModel();
+  expect(vec.length, 'empty initialization: length is 0').toBe(0);
+  vec.resize(123);
+  expect(vec.length, 'resize() expands to the wanted length').toBe(123);
+  expect(vec.get(0), 'resize() fills with 0 (beg)').toBe(0);
+  expect(vec.get(55), 'resize() fills with 0 (mid)').toBe(0);
+  expect(vec.get(122), 'resize() fills with 0 (end)').toBe(0);
+  vec.resize(5);
+  expect(vec.length, 'resize() crops to the wanted length').toBe(5);
+  expect(vec.get(122), 'get() reads removed elements as undefined').toBe(undefined);
+  vec.resize(-5);
+  expect(vec.length, 'resize() to negative number crops to length 0').toBe(0);
+  vec = new VectorModel(10);
+  vec.push(1);
+  vec.push(2);
+  vec.push(3);
+  vec.push(4);
+  vec.push(5);
+  vec.push(6);
+  vec.push(7);
+  vec.push(8);
+  retvec = new VectorModel();
+  vec2 = new VectorModel(vec.length);
+  vec2.map(function (elem, index) {
+    vec2.set(index, index);
   });
+  expect(retvec.mult(vec, vec2), 'mult does not fail').toBe(retvec);
+  expect(retvec.length, 'mult resizes target').toBe(18);
+  ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 22, 36, 52, 70, 90, 112, 136];
+  expect(retvec.asArray(), 'mult calculates the vector product').toEqual(ref);
+  expect(retvec.mult(vec), 'mult with one argument').toBe(retvec);
+  ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 44, 108, 208, 350, 540, 784, 1088];
+  expect(retvec.asArray(), 'mult calculates the vector product').toEqual(ref);
+  expect(vec.dot(vec2), 'dot() calculates the dot product').toBe(528);
+  retvec.resize(0);
+  expect(retvec.sum(vec, vec2), 'sum() returns the vector').toBe(retvec);
+  expect(retvec.length, 'sum() resizes the target vector').toBe(18);
+  ref = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19, 21, 23, 25];
+  expect(retvec.asArray(), 'sum calculates the element sum').toEqual(ref);
+
+  // resize, so ref does not exceed the line length. This is pretty
+  // stupid,
+  // but this is not a stress test anyhow.
+  vec2.resize(15);
+  retvec.resize(15);
+  expect(retvec.sum(vec2), 'sum() returns the vector').toBe(retvec);
+  ref = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 21, 24, 27, 30, 33];
+  expect(retvec.asArray(), 'sum calculates element sum').toEqual(ref);
+  retvec.fill();
+  ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  expect(retvec.asArray(), 'fill() resets the contents').toEqual(ref);
+  retvec.fill(5);
+  ref = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+  expect(retvec.asArray(), 'fill(5) sets the contents').toEqual(ref);
+  vec = new VectorModel(5);
+  vec.set(0, 5);
+  vec.set(1, 4);
+  vec.set(2, 3);
+  vec.set(3, 2);
+  vec.set(4, 1);
+  success = false;
+  try {
+    vec2.mult(vec, 5);
+  } catch (e) {
+    success = true;
+  }
+  expect(success, 'mult(VectorModel, Number) aborts as intended').toBeTruthy();
+  success = true;
+  try {
+    vec2.mult(5, vec);
+  } catch (e2) {
+    success = false;
+  }
+  expect(success, 'mult(Number, VectorModel) aborts as intended').toBeTruthy();
+  ref = [25, 20, 15, 10, 5];
+  expect(vec2.asArray(), 'mult(Number) works properly').toEqual(ref);
+  success = true;
+  try {
+    vec.mult(5);
+  } catch (e) {
+    success = false;
+  }
+  expect(success, 'mult(Number, VectorModel) aborts as intended').toBeTruthy();
+  ref = [25, 20, 15, 10, 5];
+  expect(vec.asArray(), 'mult(Number) works properly').toEqual(ref);
+
+  /*
+   * save()/restore()
+   */
+
+  vec = new VectorModel();
+  vec2 = new VectorModel(15);
+  vec.push(5);
+  vec.push(3);
+  vec.push(4);
+  vec.push(1);
+  vec.push(2);
+  data = vec.save();
+  expect(data, 'save() does seem to work').toBeTruthy();
+  expect(vec2.restore(data), 'restore() works').toBe(true);
+  expect(vec2.asArray(), 'restored values are correct').toEqual([5, 3, 4, 1, 2]);
+  vec = new VectorModel();
+  vec.push(0);
+  vec.push(0);
+  vec.push(1);
+  vec.push(0);
+  vec.push(0);
+  data = vec.save();
+  vec = new VectorModel();
+  vec.restore(data);
+  expect(vec.asArray(), 'no undefined values in the array').toEqual([0, 0, 1, 0, 0]);
 });

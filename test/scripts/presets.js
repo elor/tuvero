@@ -6,45 +6,44 @@
  * @license MIT License
  * @see LICENSE
  */
+import RankingComponentIndex from '../../scripts/ranking/rankingcomponentindex.js';
 
-define(['ranking/rankingcomponentindex'], function (RankingComponentIndex) {
-  var Presets
+var Presets;
 
-  Presets = {
-    target: 'test',
-    systems: {
-      swiss: {
-        ranking: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
-        mode: 'wins'
-      },
-      ko: {
-        mode: 'matched'
-      },
-      round: {
-        ranking: ['wins', 'sonneborn']
-      },
-      placement: {},
-      poules: {}
+Presets = {
+  target: 'test',
+  systems: {
+    swiss: {
+      ranking: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
+      mode: 'wins'
     },
-    ranking: {
-      components: RankingComponentIndex.components
+    ko: {
+      mode: 'matched'
     },
-    registration: {
-      defaultteamsize: 1,
-      minteamsize: 1,
-      maxteamsize: 3,
-      teamsizeicon: true
+    round: {
+      ranking: ['wins', 'sonneborn']
     },
-    names: {
-      playernameurl: '',
-      dbplayername: 'testplayers',
-      apitoken: 'apitoken',
-      teamsfile: 'tuvero-anmeldungen.txt'
-    },
-    ui: {
-      rankingpoints: true
-    }
+    placement: {},
+    poules: {}
+  },
+  ranking: {
+    components: RankingComponentIndex.components
+  },
+  registration: {
+    defaultteamsize: 1,
+    minteamsize: 1,
+    maxteamsize: 3,
+    teamsizeicon: true
+  },
+  names: {
+    playernameurl: '',
+    dbplayername: 'testplayers',
+    apitoken: 'apitoken',
+    teamsfile: 'tuvero-anmeldungen.txt'
+  },
+  ui: {
+    rankingpoints: true
   }
+};
 
-  return Presets
-})
+export default Presets;

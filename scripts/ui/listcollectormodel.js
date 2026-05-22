@@ -103,7 +103,7 @@ ListCollectorModel.prototype.registerExistingElements = function () {
  *          an optional data object
  */
 ListCollectorModel.PROXYCALLBACK = function (emitter, event, data) {
-  if (!data) {
+  if (!data || typeof data !== 'object') {
     data = {};
   }
   // TODO get rid of "source" field

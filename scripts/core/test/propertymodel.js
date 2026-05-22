@@ -6,75 +6,77 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var PropertyModel;
-  PropertyModel = getModule('core/propertymodel');
-  QUnit.test('PropertyModel', function (assert) {
-    var prop, listener, ref, savedata;
-    prop = new PropertyModel();
-    assert.ok(prop !== undefined, 'empty initialization is allowed');
-    assert.equal(prop.getProperty('someprop'), undefined, 'access to undefined keys returns undefined');
-    listener = {
-      success: false,
-      onupdate: function () {
-        this.success = true;
-      },
-      emitters: []
-    };
-    prop.registerListener(listener);
-    assert.equal(prop.setProperty('name', 'Some Name'), true, 'setProperty() returns true');
-    assert.equal(listener.success, true, 'setProperty() emits update event');
-    assert.equal(prop.getProperty('name'), 'Some Name', 'setProperty() actually stores values');
-    listener.success = false;
-    assert.equal(prop.setProperty('name', 'Another Name'), true, 'setProperty() returns true');
-    assert.equal(listener.success, true, 'setProperty() emits update event');
-    assert.equal(prop.getProperty('name'), 'Another Name', 'setProperty() actually changes values');
-    listener.success = false;
-    assert.equal(prop.setProperty('name', 'Another Name'), false, 'setProperty() returns false on no-change');
-    assert.equal(listener.success, false, 'setProperty() emits no update on no-change');
-    assert.equal(prop.getProperty('name'), 'Another Name', 'setProperty() did not change any values');
-    ref = {
-      asd: 'dsa',
-      i: 5
-    };
-    assert.equal(prop.setProperty('object', ref), false, 'cannot store objects');
-    assert.equal(prop.getProperty('object'), undefined, 'object references are not stored');
-    assert.equal(prop.setProperty('array', [1, 2, 3]), false, 'cannot store arrays');
-    assert.equal(prop.getProperty('array'), undefined, 'array object references are not stored');
-    ref = function () {
-      //
-    };
-    assert.equal(prop.setProperty('function', ref), false, 'cannot store functions');
-    assert.equal(prop.getProperty('function'), undefined, 'function references are not stored');
-    assert.equal(prop.setProperty('date', new Date()), false, 'cannot store dates');
-    assert.equal(prop.getProperty('date'), undefined, 'dates are not stored');
-    assert.equal(prop.setProperty('regex', /dsa/), false, 'cannot store regular expressions');
-    assert.equal(prop.getProperty('regex'), undefined, 'regular expressions are not stored');
+import { test, expect } from 'vitest';
 
-    /*
-     * save()/restore()
-     */
-    prop = new PropertyModel();
-    prop.setProperty('string', 'somevalue');
-    prop.setProperty('int', 53241);
-    prop.setProperty('float', 53.241);
-    prop.setProperty('boolean', true);
-    savedata = prop.save();
-    assert.ok(savedata, 'save() works');
-    prop = new PropertyModel();
-    assert.equal(prop.restore(savedata), true, 'restore() works!');
-    assert.equal(prop.getProperty('string'), 'somevalue', 'string restored');
-    assert.equal(prop.getProperty('int'), 53241, 'int restored');
-    assert.equal(prop.getProperty('float'), 53.241, 'float restored');
-    assert.equal(prop.getProperty('boolean'), true, 'boolean restored');
-    prop = new PropertyModel({
-      bool: true,
-      str: 'string',
-      num: 123
-    });
-    assert.ok(prop, 'property model with default initialization');
-    assert.equal(prop.getProperty('bool'), true, 'default bool property');
-    assert.equal(prop.getProperty('str'), 'string', 'default str property');
-    assert.equal(prop.getProperty('num'), 123, 'default num property');
+import PropertyModel from '../propertymodel.js';
+test('PropertyModel', () => {
+  var prop, listener, ref, savedata;
+  prop = new PropertyModel();
+  expect(prop !== undefined, 'empty initialization is allowed').toBeTruthy();
+  expect(prop.getProperty('someprop'), 'access to undefined keys returns undefined').toBe(undefined);
+  listener = {
+    success: false,
+    onupdate: function () {
+      this.success = true;
+    },
+    emitters: []
+  };
+  prop.registerListener(listener);
+  expect(prop.setProperty('name', 'Some Name'), 'setProperty() returns true').toBe(true);
+  expect(listener.success, 'setProperty() emits update event').toBe(true);
+  expect(prop.getProperty('name'), 'setProperty() actually stores values').toBe('Some Name');
+  listener.success = false;
+  expect(prop.setProperty('name', 'Another Name'), 'setProperty() returns true').toBe(true);
+  expect(listener.success, 'setProperty() emits update event').toBe(true);
+  expect(prop.getProperty('name'), 'setProperty() actually changes values').toBe('Another Name');
+  listener.success = false;
+  expect(
+    prop.setProperty('name', 'Another Name'),
+    'setProperty() returns false on no-change'
+  ).toBe(false);
+  expect(listener.success, 'setProperty() emits no update on no-change').toBe(false);
+  expect(prop.getProperty('name'), 'setProperty() did not change any values').toBe('Another Name');
+  ref = {
+    asd: 'dsa',
+    i: 5
+  };
+  expect(prop.setProperty('object', ref), 'cannot store objects').toBe(false);
+  expect(prop.getProperty('object'), 'object references are not stored').toBe(undefined);
+  expect(prop.setProperty('array', [1, 2, 3]), 'cannot store arrays').toBe(false);
+  expect(prop.getProperty('array'), 'array object references are not stored').toBe(undefined);
+  ref = function () {
+    //
+  };
+  expect(prop.setProperty('function', ref), 'cannot store functions').toBe(false);
+  expect(prop.getProperty('function'), 'function references are not stored').toBe(undefined);
+  expect(prop.setProperty('date', new Date()), 'cannot store dates').toBe(false);
+  expect(prop.getProperty('date'), 'dates are not stored').toBe(undefined);
+  expect(prop.setProperty('regex', /dsa/), 'cannot store regular expressions').toBe(false);
+  expect(prop.getProperty('regex'), 'regular expressions are not stored').toBe(undefined);
+
+  /*
+   * save()/restore()
+   */
+  prop = new PropertyModel();
+  prop.setProperty('string', 'somevalue');
+  prop.setProperty('int', 53241);
+  prop.setProperty('float', 53.241);
+  prop.setProperty('boolean', true);
+  savedata = prop.save();
+  expect(savedata, 'save() works').toBeTruthy();
+  prop = new PropertyModel();
+  expect(prop.restore(savedata), 'restore() works!').toBe(true);
+  expect(prop.getProperty('string'), 'string restored').toBe('somevalue');
+  expect(prop.getProperty('int'), 'int restored').toBe(53241);
+  expect(prop.getProperty('float'), 'float restored').toBe(53.241);
+  expect(prop.getProperty('boolean'), 'boolean restored').toBe(true);
+  prop = new PropertyModel({
+    bool: true,
+    str: 'string',
+    num: 123
   });
+  expect(prop, 'property model with default initialization').toBeTruthy();
+  expect(prop.getProperty('bool'), 'default bool property').toBe(true);
+  expect(prop.getProperty('str'), 'default str property').toBe('string');
+  expect(prop.getProperty('num'), 'default num property').toBe(123);
 });

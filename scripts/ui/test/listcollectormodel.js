@@ -6,42 +6,50 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var ListModel, ListCollectorModel, ValueModel;
-  ValueModel = getModule('core/valuemodel');
-  ListModel = getModule('list/listmodel');
-  ListCollectorModel = getModule('ui/listcollectormodel');
-  QUnit.test('ListCollectorModel', function (assert) {
-    var model, list, listener, obj;
-    listener = {
-      updatecount: 0,
-      onupdate: function () {
-        listener.updatecount += 1;
-      },
-      emitters: []
-    };
-    list = new ListModel();
-    model = new ListCollectorModel(list, ValueModel);
-    model.registerListener(listener);
-    assert.equal(model.emitters.length, 0, 'starting without any emitters');
-    list.push(new ValueModel());
-    assert.equal(model.emitters.length, 1, 'automatically adding emitters');
-    list.get(0).set(5);
-    assert.equal(listener.updatecount, 1, 'recieving update events from inside the list');
-    obj = list.pop();
-    assert.equal(model.emitters.length, 0, 'unregistering from emitters when they are removed from the list');
-    listener.updatecount = 0;
-    obj.set(8);
-    assert.equal(listener.updatecount, 0, 'removed emitters are unregistered from');
-    list.push(obj);
-    list.push(obj);
-    list.push(obj);
-    listener.updatecount = 0;
-    obj.set(13);
-    assert.equal(listener.updatecount, 1, 'events of multiply inserted emitters are re-emitted exactly once');
-    list.pop();
-    listener.updatecount = 0;
-    obj.set(20);
-    assert.equal(listener.updatecount, 1, 'not unregistering a multiply inserted element if removed once');
-  });
+import { test, expect } from 'vitest';
+
+import ValueModel from '../../core/valuemodel.js';
+import ListModel from '../../list/listmodel.js';
+import ListCollectorModel from '../listcollectormodel.js';
+test('ListCollectorModel', () => {
+  var model, list, listener, obj;
+  listener = {
+    updatecount: 0,
+    onupdate: function () {
+      listener.updatecount += 1;
+    },
+    emitters: []
+  };
+  list = new ListModel();
+  model = new ListCollectorModel(list, ValueModel);
+  model.registerListener(listener);
+  expect(model.emitters.length, 'starting without any emitters').toBe(0);
+  list.push(new ValueModel());
+  expect(model.emitters.length, 'automatically adding emitters').toBe(1);
+  list.get(0).set(5);
+  expect(listener.updatecount, 'recieving update events from inside the list').toBe(1);
+  obj = list.pop();
+  expect(
+    model.emitters.length,
+    'unregistering from emitters when they are removed from the list'
+  ).toBe(0);
+  listener.updatecount = 0;
+  obj.set(8);
+  expect(listener.updatecount, 'removed emitters are unregistered from').toBe(0);
+  list.push(obj);
+  list.push(obj);
+  list.push(obj);
+  listener.updatecount = 0;
+  obj.set(13);
+  expect(
+    listener.updatecount,
+    'events of multiply inserted emitters are re-emitted exactly once'
+  ).toBe(1);
+  list.pop();
+  listener.updatecount = 0;
+  obj.set(20);
+  expect(
+    listener.updatecount,
+    'not unregistering a multiply inserted element if removed once'
+  ).toBe(1);
 });

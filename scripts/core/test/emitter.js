@@ -6,167 +6,175 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var Emitter;
-  Emitter = getModule('core/emitter');
-  QUnit.test('Emitter', function (assert) {
-    var emitter, listener, listener2, eventcounter, resetcounter, retval;
-    eventcounter = resetcounter = 0;
-    emitter = undefined;
-    listener = undefined;
-    listener = {
-      /**
-       * test function
-       */
-      onundefined: function () {
-        this.onreset();
-      },
-      /**
-       * test function
-       */
-      onreset: function () {
-        eventcounter = 0;
-        resetcounter += 1;
-      },
-      /**
-       * test function
-       */
-      onevent: function (_emitter, event) {
-        eventcounter += 1;
-        assert.equal(this, listener, 'onevent(): this equals listener');
-        assert.equal(_emitter, emitter, 'onevent(): first argument equals emitter ');
-        assert.equal(event, 'event', 'onevent(): second argument equals event string');
-      },
-      emitters: []
-    };
-    listener2 = {
-      /**
-       * test function
-       */
-      onevent: function () {
-        eventcounter += 1;
-      },
-      emitters: []
-    };
-    emitter = new Emitter();
-    emitter.EVENTS = {
-      'asd': true,
-      'event': true,
-      'reset': true
-    };
-    retval = emitter.emit('asd');
-    assert.equal(retval, false, 'Emitter: unreceived event returns false on emit()');
-    emitter.registerListener(listener).registerListener(listener2);
-    assert.equal(eventcounter + resetcounter, 0, 'counters are at a zero state after listener registration');
-    retval = emitter.emit('event');
-    assert.equal(eventcounter, 2, "both listeners received 'event'");
-    assert.equal(retval, true, 'Emitter: received event returns true on emit()');
-    emitter.registerListener(listener);
-    retval = emitter.emit('event');
-    assert.equal(eventcounter, 4, 'Cannot register an event listener twice');
-    retval = emitter.emit('reset');
-    assert.equal(eventcounter, 0, "counter was reset during 'reset' event");
-    assert.equal(resetcounter, 1, 'reset was processed');
-    retval = emitter.emit('event');
-    retval = emitter.emit();
-    assert.equal(resetcounter, 1, 'default event (undefined) was not processed');
-    assert.equal(eventcounter, 2, 'onundefined callback function was not processed');
-    emitter.emit('thisEventIsInvalid');
-    assert.equal(eventcounter, 2, 'unspecified events are not processed');
-    emitter.unregisterListener(listener);
-    retval = emitter.emit('event');
-    assert.equal(eventcounter, 3, 'unregistered listeners do not receive events');
-    retval = emitter.listeners.indexOf(listener);
-    assert.equal(retval, -1, 'listeners are removed from emitter.listeners');
-    retval = listener.emitters.indexOf(emitter);
-    assert.equal(retval, -1, 'emitters are removed from listener.emitters');
+import { test, expect } from 'vitest';
 
-    /*
-     * emit+unregister test
-     *
-     * When unregistering a listener from a currently emitting emitter, the
-     * listeners array is manipulated, possibly causing listeners to be
-     * skipped. This is an error, which should be fixed
+import Emitter from '../emitter.js';
+test('Emitter', () => {
+  var emitter, listener, listener2, eventcounter, resetcounter, retval;
+  eventcounter = resetcounter = 0;
+  emitter = undefined;
+  listener = undefined;
+  listener = {
+    /**
+     * test function
      */
-
-    emitter = new Emitter();
-    emitter.EVENTS = {
-      'evt': true
-    };
-    listener2 = {
-      success: false,
-      onevt: function () {
-        this.success = true;
-      },
-      emitters: []
-    };
-    listener = {
-      onevt: function () {
-        emitter.unregisterListener(this);
-      },
-      emitters: []
-    };
-    emitter.registerListener(listener);
-    emitter.registerListener(listener2);
-    emitter.emit('evt');
-    assert.equal(listener2.success, true, 'unregister during emit should not cause listeners to be skipped');
-
-    /*
-     * Mixin tests: when instantiating the emitter multiple times, the
-     * 'listeners' array should not be overwritten!
+    onundefined: function () {
+      this.onreset();
+    },
+    /**
+     * test function
      */
-
-    emitter = new Emitter();
-    emitter.EVENTS = {
-      'evt': true
-    };
-    listener2.success = false;
-    emitter.registerListener(listener2);
-    Emitter.call(emitter); // mix-in
-    emitter.emit('evt');
-    assert.equal(listener2.success, true, 'Mixin-initialization of an emitter preserves the listeners');
-
-    /*
-     * testing memory leak due to invalid forEach call
+    onreset: function () {
+      eventcounter = 0;
+      resetcounter += 1;
+    },
+    /**
+     * test function
      */
-    emitter = new Emitter();
-    listener = {
-      emitters: []
-    };
-    listener2 = {
-      emitters: []
-    };
-    emitter.registerListener(listener);
-    emitter.registerListener(listener2);
-    emitter.destroy();
-    assert.equal(listener.emitters.length, 0, 'memleak: first listener was unregistered');
-    assert.equal(listener2.emitters.length, 0, 'memleak: second listener was unregistered');
-
-    /*
-     * Test Exception handling
+    onevent: function (_emitter, event) {
+      eventcounter += 1;
+      expect(this, 'onevent(): this equals listener').toBe(listener);
+      expect(_emitter, 'onevent(): first argument equals emitter ').toBe(emitter);
+      expect(event, 'onevent(): second argument equals event string').toBe('event');
+    },
+    emitters: []
+  };
+  listener2 = {
+    /**
+     * test function
      */
+    onevent: function () {
+      eventcounter += 1;
+    },
+    emitters: []
+  };
+  emitter = new Emitter();
+  emitter.EVENTS = {
+    'asd': true,
+    'event': true,
+    'reset': true
+  };
+  retval = emitter.emit('asd');
+  expect(retval, 'Emitter: unreceived event returns false on emit()').toBe(false);
+  emitter.registerListener(listener).registerListener(listener2);
+  expect(
+    eventcounter + resetcounter,
+    'counters are at a zero state after listener registration'
+  ).toBe(0);
+  retval = emitter.emit('event');
+  expect(eventcounter, "both listeners received 'event'").toBe(2);
+  expect(retval, 'Emitter: received event returns true on emit()').toBe(true);
+  emitter.registerListener(listener);
+  retval = emitter.emit('event');
+  expect(eventcounter, 'Cannot register an event listener twice').toBe(4);
+  retval = emitter.emit('reset');
+  expect(eventcounter, "counter was reset during 'reset' event").toBe(0);
+  expect(resetcounter, 'reset was processed').toBe(1);
+  retval = emitter.emit('event');
+  retval = emitter.emit();
+  expect(resetcounter, 'default event (undefined) was not processed').toBe(1);
+  expect(eventcounter, 'onundefined callback function was not processed').toBe(2);
+  emitter.emit('thisEventIsInvalid');
+  expect(eventcounter, 'unspecified events are not processed').toBe(2);
+  emitter.unregisterListener(listener);
+  retval = emitter.emit('event');
+  expect(eventcounter, 'unregistered listeners do not receive events').toBe(3);
+  retval = emitter.listeners.indexOf(listener);
+  expect(retval, 'listeners are removed from emitter.listeners').toBe(-1);
+  retval = listener.emitters.indexOf(emitter);
+  expect(retval, 'emitters are removed from listener.emitters').toBe(-1);
 
-    emitter = new Emitter();
-    emitter.EVENTS = {
-      'evt': true
-    };
-    eventcounter = 0;
-    listener = {
-      onevt: function () {
-        throw Error('Planned failure.');
-      },
-      emitters: []
-    };
-    listener2 = {
-      onevt: function () {
-        eventcounter += 1;
-      },
-      emitters: []
-    };
-    emitter.registerListener(listener);
-    emitter.registerListener(listener2);
-    emitter.emit('evt');
-    emitter.emit('evt');
-    assert.equal(eventcounter, 2, 'errors are intercepted');
-  });
+  /*
+   * emit+unregister test
+   *
+   * When unregistering a listener from a currently emitting emitter, the
+   * listeners array is manipulated, possibly causing listeners to be
+   * skipped. This is an error, which should be fixed
+   */
+
+  emitter = new Emitter();
+  emitter.EVENTS = {
+    'evt': true
+  };
+  listener2 = {
+    success: false,
+    onevt: function () {
+      this.success = true;
+    },
+    emitters: []
+  };
+  listener = {
+    onevt: function () {
+      emitter.unregisterListener(this);
+    },
+    emitters: []
+  };
+  emitter.registerListener(listener);
+  emitter.registerListener(listener2);
+  emitter.emit('evt');
+  expect(
+    listener2.success,
+    'unregister during emit should not cause listeners to be skipped'
+  ).toBe(true);
+
+  /*
+   * Mixin tests: when instantiating the emitter multiple times, the
+   * 'listeners' array should not be overwritten!
+   */
+
+  emitter = new Emitter();
+  emitter.EVENTS = {
+    'evt': true
+  };
+  listener2.success = false;
+  emitter.registerListener(listener2);
+  Emitter.call(emitter); // mix-in
+  emitter.emit('evt');
+  expect(
+    listener2.success,
+    'Mixin-initialization of an emitter preserves the listeners'
+  ).toBe(true);
+
+  /*
+   * testing memory leak due to invalid forEach call
+   */
+  emitter = new Emitter();
+  listener = {
+    emitters: []
+  };
+  listener2 = {
+    emitters: []
+  };
+  emitter.registerListener(listener);
+  emitter.registerListener(listener2);
+  emitter.destroy();
+  expect(listener.emitters.length, 'memleak: first listener was unregistered').toBe(0);
+  expect(listener2.emitters.length, 'memleak: second listener was unregistered').toBe(0);
+
+  /*
+   * Test Exception handling
+   */
+
+  emitter = new Emitter();
+  emitter.EVENTS = {
+    'evt': true
+  };
+  eventcounter = 0;
+  listener = {
+    onevt: function () {
+      throw Error('Planned failure.');
+    },
+    emitters: []
+  };
+  listener2 = {
+    onevt: function () {
+      eventcounter += 1;
+    },
+    emitters: []
+  };
+  emitter.registerListener(listener);
+  emitter.registerListener(listener2);
+  emitter.emit('evt');
+  emitter.emit('evt');
+  expect(eventcounter, 'errors are intercepted').toBe(2);
 });

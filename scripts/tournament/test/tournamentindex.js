@@ -6,22 +6,24 @@
  * @license MIT License
  * @see LICENSE
  */
-export default (function (QUnit, getModule) {
-  var TournamentIndex;
-  TournamentIndex = getModule('tournament/tournamentindex');
-  QUnit.test('TournamentIndex', function (assert) {
-    assert.equal(TournamentIndex.createTournament(), undefined, 'empty construction fails');
-    assert.equal(TournamentIndex.createTournament('undefined'), undefined, 'undefined fails');
-    assert.ok(TournamentIndex.createTournament('round'), 'round');
-    assert.ok(TournamentIndex.createTournament('swiss'), 'swiss');
-    assert.ok(TournamentIndex.createTournament('ko'), 'ko');
-    assert.equal(TournamentIndex.createTournament('poule'), undefined, 'poule fails');
-    assert.equal(TournamentIndex.createTournament({}), undefined, 'savedata-passing without "sys" property fails');
-    assert.ok(TournamentIndex.createTournament({
-      sys: 'round'
-    }), 'round-tournament with savedata');
-    assert.equal(TournamentIndex.createTournament({
-      sys: 'poule'
-    }), undefined, 'poule-tournament with savedata fails');
-  });
+import { test, expect } from 'vitest';
+
+import TournamentIndex from '../tournamentindex.js';
+test('TournamentIndex', () => {
+  expect(TournamentIndex.createTournament(), 'empty construction fails').toBe(undefined);
+  expect(TournamentIndex.createTournament('undefined'), 'undefined fails').toBe(undefined);
+  expect(TournamentIndex.createTournament('round'), 'round').toBeTruthy();
+  expect(TournamentIndex.createTournament('swiss'), 'swiss').toBeTruthy();
+  expect(TournamentIndex.createTournament('ko'), 'ko').toBeTruthy();
+  expect(TournamentIndex.createTournament('poule'), 'poule fails').toBe(undefined);
+  expect(
+    TournamentIndex.createTournament({}),
+    'savedata-passing without "sys" property fails'
+  ).toBe(undefined);
+  expect(TournamentIndex.createTournament({
+    sys: 'round'
+  }), 'round-tournament with savedata').toBeTruthy();
+  expect(TournamentIndex.createTournament({
+    sys: 'poule'
+  }), 'poule-tournament with savedata fails').toBe(undefined);
 });
