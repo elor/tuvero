@@ -31,7 +31,7 @@ Update.prototype = {};
 Update.isCached = false;
 appCache = window.applicationCache;
 if (!appCache) {
-  console.warn('appCache is not available. Tuvero will remain offline until ServiceWorker has been established.');
+  console.info('appCache is not available. Tuvero will remain offline until ServiceWorker has been established.');
   uncachedToast = new Toast(Strings.nomanifest, Toast.INFINITE);
 } else {
   function closeDownloadToast() {

@@ -40,7 +40,7 @@ class TimeMachineModel extends Model {
     if (latestKey) {
       this.commit.set(new CommitModel(latestKey));
     } else {
-      console.warn('No saved tournament found.');
+      console.info('No saved tournament found.');
     }
   }
 

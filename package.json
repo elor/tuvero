@@ -34,6 +34,7 @@
     "vite:build:tac": "VITE_VARIANT=tac vite build",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:e2e:watch": "SLOWMO=250 playwright test --headed --workers=1",
     "lint": "gulp lint",
     "update": "gulp update",
     "dev": "vite"
