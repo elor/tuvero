@@ -8,7 +8,6 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import CorrectionReferenceModel from '../correctionreferencemodel.js';
 import CorrectionModel from '../correctionmodel.js';
 import MatchModel from '../matchmodel.js';
@@ -17,7 +16,7 @@ import ListModel from '../../list/listmodel.js';
 test('CorrectionReferenceModel', () => {
   let result, result2, correction, reference, teams;
   expect(
-    extend.isSubclass(CorrectionReferenceModel, CorrectionModel),
+    CorrectionReferenceModel.prototype instanceof CorrectionModel,
     'CorrectionReferenceModel is subclass of CorrectionModel'
   ).toBeTruthy();
   teams = new ListModel();

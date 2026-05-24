@@ -1,15 +1,5 @@
-/**
- * ReferenceListModel: for every match in the matchlist, provide read-only
- * access to the matches, while translating the team indices to external team
- * numbers (e.g. global team ids)
- *
- * @return ReferenceListModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import ListModel from './listmodel.js';
+
 /**
  * Constructor
  *
@@ -21,83 +11,84 @@ import ListModel from './listmodel.js';
  *          a reference model, which takes an actual model and a team list as
  *          the constructor arguments, and creates a reference to the model
  */
-function ReferenceListModel(matchlist, teamlist, ReferenceModel) {
-  ReferenceListModel.superconstructor.call(this);
-  this.makeReadonly();
-  this.matches = matchlist;
-  this.teams = teamlist;
-  this.ReferenceModel = ReferenceModel;
-  this.matches.map(function (match, id) {
-    ReferenceListModel.insertMatch(this, id);
-  }, this);
-  this.matches.registerListener(this);
+class ReferenceListModel extends ListModel {
+  constructor(matchlist, teamlist, ReferenceModel) {
+    super();
+    this.makeReadonly();
+    this.matches = matchlist;
+    this.teams = teamlist;
+    this.ReferenceModel = ReferenceModel;
+    this.matches.map(function (match, id) {
+      ReferenceListModel.insertMatch(this, id);
+    }, this);
+    this.matches.registerListener(this);
+  }
+
+  /**
+   * Callback function: called when an 'insert' event is emitted
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  oninsert(emitter, event, data) {
+    if (emitter === this.matches) {
+      ReferenceListModel.insertMatch(this, data.id);
+    }
+  }
+
+  /**
+   * Callback function: called when a 'remove' event is emitted
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  onremove(emitter, event, data) {
+    if (emitter === this.matches) {
+      ReferenceListModel.removeMatch(this, data.id);
+    }
+  }
+
+  /**
+   * Callback function: called when a 'reset' event is emitted
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  onreset(emitter, event, data) {
+    if (emitter === this.matches) {
+      this.emit(event, data);
+    }
+  }
+
+  /**
+   * Helper function for dealing with readonly list: Do not call directly
+   *
+   * @param referenceList
+   *          a ReferenceListModel instance
+   * @param id
+   *          the id to insert at
+   */
+  static insertMatch(referenceList, id) {
+    let ref;
+    ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams);
+    ListModel.prototype.insert.call(referenceList, id, ref);
+  }
+
+  /**
+   * Helper function for dealing with readonly list: Do not call directly
+   *
+   * @param list
+   *          a ReferenceListModel instance
+   * @param id
+   *          the id to remove
+   */
+  static removeMatch(list, id) {
+    ListModel.prototype.remove.call(list, id);
+  }
 }
-extend(ReferenceListModel, ListModel);
-
-/**
- * Helper function for dealing with readonly list: Do not call directly
- *
- * @param referenceList
- *          a ReferenceListModel instance
- * @param id
- *          the id to insert at
- */
-ReferenceListModel.insertMatch = function (referenceList, id) {
-  let ref;
-  ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams);
-  ListModel.prototype.insert.call(referenceList, id, ref);
-};
-
-/**
- * Helper function for dealing with readonly list: Do not call directly
- *
- * @param list
- *          a ReferenceListModel instance
- * @param id
- *          the id to remove
- */
-ReferenceListModel.removeMatch = function (list, id) {
-  ListModel.prototype.remove.call(list, id);
-};
-
-/**
- * Callback function: called when an 'insert' event is emitted
- *
- * @param emitter
- * @param event
- * @param data
- */
-ReferenceListModel.prototype.oninsert = function (emitter, event, data) {
-  if (emitter === this.matches) {
-    ReferenceListModel.insertMatch(this, data.id);
-  }
-};
-
-/**
- * Callback function: called when a 'remove' event is emitted
- *
- * @param emitter
- * @param event
- * @param data
- */
-ReferenceListModel.prototype.onremove = function (emitter, event, data) {
-  if (emitter === this.matches) {
-    ReferenceListModel.removeMatch(this, data.id);
-  }
-};
-
-/**
- * Callback function: called when a 'reset' event is emitted
- *
- * @param emitter
- * @param event
- * @param data
- */
-ReferenceListModel.prototype.onreset = function (emitter, event, data) {
-  if (emitter === this.matches) {
-    this.emit(event, data);
-  }
-};
 
 /*
  * Note to self:

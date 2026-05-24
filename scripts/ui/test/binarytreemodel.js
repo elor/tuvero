@@ -8,13 +8,12 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import BinaryTreeModel from '../binarytreemodel.js';
 import IndexedModel from '../../list/indexedmodel.js';
 test('BinaryTreeModel', () => {
   let node;
   expect(
-    extend.isSubclass(BinaryTreeModel, IndexedModel),
+    BinaryTreeModel.prototype instanceof IndexedModel,
     'BinaryTreeModel is subclass of IndexedModel'
   ).toBeTruthy();
   node = new BinaryTreeModel();

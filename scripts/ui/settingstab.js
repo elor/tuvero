@@ -1,14 +1,8 @@
-/**
- *
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import $ from 'jquery';
 import View from '../core/view.js';
 import CSVExportController from './csvexportcontroller.js';
 import FontSizeView from './fontsizeview.js';
+
 /**
  * represents a whole team tab
  *
@@ -19,28 +13,29 @@ import FontSizeView from './fontsizeview.js';
  * @param $tab
  *          the tab DOM element
  */
-function SettingsTab($tab) {
-  SettingsTab.superconstructor.call(this, undefined, $tab);
-  this.init();
-}
-extend(SettingsTab, View);
+class SettingsTab extends View {
+  constructor($tab) {
+    super(undefined, $tab);
+    this.init();
+  }
 
-/**
- * initialize the tab functionality
- *
- * TODO maybe split it into multiple autodetected functions?
- */
-SettingsTab.prototype.init = function () {
-  let $container;
-  this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
-  this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
-
-  /*
-   * CSV buttons
+  /**
+   * initialize the tab functionality
+   *
+   * TODO maybe split it into multiple autodetected functions?
    */
-  $container = this.$view.find('.csv');
-  this.csvExportController = new CSVExportController(new View(undefined, $container));
-};
+  init() {
+    let $container;
+    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
+    this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
+
+    /*
+     * CSV buttons
+     */
+    $container = this.$view.find('.csv');
+    this.csvExportController = new CSVExportController(new View(undefined, $container));
+  }
+}
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {

@@ -14,12 +14,11 @@ import { test, expect } from 'vitest';
 import PositiveMatrix from '../positivematrix.js';
 import DelegateMatrix from '../delegatematrix.js';
 import MatrixModel from '../matrixmodel.js';
-import extend from '../../lib/extend.js';
 test('PositiveMatrix', () => {
   // constructor validation
   let a, m;
   expect(
-    extend.isSubclass(PositiveMatrix, DelegateMatrix),
+    PositiveMatrix.prototype instanceof DelegateMatrix,
     'PositiveMatrix is a DelegateMatrix subclass'
   ).toBeTruthy();
   m = new MatrixModel(5);

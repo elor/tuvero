@@ -1,13 +1,5 @@
-/**
- * RankingVotesComponent
- *
- * @return RankingVotesComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,28 +8,31 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingVotesComponent(ranking, nextcomponent) {
-  RankingVotesComponent.superconstructor.call(this, ranking, nextcomponent);
+class RankingVotesComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
+
+  /**
+  * @param i
+  *          a team index
+  * @return a string representation of the votes
+  */
+  value(i) {
+    return this.ranking.votes.get(i);
+  }
+
+  /**
+  * skip this component for ranking. It's not a valid component, just a
+  * visualization
+  *
+  * @return the result of the next component's ranking
+  */
+  compare(i, k) {
+    return this.nextcomponent.compare(i, k);
+  }
+
+  static NAME = 'votes';
 }
-extend(RankingVotesComponent, RankingComponent);
-RankingVotesComponent.NAME = 'votes';
 
-/**
-* @param i
-*          a team index
-* @return a string representation of the votes
-*/
-RankingVotesComponent.prototype.value = function (i) {
-  return this.ranking.votes.get(i);
-};
-
-/**
-* skip this component for ranking. It's not a valid component, just a
-* visualization
-*
-* @return the result of the next component's ranking
-*/
-RankingVotesComponent.prototype.compare = function (i, k) {
-  return this.nextcomponent.compare(i, k);
-};
 export default RankingVotesComponent;

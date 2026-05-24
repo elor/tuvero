@@ -118,24 +118,6 @@ test('Emitter', () => {
   ).toBe(true);
 
   /*
-   * Mixin tests: when instantiating the emitter multiple times, the
-   * 'listeners' array should not be overwritten!
-   */
-
-  emitter = new Emitter();
-  emitter.EVENTS = {
-    'evt': true
-  };
-  listener2.success = false;
-  emitter.registerListener(listener2);
-  Emitter.call(emitter); // mix-in
-  emitter.emit('evt');
-  expect(
-    listener2.success,
-    'Mixin-initialization of an emitter preserves the listeners'
-  ).toBe(true);
-
-  /*
    * testing memory leak due to invalid forEach call
    */
   emitter = new Emitter();

@@ -1,34 +1,27 @@
-/**
- * LengthModel: binds to a ListModel instance and always evaluates to its length
- *
- * @return LengthModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import ValueModel from '../core/valuemodel.js';
+
 /**
  * Constructor
  *
  * @param list
  *          a ListModel instance
  */
-function LengthModel(list) {
-  LengthModel.superconstructor.call(this, list.length);
-  list.registerListener(this);
-}
-extend(LengthModel, ValueModel);
+class LengthModel extends ValueModel {
+  constructor(list) {
+    super(list.length);
+    list.registerListener(this);
+  }
 
-/**
- * callback listener
- *
- * @param list
- *          the emitter, i.e. the ListModel instance
- */
-LengthModel.prototype.onresize = function (list) {
-  LengthModel.superclass.set.call(this, list.length);
-};
+  /**
+   * callback listener
+   *
+   * @param list
+   *          the emitter, i.e. the ListModel instance
+   */
+  onresize(list) {
+    super.set(list.length);
+  }
+}
 
 /**
  * disable the set() function. This is a passive ValueModel

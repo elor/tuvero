@@ -1,14 +1,6 @@
-/**
- * ByeResult
- *
- * @return ByeResult
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import MatchResult from './matchresult.js';
 import MatchModel from './matchmodel.js';
+
 /**
  * Constructor for auto-creation of a bye instance, which contains all
  * relevant data, and matches the MatchResult interface.
@@ -31,8 +23,10 @@ import MatchModel from './matchmodel.js';
  *          the group of the bye. Similar to the match group.
  *
  */
-function ByeResult(teamid, score, id, group) {
-  ByeResult.superconstructor.call(this, new MatchModel([teamid, teamid], id, group), score);
+class ByeResult extends MatchResult {
+  constructor(teamid, score, id, group) {
+    super(new MatchModel([teamid, teamid], id, group), score);
+  }
 }
-extend(ByeResult, MatchResult);
+
 export default ByeResult;

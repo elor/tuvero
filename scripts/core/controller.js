@@ -16,9 +16,13 @@
  * @param view
  *          An associated instance of View
  */
-function Controller(view) {
-  this.model = view.model;
-  this.view = view;
+class Controller {
+  constructor(view) {
+    this.model = view.model;
+    this.view = view;
+  }
+
+  destroy() {}
 }
-Controller.prototype.destroy = function () {};
+
 export default Controller;

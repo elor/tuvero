@@ -1,75 +1,70 @@
-/**
- * RankingPointsListener
- *
- * @return RankingPointsListener
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingDataListener from './rankingdatalistener.js';
 import VectorModel from '../math/vectormodel.js';
 import Options from 'options';
+
 /**
  * Constructor
  *
  * @param ranking
  *          a RankingModel instance
  */
-function RankingPointsListener(ranking) {
-  RankingPointsListener.superconstructor.call(this, ranking, new VectorModel());
+class RankingPointsListener extends RankingDataListener {
+  constructor(ranking) {
+    super(ranking, new VectorModel());
+  }
+
+  /**
+   * insert the results of a game into the ranking.
+   *
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
+   * @param result
+   *          a game result
+   */
+  onresult(r, e, result) {
+    result.teams.forEach(function (teamid, index) {
+      this.points.add(teamid, result.score[index]);
+    }, this);
+  }
+
+  /**
+   * add bye points
+   *
+   * @param r
+   *          the Emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event type, i.e. "bye"
+   * @param teams
+   *          an array of team ids
+   */
+  onbye(r, e, data) {
+    data.teams.forEach(function (teamid) {
+      this.points.add(teamid, Options.byepointswon);
+    }, this);
+  }
+
+  /**
+   * correct a ranking entry. Do not check whether it's valid. The
+   * TournamentModel has to take care of that
+   *
+   * @param r
+   *          the Emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event type, i.e. "correct"
+   * @param correction
+   *          a game correction
+   */
+  oncorrect(r, e, correction) {
+    correction.before.teams.forEach(function (teamid, index) {
+      this.points.add(teamid, -correction.before.score[index]);
+    }, this);
+    this.onresult(r, e, correction.after);
+  }
+
+  static NAME = 'points';
+  static DEPENDENCIES = undefined;
 }
-extend(RankingPointsListener, RankingDataListener);
-RankingPointsListener.NAME = 'points';
-RankingPointsListener.DEPENDENCIES = undefined;
 
-/**
- * insert the results of a game into the ranking.
- *
- * @param r
- *          the emitting RankingModel instance. Please ignore.
- * @param e
- *          the name of the emitted event
- * @param result
- *          a game result
- */
-RankingPointsListener.prototype.onresult = function (r, e, result) {
-  result.teams.forEach(function (teamid, index) {
-    this.points.add(teamid, result.score[index]);
-  }, this);
-};
-
-/**
- * add bye points
- *
- * @param r
- *          the Emitter, i.e. a RankingModel instance
- * @param e
- *          the event type, i.e. "bye"
- * @param teams
- *          an array of team ids
- */
-RankingPointsListener.prototype.onbye = function (r, e, data) {
-  data.teams.forEach(function (teamid) {
-    this.points.add(teamid, Options.byepointswon);
-  }, this);
-};
-
-/**
- * correct a ranking entry. Do not check whether it's valid. The
- * TournamentModel has to take care of that
- *
- * @param r
- *          the Emitter, i.e. a RankingModel instance
- * @param e
- *          the event type, i.e. "correct"
- * @param correction
- *          a game correction
- */
-RankingPointsListener.prototype.oncorrect = function (r, e, correction) {
-  correction.before.teams.forEach(function (teamid, index) {
-    this.points.add(teamid, -correction.before.score[index]);
-  }, this);
-  this.onresult(r, e, correction.after);
-};
 export default RankingPointsListener;

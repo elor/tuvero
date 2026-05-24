@@ -1,42 +1,41 @@
-/**
- * A teamView, which sets the .teamno and .name elements of the associated DOM
- * element
- *
- * @return TeamView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import TeamSettingsController from './teamsettingscontroller.js';
 import Listener from '../core/listener.js';
-function TeamSettingsView(model, $view) {
-  TeamSettingsView.superconstructor.call(this, model, $view);
-  this.controller = new TeamSettingsController(this);
-  this.update();
-}
-extend(TeamSettingsView, View);
-TeamSettingsView.prototype.update = function () {
-  this.$view.find('.teamid').text(this.model.getID() + 1);
-  this.$view.find('.teamnumber').val(this.model.number);
-  this.$view.find('.alias').val(this.model.alias);
-  this.$view.find('.club').val(this.model.club);
-  this.$view.find('.rankingpoints').val(this.model.rankingpoints);
-  this.$view.find('.elo').val(this.model.elo);
-};
-TeamSettingsView.prototype.onupdate = function () {
-  this.update();
-};
-TeamSettingsView.bindTeamList = function (teamlist) {
-  function IndexTeamView(teamID, $view) {
-    IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view);
+
+class TeamSettingsView extends View {
+  constructor(model, $view) {
+    super(model, $view);
+    this.controller = new TeamSettingsController(this);
+    this.update();
   }
-  extend(IndexTeamView, TeamSettingsView);
-  return IndexTeamView;
-};
-TeamSettingsView.prototype.destroy = function () {
-  this.controller.destroy();
-  Listener.prototype.destroy.call(this);
-};
+
+  update() {
+    this.$view.find('.teamid').text(this.model.getID() + 1);
+    this.$view.find('.teamnumber').val(this.model.number);
+    this.$view.find('.alias').val(this.model.alias);
+    this.$view.find('.club').val(this.model.club);
+    this.$view.find('.rankingpoints').val(this.model.rankingpoints);
+    this.$view.find('.elo').val(this.model.elo);
+  }
+
+  onupdate() {
+    this.update();
+  }
+
+  destroy() {
+    this.controller.destroy();
+    Listener.prototype.destroy.call(this);
+  }
+
+  static bindTeamList(teamlist) {
+    class IndexTeamView extends TeamSettingsView {
+      constructor(teamID, $view) {
+        super(teamlist.get(teamID), $view);
+      }
+    }
+
+    return IndexTeamView;
+  }
+}
+
 export default TeamSettingsView;

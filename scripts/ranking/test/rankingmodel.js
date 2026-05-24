@@ -14,7 +14,6 @@ import MatchModel from '../../core/matchmodel.js';
 import Listener from '../../core/listener.js';
 import Model from '../../core/model.js';
 import Options from 'options';
-import extend from '../../lib/extend.js';
 import CorrectionModel from '../../core/correctionmodel.js';
 test('RankingModel', () => {
   let ranking, rankingobject, ref, listener, savedata, ret;
@@ -36,7 +35,7 @@ test('RankingModel', () => {
     this.resized += 1;
   };
   expect(
-    extend.isSubclass(RankingModel, Model),
+    RankingModel.prototype instanceof Model,
     'RankingModel is a subclass of Model and, hence, Emitter'
   ).toBeTruthy();
   ranking = new RankingModel();

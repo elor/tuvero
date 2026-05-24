@@ -1,27 +1,23 @@
-/**
- * RankingBuchholzListener
- *
- * @return RankingBuchholzListener
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingDataListener from './rankingdatalistener.js';
 import VectorModel from '../math/vectormodel.js';
+
 /**
  * Constructor
  *
  * @param ranking
  *          a RankingModel instance
  */
-function RankingBuchholzListener(ranking) {
-  RankingBuchholzListener.superconstructor.call(this, ranking, new VectorModel());
+class RankingBuchholzListener extends RankingDataListener {
+  constructor(ranking) {
+    super(ranking, new VectorModel());
+  }
+
+  onrecalc() {
+    this.gamematrix.multVector(this.buchholz, this.wins);
+  }
+
+  static NAME = 'buchholz';
+  static DEPENDENCIES = ['gamematrix', 'wins'];
 }
-extend(RankingBuchholzListener, RankingDataListener);
-RankingBuchholzListener.NAME = 'buchholz';
-RankingBuchholzListener.DEPENDENCIES = ['gamematrix', 'wins'];
-RankingBuchholzListener.prototype.onrecalc = function () {
-  this.gamematrix.multVector(this.buchholz, this.wins);
-};
+
 export default RankingBuchholzListener;

@@ -26,78 +26,84 @@ leftPadding = 1;
  * @param fullwidth
  *          whether the boxes should be wide enough to include any name
  */
-function KOTreePosition(id, group, numTeams, fullwidth) {
-  this.id = id;
-  this.group = group;
-  this.numTeams = numTeams;
-  this.fullwidth = fullwidth;
-  this.round = KOTournamentModel.roundOfMatchID(this.id);
-  this.isThirdPlace = (this.group & 0x1) === 1;
-  this.firstid = KOTournamentModel.firstMatchIDOfRound(this.round);
-  this.firstRound = Math.min(
-  //
-  KOTournamentModel.initialRoundForTeams(this.numTeams),
-  //
-  KOTournamentModel.roundsInGroup(this.group & ~0x1) - 1);
-  this.x = this.calcXPosition();
-  this.y = this.calcYPosition();
+class KOTreePosition {
+  constructor(id, group, numTeams, fullwidth) {
+    this.id = id;
+    this.group = group;
+    this.numTeams = numTeams;
+    this.fullwidth = fullwidth;
+    this.round = KOTournamentModel.roundOfMatchID(this.id);
+    this.isThirdPlace = (this.group & 0x1) === 1;
+    this.firstid = KOTournamentModel.firstMatchIDOfRound(this.round);
+    this.firstRound = Math.min(
+    //
+    KOTournamentModel.initialRoundForTeams(this.numTeams),
+    //
+    KOTournamentModel.roundsInGroup(this.group & ~0x1) - 1);
+    this.x = this.calcXPosition();
+    this.y = this.calcYPosition();
+  }
+
+  /**
+   * calculate the x position (css: left) from the given parameters
+   *
+   * @return the x position
+   */
+  calcXPosition() {
+    return leftPadding + (this.firstRound - this.round) * this.getWidth();
+  }
+
+  getWidth() {
+    return KOTreePosition.getWidth(this.fullwidth);
+  }
+
+  /**
+   * calculate the y position (css: top) from the given parameters
+   *
+   * @return the y position
+   */
+  calcYPosition() {
+    let y, yFactor;
+    yFactor = Math.pow(2, this.firstRound - this.round - 1);
+
+    // padding
+    y = topPadding;
+
+    // position of first match in this round
+    y += height * yFactor;
+
+    // offset from first match in this round
+    y += height * 2 * yFactor * (this.id - this.firstid);
+
+    // third place offset
+    if (this.isThirdPlace) {
+      y += height * 1.5;
+    }
+    return y;
+  }
+
+  /**
+   * @return a KOTreePosition instance which represents the position of the
+   *         following match in the hierarchy
+   *
+   */
+  getFollowingPosition() {
+    const nextID = KOTournamentModel.nextRoundMatchID(this.id);
+    return new KOTreePosition(nextID, this.group, this.numTeams,
+    //
+    this.fullwidth);
+  }
+
+  static getWidth(fullwidth) {
+    if (fullwidth) {
+      return width;
+    }
+    return shortWidth;
+  }
+
+  static HEIGHT = height;
+  static TOPPADDING = topPadding;
+  static LEFTPADDING = leftPadding;
 }
 
-/**
- * calculate the x position (css: left) from the given parameters
- *
- * @return the x position
- */
-KOTreePosition.prototype.calcXPosition = function () {
-  return leftPadding + (this.firstRound - this.round) * this.getWidth();
-};
-KOTreePosition.prototype.getWidth = function () {
-  return KOTreePosition.getWidth(this.fullwidth);
-};
-
-/**
- * calculate the y position (css: top) from the given parameters
- *
- * @return the y position
- */
-KOTreePosition.prototype.calcYPosition = function () {
-  let y, yFactor;
-  yFactor = Math.pow(2, this.firstRound - this.round - 1);
-
-  // padding
-  y = topPadding;
-
-  // position of first match in this round
-  y += height * yFactor;
-
-  // offset from first match in this round
-  y += height * 2 * yFactor * (this.id - this.firstid);
-
-  // third place offset
-  if (this.isThirdPlace) {
-    y += height * 1.5;
-  }
-  return y;
-};
-
-/**
- * @return a KOTreePosition instance which represents the position of the
- *         following match in the hierarchy
- *
- */
-KOTreePosition.prototype.getFollowingPosition = function () {
-  const nextID = KOTournamentModel.nextRoundMatchID(this.id);
-  return new KOTreePosition(nextID, this.group, this.numTeams,
-  //
-  this.fullwidth);
-};
-KOTreePosition.getWidth = function (fullwidth) {
-  if (fullwidth) {
-    return width;
-  }
-  return shortWidth;
-};
-KOTreePosition.HEIGHT = height;
-KOTreePosition.TOPPADDING = topPadding;
-KOTreePosition.LEFTPADDING = leftPadding;
 export default KOTreePosition;

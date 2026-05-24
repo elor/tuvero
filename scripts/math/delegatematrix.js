@@ -1,53 +1,52 @@
-/**
- * DelegateMatrix takes a MatrixModel instance (or any of its subclasses) and
- * wraps around it as a MatrixModel instance, enabling all matrix read functions
- * while write functions are disabled.
- *
- * By overriding get(), the return values can be modified (absolute, only
- * positive, checkered patterns, whatever). Use this.superget() to access the
- * original get()
- *
- * @return DelegateMatrix
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import MatrixModel from './matrixmodel.js';
+
 /**
  * Constructor
  *
  * @param matrix
  *          the matrix to bind itself to
  */
-function DelegateMatrix(matrix) {
-  // call constructor for safety. We're going to overwrite all fields
-  DelegateMatrix.superconstructor.call(this, matrix.length);
-  if (!matrix) {
-    throw new Error('DelegateMatrix(): no input matrix: ' + matrix);
+class DelegateMatrix extends MatrixModel {
+  constructor(matrix) {
+    // call constructor for safety. We're going to overwrite all fields
+    super(matrix.length);
+    if (!matrix) {
+      throw new Error('DelegateMatrix(): no input matrix: ' + matrix);
+    }
+    this.data = matrix.data;
+    this.superget = matrix.get;
+    /* this.length is set by the superconstructor */
+
+    matrix.registerListener(this);
   }
-  this.data = matrix.data;
-  this.superget = matrix.get;
-  /* this.length is set by the superconstructor */
 
-  matrix.registerListener(this);
+  /**
+   * Delegate the get call to superget, with the appropriate adjustments.
+   *
+   * Please override ONLY this function
+   *
+   * @param row
+   *          the row
+   * @param col
+   *          the column
+   * @return the value at the given matrix position
+   */
+  get(row, col) {
+    return this.superget(row, col);
+  }
+
+  /**
+   * automatically update the length when the references matrix is resized and
+   * re-emit the event
+   *
+   * @param matrix
+   *          the emitter, i.e. the base matrix
+   */
+  onresize(matrix) {
+    this.length = matrix.length;
+    this.emit('resize');
+  }
 }
-extend(DelegateMatrix, MatrixModel);
-
-/**
- * Delegate the get call to superget, with the appropriate adjustments.
- *
- * Please override ONLY this function
- *
- * @param row
- *          the row
- * @param col
- *          the column
- * @return the value at the given matrix position
- */
-DelegateMatrix.prototype.get = function (row, col) {
-  return this.superget(row, col);
-};
 
 /**
  * Disable write function
@@ -69,15 +68,4 @@ DelegateMatrix.prototype.fill = undefined;
  */
 DelegateMatrix.prototype.resize = undefined;
 
-/**
- * automatically update the length when the references matrix is resized and
- * re-emit the event
- *
- * @param matrix
- *          the emitter, i.e. the base matrix
- */
-DelegateMatrix.prototype.onresize = function (matrix) {
-  this.length = matrix.length;
-  this.emit('resize');
-};
 export default DelegateMatrix;

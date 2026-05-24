@@ -1,13 +1,5 @@
-/**
- * Generic View for filling a DOM element with text
- *
- * @return TextView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
+
 /**
  * constructor
  *
@@ -16,45 +8,47 @@ import View from '../core/view.js';
  * @param $view
  *          the containing DOM element
  */
-function TextView(text, $view) {
-  TextView.superconstructor.call(this, undefined, $view);
-  this.setText(text);
-}
-extend(TextView, View);
-
-/**
- * change the text of this element
- *
- * @param text
- *          the new text
- */
-TextView.prototype.setText = function (text) {
-  if (text === undefined) {
-    this.model.text = 'undefined';
-  } else {
-    this.model.text = text;
+class TextView extends View {
+  constructor(text, $view) {
+    super(undefined, $view);
+    this.setText(text);
   }
-  this.model.emit('update');
-};
 
-/**
- * reset the text to an empty string
- */
-TextView.prototype.reset = function () {
-  this.setText('');
-};
+  /**
+   * change the text of this element
+   *
+   * @param text
+   *          the new text
+   */
+  setText(text) {
+    if (text === undefined) {
+      this.model.text = 'undefined';
+    } else {
+      this.model.text = text;
+    }
+    this.model.emit('update');
+  }
 
-/**
- * write the current text to the DOM element
- */
-TextView.prototype.update = function () {
-  this.$view.text(this.model.text);
-};
+  /**
+   * reset the text to an empty string
+   */
+  reset() {
+    this.setText('');
+  }
 
-/**
- * Callback listener
- */
-TextView.prototype.onupdate = function () {
-  this.update();
-};
+  /**
+   * write the current text to the DOM element
+   */
+  update() {
+    this.$view.text(this.model.text);
+  }
+
+  /**
+   * Callback listener
+   */
+  onupdate() {
+    this.update();
+  }
+}
+
 export default TextView;

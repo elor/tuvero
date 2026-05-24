@@ -12,13 +12,12 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import SortedReferenceListModel from '../sortedreferencelistmodel.js';
 import ListModel from '../listmodel.js';
 test('SortedReferenceListModel', () => {
   let list, sorted, sortfunc, success;
   expect(
-    extend.isSubclass(SortedReferenceListModel, ListModel),
+    SortedReferenceListModel.prototype instanceof ListModel,
     'SortedReferenceListModel is subclass of ReferenceListModel'
   ).toBeTruthy();
   list = new ListModel();

@@ -13,12 +13,11 @@ import { test, expect } from 'vitest';
 
 import MatrixModel from '../matrixmodel.js';
 import SymmetricMatrixModel from '../symmetricmatrixmodel.js';
-import extend from '../../lib/extend.js';
 test('SymmetricMatrixModel', () => {
   // constructor validation
   let a;
   expect(
-   extend.isSubclass(SymmetricMatrixModel, MatrixModel),
+   SymmetricMatrixModel.prototype instanceof MatrixModel,
    'SymmetricMatrixModel is subclass of MatrixModel'
   ).toBeTruthy();
   a = new SymmetricMatrixModel(5);

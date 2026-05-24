@@ -8,7 +8,6 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import ListModel from '../../list/listmodel.js';
 import RankingModel from '../rankingmodel.js';
 import RankingMapper from '../rankingmapper.js';
@@ -19,7 +18,7 @@ import Listener from '../../core/listener.js';
 test('RankingMapper', () => {
   let internal, ranking, listener, teams, ref;
   expect(
-    extend.isSubclass(RankingMapper, Model),
+    RankingMapper.prototype instanceof Model,
     'RankingMapper is subclass of Model'
   ).toBeTruthy();
   teams = new ListModel();

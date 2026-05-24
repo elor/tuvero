@@ -1,12 +1,3 @@
-/**
- * BoxView for collapsing boxes on click events
- *
- * @return BoxView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import BoxController from './boxcontroller.js';
 /**
@@ -41,69 +32,73 @@ function setTabbing($box) {
  * @param $box
  *          the .boxview jQuery object
  */
-function BoxView($box) {
-  BoxView.superconstructor.call(this, undefined, $box);
-  this.model.EVENTS = BoxView.EVENTS;
-  if (this.$view.hasClass('collapsed')) {
-    // start collapsed, if specified
-    setTabbing(this.$view.css('height', 0));
-  }
-  this.controller = new BoxController(this);
-}
-extend(BoxView, View);
-BoxView.EVENTS = {
-  toggle: true
-};
-
-/**
- * reset to the expanded state
- */
-BoxView.prototype.reset = function () {
-  setTabbing(this.$view.removeClass('collapsed').css('height', '').css('transition', ''));
-};
-
-/**
- * update the box with a transition, e.g. after toggling its state
- */
-BoxView.prototype.update = function () {
-  /* jshint expr: true */
-
-  let $box, oldheight, targetheight;
-  $box = this.$view;
-  if ($box.hasClass('collapsed')) {
-    targetheight = 0;
-  } else {
-    oldheight = $box.height();
-    $box.css('transition', '');
-    $box.css('height', '');
-    this.forceHeightRecalculation();
-    targetheight = $box.height();
-    $box.css('height', oldheight);
-    this.forceHeightRecalculation();
-  }
-  $box.css('height', $box.height());
-  $box.css('transition', 'height 0.5s');
-  this.forceHeightRecalculation();
-  $box.css('height', targetheight);
-  setTabbing($box);
-
-  // reset the transition value
-  setTimeout(function () {
-    $box.css('transition', '');
-    if (!$box.hasClass('collapsed')) {
-      $box.css('height', '');
+class BoxView extends View {
+  constructor($box) {
+    super(undefined, $box);
+    this.model.EVENTS = BoxView.EVENTS;
+    if (this.$view.hasClass('collapsed')) {
+      // start collapsed, if specified
+      setTabbing(this.$view.css('height', 0));
     }
-  }, 500);
-};
+    this.controller = new BoxController(this);
+  }
 
-/**
- * toggle callback function
- */
-BoxView.prototype.ontoggle = function () {
-  this.$view.toggleClass('collapsed');
-  this.update();
-};
-BoxView.prototype.forceHeightRecalculation = function () {
-  return this.$view[0].offsetHeight;
-};
+  /**
+   * reset to the expanded state
+   */
+  reset() {
+    setTabbing(this.$view.removeClass('collapsed').css('height', '').css('transition', ''));
+  }
+
+  /**
+   * update the box with a transition, e.g. after toggling its state
+   */
+  update() {
+    /* jshint expr: true */
+
+    let $box, oldheight, targetheight;
+    $box = this.$view;
+    if ($box.hasClass('collapsed')) {
+      targetheight = 0;
+    } else {
+      oldheight = $box.height();
+      $box.css('transition', '');
+      $box.css('height', '');
+      this.forceHeightRecalculation();
+      targetheight = $box.height();
+      $box.css('height', oldheight);
+      this.forceHeightRecalculation();
+    }
+    $box.css('height', $box.height());
+    $box.css('transition', 'height 0.5s');
+    this.forceHeightRecalculation();
+    $box.css('height', targetheight);
+    setTabbing($box);
+
+    // reset the transition value
+    setTimeout(function () {
+      $box.css('transition', '');
+      if (!$box.hasClass('collapsed')) {
+        $box.css('height', '');
+      }
+    }, 500);
+  }
+
+  /**
+   * toggle callback function
+   */
+  ontoggle() {
+    this.$view.toggleClass('collapsed');
+    this.update();
+  }
+
+  forceHeightRecalculation() {
+    return this.$view[0].offsetHeight;
+  }
+
+  static EVENTS = {
+    toggle: true
+  };
+}
+
 export default BoxView;

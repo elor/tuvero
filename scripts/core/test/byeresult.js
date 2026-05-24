@@ -8,13 +8,12 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import ByeResult from '../byeresult.js';
 import MatchResult from '../matchresult.js';
 test('ByeResult', () => {
   let bye, data;
   expect(
-   extend.isSubclass(ByeResult, MatchResult),
+   ByeResult.prototype instanceof MatchResult,
    'ByeResult is subclass of MatchResult'
   ).toBeTruthy();
 

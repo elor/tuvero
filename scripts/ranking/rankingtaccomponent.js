@@ -1,13 +1,5 @@
-/**
- * RankingTacComponent: TAC-specific calculations
- *
- * @return RankingTacComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,18 +8,21 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingTacComponent(ranking, nextcomponent) {
-  RankingTacComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingTacComponent, RankingComponent);
-RankingTacComponent.NAME = 'tac';
+class RankingTacComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
-* @param i
-*          a team index
-* @return the point difference, aka. tac points
-*/
-RankingTacComponent.prototype.value = function (i) {
-  return this.ranking.tac.get(i);
-};
+  /**
+  * @param i
+  *          a team index
+  * @return the point difference, aka. tac points
+  */
+  value(i) {
+    return this.ranking.tac.get(i);
+  }
+
+  static NAME = 'tac';
+}
+
 export default RankingTacComponent;

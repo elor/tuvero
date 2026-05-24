@@ -1,13 +1,5 @@
-/**
- * RankingKOComponent: rank by team id
- *
- * @return RankingKOComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,18 +8,21 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingKOComponent(ranking, nextcomponent) {
-  RankingKOComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingKOComponent, RankingComponent);
-RankingKOComponent.NAME = 'ko';
+class RankingKOComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
- * @param i
- *          a team index
- * @return the number of won games
- */
-RankingKOComponent.prototype.value = function (i) {
-  return this.ranking.ko.get(i);
-};
+  /**
+   * @param i
+   *          a team index
+   * @return the number of won games
+   */
+  value(i) {
+    return this.ranking.ko.get(i);
+  }
+
+  static NAME = 'ko';
+}
+
 export default RankingKOComponent;

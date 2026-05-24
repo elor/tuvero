@@ -8,7 +8,6 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import TournamentModel from '../tournamentmodel.js';
 import PropertyModel from '../../core/propertymodel.js';
 test('TournamentModel', () => {
@@ -27,7 +26,7 @@ test('TournamentModel', () => {
       corrections,
       result;
   expect(
-    extend.isSubclass(TournamentModel, PropertyModel),
+    TournamentModel.prototype instanceof PropertyModel,
     'TournamentModel is subclass of PropertyModel'
   ).toBeTruthy();
   tournament = new TournamentModel(['wins', 'saldo']);

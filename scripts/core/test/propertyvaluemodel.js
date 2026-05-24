@@ -8,7 +8,6 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import PropertyValueModel from '../propertyvaluemodel.js';
 import PropertyModel from '../propertymodel.js';
 import ValueModel from '../valuemodel.js';
@@ -16,7 +15,7 @@ import Listener from '../listener.js';
 test('PropertyValueModel', () => {
   let model, value, listener;
   expect(
-    extend.isSubclass(PropertyValueModel, ValueModel),
+    PropertyValueModel.prototype instanceof ValueModel,
     'PropertyValueModel is subclass of ValueModel'
   ).toBeTruthy();
   model = new PropertyModel({

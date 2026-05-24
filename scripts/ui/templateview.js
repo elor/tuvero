@@ -1,15 +1,5 @@
-/**
- * A TemplateView holds a template element from the DOM, which it prepares for
- * duplication through a subclass, e.g. ListView. Templating is not meant to be
- * handled by the user.
- *
- * @return TemplateView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
+
 /**
  * @param model
  *          the model
@@ -18,9 +8,11 @@ import View from '../core/view.js';
  * @param $template
  *          the template
  */
-function TemplateView(model, $view, $template) {
-  TemplateView.superconstructor.call(this, model, $view);
-  this.$template = $template.detach().removeClass('template');
+class TemplateView extends View {
+  constructor(model, $view, $template) {
+    super(model, $view);
+    this.$template = $template.detach().removeClass('template');
+  }
 }
-extend(TemplateView, View);
+
 export default TemplateView;

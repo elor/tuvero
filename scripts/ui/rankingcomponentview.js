@@ -1,12 +1,3 @@
-/**
- * RankingComponentView
- *
- * @return RankingComponentView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import TextView from './textview.js';
 import Strings from './strings.js';
 /**
@@ -29,17 +20,19 @@ function getString(text) {
  *          a JQuery object into which the component information is to be
  *          written
  */
-function RankingComponentView(name, $view) {
-  RankingComponentView.superconstructor.call(this, name, $view);
-}
-extend(RankingComponentView, TextView);
+class RankingComponentView extends TextView {
+  constructor(name, $view) {
+    super(name, $view);
+  }
 
-/**
- * set the "value" attribute to the text and read the displayed text from
- * Strings
- */
-RankingComponentView.prototype.update = function () {
-  this.$view.val(this.model.text);
-  this.$view.text(getString(this.model.text));
-};
+  /**
+   * set the "value" attribute to the text and read the displayed text from
+   * Strings
+   */
+  update() {
+    this.$view.val(this.model.text);
+    this.$view.text(getString(this.model.text));
+  }
+}
+
 export default RankingComponentView;

@@ -1,52 +1,46 @@
-/**
- * ClosedTournamentCollapseListener
- *
- * @return ClosedTournamentCollapseListener
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Listener from '../core/listener.js';
+
 /**
  * Constructor
  */
-function ClosedTournamentCollapseListener(tournamentlistview) {
-  const tournaments = tournamentlistview.model;
-  ClosedTournamentCollapseListener.superconstructor.call(this, tournaments.closedTournaments);
-  this.tournaments = tournaments;
-  this.tournamentlistview = tournamentlistview;
-}
-extend(ClosedTournamentCollapseListener, Listener);
-
-/**
- * The tournament has been closed. Collapse it.
- *
- * @param tournamentID
- *          the tournament id
- */
-ClosedTournamentCollapseListener.prototype.collapse = function (tournamentID) {
-  let tournamentView, boxView;
-  tournamentView = this.tournamentlistview.getSubview(tournamentID);
-  boxView = tournamentView.boxview;
-  if (!boxView.$view.hasClass('collapsed')) {
-    boxView.model.emit('toggle');
+class ClosedTournamentCollapseListener extends Listener {
+  constructor(tournamentlistview) {
+    const tournaments = tournamentlistview.model;
+    super(tournaments.closedTournaments);
+    this.tournaments = tournaments;
+    this.tournamentlistview = tournamentlistview;
   }
-};
 
-/**
- * @param emitter
- *          this.model
- * @param event
- *          'insert'
- * @param data
- *          a data object
- */
-ClosedTournamentCollapseListener.prototype.oninsert = function (emitter, event, data) {
-  const listener = this;
-  // Use a timeout to avoid runtime concurrency problems during pageload.
-  window.setTimeout(function () {
-    listener.collapse(data.object);
-  }, 1);
-};
+  /**
+   * The tournament has been closed. Collapse it.
+   *
+   * @param tournamentID
+   *          the tournament id
+   */
+  collapse(tournamentID) {
+    let tournamentView, boxView;
+    tournamentView = this.tournamentlistview.getSubview(tournamentID);
+    boxView = tournamentView.boxview;
+    if (!boxView.$view.hasClass('collapsed')) {
+      boxView.model.emit('toggle');
+    }
+  }
+
+  /**
+   * @param emitter
+   *          this.model
+   * @param event
+   *          'insert'
+   * @param data
+   *          a data object
+   */
+  oninsert(emitter, event, data) {
+    const listener = this;
+    // Use a timeout to avoid runtime concurrency problems during pageload.
+    window.setTimeout(function () {
+      listener.collapse(data.object);
+    }, 1);
+  }
+}
+
 export default ClosedTournamentCollapseListener;

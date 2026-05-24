@@ -1,12 +1,3 @@
-/**
- * GenericTournamentHistoryView
- *
- * @return GenericTournamentHistoryView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import ProgressTableView from './progresstableview.js';
 import KOHistoryView from './kohistoryview.js';
@@ -50,30 +41,33 @@ types = {
  * @param fullwidth
  *          a ValueModel, which evaluates to true if any names should be shown
  */
-function GenericTournamentHistoryView(tournament, $view, groups, teamlist, teamsize, fullwidth) {
-  let Constructor, $subview, type;
-  GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
-  this.tournament = tournament;
-  type = types[tournament.SYSTEM];
-  if (tournament && type) {
-    $subview = this.$view.find(type.selector);
-    $subview.removeClass('hidden');
-    // don't display the matchtable on default anymore, since there's a more
-    // sophisticated view in place
-    $view.addClass('hastable');
-    Constructor = type.constructor;
-    this.view = new Constructor(tournament, $view, groups, teamlist,
-    //
-    teamsize, fullwidth);
-    this.showlists = !!type.showlists;
-  } else {
-    this.view = new View(undefined, $view);
-    this.showlists = true;
+class GenericTournamentHistoryView extends View {
+  constructor(tournament, $view, groups, teamlist, teamsize, fullwidth) {
+    let Constructor, $subview, type;
+    super(undefined, $view);
+    this.tournament = tournament;
+    type = types[tournament.SYSTEM];
+    if (tournament && type) {
+      $subview = this.$view.find(type.selector);
+      $subview.removeClass('hidden');
+      // don't display the matchtable on default anymore, since there's a more
+      // sophisticated view in place
+      $view.addClass('hastable');
+      Constructor = type.constructor;
+      this.view = new Constructor(tournament, $view, groups, teamlist,
+      //
+      teamsize, fullwidth);
+      this.showlists = !!type.showlists;
+    } else {
+      this.view = new View(undefined, $view);
+      this.showlists = true;
+    }
+  }
+
+  destroy() {
+    this.view.destroy();
+    super.destroy();
   }
 }
-extend(GenericTournamentHistoryView, View);
-GenericTournamentHistoryView.prototype.destroy = function () {
-  this.view.destroy();
-  GenericTournamentHistoryView.superclass.destroy.call(this);
-};
+
 export default GenericTournamentHistoryView;

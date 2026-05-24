@@ -1,14 +1,6 @@
-/**
- * A InputValueView, which updates the value of ValueModel to the DOM
- *
- * @return InputValueView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import InputValueController from './inputvaluecontroller.js';
+
 /**
  * Constructor
  *
@@ -17,24 +9,26 @@ import InputValueController from './inputvaluecontroller.js';
  * @param $view
  *          the associated DOM element
  */
-function InputValueView(model, $view) {
-  InputValueView.superconstructor.call(this, model, $view);
-  this.update();
-  this.controller = new InputValueController(this);
+class InputValueView extends View {
+  constructor(model, $view) {
+    super(model, $view);
+    this.update();
+    this.controller = new InputValueController(this);
+  }
+
+  /**
+  * write the contents of get() to the DOM
+  */
+  update() {
+    this.$view.val(this.model.get());
+  }
+
+  /**
+  * Callback listener
+  */
+  onupdate() {
+    this.update();
+  }
 }
-extend(InputValueView, View);
 
-/**
-* write the contents of get() to the DOM
-*/
-InputValueView.prototype.update = function () {
-  this.$view.val(this.model.get());
-};
-
-/**
-* Callback listener
-*/
-InputValueView.prototype.onupdate = function () {
-  this.update();
-};
 export default InputValueView;

@@ -1,49 +1,43 @@
-/**
- * Model for user-driven and programmatic font size changes
- *
- * @return FontSizeModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Model from '../core/model.js';
+
 /**
  * FontSizeModel constructor
  */
-function FontSizeModel() {
-  FontSizeModel.superconstructor.call(this);
-  this.fontsize = FontSizeModel.DEFAULT;
-}
-extend(FontSizeModel, Model);
-
-/**
- * list of possible font sizes
- */
-FontSizeModel.SIZES = ['tiny', 'small', 'normal', 'large', 'huge'];
-
-/**
- * default font size
- */
-FontSizeModel.DEFAULT = FontSizeModel.SIZES[2];
-
-/**
- * @return the current font size
- */
-FontSizeModel.prototype.getFontSize = function () {
-  return this.fontsize;
-};
-
-/**
- * Set the font size. Throws an error if the font size is invalid.
- *
- * @param fontsize
- */
-FontSizeModel.prototype.setFontSize = function (fontsize) {
-  if (FontSizeModel.SIZES.indexOf(fontsize) === -1) {
-    throw new Error('invalid font size');
+class FontSizeModel extends Model {
+  constructor() {
+    super();
+    this.fontsize = FontSizeModel.DEFAULT;
   }
-  this.fontsize = fontsize;
-  this.emit('update');
-};
+
+  /**
+   * @return the current font size
+   */
+  getFontSize() {
+    return this.fontsize;
+  }
+
+  /**
+   * Set the font size. Throws an error if the font size is invalid.
+   *
+   * @param fontsize
+   */
+  setFontSize(fontsize) {
+    if (FontSizeModel.SIZES.indexOf(fontsize) === -1) {
+      throw new Error('invalid font size');
+    }
+    this.fontsize = fontsize;
+    this.emit('update');
+  }
+
+  /**
+   * list of possible font sizes
+   */
+  static SIZES = ['tiny', 'small', 'normal', 'large', 'huge'];
+
+  /**
+   * default font size
+   */
+  static DEFAULT = FontSizeModel.SIZES[2];
+}
+
 export default FontSizeModel;

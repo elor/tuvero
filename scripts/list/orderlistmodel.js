@@ -1,17 +1,3 @@
-/**
- * OrderListModel: a ListModel, for which an order can be enforced. This was
- * first introduced to convert RankingModel.get().displayOrder into a ListModel
- * of TeamIDs for later visualization, hence the name "OrderListModel".
- *
- * The promise is to enforce ordered lists while minimizing insert/remove
- * operations
- *
- * @return OrderListModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import ListModel from './listmodel.js';
 import { diffLines } from 'diff';
 /**
@@ -46,33 +32,35 @@ function getdiff(a, b) {
 /**
  * Constructor
  */
-function OrderListModel() {
-  OrderListModel.superconstructor.call(this);
-  this.makeReadonly();
-}
-extend(OrderListModel, ListModel);
+class OrderListModel extends ListModel {
+  constructor() {
+    super();
+    this.makeReadonly();
+  }
 
-/**
- * insert/remove elements to match the given order. Use as few
- * insertions/removals as possible
- *
- * @param order
- *          The wanted end result
- */
-OrderListModel.prototype.enforceOrder = function (order) {
-  let index, diffresult;
-  diffresult = getdiff(this.list, order);
-  index = 0;
-  diffresult.forEach(function (lines) {
-    lines.value.forEach(function (value) {
-      if (lines.added) {
-        OrderListModel.superclass.insert.call(this, index, value);
-      } else if (lines.removed) {
-        OrderListModel.superclass.remove.call(this, index);
-        index -= 1;
-      }
-      index += 1;
-    }, this);
-  }, this);
-};
+  /**
+   * insert/remove elements to match the given order. Use as few
+   * insertions/removals as possible
+   *
+   * @param order
+   *          The wanted end result
+   */
+  enforceOrder(order) {
+    let index, diffresult;
+    diffresult = getdiff(this.list, order);
+    index = 0;
+    diffresult.forEach((lines) => {
+      lines.value.forEach((value) => {
+        if (lines.added) {
+          super.insert(index, value);
+        } else if (lines.removed) {
+          super.remove(index);
+          index -= 1;
+        }
+        index += 1;
+      });
+    });
+  }
+}
+
 export default OrderListModel;

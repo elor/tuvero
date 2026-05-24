@@ -14,12 +14,11 @@ import { test, expect } from 'vitest';
 import TransposeDifferenceMatrix from '../transposedifferencematrix.js';
 import DelegateMatrix from '../delegatematrix.js';
 import MatrixModel from '../matrixmodel.js';
-import extend from '../../lib/extend.js';
 test('TransposeDifferenceMatrix', () => {
   // constructor validation
   let a, m;
   expect(
-    extend.isSubclass(TransposeDifferenceMatrix, DelegateMatrix),
+    TransposeDifferenceMatrix.prototype instanceof DelegateMatrix,
     'TransposeDifferenceMatrix is a DelegateMatrix subclass'
   ).toBeTruthy();
   m = new MatrixModel(5);

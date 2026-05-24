@@ -1,12 +1,3 @@
-/**
- * GenericTournamentView
- *
- * @return GenericTournamentView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
 import TournamentView from './tournamentview.js';
 import RoundTournamentView from './roundtournamentview.js';
@@ -28,26 +19,24 @@ defaultConstructor = TournamentView;
 /**
    * Constructor
    */
-function GenericTournamentView(tournament, $view, tournaments) {
-  let Constructor;
-  GenericTournamentView.superconstructor.call(this, undefined, $view);
-  this.tournament = tournament;
-  if (tournament) {
-    Constructor = constructors[tournament.SYSTEM] || defaultConstructor;
-    this.view = new Constructor(tournament, $view, tournaments);
-  } else {
-    this.view = new View(undefined, $view);
+class GenericTournamentView extends View {
+  constructor(tournament, $view, tournaments) {
+    let Constructor;
+    super(undefined, $view);
+    this.tournament = tournament;
+    if (tournament) {
+      Constructor = constructors[tournament.SYSTEM] || defaultConstructor;
+      this.view = new Constructor(tournament, $view, tournaments);
+    } else {
+      this.view = new View(undefined, $view);
+    }
+
   }
 
-  /*
-     * Note: for some unknown reason, the prototype chain ignores
-     * 'prototype.destroy'
-     */
-  this.destroy = GenericTournamentView.destroy;
+  destroy() {
+    this.view.destroy();
+    super.destroy();
+  }
 }
-extend(GenericTournamentView, View);
-GenericTournamentView.destroy = function () {
-  this.view.destroy();
-  GenericTournamentView.superclass.destroy.call(this);
-};
+
 export default GenericTournamentView;

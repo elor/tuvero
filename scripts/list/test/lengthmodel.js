@@ -8,14 +8,13 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import ListModel from '../listmodel.js';
 import LengthModel from '../lengthmodel.js';
 import ValueModel from '../../core/valuemodel.js';
 test('LengthModel', () => {
   let length, list, success;
   expect(
-    extend.isSubclass(LengthModel, ValueModel),
+    LengthModel.prototype instanceof ValueModel,
     'LengthModel is subclass of ValueModel'
   ).toBeTruthy();
   success = false;

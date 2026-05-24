@@ -17,8 +17,8 @@
  * @see LICENSE
  */
 import $ from 'jquery';
-import extend from '../lib/extend.js';
 import View from '../core/view.js';
+
 /**
  * Constructor
  *
@@ -27,42 +27,44 @@ import View from '../core/view.js';
  * @param teamsize
  *          a ValueModel instance of the team size
  */
-function TeamTableView(teamview, teamsize) {
-  TeamTableView.superconstructor.call(this, teamsize, teamview.$view);
-  this.teamlist = teamview.model;
-  this.teamlist.registerListener(this);
-  this.$names = this.$view.find('tr>th');
-  this.updatePlayerColumns();
-}
-extend(TeamTableView, View);
+class TeamTableView extends View {
+  constructor(teamview, teamsize) {
+    super(teamsize, teamview.$view);
+    this.teamlist = teamview.model;
+    this.teamlist.registerListener(this);
+    this.$names = this.$view.find('tr>th');
+    this.updatePlayerColumns();
+  }
 
-/**
- * show one column for each player in a team (teamsize)
- */
-TeamTableView.prototype.updatePlayerColumns = function () {
-  let teamsize, teamindex;
-  teamsize = this.model.get();
-  teamindex = 0;
-  this.$names.each(function (index, elem) {
-    let $elem;
-    $elem = $(elem);
-    if ($elem.hasClass('playercol')) {
-      if (teamindex < teamsize) {
-        $elem.removeClass('hidden');
+  /**
+   * show one column for each player in a team (teamsize)
+   */
+  updatePlayerColumns() {
+    let teamsize, teamindex;
+    teamsize = this.model.get();
+    teamindex = 0;
+    this.$names.each(function (index, elem) {
+      let $elem;
+      $elem = $(elem);
+      if ($elem.hasClass('playercol')) {
+        if (teamindex < teamsize) {
+          $elem.removeClass('hidden');
+        } else {
+          $elem.addClass('hidden');
+        }
+        teamindex += 1;
       } else {
-        $elem.addClass('hidden');
+        teamindex = 0;
       }
-      teamindex += 1;
-    } else {
-      teamindex = 0;
-    }
-  });
-};
+    });
+  }
 
-/**
- * the team size changed. check player column visibility
- */
-TeamTableView.prototype.onupdate = function () {
-  this.updatePlayerColumns();
-};
+  /**
+   * the team size changed. check player column visibility
+   */
+  onupdate() {
+    this.updatePlayerColumns();
+  }
+}
+
 export default TeamTableView;

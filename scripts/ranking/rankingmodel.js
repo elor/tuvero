@@ -1,13 +1,3 @@
-/**
- * RankingModel: A general ranking model, which can bind different
- * RankingComponents in order and sort using their compare function
- *
- * @return RankingModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Model from '../core/model.js';
 import RankingComponentIndex from './rankingcomponentindex.js';
 import Type from '../core/type.js';
@@ -114,19 +104,264 @@ function updateRanking(norecalc) {
  *          Optional. an array of additional dependencies, e.g. a games matrix
  *          for "have they played"-type questions
  */
-function RankingModel(components, size, externalDependencies) {
-  RankingModel.superconstructor.call(this);
-  components = components || [];
-  size = size || 0;
-  this.ranking = undefined;
-  this.componentnames = [];
-  this.componentchain = undefined;
-  this.length = 0;
-  this.extDeps = [];
-  this.dataListeners = {};
-  this.init(components, size, externalDependencies);
+class RankingModel extends Model {
+  constructor(components, size, externalDependencies) {
+    super();
+    components = components || [];
+    size = size || 0;
+    this.ranking = undefined;
+    this.componentnames = [];
+    this.componentchain = undefined;
+    this.length = 0;
+    this.extDeps = [];
+    this.dataListeners = {};
+    this.init(components, size, externalDependencies);
+  }
+
+  /**
+   * initializes the ranking object
+   *
+   * @param components
+   * @param size
+   * @param extDependencies
+   * @return true on success, false otherwise
+   */
+  init(components, size, extDependencies) {
+    let dependencies, dataListenerArray;
+
+    // abort if the ranking object has not been reset
+    if (this.componentchain || this.componentnames.length !== 0 || Object.keys(this.dataListeners).length !== 0) {
+      return false;
+    }
+    this.componentnames = components.slice(0);
+    this.componentchain = RankingComponentIndex.createComponentChain(this, components);
+    if (this.componentchain) {
+      dependencies = this.componentchain.dependencies;
+    } else {
+      dependencies = [];
+    }
+    if (extDependencies) {
+      this.extDeps.push.apply(this.extDeps, extDependencies);
+      dependencies.push.apply(dependencies, this.extDeps);
+    }
+    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this, dependencies);
+    if (dataListenerArray && components && components.length > 0) {
+      dataListenerArray.forEach(function (dataListener, index) {
+        this.dataListeners[dependencies[index]] = dataListener;
+      }, this);
+      this.resize(size);
+    }
+    return true;
+  }
+
+  /**
+   * restore everything to an initial state, as provided by an empty
+   * RankingModel construction
+   */
+  reset() {
+    Object.keys(this.dataListeners).forEach(function (key) {
+      this.dataListeners[key].destroy();
+    }, this);
+
+    this.ranking = undefined;
+    this.componentnames = [];
+    this.componentchain = undefined;
+    this.length = 0;
+    this.extDeps = [];
+    this.dataListeners = {};
+    this.init([], 0);
+
+    this.emit('reset');
+
+    // trigger an 'update' event
+    this.invalidate();
+  }
+
+  /**
+   * process a game result
+   *
+   * @param result
+   *          a GameResult instance
+   */
+  result(result) {
+    // TODO result verification?
+    this.emit('result', result);
+    this.invalidate();
+  }
+
+  recalculate(matchResults, votes) {
+    this.resize(this.length);
+    Object.keys(this.dataListeners).forEach(function (key) {
+      this.dataListeners[key].zero();
+    }, this);
+    if (votes.up && this.upvotes) {
+      votes.up.forEach(function (teamID) {
+        this.upvotes.add(teamID, 1);
+      }, this);
+    }
+    if (votes.down && this.downvotes) {
+      votes.down.forEach(function (teamID) {
+        this.downvotes.add(teamID, 1);
+      }, this);
+    }
+    matchResults.forEach(function (result) {
+      if (result.isBye()) {
+        this.bye(result.getTeamID(0), result.group);
+      } else {
+        this.result(result);
+      }
+    }, this);
+  }
+
+  /**
+   * process a bye
+   *
+   * @param teams
+   *          an array of affected teams
+   */
+  bye(teams, round) {
+    if (Type.isNumber(teams)) {
+      teams = [teams];
+    }
+    this.emit('bye', {
+      teams: teams,
+      round: round
+    });
+    this.invalidate();
+  }
+
+  correct(correction) {
+    this.emit('correct', correction);
+    this.invalidate();
+  }
+
+  /**
+   * force a full recalculation of the ranking from the data fields. This will
+   * not replay the tournament from history, just update dependent data fields.
+   */
+  invalidate() {
+    this.ranking = undefined;
+    this.emit('update');
+  }
+
+  /**
+   * Returns the current ranking as a ranking object. Recalculates as necessary.
+   * This function can take up to several seconds for huge tournaments (> 2000)
+   *
+   * The returned ranking object contains the following fields:
+   *
+   * ranks: an array of ranks. Equal ranks are allowed
+   *
+   * displayOrder: an array of player/team indices, which is pre-sorted by rank.
+   * The index in this array does reflect the rank ONLY if each rank is unique.
+   *
+   * components: an ordered array of RankingComponent names.
+   *
+   * For each component with not-undefined values, there's an equally-named
+   * field, which contains the values.
+   *
+   * @return the current ranking, as a ranking object
+   */
+  get() {
+    if (this.ranking === undefined) {
+      updateRanking.call(this);
+    }
+    return this.ranking;
+  }
+
+  getNoRecalc() {
+    updateRanking.call(this, true);
+    return this.ranking;
+  }
+
+  /**
+   * Resizes the ranking data structures
+   *
+   * WARNING: This operation can delete data when reducing the size. Be careful
+   *
+   * @param size
+   *          the new size
+   * @return true on success, false otherwise
+   */
+  resize(size) {
+    if (size === this.length) {
+      return true;
+    }
+    if (size >= 0) {
+      this.length = size;
+      this.emit('resize');
+      this.invalidate();
+      return true;
+    }
+    console.error('RankingModel.resize: invalid size: ' + size);
+    return false;
+  }
+
+  /**
+   * stores the necessary scores and points in a data object for serialization.
+   * Only primary data containers are stored, as the other ones can be
+   * recalculated.
+   *
+   * @return a serializable data object
+   */
+  save() {
+    const data = super.save();
+    data.len = this.length;
+    data.comps = this.componentnames.slice(0);
+    data.edep = this.extDeps.slice(0);
+    data.vals = {};
+
+    // only store primary dataListeners. Abort on error
+    if (!Object.keys(this.dataListeners).every(function (name) {
+      let listener;
+      listener = this.dataListeners[name];
+      if (listener.isPrimary(listener)) {
+        if (this[name] && Type.isFunction(this[name].save)) {
+          data.vals[name] = this[name].save();
+        } else {
+          console.error('datalistener cannot be saved: ' + name);
+          return false;
+        }
+      }
+      return true;
+    }, this)) {
+      return undefined;
+    }
+    return data;
+  }
+
+  /**
+   * restores the ranking from a previously saved data object
+   *
+   * @param data
+   *          a deserialized data object
+   * @return true on success, false otherwise
+   */
+  restore(data) {
+    if (!super.restore(data)) {
+      return false;
+    }
+    this.reset();
+    if (!this.init(data.comps, data.len, data.edep)) {
+      this.reset();
+      return false;
+    }
+    if (!Object.keys(data.vals).every(function (name) {
+      if (this[name] && this[name].restore) {
+        if (this[name].restore(data.vals[name])) {
+          return true;
+        }
+      }
+      console.error('RankingModel.restore(): cannot restore listener ' + name);
+      return false;
+    }, this)) {
+      this.reset();
+      return false;
+    }
+    this.invalidate();
+    return true;
+  }
 }
-extend(RankingModel, Model);
 
 /**
  * the different events
@@ -148,241 +383,7 @@ RankingModel.prototype.EVENTS = {
   // the size of the ranking has been changed
 };
 
-/**
- * initializes the ranking object
- *
- * @param components
- * @param size
- * @param extDependencies
- * @return true on success, false otherwise
- */
-RankingModel.prototype.init = function (components, size, extDependencies) {
-  let dependencies, dataListenerArray;
-
-  // abort if the ranking object has not been reset
-  if (this.componentchain || this.componentnames.length !== 0 || Object.keys(this.dataListeners).length !== 0) {
-    return false;
-  }
-  this.componentnames = components.slice(0);
-  this.componentchain = RankingComponentIndex.createComponentChain(this, components);
-  if (this.componentchain) {
-    dependencies = this.componentchain.dependencies;
-  } else {
-    dependencies = [];
-  }
-  if (extDependencies) {
-    this.extDeps.push.apply(this.extDeps, extDependencies);
-    dependencies.push.apply(dependencies, this.extDeps);
-  }
-  dataListenerArray = RankingDataListenerIndex.registerDataListeners(this, dependencies);
-  if (dataListenerArray && components && components.length > 0) {
-    dataListenerArray.forEach(function (dataListener, index) {
-      this.dataListeners[dependencies[index]] = dataListener;
-    }, this);
-    this.resize(size);
-  }
-  return true;
-};
-
-/**
- * restore everything to an initial state, as provided by an empty
- * RankingModel construction
- */
-RankingModel.prototype.reset = function () {
-  Object.keys(this.dataListeners).forEach(function (key) {
-    this.dataListeners[key].destroy();
-  }, this);
-
-  // just let the constructor reset everything for us.
-  RankingModel.call(this);
-  this.emit('reset');
-
-  // trigger an 'update' event
-  this.invalidate();
-};
-
-/**
- * process a game result
- *
- * @param result
- *          a GameResult instance
- */
-RankingModel.prototype.result = function (result) {
-  // TODO result verification?
-  this.emit('result', result);
-  this.invalidate();
-};
-RankingModel.prototype.recalculate = function (matchResults, votes) {
-  this.resize(this.length);
-  Object.keys(this.dataListeners).forEach(function (key) {
-    this.dataListeners[key].zero();
-  }, this);
-  if (votes.up && this.upvotes) {
-    votes.up.forEach(function (teamID) {
-      this.upvotes.add(teamID, 1);
-    }, this);
-  }
-  if (votes.down && this.downvotes) {
-    votes.down.forEach(function (teamID) {
-      this.downvotes.add(teamID, 1);
-    }, this);
-  }
-  matchResults.forEach(function (result) {
-    if (result.isBye()) {
-      this.bye(result.getTeamID(0), result.group);
-    } else {
-      this.result(result);
-    }
-  }, this);
-};
-
-/**
- * process a bye
- *
- * @param teams
- *          an array of affected teams
- */
-RankingModel.prototype.bye = function (teams, round) {
-  if (Type.isNumber(teams)) {
-    teams = [teams];
-  }
-  this.emit('bye', {
-    teams: teams,
-    round: round
-  });
-  this.invalidate();
-};
-RankingModel.prototype.correct = function (correction) {
-  this.emit('correct', correction);
-  this.invalidate();
-};
-
-/**
- * force a full recalculation of the ranking from the data fields. This will
- * not replay the tournament from history, just update dependent data fields.
- */
-RankingModel.prototype.invalidate = function () {
-  this.ranking = undefined;
-  this.emit('update');
-};
-
-/**
- * Returns the current ranking as a ranking object. Recalculates as necessary.
- * This function can take up to several seconds for huge tournaments (> 2000)
- *
- * The returned ranking object contains the following fields:
- *
- * ranks: an array of ranks. Equal ranks are allowed
- *
- * displayOrder: an array of player/team indices, which is pre-sorted by rank.
- * The index in this array does reflect the rank ONLY if each rank is unique.
- *
- * components: an ordered array of RankingComponent names.
- *
- * For each component with not-undefined values, there's an equally-named
- * field, which contains the values.
- *
- * @return the current ranking, as a ranking object
- */
-RankingModel.prototype.get = function () {
-  if (this.ranking === undefined) {
-    updateRanking.call(this);
-  }
-  return this.ranking;
-};
-RankingModel.prototype.getNoRecalc = function () {
-  updateRanking.call(this, true);
-  return this.ranking;
-};
-
-/**
- * Resizes the ranking data structures
- *
- * WARNING: This operation can delete data when reducing the size. Be careful
- *
- * @param size
- *          the new size
- * @return true on success, false otherwise
- */
-RankingModel.prototype.resize = function (size) {
-  if (size === this.length) {
-    return true;
-  }
-  if (size >= 0) {
-    this.length = size;
-    this.emit('resize');
-    this.invalidate();
-    return true;
-  }
-  console.error('RankingModel.resize: invalid size: ' + size);
-  return false;
-};
-
-/**
- * stores the necessary scores and points in a data object for serialization.
- * Only primary data containers are stored, as the other ones can be
- * recalculated.
- *
- * @return a serializable data object
- */
-RankingModel.prototype.save = function () {
-  const data = RankingModel.superclass.save.call(this);
-  data.len = this.length;
-  data.comps = this.componentnames.slice(0);
-  data.edep = this.extDeps.slice(0);
-  data.vals = {};
-
-  // only store primary dataListeners. Abort on error
-  if (!Object.keys(this.dataListeners).every(function (name) {
-    let listener;
-    listener = this.dataListeners[name];
-    if (listener.isPrimary(listener)) {
-      if (this[name] && Type.isFunction(this[name].save)) {
-        data.vals[name] = this[name].save();
-      } else {
-        console.error('datalistener cannot be saved: ' + name);
-        return false;
-      }
-    }
-    return true;
-  }, this)) {
-    return undefined;
-  }
-  return data;
-};
-
-/**
- * restores the ranking from a previously saved data object
- *
- * @param data
- *          a deserialized data object
- * @return true on success, false otherwise
- */
-RankingModel.prototype.restore = function (data) {
-  if (!RankingModel.superclass.restore.call(this, data)) {
-    return false;
-  }
-  this.reset();
-  if (!this.init(data.comps, data.len, data.edep)) {
-    this.reset();
-    return false;
-  }
-  if (!Object.keys(data.vals).every(function (name) {
-    if (this[name] && this[name].restore) {
-      if (this[name].restore(data.vals[name])) {
-        return true;
-      }
-    }
-    console.error('RankingModel.restore(): cannot restore listener ' + name);
-    return false;
-  }, this)) {
-    this.reset();
-    return false;
-  }
-  this.invalidate();
-  return true;
-};
-RankingModel.prototype.SAVEFORMAT = Object.create(RankingModel.superclass.SAVEFORMAT);
+RankingModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
 RankingModel.prototype.SAVEFORMAT.len = Number;
 RankingModel.prototype.SAVEFORMAT.comps = [String];
 RankingModel.prototype.SAVEFORMAT.edep = [String];

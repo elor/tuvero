@@ -8,14 +8,13 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import TournamentListModel from '../tournamentlistmodel.js';
 import TournamentIndex from '../tournamentindex.js';
 import IndexedListModel from '../../list/indexedlistmodel.js';
 test('TournamentListModel', () => {
   let tournament, list, ref, savedata, ranking;
   expect(
-    extend.isSubclass(TournamentListModel, IndexedListModel),
+    TournamentListModel.prototype instanceof IndexedListModel,
     'TournamentListModel is subclass of IndexedListModel'
   ).toBeTruthy();
   list = new TournamentListModel();

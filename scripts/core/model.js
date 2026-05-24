@@ -1,11 +1,3 @@
-/**
- * An abstract model class
- *
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Emitter from './emitter.js';
 import Type from './type.js';
 function getClassName(instance) {
@@ -49,60 +41,64 @@ function verifyType(data, referenceType) {
  * Please provide additional functions in order to allow state modifications.
  * Use this.emit() to signal state changes to registered views
  */
-function Model() {
-  Model.superconstructor.call(this);
-}
-extend(Model, Emitter);
-Model.prototype.clone = function () {
-  const clone = new this.constructor();
-  if (!clone.restore(this.save())) {
-    throw new Error('Cannot clone object ' + this);
+class Model extends Emitter {
+  constructor() {
+    super();
   }
-  return clone;
-};
-Model.prototype.clone = function (source) {
-  this.restore(source.save());
-};
 
-/**
- * save the state of this object, so it can later be restored using the
- * restore() function. Subclasses are supposed to call superclass.save()
- * instead of instantiating their own data object.
- *
- * @return a data object
- */
-Model.prototype.save = function () {
-  // TODO auto-verify the format
-  return {};
-};
-
-/**
- * restore the state from a saved state, as written by save(); Subclasses are
- * supposed to call superclass.save() before restoring their own state.
- *
- * @param data
- *          a data object as written by save()
- * @return true on success, false or undefined otherwise
- */
-Model.prototype.restore = function (data) {
-  // TODO warn about additional keys
-  // TODO allow for the verification of sub-Models
-  if (!Type.isObject(data)) {
-    console.error('restore(): data is not an object');
-    return false;
-  }
-  if (!Type.isObject(this.SAVEFORMAT)) {
-    console.error('restore(): SAVEFORMAT is not an object');
-    return false;
-  }
-  return Object.keys(this.SAVEFORMAT).every(function (key) {
-    if (verifyType.call(this, data[key], this.SAVEFORMAT[key])) {
-      return true;
+  clone() {
+    const clone = new this.constructor();
+    if (!clone.restore(this.save())) {
+      throw new Error('Cannot clone object ' + this);
     }
-    console.error('Missing key or wrong format: ' + key);
-    console.log(data);
-    return false;
-  }, this);
-};
+    return clone;
+  }
+
+  clone(source) {
+    this.restore(source.save());
+  }
+
+  /**
+   * save the state of this object, so it can later be restored using the
+   * restore() function. Subclasses are supposed to call superclass.save()
+   * instead of instantiating their own data object.
+   *
+   * @return a data object
+   */
+  save() {
+    // TODO auto-verify the format
+    return {};
+  }
+
+  /**
+   * restore the state from a saved state, as written by save(); Subclasses are
+   * supposed to call superclass.save() before restoring their own state.
+   *
+   * @param data
+   *          a data object as written by save()
+   * @return true on success, false or undefined otherwise
+   */
+  restore(data) {
+    // TODO warn about additional keys
+    // TODO allow for the verification of sub-Models
+    if (!Type.isObject(data)) {
+      console.error('restore(): data is not an object');
+      return false;
+    }
+    if (!Type.isObject(this.SAVEFORMAT)) {
+      console.error('restore(): SAVEFORMAT is not an object');
+      return false;
+    }
+    return Object.keys(this.SAVEFORMAT).every(function (key) {
+      if (verifyType.call(this, data[key], this.SAVEFORMAT[key])) {
+        return true;
+      }
+      console.error('Missing key or wrong format: ' + key);
+      console.log(data);
+      return false;
+    }, this);
+  }
+}
+
 Model.prototype.SAVEFORMAT = {};
 export default Model;

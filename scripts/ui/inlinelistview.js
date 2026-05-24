@@ -1,13 +1,5 @@
-/**
- * InlineListView
- *
- * @return InlineListView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import ListView from './listview.js';
+
 /**
  * Constructor
  *
@@ -25,9 +17,12 @@ import ListView from './listview.js';
  *          arbitrary number of additional arguments, which are passed to the
  *          SubView constructor
  */
-function InlineListView(model, $view, $template, SubView) {
-  this.insertBeforeView = true;
-  InlineListView.superconstructor.apply(this, arguments);
+class InlineListView extends ListView {
+  static insertBeforeView = true;
+
+  constructor(model, $view, $template, SubView, ...rest) {
+    super(model, $view, $template, SubView, ...rest);
+  }
 }
-extend(InlineListView, ListView);
+
 export default InlineListView;

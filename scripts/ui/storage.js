@@ -1,12 +1,3 @@
-/**
- * Storage: Save ValueModels and save/restore-compatible models whenever they
- * emit 'update'.
- *
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Type from '../core/type.js';
 import Model from '../core/model.js';
 import ValueModel from '../core/valuemodel.js';
@@ -56,7 +47,7 @@ Storage.register = function (key, Implementation) {
     console.error(key);
     return undefined;
   }
-  if (!extend.isSubclass(Implementation, Model) && Implementation !== Model) {
+  if (!(Implementation.prototype instanceof Model) && Implementation !== Model) {
     console.error('Storage.register(): Not a model: ');
     console.error(Implementation);
     return undefined;

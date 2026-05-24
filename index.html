@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tuvero</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background: #1a1a2e;
+        color: #eee;
+      }
+      h1 { font-size: 2.5rem; margin-bottom: 0.25rem; }
+      p { color: #aaa; margin-bottom: 2rem; }
+      .variants { display: flex; gap: 1.5rem; }
+      a {
+        display: block;
+        padding: 1.25rem 2.5rem;
+        background: #16213e;
+        border: 1px solid #0f3460;
+        border-radius: 8px;
+        color: #e94560;
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+        transition: background 0.2s;
+      }
+      a:hover { background: #0f3460; }
+    </style>
+  </head>
+  <body>
+    <h1>Tuvero</h1>
+    <p>Tournament Management</p>
+    <div class="variants">
+      <a href="/basic/">Basic</a>
+      <a href="/boule/">Boule</a>
+      <a href="/tac/">Tac</a>
+    </div>
+  </body>
+</html>

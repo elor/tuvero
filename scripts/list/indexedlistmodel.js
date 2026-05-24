@@ -1,38 +1,32 @@
-/**
- * A ListModel, which also adjusts the ids using setID
- *
- * @return IndexedListModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import ListModel from './listmodel.js';
 import ListUpdateListener from './listupdatelistener.js';
+
 /**
  * Constructor for an empty list
  */
-function IndexedListModel() {
-  IndexedListModel.superconstructor.call(this);
-  ListUpdateListener.bind(this, this.updateIDs);
-}
-extend(IndexedListModel, ListModel);
+class IndexedListModel extends ListModel {
+  constructor() {
+    super();
+    ListUpdateListener.bind(this, this.updateIDs);
+  }
 
-/**
- * update the ids, starting at the specified index
- *
- * @param data
- *          event callback data
- */
-IndexedListModel.prototype.updateIDs = function (data) {
-  let index, startindex;
-  if (data === undefined) {
-    // 'reset' event, where no data is sent
-    return;
+  /**
+   * update the ids, starting at the specified index
+   *
+   * @param data
+   *          event callback data
+   */
+  updateIDs(data) {
+    let index, startindex;
+    if (data === undefined) {
+      // 'reset' event, where no data is sent
+      return;
+    }
+    startindex = data.id || 0;
+    for (index = startindex; index < this.length; index += 1) {
+      this.get(index).setID(index);
+    }
   }
-  startindex = data.id || 0;
-  for (index = startindex; index < this.length; index += 1) {
-    this.get(index).setID(index);
-  }
-};
+}
+
 export default IndexedListModel;

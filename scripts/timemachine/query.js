@@ -8,6 +8,7 @@
  */
 import KeyModel from './keymodel.js';
 import Type from '../core/type.js';
+
 /**
  * Constructor. Constructs a new query, but does not apply the filter. A query
  * reads the localStorage for entries, regardless of the RefLog.
@@ -31,87 +32,91 @@ import Type from '../core/type.js';
  *          members of Query (e.g. Query.ALLKEYS). Defaults to Query.ALLKEYS
  *
  */
-function Query(reference) {
-  this.source = Query.source || window.localStorage;
-  this.reference = reference;
-  if (reference === Query.ALLKEYS) {} else if (reference === Query.ROOTKEYS) {} else if (reference === Query.LASTKEYS) {} else if (reference === Query.LATESTSAVE) {} else if (reference === Query.ALLTUVEROKEYS) {} else if (Type.isString(reference)) {
-    this.referenceKey = KeyModel.fromString(reference);
-  } else if (reference instanceof KeyModel) {
-    this.referenceKey = reference;
-  } else {
-    throw new Error('Query: reference has unknown type: ' + reference);
+class Query {
+  constructor(reference) {
+    this.source = Query.source || window.localStorage;
+    this.reference = reference;
+    if (reference === Query.ALLKEYS) {} else if (reference === Query.ROOTKEYS) {} else if (reference === Query.LASTKEYS) {} else if (reference === Query.LATESTSAVE) {} else if (reference === Query.ALLTUVEROKEYS) {} else if (Type.isString(reference)) {
+      this.referenceKey = KeyModel.fromString(reference);
+    } else if (reference instanceof KeyModel) {
+      this.referenceKey = reference;
+    } else {
+      throw new Error('Query: reference has unknown type: ' + reference);
+    }
   }
-}
-Query.ALLKEYS = undefined; // --> default behaviour
-Query.ROOTKEYS = {};
-Query.LASTKEYS = {};
-Query.LATESTSAVE = {};
-Query.ALLTUVEROKEYS = {};
 
-/**
- * reads the localStorage for valid keys and filters them by the given
- * reference. See Query() for a full list of possible references.
- *
- * You can apply filter() as often as you want. There is no caching involved.
- *
- * @return an array of stored key strings which match the selection
- */
-Query.prototype.filter = function () {
-  let keys, trees, last, lastDate;
-  if (this.source) {
-    keys = Object.keys(this.source);
-  } else {
-    keys = [];
-  }
-  if (this.reference === Query.ALLTUVEROKEYS) {
-    keys = keys.filter(KeyModel.isTuveroKey);
-  } else {
-    keys = keys.filter(KeyModel.isValidKey);
-  }
-  if (keys.length === 0) {
-    return [];
-  }
-  switch (this.reference) {
-    case Query.ALLKEYS:
-    case Query.ALLTUVEROKEYS:
-      // Nothing to do here. keys already contains all keys.
-      break;
-    case Query.ROOTKEYS:
-      keys = keys.filter(function (keyString) {
-        const key = KeyModel.fromString(keyString);
-        return key.isRoot();
-      });
-      break;
-    case Query.LASTKEYS:
-      trees = {};
-      keys.forEach(function (keyString) {
-        const startDate = KeyModel.fromString(keyString).startDate;
-        if (!trees[startDate] || trees[startDate] < keyString) {
-          trees[startDate] = keyString;
+  /**
+   * reads the localStorage for valid keys and filters them by the given
+   * reference. See Query() for a full list of possible references.
+   *
+   * You can apply filter() as often as you want. There is no caching involved.
+   *
+   * @return an array of stored key strings which match the selection
+   */
+  filter() {
+    let keys, trees, last, lastDate;
+    if (this.source) {
+      keys = Object.keys(this.source);
+    } else {
+      keys = [];
+    }
+    if (this.reference === Query.ALLTUVEROKEYS) {
+      keys = keys.filter(KeyModel.isTuveroKey);
+    } else {
+      keys = keys.filter(KeyModel.isValidKey);
+    }
+    if (keys.length === 0) {
+      return [];
+    }
+    switch (this.reference) {
+      case Query.ALLKEYS:
+      case Query.ALLTUVEROKEYS:
+        // Nothing to do here. keys already contains all keys.
+        break;
+      case Query.ROOTKEYS:
+        keys = keys.filter(function (keyString) {
+          const key = KeyModel.fromString(keyString);
+          return key.isRoot();
+        });
+        break;
+      case Query.LASTKEYS:
+        trees = {};
+        keys.forEach(function (keyString) {
+          const startDate = KeyModel.fromString(keyString).startDate;
+          if (!trees[startDate] || trees[startDate] < keyString) {
+            trees[startDate] = keyString;
+          }
+        });
+        keys = Object.keys(trees).map(function (key) {
+          return trees[key];
+        });
+        break;
+      case Query.LATESTSAVE:
+        last = undefined;
+        keys.forEach(function (keyString) {
+          const saveDate = KeyModel.fromString(keyString).saveDate;
+          if (!last || lastDate < saveDate) {
+            last = keyString;
+            lastDate = saveDate;
+          }
+        });
+        keys = [last];
+        break;
+      default:
+        if (!this.referenceKey) {
+          throw new Error('Query:' + ' this.referenceKey could not be extracted from this.reference');
         }
-      });
-      keys = Object.keys(trees).map(function (key) {
-        return trees[key];
-      });
-      break;
-    case Query.LATESTSAVE:
-      last = undefined;
-      keys.forEach(function (keyString) {
-        const saveDate = KeyModel.fromString(keyString).saveDate;
-        if (!last || lastDate < saveDate) {
-          last = keyString;
-          lastDate = saveDate;
-        }
-      });
-      keys = [last];
-      break;
-    default:
-      if (!this.referenceKey) {
-        throw new Error('Query:' + ' this.referenceKey could not be extracted from this.reference');
-      }
-      keys = keys.filter(this.referenceKey.isRelated.bind(this.referenceKey));
-      break;
+        keys = keys.filter(this.referenceKey.isRelated.bind(this.referenceKey));
+        break;
+    }
+    return keys.sort();
   }
-  return keys.sort();
-};
+
+  static ALLKEYS = undefined; // --> default behaviour
+  static ROOTKEYS = {};
+  static LASTKEYS = {};
+  static LATESTSAVE = {};
+  static ALLTUVEROKEYS = {};
+}
+
 export default Query;

@@ -10,11 +10,10 @@ import { test, expect } from 'vitest';
 
 import ListModel from '../listmodel.js';
 import UniqueListModel from '../../core/uniquelistmodel.js';
-import extend from '../../lib/extend.js';
 test('UniqueListModel', () => {
   let list;
   expect(
-    extend.isSubclass(UniqueListModel, ListModel),
+    UniqueListModel.prototype instanceof ListModel,
     'UniqueListModel is subclass of ListModel'
   ).toBeTruthy();
   list = new UniqueListModel();

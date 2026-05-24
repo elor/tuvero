@@ -1,13 +1,5 @@
-/**
- * A ValueView, which updates the value of ValueModel to the DOM
- *
- * @return ValueView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import ClassView from '../core/classview.js';
+
 /**
  * Constructor
  *
@@ -16,28 +8,30 @@ import ClassView from '../core/classview.js';
  * @param $view
  *          the associated DOM element
  */
-function StateLinkView(model, $view, propertyPath) {
-  StateLinkView.superconstructor.call(this, model, $view, undefined, 'hidden');
-  this.propertyPath = propertyPath || '';
-  this.update();
-}
-extend(StateLinkView, ClassView);
-
-/**
- * write the contents of get() to the DOM
- */
-StateLinkView.prototype.update = function () {
-  StateLinkView.superclass.update.call(this);
-  const tournamentid = this.model.get();
-  if (tournamentid) {
-    this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath);
+class StateLinkView extends ClassView {
+  constructor(model, $view, propertyPath) {
+    super(model, $view, undefined, 'hidden');
+    this.propertyPath = propertyPath || '';
+    this.update();
   }
-};
 
-/**
- * Callback listener
- */
-StateLinkView.prototype.onupdate = function (event, emitter, data) {
-  this.update();
-};
+  /**
+   * write the contents of get() to the DOM
+   */
+  update() {
+    super.update();
+    const tournamentid = this.model.get();
+    if (tournamentid) {
+      this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath);
+    }
+  }
+
+  /**
+   * Callback listener
+   */
+  onupdate(event, emitter, data) {
+    this.update();
+  }
+}
+
 export default StateLinkView;

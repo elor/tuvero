@@ -1,13 +1,5 @@
-/**
- * RankingNumGamesComponent
- *
- * @return RankingNumGamesComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,18 +8,21 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingNumGamesComponent(ranking, nextcomponent) {
-  RankingNumGamesComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingNumGamesComponent, RankingComponent);
-RankingNumGamesComponent.NAME = 'numgames';
+class RankingNumGamesComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
-* @param i
-*          a team index
-* @return the number of won games
-*/
-RankingNumGamesComponent.prototype.value = function (i) {
-  return this.ranking.numgames.get(i);
-};
+  /**
+  * @param i
+  *          a team index
+  * @return the number of won games
+  */
+  value(i) {
+    return this.ranking.numgames.get(i);
+  }
+
+  static NAME = 'numgames';
+}
+
 export default RankingNumGamesComponent;

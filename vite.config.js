@@ -4,25 +4,67 @@ import { fileURLToPath } from 'node:url'
 
 const here = (...p) => resolve(fileURLToPath(new URL('.', import.meta.url)), ...p)
 
-const variant = process.env.VITE_VARIANT || 'basic'
+const variant = process.env.VITE_VARIANT
 const validVariants = ['basic', 'boule', 'tac']
-if (!validVariants.includes(variant)) {
+if (variant && !validVariants.includes(variant)) {
   throw new Error(`Unknown VITE_VARIANT="${variant}". Must be one of: ${validVariants.join(', ')}`)
 }
 
-export default defineConfig({
-  resolve: {
-    alias: {
-      options: here(`${variant}/scripts/options.js`),
-      presets: here(`${variant}/scripts/presets.js`),
-      strings: here(`${variant}/scripts/strings.js`)
-    }
+const variantAliases = ['options', 'presets', 'strings']
+
+// Resolves variant-specific aliases (options/presets/strings) to the correct
+// variant by walking up the module graph to find which variant entry loaded
+// the importing file. Falls back to VITE_VARIANT for single-variant builds.
+let devServer
+const variantAliasPlugin = {
+  name: 'variant-alias',
+  enforce: 'pre',
+  configureServer(server) {
+    devServer = server
   },
-  build: {
+  resolveId(id, importer) {
+    if (!variantAliases.includes(id) || !importer) return null
+
+    // Direct hit: importer lives inside a variant directory
+    for (const v of validVariants) {
+      if (importer.includes(`/${v}/`)) return here(`${v}/scripts/${id}.js`)
+    }
+
+    // Shared scripts: walk the dev server's module graph to find the
+    // originating variant entry point
+    if (devServer) {
+      const visited = new Set()
+      const findVariant = (moduleId) => {
+        if (!moduleId || visited.has(moduleId)) return null
+        visited.add(moduleId)
+        for (const v of validVariants) {
+          if (moduleId.includes(`/${v}/`)) return v
+        }
+        const mod = devServer.moduleGraph.getModuleById(moduleId)
+        if (!mod) return null
+        for (const imp of mod.importers) {
+          const found = findVariant(imp.id)
+          if (found) return found
+        }
+        return null
+      }
+      const v = findVariant(importer)
+      if (v) return here(`${v}/scripts/${id}.js`)
+    }
+
+    // Build mode: use the configured VITE_VARIANT
+    if (variant) return here(`${variant}/scripts/${id}.js`)
+    return null
+  }
+}
+
+export default defineConfig({
+  plugins: [variantAliasPlugin],
+  build: variant ? {
     outDir: `build/${variant}`,
     emptyOutDir: true,
     rollupOptions: {
       input: { app: here(`${variant}/index.html`) }
     }
-  }
+  } : {}
 })

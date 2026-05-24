@@ -1,13 +1,5 @@
-/**
- * RankingHeadToHeadComponent
- *
- * @return RankingHeadToHeadComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,19 +8,22 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the component chain
  */
-function RankingHeadToHeadComponent(ranking, nextcomponent) {
-  RankingHeadToHeadComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingHeadToHeadComponent, RankingComponent);
-RankingHeadToHeadComponent.NAME = 'headtohead';
+class RankingHeadToHeadComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
-* @param i
-*          a team index
-* @return the headtohead value, i.e. how often the team has won against
-*         another with the same number of wins
-*/
-RankingHeadToHeadComponent.prototype.value = function (i) {
-  return this.ranking.headtohead.get(i) || '';
-};
+  /**
+  * @param i
+  *          a team index
+  * @return the headtohead value, i.e. how often the team has won against
+  *         another with the same number of wins
+  */
+  value(i) {
+    return this.ranking.headtohead.get(i) || '';
+  }
+
+  static NAME = 'headtohead';
+}
+
 export default RankingHeadToHeadComponent;

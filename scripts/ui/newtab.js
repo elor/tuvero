@@ -1,15 +1,9 @@
-/**
- *
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import $ from 'jquery';
 import View from '../core/view.js';
 import State from './state.js';
 import SystemListView from './systemlistview.js';
 import TournamentViewPopulator from './tournamentviewpopulator.js';
+
 /**
  * represents a whole team tab
  *
@@ -20,27 +14,28 @@ import TournamentViewPopulator from './tournamentviewpopulator.js';
  * @param $tab
  *          the tab DOM element
  */
-function NewTab($tab) {
-  NewTab.superconstructor.call(this, undefined, $tab);
-  this.init();
-  this.update();
-  State.teams.registerListener(this);
-}
-extend(NewTab, View);
+class NewTab extends View {
+  constructor($tab) {
+    super(undefined, $tab);
+    this.init();
+    this.update();
+    State.teams.registerListener(this);
+  }
 
-/**
- * initialize the tab functionality
- *
- * TODO maybe split it into multiple autodetected functions?
- */
-NewTab.prototype.init = function () {
-  let $view, factory, $templates;
-  $templates = this.$view.find('.template[data-system]').detach();
-  factory = new TournamentViewPopulator($templates, State.tournaments);
-  $view = this.$view.find('.systemtable');
-  this.systemListView = new SystemListView(State.teams, $view, State.tournaments, State.teamsize, factory);
-  this.$view.find('.boxview.system.template').detach();
-};
+  /**
+   * initialize the tab functionality
+   *
+   * TODO maybe split it into multiple autodetected functions?
+   */
+  init() {
+    let $view, factory, $templates;
+    $templates = this.$view.find('.template[data-system]').detach();
+    factory = new TournamentViewPopulator($templates, State.tournaments);
+    $view = this.$view.find('.systemtable');
+    this.systemListView = new SystemListView(State.teams, $view, State.tournaments, State.teamsize, factory);
+    this.$view.find('.boxview.system.template').detach();
+  }
+}
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {

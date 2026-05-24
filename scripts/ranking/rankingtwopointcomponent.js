@@ -1,13 +1,5 @@
-/**
- * RankingTwoPointComponent: rank by team id
- *
- * @return RankingTwoPointComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,18 +8,21 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingTwoPointComponent(ranking, nextcomponent) {
-  RankingTwoPointComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingTwoPointComponent, RankingComponent);
-RankingTwoPointComponent.NAME = 'twopoint';
+class RankingTwoPointComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
- * @param i
- *          a team index
- * @return the number of won games
- */
-RankingTwoPointComponent.prototype.value = function (i) {
-  return this.ranking.twopoint.get(i);
-};
+  /**
+   * @param i
+   *          a team index
+   * @return the number of won games
+   */
+  value(i) {
+    return this.ranking.twopoint.get(i);
+  }
+
+  static NAME = 'twopoint';
+}
+
 export default RankingTwoPointComponent;

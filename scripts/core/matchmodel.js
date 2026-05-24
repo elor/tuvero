@@ -1,12 +1,3 @@
-/**
- * MatchModel, a representation of a single match between teams
- *
- * @return MatchModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import IndexedModel from '../list/indexedmodel.js';
 import Type from './type.js';
 
@@ -15,6 +6,7 @@ let _MatchResult = null;
 export function _registerMatchResult(cls) {
   _MatchResult = cls;
 }
+
 /**
  * Constructor
  *
@@ -25,88 +17,155 @@ export function _registerMatchResult(cls) {
  * @param group
  *          identifier of the round, phase, pool, ...
  */
-function MatchModel(teams, id, group, place) {
-  MatchModel.superconstructor.call(this, id);
-  if (teams === undefined) {
-    teams = [];
+class MatchModel extends IndexedModel {
+  constructor(teams, id, group, place) {
+    super(id);
+    if (teams === undefined) {
+      teams = [];
+    }
+    if (group === undefined) {
+      group = -1;
+    }
+    this.teams = teams.slice();
+    this.length = this.teams.length;
+    this.group = group;
+    this.place = place || '';
   }
-  if (group === undefined) {
-    group = -1;
+
+  /**
+   *
+   * @param pos
+   *          the teams position within the match
+   * @return the team at position pos
+   */
+  getTeamID(pos) {
+    /*
+     * no additional check necessary. The array will return 'undefined' for us
+     */
+    // if (pos === undefined || pos < 0 || pos >= this.length) {
+    // return undefined;
+    // }
+    return this.teams[pos];
   }
-  this.teams = teams.slice();
-  this.length = this.teams.length;
-  this.group = group;
-  this.place = place || '';
+
+  /**
+   * return the group of the match within the tournament
+   *
+   * @return the group of the match within the tournament
+   */
+  getGroup() {
+    return this.group;
+  }
+
+  setPlace(place) {
+    place = place || '';
+    if (place !== this.place) {
+      this.place = place;
+      this.emit('update');
+    }
+  }
+
+  /**
+   * If isResult() is false, `this.score` does not exist and this.finish() still
+   * works.
+   *
+   * @return true if an inherited object is a MatchResult, false otherwise.
+   */
+  isResult() {
+    return this.score !== undefined || !this.finish;
+  }
+
+  /**
+   * @return true if this is not a result, all team IDs are unique and all team
+   *         IDs are valid (not undefined). false otherwise.
+   */
+  isRunningMatch() {
+    let valid;
+    valid = true;
+    if (valid) {
+      valid = !this.isResult();
+    }
+    if (valid) {
+      valid = this.teams.every(function (teamID) {
+        return Type.isNumber(teamID);
+      });
+    }
+    if (valid) {
+      valid = this.teams.every(function (teamID, index) {
+        return this.teams.slice(index + 1).indexOf(teamID) === -1;
+      }, this);
+    }
+    return valid;
+  }
+
+  /**
+   * finishes a match with a certain result
+   *
+   * @param points
+   *          An array of scored points for each team. Lengths have to match
+   * @return a MatchResult instance representing the accepted result. undefined
+   *         otherwise
+   */
+  finish(points) {
+    let result;
+    if (!points || points.length !== this.length) {
+      console.error("MatchModel.finish(): lengths don't match");
+      return undefined;
+    }
+
+    result = new _MatchResult(this, points);
+    this.emit('finish', result);
+    return result;
+  }
+
+  /**
+   * save the state into a data object
+   *
+   * @return a data object
+   */
+  save() {
+    const data = super.save();
+    data.g = this.group;
+    data.t = this.teams.map(function (team) {
+      if (team && team.getID) {
+        return team.getID();
+      } else if (team === undefined) {
+        return -1;
+      } else {
+        return team;
+      }
+    });
+    data.place = this.place;
+    return data;
+  }
+
+  /**
+   * restore from a saved state. Copies teams as Team IDs.
+   *
+   * @param data
+   *          a saved state
+   * @return true on success, false otherwise
+   */
+  restore(data) {
+    if (!super.restore(data)) {
+      return false;
+    }
+    this.group = data.g;
+    this.teams.splice(0);
+    data.t.forEach(function (t) {
+      this.teams.push(t === -1 ? undefined : t);
+    }, this);
+    this.length = this.teams.length;
+    if (data.place) {
+      this.place = data.place;
+    }
+    return true;
+  }
 }
-extend(MatchModel, IndexedModel);
+
 MatchModel.prototype.EVENTS = {
   'update': true,
   'finish': true
-};
-
-/**
- *
- * @param pos
- *          the teams position within the match
- * @return the team at position pos
- */
-MatchModel.prototype.getTeamID = function (pos) {
-  /*
-   * no additional check necessary. The array will return 'undefined' for us
-   */
-  // if (pos === undefined || pos < 0 || pos >= this.length) {
-  // return undefined;
-  // }
-  return this.teams[pos];
-};
-
-/**
- * return the group of the match within the tournament
- *
- * @return the group of the match within the tournament
- */
-MatchModel.prototype.getGroup = function () {
-  return this.group;
-};
-MatchModel.prototype.setPlace = function (place) {
-  place = place || '';
-  if (place !== this.place) {
-    this.place = place;
-    this.emit('update');
-  }
-};
-
-/**
- * If isResult() is false, `this.score` does not exist and this.finish() still
- * works.
- *
- * @return true if an inherited object is a MatchResult, false otherwise.
- */
-MatchModel.prototype.isResult = function () {
-  return this.score !== undefined || !this.finish;
-};
-
-/**
- * @return true if this is not a result, all team IDs are unique and all team
- *         IDs are valid (not undefined). false otherwise.
- */
-MatchModel.prototype.isRunningMatch = function () {
-  let valid;
-  valid = true;
-  if (valid) {
-    valid = !this.isResult();
-  }
-  if (valid) {
-    valid = this.teams.every(function (teamID) {
-      return Type.isNumber(teamID);
-    });
-  }
-  if (valid) {
-    valid = this.teams.every(function (teamID, index) {
-      return this.teams.slice(index + 1).indexOf(teamID) === -1;
-    }, this);
-  }
-  return valid;
 };
 
 /**
@@ -114,70 +173,7 @@ MatchModel.prototype.isRunningMatch = function () {
  */
 MatchModel.prototype.setID = undefined;
 
-/**
- * finishes a match with a certain result
- *
- * @param points
- *          An array of scored points for each team. Lengths have to match
- * @return a MatchResult instance representing the accepted result. undefined
- *         otherwise
- */
-MatchModel.prototype.finish = function (points) {
-  let result;
-  if (!points || points.length !== this.length) {
-    console.error("MatchModel.finish(): lengths don't match");
-    return undefined;
-  }
-
-  result = new _MatchResult(this, points);
-  this.emit('finish', result);
-  return result;
-};
-
-/**
- * save the state into a data object
- *
- * @return a data object
- */
-MatchModel.prototype.save = function () {
-  const data = MatchModel.superclass.save.call(this);
-  data.g = this.group;
-  data.t = this.teams.map(function (team) {
-    if (team && team.getID) {
-      return team.getID();
-    } else if (team === undefined) {
-      return -1;
-    } else {
-      return team;
-    }
-  });
-  data.place = this.place;
-  return data;
-};
-
-/**
- * restore from a saved state. Copies teams as Team IDs.
- *
- * @param data
- *          a saved state
- * @return true on success, false otherwise
- */
-MatchModel.prototype.restore = function (data) {
-  if (!MatchModel.superclass.restore.call(this, data)) {
-    return false;
-  }
-  this.group = data.g;
-  this.teams.splice(0);
-  data.t.forEach(function (t) {
-    this.teams.push(t === -1 ? undefined : t);
-  }, this);
-  this.length = this.teams.length;
-  if (data.place) {
-    this.place = data.place;
-  }
-  return true;
-};
-MatchModel.prototype.SAVEFORMAT = Object.create(MatchModel.superclass.SAVEFORMAT);
+MatchModel.prototype.SAVEFORMAT = Object.create(IndexedModel.prototype.SAVEFORMAT);
 MatchModel.prototype.SAVEFORMAT.g = Number;
 MatchModel.prototype.SAVEFORMAT.t = [Number];
 MatchModel.prototype.SAVEFORMAT.place = String;

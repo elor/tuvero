@@ -1,101 +1,94 @@
-/**
- * RankingHeadToHeadListener: calculates the (antisymmetric) headtohead from the
- * (asymmetric) winsmatrix by subtracting its transpose from it with a
- * TransposeDifferenceMatrix.
- *
- * @return RankingHeadToHeadListener
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingDataListener from './rankingdatalistener.js';
 import VectorModel from '../math/vectormodel.js';
 import RankingHeadToHeadComponent from './rankingheadtoheadcomponent.js';
 import RankingModel from './rankingmodel.js';
+
 /**
  * Constructor
  *
  * @param ranking
  *          a RankingModel instance
  */
-function RankingHeadToHeadListener(ranking) {
-  RankingHeadToHeadListener.superconstructor.call(this, ranking, new VectorModel());
-}
-extend(RankingHeadToHeadListener, RankingDataListener);
-RankingHeadToHeadListener.NAME = 'headtohead';
-RankingHeadToHeadListener.DEPENDENCIES = ['winsmatrix'];
+class RankingHeadToHeadListener extends RankingDataListener {
+  constructor(ranking) {
+    super(ranking, new VectorModel());
+  }
 
-/**
- * creates a copy of this.ranking, where the ranking stops just before
- * 'headtohead'
- *
- * @return a RankingModel instance, which is a direct copy of this.ranking,
- *         but stops its ranking just before the 'headtohead' component
- */
-RankingHeadToHeadListener.prototype.createDummyRanking = function () {
-  let components, dummyRanking;
-  components = this.ranking.componentnames.slice(0);
-  components.splice(components.indexOf(RankingHeadToHeadComponent.NAME));
-  dummyRanking = new RankingModel(components, this.ranking.length);
-  Object.keys(this.ranking.dataListeners).forEach(function (name) {
-    if (dummyRanking[name]) {
-      dummyRanking[name] = this.ranking[name];
-    }
-  }, this);
-  return dummyRanking;
-};
-
-/**
- * converts the dummy ranking result to a 2d array of equally-ranked teams
- *
- * @param ranks
- *          the result of dummyRanking.get()
- * @return the 2D array of equally-ranked teams
- */
-RankingHeadToHeadListener.prototype.getGroups = function (ranks) {
-  const groups = [];
-  ranks.ranks.forEach(function (rank, internalid) {
-    if (groups[rank] === undefined) {
-      groups[rank] = [];
-    }
-    groups[rank].push(internalid);
-  });
-  return groups;
-};
-
-/**
- * calculates the headtohead ranking for each team and writes them straight to
- * this.headtohead
- *
- * @param groups
- *          the result of getGroups()
- */
-RankingHeadToHeadListener.prototype.calculatePoints = function (groups) {
-  this.headtohead.fill(0);
-  groups.forEach(function (group) {
-    group.forEach(function (teamA) {
-      let points = this.headtohead.get(teamA);
-      group.forEach(function (teamB) {
-        points += this.winsmatrix.get(teamA, teamB);
-      }, this);
-      this.headtohead.set(teamA, points);
+  /**
+   * creates a copy of this.ranking, where the ranking stops just before
+   * 'headtohead'
+   *
+   * @return a RankingModel instance, which is a direct copy of this.ranking,
+   *         but stops its ranking just before the 'headtohead' component
+   */
+  createDummyRanking() {
+    let components, dummyRanking;
+    components = this.ranking.componentnames.slice(0);
+    components.splice(components.indexOf(RankingHeadToHeadComponent.NAME));
+    dummyRanking = new RankingModel(components, this.ranking.length);
+    Object.keys(this.ranking.dataListeners).forEach(function (name) {
+      if (dummyRanking[name]) {
+        dummyRanking[name] = this.ranking[name];
+      }
     }, this);
-  }, this);
-};
+    return dummyRanking;
+  }
 
-/**
- * Recalculates the headtohead vector, depending on the ranking with only the
- * previous components.
- *
- * The headtohead value is calculated as the sum of wins against
- * equally-ranked teams
- */
-RankingHeadToHeadListener.prototype.onrecalc = function () {
-  let dummyRanking, ranks, groups;
-  dummyRanking = this.createDummyRanking();
-  ranks = dummyRanking.getNoRecalc();
-  groups = this.getGroups(ranks);
-  this.calculatePoints(groups);
-};
+  /**
+   * converts the dummy ranking result to a 2d array of equally-ranked teams
+   *
+   * @param ranks
+   *          the result of dummyRanking.get()
+   * @return the 2D array of equally-ranked teams
+   */
+  getGroups(ranks) {
+    const groups = [];
+    ranks.ranks.forEach(function (rank, internalid) {
+      if (groups[rank] === undefined) {
+        groups[rank] = [];
+      }
+      groups[rank].push(internalid);
+    });
+    return groups;
+  }
+
+  /**
+   * calculates the headtohead ranking for each team and writes them straight to
+   * this.headtohead
+   *
+   * @param groups
+   *          the result of getGroups()
+   */
+  calculatePoints(groups) {
+    this.headtohead.fill(0);
+    groups.forEach(function (group) {
+      group.forEach(function (teamA) {
+        let points = this.headtohead.get(teamA);
+        group.forEach(function (teamB) {
+          points += this.winsmatrix.get(teamA, teamB);
+        }, this);
+        this.headtohead.set(teamA, points);
+      }, this);
+    }, this);
+  }
+
+  /**
+   * Recalculates the headtohead vector, depending on the ranking with only the
+   * previous components.
+   *
+   * The headtohead value is calculated as the sum of wins against
+   * equally-ranked teams
+   */
+  onrecalc() {
+    let dummyRanking, ranks, groups;
+    dummyRanking = this.createDummyRanking();
+    ranks = dummyRanking.getNoRecalc();
+    groups = this.getGroups(ranks);
+    this.calculatePoints(groups);
+  }
+
+  static NAME = 'headtohead';
+  static DEPENDENCIES = ['winsmatrix'];
+}
+
 export default RankingHeadToHeadListener;

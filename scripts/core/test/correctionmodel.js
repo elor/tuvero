@@ -8,7 +8,6 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import MatchModel from '../matchmodel.js';
 import MatchResult from '../matchresult.js';
 import CorrectionModel from '../correctionmodel.js';
@@ -16,7 +15,7 @@ import Model from '../model.js';
 test('CorrectionModel', () => {
   let match, result, result2, correction, data, success;
   expect(
-    extend.isSubclass(CorrectionModel, Model),
+    CorrectionModel.prototype instanceof Model,
     'CorrectionModel is subclass of Model'
   ).toBeTruthy();
   match = new MatchModel([1, 4], 0, 1);

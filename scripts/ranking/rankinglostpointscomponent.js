@@ -1,13 +1,5 @@
-/**
- * RankingLostPointsComponent
- *
- * @return RankingLostPointsComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,18 +8,21 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingLostPointsComponent(ranking, nextcomponent) {
-  RankingLostPointsComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingLostPointsComponent, RankingComponent);
-RankingLostPointsComponent.NAME = 'lostpoints';
+class RankingLostPointsComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
-* @param i
-*          a team index
-* @return the small points: won points, without subtracting lost points
-*/
-RankingLostPointsComponent.prototype.value = function (i) {
-  return this.ranking.lostpoints.get(i);
-};
+  /**
+  * @param i
+  *          a team index
+  * @return the small points: won points, without subtracting lost points
+  */
+  value(i) {
+    return this.ranking.lostpoints.get(i);
+  }
+
+  static NAME = 'lostpoints';
+}
+
 export default RankingLostPointsComponent;

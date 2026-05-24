@@ -1,12 +1,3 @@
-/**
- * TeamFormatDownloadController
- *
- * @return TeamFormatDownloadController
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Controller from '../core/controller.js';
 import { saveAs } from 'file-saver';
 import Toast from './toast.js';
@@ -25,19 +16,22 @@ examplefiles[3] = 'Erik E. Lorenz, Fabian "Fabe" Böttcher, Spieler 3\n' + 'Spie
  * @param view
  *          a View instance, which contains the button
  */
-function TeamFormatDownloadController(view) {
-  TeamFormatDownloadController.superconstructor.call(this, view);
-  this.view.$view.click(this.save.bind(this));
-}
-extend(TeamFormatDownloadController, Controller);
-TeamFormatDownloadController.prototype.save = function () {
-  let blob;
-  try {
-    blob = new Blob([examplefiles[State.teamsize.get()] || examplefiles[2]]);
-    saveAs(blob, Presets.names.teamsfile);
-  } catch (e) {
-    console.error(e.stack);
-    Toast.once(Strings.savefailed);
+class TeamFormatDownloadController extends Controller {
+  constructor(view) {
+    super(view);
+    this.view.$view.click(this.save.bind(this));
   }
-};
+
+  save() {
+    let blob;
+    try {
+      blob = new Blob([examplefiles[State.teamsize.get()] || examplefiles[2]]);
+      saveAs(blob, Presets.names.teamsfile);
+    } catch (e) {
+      console.error(e.stack);
+      Toast.once(Strings.savefailed);
+    }
+  }
+}
+
 export default TeamFormatDownloadController;

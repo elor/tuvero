@@ -1,14 +1,5 @@
-/**
- * ListUpdateListener: call the callback function whenever the list size has
- * been changed or reset
- *
- * @return ListUpdateListener
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Listener from '../core/listener.js';
+
 /**
  * Constructor
  *
@@ -17,38 +8,39 @@ import Listener from '../core/listener.js';
  * @param callback
  *          the callback function of format function(data) { }
  */
-function ListUpdateListener(list, callback) {
-  ListUpdateListener.superconstructor.call(this, list);
-  this.callback = callback;
+class ListUpdateListener extends Listener {
+  constructor(list, callback) {
+    super(list);
+    this.callback = callback;
+  }
+
+  /**
+   * general callback function
+   *
+   * @param emitter
+   *          the list
+   * @param event
+   *          the event type
+   * @param data
+   *          a data object
+   */
+  update(emitter, event, data) {
+    this.callback.call(emitter, data);
+  }
+
+  /**
+   * bind function for self-commenting code and to avoid lint warnings
+   *
+   * @param list
+   *          a ListModel instance
+   * @param callback
+   *          a callback function of the format function(data)
+   * @return a valid ListUpdateListener instance on success
+   */
+  static bind(list, callback) {
+    return new ListUpdateListener(list, callback);
+  }
 }
-extend(ListUpdateListener, Listener);
-
-/**
- * bind function for self-commenting code and to avoid lint warnings
- *
- * @param list
- *          a ListModel instance
- * @param callback
- *          a callback function of the format function(data)
- * @return a valid ListUpdateListener instance on success
- */
-ListUpdateListener.bind = function (list, callback) {
-  return new ListUpdateListener(list, callback);
-};
-
-/**
- * general callback function
- *
- * @param emitter
- *          the list
- * @param event
- *          the event type
- * @param data
- *          a data object
- */
-ListUpdateListener.prototype.update = function (emitter, event, data) {
-  this.callback.call(emitter, data);
-};
 
 /**
  * collect different event types

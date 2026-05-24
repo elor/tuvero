@@ -1,13 +1,5 @@
-/**
- * RankingSonnebornComponent
- *
- * @return RankingSonnebornComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,18 +8,21 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingSonnebornComponent(ranking, nextcomponent) {
-  RankingSonnebornComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingSonnebornComponent, RankingComponent);
-RankingSonnebornComponent.NAME = 'sonneborn';
+class RankingSonnebornComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
-* @param i
-*          a team index
-* @return the number of won games
-*/
-RankingSonnebornComponent.prototype.value = function (i) {
-  return this.ranking.sonneborn.get(i);
-};
+  /**
+  * @param i
+  *          a team index
+  * @return the number of won games
+  */
+  value(i) {
+    return this.ranking.sonneborn.get(i);
+  }
+
+  static NAME = 'sonneborn';
+}
+
 export default RankingSonnebornComponent;

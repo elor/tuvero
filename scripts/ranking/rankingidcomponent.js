@@ -1,37 +1,33 @@
-/**
- * RankingIDComponent: rank by player id
- *
- * @return RankingIDComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
  * @param ranking
  *          a RankingModel instance
  */
-function RankingIDComponent(ranking) {
-  RankingIDComponent.superconstructor.call(this, ranking, undefined);
-}
-extend(RankingIDComponent, RankingComponent);
-RankingIDComponent.NAME = 'id';
-RankingIDComponent.DEPENDENCIES = [];
+class RankingIDComponent extends RankingComponent {
+  constructor(ranking) {
+    super(ranking, undefined);
+  }
 
-/**
-* simply return the id. This always leads to a non-equal comparison.
-*
-* @param i
-*          a player index
-* @return the player index, for sorting
-*/
-RankingIDComponent.prototype.value = function (i) {
-  return i;
-};
-RankingIDComponent.prototype.compare = function (i, k) {
-  return -RankingIDComponent.superclass.compare.call(this, i, k);
-};
+  /**
+  * simply return the id. This always leads to a non-equal comparison.
+  *
+  * @param i
+  *          a player index
+  * @return the player index, for sorting
+  */
+  value(i) {
+    return i;
+  }
+
+  compare(i, k) {
+    return -super.compare(i, k);
+  }
+
+  static NAME = 'id';
+  static DEPENDENCIES = [];
+}
+
 export default RankingIDComponent;

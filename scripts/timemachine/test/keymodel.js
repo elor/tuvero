@@ -8,13 +8,12 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import KeyModel from '../keymodel.js';
 import Model from '../../core/model.js';
 import Presets from 'presets';
 test('KeyModel', () => {
   let key, key2, ref, date;
-  expect(extend.isSubclass(KeyModel, Model), 'KeyModel is subclass of Model').toBeTruthy();
+  expect(KeyModel.prototype instanceof Model, 'KeyModel is subclass of Model').toBeTruthy();
 
   /*
    * init-key

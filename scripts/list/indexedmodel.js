@@ -1,75 +1,69 @@
-/**
- * A model which has an index, e.g. inside an indexed list
- *
- * @return IndexedModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import Model from '../core/model.js';
+
 /**
  * Constructor
  *
  * @param id
  *          a preferably unique numeric id
  */
-function IndexedModel(id) {
-  IndexedModel.superconstructor.call(this);
-  IndexedModel.prototype.setID.call(this, id);
+class IndexedModel extends Model {
+  constructor(id) {
+    super();
+    IndexedModel.prototype.setID.call(this, id);
+  }
+
+  /**
+   * retrieve the id of this object within a certain set of objects
+   *
+   * @return the id of this object within a certain set of objects
+   */
+  getID() {
+    return this.id;
+  }
+
+  /**
+   * change the id
+   *
+   * @param id
+   *          a preferably unique numeric id
+   */
+  setID(id) {
+    if (id === undefined) {
+      id = -1;
+    }
+    if (id !== this.id) {
+      this.id = id;
+      this.emit('update');
+    }
+  }
+
+  /**
+   * save the current state to an object
+   *
+   * @return the current state, as a data object
+   */
+  save() {
+    const data = super.save();
+    data.id = this.id;
+    return data;
+  }
+
+  /**
+   * restore the current state from an object
+   *
+   * @param data
+   *          a stored state
+   * @return true on success, false otherwise
+   */
+  restore(data) {
+    if (!super.restore(data)) {
+      return false;
+    }
+    this.id = data.id;
+    return true;
+  }
 }
-extend(IndexedModel, Model);
 
-/**
- * retrieve the id of this object within a certain set of objects
- *
- * @return the id of this object within a certain set of objects
- */
-IndexedModel.prototype.getID = function () {
-  return this.id;
-};
-
-/**
- * change the id
- *
- * @param id
- *          a preferably unique numeric id
- */
-IndexedModel.prototype.setID = function (id) {
-  if (id === undefined) {
-    id = -1;
-  }
-  if (id !== this.id) {
-    this.id = id;
-    this.emit('update');
-  }
-};
-
-/**
- * save the current state to an object
- *
- * @return the current state, as a data object
- */
-IndexedModel.prototype.save = function () {
-  const data = IndexedModel.superclass.save.call(this);
-  data.id = this.id;
-  return data;
-};
-
-/**
- * restore the current state from an object
- *
- * @param data
- *          a stored state
- * @return true on success, false otherwise
- */
-IndexedModel.prototype.restore = function (data) {
-  if (!IndexedModel.superclass.restore.call(this, data)) {
-    return false;
-  }
-  this.id = data.id;
-  return true;
-};
-IndexedModel.prototype.SAVEFORMAT = Object.create(IndexedModel.superclass.SAVEFORMAT);
+IndexedModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
 IndexedModel.prototype.SAVEFORMAT.id = Number;
 export default IndexedModel;

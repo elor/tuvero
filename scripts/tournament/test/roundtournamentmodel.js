@@ -8,13 +8,12 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import RoundTournamentModel from '../roundtournamentmodel.js';
 import TournamentModel from '../tournamentmodel.js';
 test('RoundTournamentModel', () => {
   let tournament, ret, ref, data, numteams, matches, teams, byes, state;
   expect(
-    extend.isSubclass(RoundTournamentModel, TournamentModel),
+    RoundTournamentModel.prototype instanceof TournamentModel,
     'RoundTournamentModel is subclass of TournamentModel'
   ).toBeTruthy();
   tournament = new RoundTournamentModel(['wins', 'sonneborn', 'saldo']);

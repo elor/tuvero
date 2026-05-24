@@ -8,13 +8,12 @@
  */
 import { test, expect } from 'vitest';
 
-import extend from '../../lib/extend.js';
 import KOTournamentModel from '../kotournamentmodel.js';
 import TournamentModel from '../tournamentmodel.js';
 test('KOTournamentModel', () => {
   let ids, result, ref, tournament;
   expect(
-    extend.isSubclass(KOTournamentModel, TournamentModel),
+    KOTournamentModel.prototype instanceof TournamentModel,
     'KOTournamentModel is subclass of TournamentModel'
   ).toBeTruthy();
   ids = [];

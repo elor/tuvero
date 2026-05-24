@@ -1,13 +1,5 @@
-/**
- * RankingPlacementComponent: rank by team id
- *
- * @return RankingPlacementComponent
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import RankingComponent from './rankingcomponent.js';
+
 /**
  * Constructor
  *
@@ -16,24 +8,29 @@ import RankingComponent from './rankingcomponent.js';
  * @param nextcomponent
  *          the next component in the chain
  */
-function RankingPlacementComponent(ranking, nextcomponent) {
-  RankingPlacementComponent.superconstructor.call(this, ranking, nextcomponent);
-}
-extend(RankingPlacementComponent, RankingComponent);
-RankingPlacementComponent.NAME = 'placement';
-RankingPlacementComponent.prototype.isPrimary = function () {
-  return false;
-};
+class RankingPlacementComponent extends RankingComponent {
+  constructor(ranking, nextcomponent) {
+    super(ranking, nextcomponent);
+  }
 
-/**
- * @param i
- *          a team index
- * @return the number of won games
- */
-RankingPlacementComponent.prototype.value = function (i) {
-  return 1 + i - i % 2;
-};
-RankingPlacementComponent.prototype.compare = function (i, k) {
-  return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k);
-};
+  isPrimary() {
+    return false;
+  }
+
+  /**
+   * @param i
+   *          a team index
+   * @return the number of won games
+   */
+  value(i) {
+    return 1 + i - i % 2;
+  }
+
+  compare(i, k) {
+    return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k);
+  }
+
+  static NAME = 'placement';
+}
+
 export default RankingPlacementComponent;

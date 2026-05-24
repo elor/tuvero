@@ -43,139 +43,143 @@ versionFixers = {
    *
    * @returns {StateLoaderModel} instance
    */
-function StateLoaderModel() {
-  const converter = new LegacyStorageKeyConverter();
-  converter.convertAll();
-}
+class StateLoaderModel {
+  constructor() {
+    const converter = new LegacyStorageKeyConverter();
+    converter.convertAll();
+  }
 
-/**
-   * find the latest commit and load it.
-   *
-   * @returns {boolean} true on success, false otherwise
-   */
-StateLoaderModel.prototype.loadLatest = function () {
-  let lastCommit;
-  if (TimeMachine.roots.length === 0) {
-    return false;
-  }
-  lastCommit = TimeMachine.roots.get(TimeMachine.roots.length - 1);
-  lastCommit = lastCommit.getYoungestDescendant() || lastCommit;
-  return this.loadCommit(lastCommit);
-};
-
-/**
-   * load the state from an existing commit
-   *
-   * @param {string} commit
-   *          a valid commit to load.
-   * @returns {boolean} true on success, false otherwise
-   */
-StateLoaderModel.prototype.loadCommit = function (commit) {
-  let string;
-  if (!commit || !commit.isValid()) {
-    return false;
-  }
-  string = TimeMachine.load(commit);
-  if (!string) {
-    return false;
-  }
-  return this.loadString(string);
-};
-
-/**
-   * load the state from a string (serialized data)
-   *
-   * @param {string} string
-   *          the serialized data
-   * @return {boolean} true on success, false otherwise
-   */
-StateLoaderModel.prototype.loadString = function (string) {
-  let data;
-  if (!string) {
-    return false;
-  }
-  try {
-    data = JSON.parse(string);
-  } catch (e) {
-    // try CSV-loading
-    return this.loadTeamsCSV(string);
-  }
-  return this.loadData(data);
-};
-
-/**
-   * load the state from a save-data object. Tries to up-convert old savestates
-   *
-   * @param {Object} data
-   *          the save-data object, as written by State.save() at some point in
-   *          the past
-   * @returns {boolean} true on success, false otherwise.
-   */
-StateLoaderModel.prototype.loadData = function (data) {
-  let success;
-  if (!data) {
-    return false;
-  }
-  if (!data.version) {
-    // pre-1.5.0
-    return this.loadLegacyData(data);
-  }
-  this.fixVersions(data);
-  success = State.restore(data);
-  if (success) {
-    console.log('savestate loaded');
-  }
-  return success;
-};
-
-/**
-   * load an old save state, from pre-1.5.0 times when the MVC-classes weren't
-   * completed yet
-   *
-   * @param {Object} data
-   *          a data object of pre-1.5.0 format
-   * @return {boolean} true on success, false otherwise
-   */
-StateLoaderModel.prototype.loadLegacyData = function (data) {
-  let loader;
-  console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly');
-  loader = new LegacyLoaderModel();
-  try {
-    if (loader.load(data)) {
-      console.log('legacy savestate loaded');
-      return true;
+  /**
+     * find the latest commit and load it.
+     *
+     * @returns {boolean} true on success, false otherwise
+     */
+  loadLatest() {
+    let lastCommit;
+    if (TimeMachine.roots.length === 0) {
+      return false;
     }
-  } catch (e) {
-    console.error(e.stack);
+    lastCommit = TimeMachine.roots.get(TimeMachine.roots.length - 1);
+    lastCommit = lastCommit.getYoungestDescendant() || lastCommit;
+    return this.loadCommit(lastCommit);
   }
-  return false;
-};
-StateLoaderModel.prototype.fixVersions = function (data) {
-  const versions = Object.keys(versionFixers).filter(function (version) {
-    return semver.lt(data.version, version);
-  }).sort(semver.compare);
-  versions.forEach(function (version) {
-    console.log('updating json data to version ' + version);
-    versionFixers[version](data);
-  });
-};
-StateLoaderModel.prototype.loadTeamsCSV = function (csvString) {
-  try {
-    State.clear();
-    return TeamsFileLoadController.load(csvString);
-  } catch (e) {}
-  return false;
-};
 
-/**
-   * reset the current state and forget about all previously loaded states
-   *
-   * @returns {undefined}
-   */
-StateLoaderModel.prototype.unload = function () {
-  TimeMachine.unload();
-  State.clear();
-};
+  /**
+     * load the state from an existing commit
+     *
+     * @param {string} commit
+     *          a valid commit to load.
+     * @returns {boolean} true on success, false otherwise
+     */
+  loadCommit(commit) {
+    let string;
+    if (!commit || !commit.isValid()) {
+      return false;
+    }
+    string = TimeMachine.load(commit);
+    if (!string) {
+      return false;
+    }
+    return this.loadString(string);
+  }
+
+  /**
+     * load the state from a string (serialized data)
+     *
+     * @param {string} string
+     *          the serialized data
+     * @return {boolean} true on success, false otherwise
+     */
+  loadString(string) {
+    let data;
+    if (!string) {
+      return false;
+    }
+    try {
+      data = JSON.parse(string);
+    } catch (e) {
+      // try CSV-loading
+      return this.loadTeamsCSV(string);
+    }
+    return this.loadData(data);
+  }
+
+  /**
+     * load the state from a save-data object. Tries to up-convert old savestates
+     *
+     * @param {Object} data
+     *          the save-data object, as written by State.save() at some point in
+     *          the past
+     * @returns {boolean} true on success, false otherwise.
+     */
+  loadData(data) {
+    let success;
+    if (!data) {
+      return false;
+    }
+    if (!data.version) {
+      // pre-1.5.0
+      return this.loadLegacyData(data);
+    }
+    this.fixVersions(data);
+    success = State.restore(data);
+    if (success) {
+      console.log('savestate loaded');
+    }
+    return success;
+  }
+
+  /**
+     * load an old save state, from pre-1.5.0 times when the MVC-classes weren't
+     * completed yet
+     *
+     * @param {Object} data
+     *          a data object of pre-1.5.0 format
+     * @return {boolean} true on success, false otherwise
+     */
+  loadLegacyData(data) {
+    let loader;
+    console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly');
+    loader = new LegacyLoaderModel();
+    try {
+      if (loader.load(data)) {
+        console.log('legacy savestate loaded');
+        return true;
+      }
+    } catch (e) {
+      console.error(e.stack);
+    }
+    return false;
+  }
+
+  fixVersions(data) {
+    const versions = Object.keys(versionFixers).filter(function (version) {
+      return semver.lt(data.version, version);
+    }).sort(semver.compare);
+    versions.forEach(function (version) {
+      console.log('updating json data to version ' + version);
+      versionFixers[version](data);
+    });
+  }
+
+  loadTeamsCSV(csvString) {
+    try {
+      State.clear();
+      return TeamsFileLoadController.load(csvString);
+    } catch (e) {}
+    return false;
+  }
+
+  /**
+     * reset the current state and forget about all previously loaded states
+     *
+     * @returns {undefined}
+     */
+  unload() {
+    TimeMachine.unload();
+    State.clear();
+  }
+}
 
 /*
    * StateLoader is a singleton

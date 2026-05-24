@@ -1,12 +1,3 @@
-/**
- * MatchView
- *
- * @return MatchView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-import extend from '../lib/extend.js';
 import $ from 'jquery';
 import View from '../core/view.js';
 import TeamView from './teamview.js';
@@ -82,120 +73,125 @@ function $createTeamsLists($elements) {
  *          Optional. A ListModel of TeamModels, from which the teams will be
  *          read for visualization. See MatchView.bindTeamList(), too.
  */
-function MatchView(model, $view, teamlist) {
-  MatchView.superconstructor.call(this, model, $view);
-  this.teamviews = [];
-  if (teamlist) {
-    this.teamlist = teamlist;
-  } else if (!this.teamlist) {
-    this.teamlist = undefined;
-  }
-  this.$finishform = this.$view.find('.finish');
-  this.$place = this.$view.find('.place');
-  if (this.model.isRunningMatch()) {
-    this.controller = new MatchController(this, this.$finishform);
-  } else {
-    this.$finishform.remove();
-    this.$finishform = undefined;
-  }
-  this.update();
-  this.updatePlace();
-}
-extend(MatchView, View);
-
-/**
- * destroy all team views before creating new ones on the existing items. This
- * is a bit too much, but it shouldn't be called too often, right?
- */
-MatchView.prototype.destroyTeamViews = function () {
-  // destroy all teamviews in order to create new ones
-  this.teamviews.forEach(function (teamview) {
-    teamview.destroy();
-  });
-  this.teamviews.splice(0);
-};
-
-/**
- * update all the values
- */
-MatchView.prototype.update = function () {
-  let $teams, i, $team, teamid, isBye, team, teamsize;
-  $teams = this.$view.find('.team');
-  if ($teams.length === 0) {
-    $teams = $createTeamsLists(this.$view.find('>.teamno , >.name , >.teamname'));
-  }
-  if ($teams.length === 0) {
-    $teams = $createTeamsLists(this.$view.filter('.teamno , .name , .teamname'));
-  }
-  teamsize = undefined;
-  this.destroyTeamViews();
-  isBye = this.model.isBye && this.model.isBye();
-
-  // should support a varying number of teams
-  for (i = 0; i < $teams.length; i += 1) {
-    $team = $($teams[i]);
-    teamid = this.model.getTeamID(i % this.model.length);
-    if (this.teamlist) {
-      if (teamid !== undefined) {
-        team = this.teamlist.get(teamid);
-        teamsize = team.length;
-        if (isBye && i % this.model.length !== 0) {
-          team = createByeTeam(team.length);
-        }
-      } else {
-        if (teamsize === undefined) {
-          // dirty hack: just look for size of the the first team.
-          teamsize = this.teamlist.get(0) && this.teamlist.get(0).length;
-        }
-        team = createEmptyTeam(teamsize);
-      }
-      this.teamviews.push(new TeamView(team, $team));
+class MatchView extends View {
+  constructor(model, $view, teamlist) {
+    super(model, $view);
+    this.teamviews = [];
+    if (teamlist) {
+      this.teamlist = teamlist;
+    } else if (!this.teamlist) {
+      this.teamlist = undefined;
+    }
+    this.$finishform = this.$view.find('.finish');
+    this.$place = this.$view.find('.place');
+    if (this.model.isRunningMatch()) {
+      this.controller = new MatchController(this, this.$finishform);
     } else {
-      if (isBye) {
-        team = Strings.byename;
-      } else if (Type.isNumber(teamid)) {
-        team = teamid + 1;
-      } else if (teamid === undefined) {
-        team = '';
+      this.$finishform.remove();
+      this.$finishform = undefined;
+    }
+    this.update();
+    this.updatePlace();
+  }
+
+  /**
+   * destroy all team views before creating new ones on the existing items. This
+   * is a bit too much, but it shouldn't be called too often, right?
+   */
+  destroyTeamViews() {
+    // destroy all teamviews in order to create new ones
+    this.teamviews.forEach(function (teamview) {
+      teamview.destroy();
+    });
+    this.teamviews.splice(0);
+  }
+
+  /**
+   * update all the values
+   */
+  update() {
+    let $teams, i, $team, teamid, isBye, team, teamsize;
+    $teams = this.$view.find('.team');
+    if ($teams.length === 0) {
+      $teams = $createTeamsLists(this.$view.find('>.teamno , >.name , >.teamname'));
+    }
+    if ($teams.length === 0) {
+      $teams = $createTeamsLists(this.$view.filter('.teamno , .name , .teamname'));
+    }
+    teamsize = undefined;
+    this.destroyTeamViews();
+    isBye = this.model.isBye && this.model.isBye();
+
+    // should support a varying number of teams
+    for (i = 0; i < $teams.length; i += 1) {
+      $team = $($teams[i]);
+      teamid = this.model.getTeamID(i % this.model.length);
+      if (this.teamlist) {
+        if (teamid !== undefined) {
+          team = this.teamlist.get(teamid);
+          teamsize = team.length;
+          if (isBye && i % this.model.length !== 0) {
+            team = createByeTeam(team.length);
+          }
+        } else {
+          if (teamsize === undefined) {
+            // dirty hack: just look for size of the the first team.
+            teamsize = this.teamlist.get(0) && this.teamlist.get(0).length;
+          }
+          team = createEmptyTeam(teamsize);
+        }
+        this.teamviews.push(new TeamView(team, $team));
       } else {
-        team = teamid;
+        if (isBye) {
+          team = Strings.byename;
+        } else if (Type.isNumber(teamid)) {
+          team = teamid + 1;
+        } else if (teamid === undefined) {
+          team = '';
+        } else {
+          team = teamid;
+        }
+        $team.text(team);
       }
-      $team.text(team);
     }
   }
-};
-MatchView.prototype.updatePlace = function () {
-  this.$place.text(this.model.place || '');
-};
 
-/**
- * Callback Listener. For safety. Is never called in the current
- * implementation.
- *
- * @param emitter
- *          this.model
- * @param event
- *          'update'
- * @param data
- *          should be undefined
- */
-MatchView.prototype.onupdate = function (emitter, event, data) {
-  this.updatePlace();
-};
-
-/**
- * bind a whole MatchView subclass to a list of teams for better display.
- *
- * @param teamlist
- *          a ListModel of TeamModel instances
- * @return a new MatchView constructor, which has this.teamList set
- */
-MatchView.bindTeamList = function (teamlist) {
-  function MyMatchView() {
-    MyMatchView.superconstructor.apply(this, arguments);
+  updatePlace() {
+    this.$place.text(this.model.place || '');
   }
-  extend(MyMatchView, MatchView);
-  MyMatchView.prototype.teamlist = teamlist;
-  return MyMatchView;
-};
+
+  /**
+   * Callback Listener. For safety. Is never called in the current
+   * implementation.
+   *
+   * @param emitter
+   *          this.model
+   * @param event
+   *          'update'
+   * @param data
+   *          should be undefined
+   */
+  onupdate(emitter, event, data) {
+    this.updatePlace();
+  }
+
+  /**
+   * bind a whole MatchView subclass to a list of teams for better display.
+   *
+   * @param teamlist
+   *          a ListModel of TeamModel instances
+   * @return a new MatchView constructor, which has this.teamList set
+   */
+  static bindTeamList(teamlist) {
+    class MyMatchView extends MatchView {
+      constructor() {
+        MyMatchView.superconstructor.apply(this, arguments);
+      }
+    }
+
+    MyMatchView.prototype.teamlist = teamlist;
+    return MyMatchView;
+  }
+}
+
 export default MatchView;

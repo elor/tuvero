@@ -7,7 +7,6 @@
  * @see LICENSE
  */
 import $ from 'jquery';
-import extend from '../lib/extend.js';
 import BoxView from './boxview.js';
 import PopoutController from './popoutcontroller.js';
 import ValueModel from '../core/valuemodel.js';
@@ -27,39 +26,45 @@ $pageBreakIconTemplate = $iconTemplate.clone().addClass('pagebreak').text('⏎')
 /**
  * Constructor
  */
-function PopoutBoxView($view, $popoutTemplate, cloneFunction) {
-  PopoutBoxView.superconstructor.call(this, $view);
-  this.$popoutTemplate = $popoutTemplate;
-  if (this.$view.hasClass('primaryPopout')) {
-    this.addCloseIcon();
-    this.addPageBreakIcon();
-  } else {
-    this.addPopoutIcon();
+class PopoutBoxView extends BoxView {
+  constructor($view, $popoutTemplate, cloneFunction) {
+    super($view);
+    this.$popoutTemplate = $popoutTemplate;
+    if (this.$view.hasClass('primaryPopout')) {
+      this.addCloseIcon();
+      this.addPageBreakIcon();
+    } else {
+      this.addPopoutIcon();
+    }
+    this.popoutController = new PopoutController(this, cloneFunction);
   }
-  this.popoutController = new PopoutController(this, cloneFunction);
+
+  addPopoutIcon() {
+    this.$popout = $popoutIconTemplate.clone();
+    this.$view.find('>h3:first-child').append(this.$popout);
+  }
+
+  addCloseIcon() {
+    this.$close = $closeIconTemplate.clone();
+    this.$view.find('>h3:first-child').append(this.$close);
+  }
+
+  addPageBreakIcon() {
+    this.$pageBreak = $pageBreakIconTemplate.clone();
+    this.pageBreakModel = new ValueModel(false);
+    this.pageBreakView = new ClassView(this.pageBreakModel, this.$view, 'pagebreak');
+    this.$view.find('>h3:first-child').append(this.$pageBreak);
+  }
+
+  destroy() {
+    if (this.pageBreakModel) {
+      this.pageBreakModel.destroy();
+    }
+    if (this.pageBreakView) {
+      this.pageBreakView.destroy();
+    }
+    BoxView.prototype.destroy.bind(this);
+  }
 }
-extend(PopoutBoxView, BoxView);
-PopoutBoxView.prototype.addPopoutIcon = function () {
-  this.$popout = $popoutIconTemplate.clone();
-  this.$view.find('>h3:first-child').append(this.$popout);
-};
-PopoutBoxView.prototype.addCloseIcon = function () {
-  this.$close = $closeIconTemplate.clone();
-  this.$view.find('>h3:first-child').append(this.$close);
-};
-PopoutBoxView.prototype.addPageBreakIcon = function () {
-  this.$pageBreak = $pageBreakIconTemplate.clone();
-  this.pageBreakModel = new ValueModel(false);
-  this.pageBreakView = new ClassView(this.pageBreakModel, this.$view, 'pagebreak');
-  this.$view.find('>h3:first-child').append(this.$pageBreak);
-};
-PopoutBoxView.prototype.destroy = function () {
-  if (this.pageBreakModel) {
-    this.pageBreakModel.destroy();
-  }
-  if (this.pageBreakView) {
-    this.pageBreakView.destroy();
-  }
-  PopoutBoxView.superclass.destroy.bind(this);
-};
+
 export default PopoutBoxView;
