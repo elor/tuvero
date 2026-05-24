@@ -10,6 +10,7 @@
     "libtuvero"
   ],
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "diff": "^9.0.0",
     "file-saver": "^2.0.5",
     "gulp": "^5.0.0",
@@ -32,6 +33,7 @@
     "vite:build:boule": "VITE_VARIANT=boule vite build",
     "vite:build:tac": "VITE_VARIANT=tac vite build",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "lint": "gulp lint",
     "update": "gulp update",
     "dev": "vite"

@@ -63,7 +63,7 @@ class PopoutBoxView extends BoxView {
     if (this.pageBreakView) {
       this.pageBreakView.destroy();
     }
-    BoxView.prototype.destroy.bind(this);
+    super.destroy();
   }
 }
 

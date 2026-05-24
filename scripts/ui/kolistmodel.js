@@ -8,7 +8,7 @@ import BinningReferenceListModel from '../list/binningreferencelistmodel.js';
  */
 class KOListModel extends BinningReferenceListModel {
   constructor(tournament) {
-    super(tournament.getCombinedHistory(), this.binningFunction);
+    super(tournament.getCombinedHistory(), KOListModel.binningFunction);
   }
 
   /**
@@ -17,7 +17,7 @@ class KOListModel extends BinningReferenceListModel {
    * @return which KO Tree Group this match belongs to. The match for third
    *         place is shown in the tree for first place, and so on.
    */
-  binningFunction(match) {
+  static binningFunction(match) {
     /*
      * Just strip the '1' bit from the match group, if it's set
      *

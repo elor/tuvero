@@ -1,6 +1,5 @@
 import View from '../core/view.js';
 import TeamSettingsController from './teamsettingscontroller.js';
-import Listener from '../core/listener.js';
 
 class TeamSettingsView extends View {
   constructor(model, $view) {
@@ -24,7 +23,7 @@ class TeamSettingsView extends View {
 
   destroy() {
     this.controller.destroy();
-    Listener.prototype.destroy.call(this);
+    super.destroy();
   }
 
   static bindTeamList(teamlist) {
