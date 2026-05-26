@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test';
+
 export async function waitForApp(page) {
   await page.waitForFunction(() => {
     const splash = document.getElementById('splash');
@@ -14,7 +16,7 @@ export function collectErrors(page) {
 
 export async function goTab(page, tabName) {
   await page.goto(`/basic/#${tabName}`);
-  await page.waitForTimeout(100);
+  await expect(page.locator(`[data-tab="${tabName}"]`)).toBeVisible();
 }
 
 export async function createTournament(page, name) {
@@ -24,39 +26,39 @@ export async function createTournament(page, name) {
   await page.click('.createroot.withlabel.big');
 }
 
-// Register teams by name using the teams tab form (one at a time)
 export async function registerTeams(page, names) {
-  for (const name of names) {
-    await page.locator('.newteamview input.playername').first().fill(name);
+  for (let i = 0; i < names.length; i++) {
+    await page.locator('.newteamview input.playername').first().fill(names[i]);
     await page.locator('.newteamview button.register').click();
-    await page.waitForTimeout(100);
+    await expect(page.locator('tr.team:not(.template)')).toHaveCount(i + 1);
   }
 }
 
-// Click the system button to create a new tournament, then start the first round
+// .system:not(.template) scopes to live tournament views, excluding the static
+// template elements that stay in the DOM as cloning sources.
 export async function startTournament(page, system) {
   await page.locator(`button[data-system="${system}"]`).click();
-  await page.waitForTimeout(200);
-  await page.locator('.initial button.runtournament').click();
-  await page.waitForTimeout(200);
+  const runBtn = page.locator('.system:not(.template) .initial button.runtournament').first();
+  await expect(runBtn).toBeVisible();
+  await runBtn.click();
+  await expect(page.locator('.system:not(.template).running')).toBeVisible();
 }
 
-// Start the next round for an already-created tournament (idle state)
 export async function startNextRound(page) {
-  await page.locator('.idle button.runtournament').click();
-  await page.waitForTimeout(200);
+  await page.locator('.system:not(.template) .idle button.runtournament').first().click();
+  await expect(page.locator('.system:not(.template).running')).toBeVisible();
 }
 
-// Finish every running match in the games tab with score 1:0
 export async function finishAllMatches(page) {
   await goTab(page, 'games');
-  await page.waitForTimeout(300);
+  const forms = page.locator('[data-tab="games"] .finish');
   while (true) {
-    const form = page.locator('[data-tab="games"] .finish').first();
-    if (await form.count() === 0) break;
+    const count = await forms.count();
+    if (count === 0) break;
+    const form = forms.first();
     await form.locator('input.score').nth(0).fill('1');
     await form.locator('input.score').nth(1).fill('0');
     await form.locator('button.accept').click();
-    await page.waitForTimeout(300);
+    await expect(forms).not.toHaveCount(count);
   }
 }
