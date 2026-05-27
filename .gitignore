@@ -26,3 +26,4 @@ npm-debug.log
 /.idea/
 /CLAUDE.md
 /.claude
+.last-run.json
