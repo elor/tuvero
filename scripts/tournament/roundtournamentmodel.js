@@ -1,7 +1,5 @@
 import TournamentModel from './tournamentmodel.js'
 import MatchModel from '../core/matchmodel.js'
-import ByeResult from '../core/byeresult.js'
-import Options from 'options'
 import Type from '../core/type.js'
 
 /**

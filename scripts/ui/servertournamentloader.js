@@ -8,8 +8,6 @@
  */
 import StateSaver from './statesaver.js'
 import State from './state.js'
-import PlayerModel from './playermodel.js'
-import TeamModel from './teammodel.js'
 
 /**
  * Constructor

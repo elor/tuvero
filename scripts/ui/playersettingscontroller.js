@@ -1,5 +1,4 @@
 import Controller from '../core/controller.js'
-import State from './state.js'
 import Toast from './toast.js'
 import Strings from './strings.js'
 

@@ -6,7 +6,6 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery'
 import Controller from '../core/controller.js'
 
 /**

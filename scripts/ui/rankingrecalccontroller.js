@@ -1,8 +1,6 @@
 import Controller from '../core/controller.js'
 import View from '../core/view.js'
 import State from './state.js'
-import TournamentIndex from '../tournament/tournamentindex.js'
-import Presets from 'presets'
 
 class RankingRecalcController extends Controller {
   constructor ($button) {

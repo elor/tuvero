@@ -1,6 +1,4 @@
 import RenameController from './renamecontroller.js'
-import Toast from './toast.js'
-import Strings from './strings.js'
 import State from './state.js'
 import TabsHandle from './tabshandle.js'
 

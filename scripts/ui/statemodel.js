@@ -6,7 +6,6 @@ import TournamentListModel from '../tournament/tournamentlistmodel.js'
 import Options from 'options'
 import Presets from 'presets'
 import TeamModel from './teammodel.js'
-import Listener from '../core/listener.js'
 
 class StateModel extends Model {
   constructor () {

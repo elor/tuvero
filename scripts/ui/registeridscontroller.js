@@ -3,7 +3,6 @@ import View from '../core/view.js'
 import State from './state.js'
 import TeamModel from './teammodel.js'
 import PlayerModel from './playermodel.js'
-import Random from '../core/random.js'
 import StateSaver from './statesaver.js'
 
 /**

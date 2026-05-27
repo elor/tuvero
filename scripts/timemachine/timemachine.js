@@ -1,6 +1,5 @@
 import Model from '../core/model.js'
 import RefLog from './reflog.js'
-import KeyModel from './keymodel.js'
 import CommitModel from './commitmodel.js'
 import ListModel from '../list/listmodel.js'
 import Query from './query.js'

@@ -8,11 +8,6 @@
  */
 import $ from 'jquery'
 import Controller from '../core/controller.js'
-import TimeMachine from '../timemachine/timemachine.js'
-import StateLoader from './stateloader.js'
-import Strings from './strings.js'
-import Toast from './toast.js'
-import FileSaverModel from './filesavermodel.js'
 
 /**
  * Constructor

@@ -1,7 +1,5 @@
 import Model from '../core/model.js'
 import Presets from 'presets'
-import Query from './query.js'
-import ListModel from '../list/listmodel.js'
 import Listener from '../core/listener.js'
 import KeyModel from './keymodel.js'
 let RefLog
