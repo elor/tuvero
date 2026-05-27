@@ -13,7 +13,7 @@
 import Strings from './strings.js'
 import Toast from './toast.js'
 import Debug from './debug.js'
-let downloadToast = undefined
+let downloadToast
 let cacheStatus = function () { }
 const Update = function () {
   cacheStatus()
@@ -33,16 +33,16 @@ const appCache = window.applicationCache
 if (!appCache) {
   console.info('appCache is not available. Tuvero will remain offline until ServiceWorker has been established.')
 } else {
-  function closeDownloadToast() {
+  function closeDownloadToast () {
     if (downloadToast) {
       downloadToast.close()
       downloadToast = undefined
     }
   }
-  function isLocal() {
+  function isLocal () {
     return document.location.protocol === 'file:'
   }
-  function setCached(cached) {
+  function setCached (cached) {
     if (cached) {
       Update.isCached = true
     } else {

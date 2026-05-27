@@ -23,7 +23,7 @@ function styleToString (style) {
   let key
   const strings = []
   for (key in style) {
-    if (style.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(style, key)) {
       strings.push([key, style[key]].join(': '))
     }
   }

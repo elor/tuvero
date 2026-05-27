@@ -181,11 +181,7 @@ class MatchView extends View {
    * @return a new MatchView constructor, which has this.teamList set
    */
   static bindTeamList (teamlist) {
-    class MyMatchView extends MatchView {
-      constructor (...args) {
-        super(...args)
-      }
-    }
+    class MyMatchView extends MatchView {}
 
     MyMatchView.prototype.teamlist = teamlist
     return MyMatchView

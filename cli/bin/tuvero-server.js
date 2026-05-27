@@ -36,22 +36,22 @@ const allRoutes = (function (commands) {
 
 router.post('/:command', function (request, response, next) {
   const command = request.params.command || undefined
-  (new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     if (!command || !tuvero.commands[command]) {
-      return reject('Command not recognized. Available commands: ' + allCommands.join(', '))
+      return reject(new Error('Command not recognized. Available commands: ' + allCommands.join(', ')))
     }
     if (!request.is('application/json')) {
-      return reject('Content-Type must be application/json')
+      return reject(new Error('Content-Type must be application/json'))
     }
     if (!request.body) {
-      return reject('No JSON data received')
+      return reject(new Error('No JSON data received'))
     }
 
     tuvero.parse(request.body)
       .then(state => {
         resolve(JSON.stringify(tuvero.commands[command](state), null, ' '))
       }).catch(reject)
-  }))
+  })
     .then(jsonstring => {
       response.send(jsonstring)
     }).catch(error => {

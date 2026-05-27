@@ -19,7 +19,7 @@ const Splash = {
 $(function ($) {
   const $splash = $('#splash')
 
-  function setState(state) {
+  function setState (state) {
     $splash.removeClass()
     $splash.addClass(state)
   }

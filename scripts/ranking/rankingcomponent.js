@@ -35,7 +35,7 @@ class RankingComponent {
     // Use hasOwnProperty because static fields are inherited in ES6 classes,
     // so checking === undefined would always find the base class's DEPENDENCIES=[].
     // Also treat explicit DEPENDENCIES=undefined as "use NAME as implicit dependency".
-    const deps = this.constructor.hasOwnProperty('DEPENDENCIES') ? this.constructor.DEPENDENCIES : undefined
+    const deps = Object.prototype.hasOwnProperty.call(this.constructor, 'DEPENDENCIES') ? this.constructor.DEPENDENCIES : undefined
     if (deps === undefined) {
       this.dependencies.push(this.constructor.NAME)
     } else {
