@@ -13,7 +13,7 @@
 import Strings from './strings.js';
 import Toast from './toast.js';
 import Debug from './debug.js';
-let Update, appCache, downloadToast, uncachedToast;
+let Update, appCache, downloadToast;
 downloadToast = undefined;
 Update = function () {
   cacheStatus();
@@ -32,7 +32,6 @@ Update.isCached = false;
 appCache = window.applicationCache;
 if (!appCache) {
   console.info('appCache is not available. Tuvero will remain offline until ServiceWorker has been established.');
-  uncachedToast = new Toast(Strings.nomanifest, Toast.INFINITE);
 } else {
   function closeDownloadToast() {
     if (downloadToast) {
@@ -46,17 +45,11 @@ if (!appCache) {
   function setCached(cached) {
     if (cached) {
       Update.isCached = true;
-      if (uncachedToast) {
-        uncachedToast.close();
-      }
     } else {
       Update.isCached = false;
       if (!Debug.isDevVersion) {
         if (!isLocal()) {
           console.error('no cache manifest found');
-          if (uncachedToast === undefined) {
-            uncachedToast = new Toast(Strings.nomanifest, Toast.INFINITE);
-          }
         }
       }
     }

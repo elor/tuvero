@@ -6,8 +6,6 @@
  * @license MIT License
  * @see LICENSE
  */
-import Toast from './toast.js';
-import Strings from './strings.js';
 import $ from 'jquery';
 let Debug;
 Debug = {
@@ -24,8 +22,5 @@ Debug = {
 // manipulating the DOM. We should be safe.
 // $(function($) {
 Debug.isDevVersion = !/\s[0-9]+(\.[0-9]+)+(-rc[0-9]*)?$/.test($('head title').text());
-if (Debug.isDevVersion) {
-  Toast.once(Strings.dev, Toast.INFINITE);
-}
 // });
 export default Debug;
