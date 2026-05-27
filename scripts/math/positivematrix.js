@@ -5,9 +5,6 @@ import DelegateMatrix from './delegatematrix.js'
  * @param matrix the matrix to bind itself to
  */
 class PositiveMatrix extends DelegateMatrix {
-  constructor (matrix) {
-    super(matrix)
-  }
 
   /**
    * return only positive values

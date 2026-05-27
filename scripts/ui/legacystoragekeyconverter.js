@@ -15,7 +15,7 @@ const keyRegex = new RegExp('^' + Presets.target + 's?tournament$')
  * Constructor. Does nothing.
  */
 class LegacyStorageKeyConverter {
-  constructor () {}
+
 
   /**
    * Find all legacy keys in the local storage for the current target and

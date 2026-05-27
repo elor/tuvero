@@ -6,9 +6,6 @@ import Toast from './toast.js'
 import Strings from './strings.js'
 
 class TeamToastsListener extends Listener {
-  constructor (emitter) {
-    super(emitter)
-  }
 
   onupdate (teamlist, event, data) {
     let newname, team, player

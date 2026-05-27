@@ -42,10 +42,6 @@ function verifyType (data, referenceType) {
  * Use this.emit() to signal state changes to registered views
  */
 class Model extends Emitter {
-  constructor () {
-    super()
-  }
-
   clone () {
     const clone = new this.constructor()
     if (!clone.restore(this.save())) {

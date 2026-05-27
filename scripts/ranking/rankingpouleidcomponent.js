@@ -1,9 +1,6 @@
 import RankingComponent from './rankingcomponent.js'
 
 class RankingPouleIDComponent extends RankingComponent {
-  constructor (ranking, nextcomponent) {
-    super(ranking, nextcomponent)
-  }
 
   value (i) {
     return Number(this.ranking.pouleid.get(i)) + 1

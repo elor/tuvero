@@ -7,9 +7,6 @@ import Listener from '../core/listener.js'
  *          the ListModel instance
  */
 class ListCleanupListener extends Listener {
-  constructor (listmodel) {
-    super(listmodel)
-  }
 
   /**
    * Callback function, which destroys removed objects

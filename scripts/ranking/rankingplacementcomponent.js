@@ -9,9 +9,6 @@ import RankingComponent from './rankingcomponent.js'
  *          the next component in the chain
  */
 class RankingPlacementComponent extends RankingComponent {
-  constructor (ranking, nextcomponent) {
-    super(ranking, nextcomponent)
-  }
 
   isPrimary () {
     return false

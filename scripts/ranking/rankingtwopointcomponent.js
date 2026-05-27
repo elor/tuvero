@@ -9,9 +9,6 @@ import RankingComponent from './rankingcomponent.js'
  *          the next component in the chain
  */
 class RankingTwoPointComponent extends RankingComponent {
-  constructor (ranking, nextcomponent) {
-    super(ranking, nextcomponent)
-  }
 
   /**
    * @param i

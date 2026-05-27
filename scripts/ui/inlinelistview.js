@@ -20,9 +20,6 @@ import ListView from './listview.js'
 class InlineListView extends ListView {
   static insertBeforeView = true
 
-  constructor (model, $view, $template, SubView, ...rest) {
-    super(model, $view, $template, SubView, ...rest)
-  }
 }
 
 export default InlineListView

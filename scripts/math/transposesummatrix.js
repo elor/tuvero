@@ -7,9 +7,6 @@ import DelegateMatrix from './delegatematrix.js'
  *          the matrix to bind itself to
  */
 class TransposeSumMatrix extends DelegateMatrix {
-  constructor (matrix) {
-    super(matrix)
-  }
 
   /**
    * return only positive values

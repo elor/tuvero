@@ -16,9 +16,6 @@ import RLE from '../core/rle.js'
  * Constructor
  */
 class LegacyLoaderModel extends Model {
-  constructor () {
-    super()
-  }
 
   load (glob) {
     let tournamentDataArray, tournamentRankingArray

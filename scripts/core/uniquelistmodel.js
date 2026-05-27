@@ -7,9 +7,6 @@ import ListModel from '../list/listmodel.js'
  *          Optional. An array with elements which to fill the list with
  */
 class UniqueListModel extends ListModel {
-  constructor (array) {
-    super(array)
-  }
 
   /**
    * push() function, which appends an object to the end of the list if it isn't

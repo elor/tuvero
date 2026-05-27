@@ -21,9 +21,6 @@ function getString (text) {
  *          written
  */
 class RankingComponentView extends TextView {
-  constructor (name, $view) {
-    super(name, $view)
-  }
 
   /**
    * set the "value" attribute to the text and read the displayed text from

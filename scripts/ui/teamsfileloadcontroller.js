@@ -8,9 +8,6 @@ import TeamModel from './teammodel.js'
 import Presets from 'presets'
 
 class TeamsFileLoadController extends FileLoadController {
-  constructor ($button) {
-    super($button)
-  }
 
   unreadFile () {}
 
