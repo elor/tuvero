@@ -18,7 +18,6 @@ function notifyAboutLoadError (err) {
   console.log(err)
 
   $(function () {
-    
     // Splash.setState(), but without splash being loaded
     $('body').addClass('splash')
     const $splash = $('#splash')

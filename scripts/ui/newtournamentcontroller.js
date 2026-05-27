@@ -21,7 +21,7 @@ import ClassView from '../core/classview.js'
  */
 class NewTournamentController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const controller = this
     this.$interlacecount = this.view.$view.find('input.interlacecount')
     this.interlaceMaximum = new AttributeValueView(this.model.tournaments.interlaceMaximum, this.$interlacecount, 'max')
@@ -39,7 +39,7 @@ class NewTournamentController extends Controller {
       window.setTimeout(controller.updateViewHeight.bind(controller), 1)
     })
     this.$buttons.click(function (e) {
-            const $button = $(this)
+      const $button = $(this)
       const type = $button.attr('data-system')
       const size = Number(controller.$tournamentsize.val())
       controller.createTournament(type, size)
@@ -56,7 +56,7 @@ class NewTournamentController extends Controller {
   }
 
   updateViewHeight () {
-        const size = Number(this.$tournamentsize.val())
+    const size = Number(this.$tournamentsize.val())
     if (this.validateSize(size)) {
       this.view.$view.attr('rowspan', size)
     }
@@ -89,7 +89,7 @@ class NewTournamentController extends Controller {
   updateDisabledButtons () {
     const numTeams = Number(this.$tournamentsize.val())
     this.$buttons.each(function () {
-            const $button = $(this)
+      const $button = $(this)
       const minTeams = Number($button.attr('data-minteams')) || 0
       $button.prop('disabled', numTeams < minTeams)
     })

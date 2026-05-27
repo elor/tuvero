@@ -215,7 +215,7 @@ class MatrixModel extends Model {
    * @return a serializable data object
    */
   save () {
-        const data = super.save()
+    const data = super.save()
     const mat = this.data.map(function (row) {
       return row.map(function (cell) {
         return cell || 0
@@ -227,7 +227,7 @@ class MatrixModel extends Model {
   }
 
   restore (data) {
-        if (!super.restore(data)) {
+    if (!super.restore(data)) {
       return false
     }
     this.resize(0)

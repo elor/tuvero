@@ -39,7 +39,7 @@ class LegacyStorageKeyConverter {
    * @return true on success, false otherwise
    */
   convert (legacyKey) {
-        if (!legacyKey) {
+    if (!legacyKey) {
       return true
     }
     if (!window.localStorage) {

@@ -155,7 +155,7 @@ class KOTournamentModel extends TournamentModel {
    * to be used for repairs only.
    */
   createWaitingMatches () {
-        const teamMatches = this.teams.map(function () {
+    const teamMatches = this.teams.map(function () {
       return undefined
     })
     this.matches.forEach(function (match) {

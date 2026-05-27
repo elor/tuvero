@@ -147,7 +147,7 @@ class SortedReferenceListModel extends ListModel {
    *         0 to list.length.
    */
   static findPosition (list, element, begin, end) {
-        if (begin === undefined) {
+    if (begin === undefined) {
       begin = 0
     }
     if (end === undefined) {

@@ -49,7 +49,7 @@ class BinningReferenceListModel extends ListModel {
   *         couldn't be found and shouldn't be created
   */
   getBin (binName) {
-        const index = this.sortedBins.indexOf(binName)
+    const index = this.sortedBins.indexOf(binName)
     if (index === -1) {
       return undefined
     }
@@ -97,7 +97,7 @@ class BinningReferenceListModel extends ListModel {
   *          the name of the bin
   */
   removeEmptyBin (binName) {
-        const binIndex = this.bins.indexOf(binName)
+    const binIndex = this.bins.indexOf(binName)
     const sortedBinIndex = this.sortedBins.indexOf(binName)
     if (binIndex !== -1 && sortedBinIndex !== -1) {
       if (this.get(sortedBinIndex).length === 0) {
@@ -225,7 +225,7 @@ class BinningReferenceListModel extends ListModel {
   *          the element to remove
   */
   static removeElement (list, element) {
-        const binName = list.binningFunction(element)
+    const binName = list.binningFunction(element)
     const bin = list.getBin(binName)
     if (bin === undefined) {
       return

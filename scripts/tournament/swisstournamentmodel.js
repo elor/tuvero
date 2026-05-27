@@ -153,7 +153,7 @@ class SwissTournamentModel extends RoundTournamentModel {
       reverseRankGroups = rankGroups.slice(0).reverse()
       if (!reverseRankGroups.some(function (group) {
         return group.slice(0).reverse().some(function (teamid) {
-                    if (!this.canGetBye(teamid)) {
+          if (!this.canGetBye(teamid)) {
             return false
           }
           const index = group.indexOf(teamid)
@@ -508,7 +508,7 @@ class SwissTournamentModel extends RoundTournamentModel {
    */
   static shuffleGroupTeams (rankGroups) {
     return rankGroups.map(function (group) {
-            const newgroup = []
+      const newgroup = []
       while (group.length) {
         newgroup.push(rng.pickAndRemove(group))
       }

@@ -13,7 +13,7 @@ import Controller from '../core/controller.js'
  */
 class InputValueController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const controller = this
     this.view.$view.change(function () {
       controller.model.set(Number(controller.view.$view.val()))

@@ -14,7 +14,7 @@ import MatchModel from '../matchmodel.js'
 import MatchResult from '../matchresult.js'
 import ListModel from '../../list/listmodel.js'
 test('CorrectionReferenceModel', () => {
-    expect(
+  expect(
     CorrectionReferenceModel.prototype instanceof CorrectionModel,
     'CorrectionReferenceModel is subclass of CorrectionModel'
   ).toBeTruthy()

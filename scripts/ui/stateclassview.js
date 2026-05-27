@@ -18,7 +18,7 @@ class StateClassView extends View {
    * change the class to the value of this.model.get()
    */
   update () {
-        const newClass = this.model.get()
+    const newClass = this.model.get()
     if (newClass !== this.currentClass) {
       this.$view.removeClass(this.currentClass)
       this.$view.addClass(newClass)

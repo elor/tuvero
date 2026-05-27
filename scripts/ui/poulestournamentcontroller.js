@@ -14,7 +14,7 @@ function numberToAlphaString (number) {
 
 class PoulesTournamentController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const tournament = this.model.tournament
     const $mode = this.view.$mode
     const $seed = this.view.$seed

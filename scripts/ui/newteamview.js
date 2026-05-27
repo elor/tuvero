@@ -39,7 +39,7 @@ class NewTeamView extends View {
 
   focusEmpty () {
     this.$players.each(function () {
-            const $this = $(this)
+      const $this = $(this)
       if (!$this.attr('disabled') && /^\s*$/.test($this.val())) {
         $(this).focus()
         return false
@@ -48,7 +48,7 @@ class NewTeamView extends View {
   }
 
   updateTeamSize () {
-        if (!this.teamsize) {
+    if (!this.teamsize) {
       console.error('NewTeamView.updateTeamSize called ' + 'without a valid teamsize model')
       return
     }

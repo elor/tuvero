@@ -53,7 +53,7 @@ test('RankingMapper', () => {
   expect(ranking.get(), 'ids remapped after first result').toEqual(ref)
   const listener = new Listener(ranking)
   listener.onupdate = function (emitter) {
-        this.success = true
+    this.success = true
     const reference = {
       components: ['wins', 'saldo'],
       ids: [5, 4, 3, 2, 1],

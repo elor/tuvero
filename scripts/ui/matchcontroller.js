@@ -142,7 +142,7 @@ class MatchController extends Controller {
    * @return true on success, false otherwise
    */
   accept () {
-        if (!this.validateScore()) {
+    if (!this.validateScore()) {
       return false
     }
     const points = []

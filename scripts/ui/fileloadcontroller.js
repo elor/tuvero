@@ -21,7 +21,7 @@ import Strings from './strings.js'
  */
 class FileLoadController extends Controller {
   constructor ($button) {
-        const view = new InputView($('<input>').attr('type', 'file'))
+    const view = new InputView($('<input>').attr('type', 'file'))
     super(view)
     const controller = this
     this.reader = undefined

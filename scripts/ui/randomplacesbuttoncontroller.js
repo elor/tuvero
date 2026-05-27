@@ -11,7 +11,7 @@ class RandomPlacesButtonController extends Controller {
   }
 
   randomizeplaces () {
-        const allmatches = []
+    const allmatches = []
     State.tournaments.forEach(function (tournament) {
       tournament.matches.forEach(function (match) {
         allmatches.push(match)

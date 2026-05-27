@@ -30,7 +30,7 @@ class TeamsFileLoadController extends FileLoadController {
      * @returns {number} the team size, or 0 on failure.
      */
   static guessCSVTeamsize (teams) {
-        if (teams.length === 0) {
+    if (teams.length === 0) {
       return 0
     }
     const teamsizes = teams.map(function (team) {
@@ -52,7 +52,7 @@ class TeamsFileLoadController extends FileLoadController {
      * @returns {boolean} true on success, false otherwise
      */
   static load (input) {
-        input = io.utf8.latin2utf8(input)
+    input = io.utf8.latin2utf8(input)
     if (State.teams.length !== 0) {
       Toast.once(Strings.teamsnotempty)
       return false
@@ -75,7 +75,7 @@ class TeamsFileLoadController extends FileLoadController {
   }
 
   static loadCSV (input) {
-        const teams = TeamsFileLoadController.parseCSVString(input)
+    const teams = TeamsFileLoadController.parseCSVString(input)
     const type = TeamsFileLoadController.guessCSVType(teams)
     switch (type) {
       case 'tuvero_teams_export':
@@ -90,7 +90,7 @@ class TeamsFileLoadController extends FileLoadController {
   }
 
   static loadTuveroTeamExport (teams) {
-        const header = teams.shift()
+    const header = teams.shift()
     const hasTeamNumber = header[0] === 'No.'
     let teamsize = TeamsFileLoadController.guessCSVTeamsize(teams)
     if (hasTeamNumber) {
@@ -137,7 +137,7 @@ class TeamsFileLoadController extends FileLoadController {
   }
 
   static loadDPV (input) {
-        try {
+    try {
       const teams = TeamsFileLoadController.parseDPVString(input)
       if (teams.length > 0) {
         return teams.map(dpv2team)
@@ -152,7 +152,7 @@ class TeamsFileLoadController extends FileLoadController {
 
 TeamsFileLoadController.prototype.readFile = TeamsFileLoadController.load
 function dpv2player (dpv) {
-    const name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr
+  const name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr
   const player = new PlayerModel(name)
   player.club = dpv.Verein
   player.license = dpv.LizNr

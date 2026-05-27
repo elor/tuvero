@@ -29,7 +29,7 @@ class ServerModel extends Model {
   }
 
   validateToken () {
-        this.tokenvalid.set(undefined)
+    this.tokenvalid.set(undefined)
     if (!this.token.get()) {
       return
     }
@@ -83,7 +83,7 @@ class ServerModel extends Model {
   }
 
   invalidateToken () {
-        if (!this.token.get()) {
+    if (!this.token.get()) {
       this.tokenvalid.set(false)
       return
     }

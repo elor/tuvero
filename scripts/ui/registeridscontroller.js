@@ -31,7 +31,7 @@ class RegisterIDsController extends Controller {
   }
 
   static createTeam (id) {
-        const players = []
+    const players = []
     while (players.length < State.teamsize.get()) {
       players.push(new PlayerModel('' + id))
     }

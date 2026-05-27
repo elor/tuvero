@@ -18,7 +18,7 @@ class TimeMachineCommitController extends RenameController {
   }
 
   remove () {
-        const active = TimeMachine.isRelatedToActive(this.model)
+    const active = TimeMachine.isRelatedToActive(this.model)
     const name = this.model.getTreeName() || 'noname'
     const confirmtext = active ? Strings.confirmactivetreeremoval : Strings.confirmtreeremoval
     if (window.confirm(confirmtext.replace('%s', name))) {
@@ -38,7 +38,7 @@ class TimeMachineCommitController extends RenameController {
   }
 
   download () {
-        const fileSaver = new FileSaverModel(this.model.getYoungestDescendant() || this.model)
+    const fileSaver = new FileSaverModel(this.model.getYoungestDescendant() || this.model)
     if (!fileSaver.save()) {
       Toast.once(Strings.savefailed)
     }

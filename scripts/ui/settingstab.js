@@ -25,7 +25,7 @@ class SettingsTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-        this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
+    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
 
     /*
@@ -38,7 +38,7 @@ class SettingsTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="settings"]')
+  const $tab = $('#tabs > [data-tab="settings"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new SettingsTab($tab)
   }

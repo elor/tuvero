@@ -58,7 +58,7 @@ const INITIALSTATE = 'initial'
  */
 class TournamentModel extends PropertyModel {
   constructor (rankingorder) {
-        super()
+    super()
     IndexedModel.prototype.setID.call(this, undefined)
 
     // TODO initialize with properties
@@ -134,7 +134,7 @@ class TournamentModel extends PropertyModel {
   }
 
   verifyRanking () {
-        const rankingcopy = new RankingModel()
+    const rankingcopy = new RankingModel()
     rankingcopy.clone(this.ranking)
     rankingcopy.recalculate(this.history, this.totalvotes)
     return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get())
@@ -196,7 +196,7 @@ class TournamentModel extends PropertyModel {
       return val
     })
     toRemove.reverse().forEach(function (values) {
-            const index = values[0]
+      const index = values[0]
       const match = values[1]
       const groupID = match.getGroup()
       const matchID = match.getID()
@@ -217,7 +217,7 @@ class TournamentModel extends PropertyModel {
       return val
     })
     toRemove.reverse().forEach(function (values) {
-            const index = values[0]
+      const index = values[0]
       const match = values[1]
       const groupID = match.getGroup()
       const matchID = match.getID()
@@ -466,7 +466,7 @@ class TournamentModel extends PropertyModel {
    *          instance
    */
   onfinish (emitter, event, matchresult) {
-        const match = matchresult.source
+    const match = matchresult.source
     if (this.matches.indexOf(match) === -1) {
       this.emit('error', 'onfinish: match is not open anymore or does not exist')
       return
@@ -495,7 +495,7 @@ class TournamentModel extends PropertyModel {
    * @return true if the result is valid, false otherwise
    */
   validateMatchResult (matchresult) {
-        const valid = matchresult.score.every(function (score) {
+    const valid = matchresult.score.every(function (score) {
       return score >= Options.minpoints && score <= Options.maxpoints
     })
     return valid
@@ -743,7 +743,7 @@ class TournamentModel extends PropertyModel {
    * @return a dictionary of vote lists
    */
   static initVoteLists (types) {
-        const votes = {}
+    const votes = {}
     types.forEach(function (type) {
       votes[type] = new ListModel()
     })

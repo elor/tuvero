@@ -19,12 +19,12 @@ class TeamToastsListener extends Listener {
   }
 
   oninsert (teamlist, event, data) {
-        const teamno = data.id
+    const teamno = data.id
     return new Toast(Strings.teamadded.replace('%s', teamno + 1))
   }
 
   onremove (teamlist, event, data) {
-        const teamno = data.id
+    const teamno = data.id
     return new Toast(Strings.teamdeleted.replace('%s', teamno + 1))
   }
 

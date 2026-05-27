@@ -122,7 +122,7 @@ class RankingTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="ranking"]')
+  const $tab = $('#tabs > [data-tab="ranking"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new RankingTab($tab)
   }

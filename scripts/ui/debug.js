@@ -9,7 +9,7 @@
 import $ from 'jquery'
 const Debug = {
   stackTrace: function () {
-        const e = new Error('dummy')
+    const e = new Error('dummy')
     const stack = e.stack.replace(/^[^(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
     console.log(stack)
   },

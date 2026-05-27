@@ -15,7 +15,7 @@ import Controller from '../core/controller.js'
  */
 class TeamSizeController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const $buttons = this.view.$buttons
     const model = this.model
 
@@ -24,7 +24,7 @@ class TeamSizeController extends Controller {
      * the team size from it. Increment and set.
      */
     $buttons.click(function () {
-            const teamsize = $buttons.index($(this)) + 1
+      const teamsize = $buttons.index($(this)) + 1
       if (teamsize > 0) {
         model.set(teamsize)
       }

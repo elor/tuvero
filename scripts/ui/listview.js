@@ -157,7 +157,7 @@ class ListView extends TemplateView {
    *          the index of the item upon removal
    */
   removeItem (index) {
-        const subview = this.subviews[index]
+    const subview = this.subviews[index]
     if (subview) {
       subview.destroy()
       this.subviews.splice(index, 1)

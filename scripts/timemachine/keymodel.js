@@ -77,7 +77,7 @@ class KeyModel extends Model {
    * @return true if target and start date match, false otherwise.
    */
   isRelated (key) {
-        const relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate + ')' + delimiter + '(' + dateRegexSource + ')$', 'i')
+    const relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate + ')' + delimiter + '(' + dateRegexSource + ')$', 'i')
     return relatedRegex.test(key.toString())
   }
 
@@ -147,7 +147,7 @@ class KeyModel extends Model {
    * @return a new key with a later saveDate but the same startDate
    */
   static createChild (parentKey) {
-        if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
+    if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
       throw new Error('createChild(): parentKey is not valid')
     }
     const startDate = parentKey.startDate
@@ -176,7 +176,7 @@ class KeyModel extends Model {
    * @return a KeyModel instance with the extracted startDate and saveDate.
    */
   static fromString (keyString) {
-        if (!targetRegex.test(keyString)) {
+    if (!targetRegex.test(keyString)) {
       throw new Error('KeyModel reference string has wrong target: ' + keyString)
     }
     const matches = keyRegex.exec(keyString)

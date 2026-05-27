@@ -17,7 +17,7 @@ class TransposeDifferenceMatrix extends DelegateMatrix {
    * @return get(row, col)+get(col, row), i.e. (A + A^T)
    */
   get (row, col) {
-        const v1 = this.superget(row, col)
+    const v1 = this.superget(row, col)
     const v2 = this.superget(col, row)
     if (v1 === undefined || v2 === undefined) {
       return undefined

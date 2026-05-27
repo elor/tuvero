@@ -34,10 +34,10 @@ class SwissVotesView extends View {
    * for every .prop subview, initiate a SwissVotePropView
    */
   initProps () {
-        const tournament = this.model
+    const tournament = this.model
     const regex = /^(\S*\s)*(\S+after\S+)(\s\S*)*$/ // extract "XafterY" string
     this.$view.find('.prop').each(function () {
-            const $view = $(this)
+      const $view = $(this)
       const prop = $view.attr('class').replace(regex, '$2')
       return new SwissVotePropView(new PropertyValueModel(tournament, prop), $view)
     })

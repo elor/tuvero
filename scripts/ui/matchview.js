@@ -20,7 +20,7 @@ emptyPlayer.setName = function () {}
  *         bye players and a (textual) team id which represents a bye vote
  */
 function createByeTeam (length) {
-    const players = []
+  const players = []
   while (players.length < length) {
     players.push(byePlayer)
   }
@@ -29,7 +29,7 @@ function createByeTeam (length) {
   return team
 }
 function createEmptyTeam (length) {
-    const players = []
+  const players = []
   while (players.length < length) {
     players.push(emptyPlayer)
   }
@@ -39,7 +39,7 @@ function createEmptyTeam (length) {
 }
 function $createTeamsLists ($elements) {
   let i, $element
-  let team = undefined
+  let team
   const teams = []
   for (i = 0; i <= $elements.length; i += 1) {
     $element = $elements.eq(i)

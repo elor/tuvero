@@ -28,7 +28,7 @@ class NewTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-        const $templates = this.$view.find('.template[data-system]').detach()
+    const $templates = this.$view.find('.template[data-system]').detach()
     const factory = new TournamentViewPopulator($templates, State.tournaments)
     const $view = this.$view.find('.systemtable')
     this.systemListView = new SystemListView(State.teams, $view, State.tournaments, State.teamsize, factory)
@@ -38,7 +38,7 @@ class NewTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="teams"]')
+  const $tab = $('#tabs > [data-tab="teams"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new NewTab($tab)
   }

@@ -8,7 +8,7 @@ import RankingDataListenerIndex from './rankingdatalistenerindex.js'
  * @return an array of ids, where the index matches the value
  */
 function getIDs () {
-    const ids = []
+  const ids = []
   while (ids.length < this.length) {
     ids.push(ids.length)
   }
@@ -23,7 +23,7 @@ function getIDs () {
  * @return an array of ids, sorted by rank
  */
 function getRankingOrder (ids) {
-    const order = ids.slice(0)
+  const order = ids.slice(0)
   const chain = this.componentchain
   order.sort(function (a, b) {
     return chain.compare(a, b) || a - b
@@ -41,7 +41,7 @@ function getRankingOrder (ids) {
  * @return an array of ranks, as retrieved from the ids
  */
 function getRanks (ids) {
-    const ranks = new Array(this.length)
+  const ranks = new Array(this.length)
   ids.forEach(function (teamid, index) {
     if (index === 0) {
       ranks[teamid] = 0
@@ -310,7 +310,7 @@ class RankingModel extends Model {
 
     // only store primary dataListeners. Abort on error
     if (!Object.keys(this.dataListeners).every(function (name) {
-            const listener = this.dataListeners[name]
+      const listener = this.dataListeners[name]
       if (listener.isPrimary(listener)) {
         if (this[name] && Type.isFunction(this[name].save)) {
           data.vals[name] = this[name].save()

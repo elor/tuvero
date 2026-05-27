@@ -75,7 +75,7 @@ class TournamentListModel extends IndexedListModel {
    * @return an array with a 'true' or 'false' entry for every tournament.
    */
   areTournamentsClosed () {
-        const closed = []
+    const closed = []
     while (closed.length < this.length) {
       closed.push(false)
     }
@@ -94,7 +94,7 @@ class TournamentListModel extends IndexedListModel {
    * @return a globalRanking object
    */
   getGlobalRanking (numTeams) {
-        if (numTeams === undefined || numTeams < 0) {
+    if (numTeams === undefined || numTeams < 0) {
       console.error('invalid numTeams argument')
       return undefined
     }
@@ -210,12 +210,12 @@ class TournamentListModel extends IndexedListModel {
    *          a globalRanking object.
    */
   applyTournamentToRanks (tournament, globalRanking) {
-        const tournamentID = tournament.getID()
+    const tournamentID = tournament.getID()
     const tournamentRanking = tournament.getRanking().get()
     const startIndex = this.startIndex.get(tournamentID)
     const isClosed = this.closedTournaments.indexOf(tournamentID) !== -1
     tournamentRanking.displayOrder.forEach(function (tournamentTeamID, displayID) {
-            const globalTeamID = tournamentRanking.ids[tournamentTeamID]
+      const globalTeamID = tournamentRanking.ids[tournamentTeamID]
       const globalDisplayID = startIndex + displayID
       const tournamentRank = tournamentRanking.ranks[tournamentTeamID]
       const oldDisplayPlace = globalRanking.displayOrder.indexOf(globalTeamID)
@@ -242,7 +242,7 @@ class TournamentListModel extends IndexedListModel {
     lastTournamentRank = 0
     rank = undefined
     ranking.displayOrder.forEach(function (teamID, displayID) {
-            const tournamentID = ranking.lastTournamentIDs[teamID]
+      const tournamentID = ranking.lastTournamentIDs[teamID]
       const tournamentRank = ranking.tournamentRanks[teamID]
       if (rank === undefined || tournamentID !== lastTournamentID || lastTournamentRank !== tournamentRank) {
         rank = displayID

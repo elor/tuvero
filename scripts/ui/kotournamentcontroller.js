@@ -18,7 +18,7 @@ import Listener from '../core/listener.js'
  */
 class KOTournamentController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const tournament = this.model.tournament
     const initialByes = this.model.initialByes
     this.$options = this.view.$view.find('.tournamentoptions')

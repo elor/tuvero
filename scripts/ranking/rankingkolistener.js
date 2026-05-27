@@ -59,7 +59,7 @@ class RankingKOListener extends RankingDataListener {
    *          a game correction
    */
   oncorrect (r, e, correction) {
-        const winner = correction.before.getWinner()
+    const winner = correction.before.getWinner()
     const loser = correction.before.getWinner()
     const winnerPoints = getWinnerPoints(correction.before)
     const loserPoints = getLoserPoints(correction.before)

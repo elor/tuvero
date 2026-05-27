@@ -69,7 +69,7 @@ class MapListModel extends ListModel {
    *          the id to insert at
    */
   static insertID (list, pos) {
-        const ref = list.map.get(list.indices.get(pos))
+    const ref = list.map.get(list.indices.get(pos))
     ListModel.prototype.insert.call(list, pos, ref)
   }
 

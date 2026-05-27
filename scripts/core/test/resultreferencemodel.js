@@ -13,7 +13,7 @@ import MatchResult from '../matchresult.js'
 import MatchModel from '../matchmodel.js'
 import ListModel from '../../list/listmodel.js'
 test('ResultReferenceModel', () => {
-    const teamlist = new ListModel()
+  const teamlist = new ListModel()
   teamlist.push(5)
   teamlist.push(7)
   teamlist.push(3)

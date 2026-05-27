@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import SelectionValueModel from '../selectionvaluemodel.js'
 import ListModel from '../../list/listmodel.js'
 test('SelectionValueModel', () => {
-    const defaultvalue = 123
+  const defaultvalue = 123
   const allowed = new ListModel()
   const model = new SelectionValueModel(defaultvalue, allowed)
   expect(model.get(), 'defaultvalue respected').toBe(defaultvalue)

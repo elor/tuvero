@@ -9,7 +9,7 @@ import MatchModel from '../core/matchmodel.js'
 
 class MatchTableView extends TemplateView {
   constructor (model, $view, teamlist, tournament, teamsize) {
-        super(model, $view, $view.find('.match'))
+    super(model, $view, $view.find('.match'))
     const $listview = this.$view.children('table')
     this.listView = new ListView(this.model, $listview, this.$template, MatchResultView, teamlist, tournament)
     this.teamTableView = new TeamTableView(this.listView, teamsize)

@@ -71,7 +71,7 @@ class StateLoaderModel {
      * @returns {boolean} true on success, false otherwise
      */
   loadCommit (commit) {
-        if (!commit || !commit.isValid()) {
+    if (!commit || !commit.isValid()) {
       return false
     }
     const string = TimeMachine.load(commit)
@@ -111,7 +111,7 @@ class StateLoaderModel {
      * @returns {boolean} true on success, false otherwise.
      */
   loadData (data) {
-        if (!data) {
+    if (!data) {
       return false
     }
     if (!data.version) {
@@ -135,7 +135,7 @@ class StateLoaderModel {
      * @return {boolean} true on success, false otherwise
      */
   loadLegacyData (data) {
-        console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly')
+    console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly')
     const loader = new LegacyLoaderModel()
     try {
       if (loader.load(data)) {

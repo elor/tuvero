@@ -161,7 +161,7 @@ class HistoryTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="history"]')
+  const $tab = $('#tabs > [data-tab="history"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new HistoryTab($tab)
   }

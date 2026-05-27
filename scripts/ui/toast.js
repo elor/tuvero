@@ -25,7 +25,7 @@ pending = []
  * read the transition durations
  */
 function getTransitionDuration () {
-    const transition = Toast.$template.css('transition')
+  const transition = Toast.$template.css('transition')
   if (transition === undefined) {
     console.error('could not read any transition lengths. ' + "What's your browser?")
     return 0.2
@@ -60,7 +60,7 @@ class Toast {
    * display a toast
    */
   display () {
-        if (!initialized) {
+    if (!initialized) {
       console.error('Cannot display Toast: ' + 'Toast.init() has not been called yet.')
       return
     }
@@ -103,7 +103,7 @@ class Toast {
    * @return a close function
    */
   close () {
-        if (initialized && this.$toast) {
+    if (initialized && this.$toast) {
       const $toast = this.$toast
 
       // let the toast fade out

@@ -89,7 +89,7 @@ class CommitModel extends Model {
    * @return a new CommitModel instance of the root of this tree
    */
   getRoot () {
-        if (this.isRoot()) {
+    if (this.isRoot()) {
       return this
     }
     const rootKey = new KeyModel(this.key.startDate, this.key.startDate)

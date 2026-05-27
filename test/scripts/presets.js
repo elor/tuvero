@@ -8,7 +8,6 @@
  */
 import RankingComponentIndex from '../../scripts/ranking/rankingcomponentindex.js'
 
-
 const Presets = {
   target: 'test',
   systems: {

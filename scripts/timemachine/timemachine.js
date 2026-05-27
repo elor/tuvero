@@ -13,7 +13,7 @@ import ValueModel from '../core/valuemodel.js'
  */
 class TimeMachineModel extends Model {
   constructor () {
-        super()
+    super()
     const latestKey = RefLog.getLatestGlobalKey()
 
     /*
@@ -127,7 +127,7 @@ class TimeMachineModel extends Model {
    *         (serialized save state)
    */
   load (commit) {
-        if (commit === undefined && this.isInitialized()) {
+    if (commit === undefined && this.isInitialized()) {
       return this.commit.get().load()
     }
     this.unload()
@@ -199,7 +199,7 @@ class TimeMachineModel extends Model {
     total = 0
     const query = new Query(commit.key)
     query.filter().forEach(function (key) {
-            const data = window.localStorage ? window.localStorage[key] || '' : ''
+      const data = window.localStorage ? window.localStorage[key] || '' : ''
       total += data.length
     })
     return total
@@ -216,7 +216,7 @@ class TimeMachineModel extends Model {
     const targetSizes = {}
     const tuveroQuery = new Query(Query.ALLTUVEROKEYS)
     tuveroQuery.filter().forEach(function (key) {
-            const target = key.split('_')[0]
+      const target = key.split('_')[0]
       const data = window.localStorage ? window.localStorage[key] || '' : ''
       targetSizes[target] = (targetSizes[target] || 0) + data.length
     })
@@ -244,7 +244,7 @@ class TimeMachineModel extends Model {
    *          the number of commits to keep, excluding root and latest
    */
   cleanup (relatedCommit, keepNum) {
-        if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
+    if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
       return
     }
     const query = new Query(relatedCommit.key)

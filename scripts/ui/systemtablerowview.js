@@ -48,7 +48,7 @@ class SystemTableRowView extends View {
   }
 
   updateRankTexts () {
-        const ranking = this.tournaments.getGlobalRanking(this.teams.length)
+    const ranking = this.tournaments.getGlobalRanking(this.teams.length)
     const globalRank = ranking.globalRanks[this.teamID]
     const tournamentRank = ranking.tournamentRanks[this.teamID]
     if (this.globalRank !== globalRank) {
@@ -68,7 +68,7 @@ class SystemTableRowView extends View {
    *          a global ranking object
    */
   updateLastRowClass () {
-        const ranking = this.getRanking()
+    const ranking = this.getRanking()
     const tournamentID = this.getTournamentID()
     const displayID = this.getDisplayID()
     if (displayID + 1 === this.teams.length) {
@@ -119,7 +119,7 @@ class SystemTableRowView extends View {
     const tournamentID = this.getTournamentID()
     const rankingLength = ranking.displayOrder.length
     let nextDisplayID = displayID + 1
-        for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
+    for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
       const nextTeamID = ranking.displayOrder[nextDisplayID]
       if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
         break

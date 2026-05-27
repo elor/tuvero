@@ -117,7 +117,7 @@ class DebugTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="debug"]')
+  const $tab = $('#tabs > [data-tab="debug"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new DebugTab($tab)
   }

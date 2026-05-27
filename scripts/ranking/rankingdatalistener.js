@@ -12,7 +12,7 @@ import Listener from '../core/listener.js'
  */
 class RankingDataListener extends Listener {
   constructor (ranking, fieldobject) {
-        super()
+    super()
 
     /**
      * This.constructor, on inherited classes, is NOT RankingDataListener, but

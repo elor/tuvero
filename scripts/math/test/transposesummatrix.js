@@ -16,7 +16,7 @@ import DelegateMatrix from '../delegatematrix.js'
 import MatrixModel from '../matrixmodel.js'
 test('TransposeSumMatrix', () => {
   // constructor validation
-    expect(
+  expect(
     TransposeSumMatrix.prototype instanceof DelegateMatrix,
     'TransposeSumMatrix is a DelegateMatrix subclass'
   ).toBeTruthy()

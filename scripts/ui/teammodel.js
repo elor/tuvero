@@ -110,7 +110,7 @@ class TeamModel extends IndexedModel {
    *
    */
   onupdate (emitter, event) {
-        const data = {
+    const data = {
       id: this.players.indexOf(emitter)
     }
     this.emit('update', data)

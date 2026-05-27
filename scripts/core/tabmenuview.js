@@ -64,11 +64,11 @@ class TabMenuView extends View {
    * read the data-tab of the tabs, remove them and store them in tabnames
    */
   extractTabNames () {
-        const tabnames = this.tabnames
+    const tabnames = this.tabnames
     const $tabs = this.$tabs
     const keys = this.keys
     this.$view.find('> div').each(function (index) {
-            const $this = $(this)
+      const $this = $(this)
       const tabname = $this.attr('data-tab')
       keys[tabname] = $this.attr('accesskey')
       $this.removeAttr('accesskey')
@@ -146,7 +146,6 @@ class TabMenuView extends View {
    * shows the currently active tab
    */
   update () {
-    
     // guaranteed to be a valid index, because of SelectionValueModel
     const tabname = this.model.get()
     this.$view.find('>.open').removeClass('open')

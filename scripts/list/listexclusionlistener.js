@@ -22,7 +22,7 @@ class ListExclusionListener extends Listener {
    * push the value, if it's not in the list already
    */
   add () {
-        const index = this.list.indexOf(this.value)
+    const index = this.list.indexOf(this.value)
     if (index === -1) {
       this.list.push(this.value)
     }

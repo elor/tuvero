@@ -61,7 +61,7 @@ class RefLogModel extends Model {
    * currently opened tournament, not others.
    */
   store () {
-        if (!this.isValid()) {
+    if (!this.isValid()) {
       this.emit('error', 'RefLogModel: this.data is not valid!')
       return false
     }
@@ -93,7 +93,7 @@ class RefLogModel extends Model {
    * @return the new key. Returns undefined on error.
    */
   newSaveKey (parentKey) {
-        if (!parentKey) {
+    if (!parentKey) {
       this.emit('error', 'newSaveKey: no parent key given')
       return undefined
     }
@@ -118,7 +118,6 @@ class RefLogModel extends Model {
    * @return a new root key which hasn't been in the reflog before
    */
   newInitKey (name) {
-    
     /*
      * Creating keys within milliseconds of another can cause rootkey collision
      *
@@ -271,7 +270,7 @@ class RefLogModel extends Model {
    * @return an array of all keys in the reflog.
    */
   getAllKeys () {
-        const keys = this.getInitKeys()
+    const keys = this.getInitKeys()
     this.listStartDates().forEach(function (startDate) {
       this.listSaveDates(startDate).forEach(function (saveDate) {
         keys.push(new KeyModel(startDate, saveDate))
@@ -294,7 +293,7 @@ class RefLogModel extends Model {
    *         latest save state
    */
   getLatestGlobalKey () {
-        const latestKey = this.listStartDates().map(function (startDate) {
+    const latestKey = this.listStartDates().map(function (startDate) {
       const saveDate = this.listSaveDates(startDate).sort().pop() || startDate
       return new KeyModel(startDate, saveDate)
     }, this).sort(KeyModel.sortFunction).pop()
@@ -371,7 +370,7 @@ class RefLogModel extends Model {
    *          save key. root keys cannot be deleted.
    */
   deleteKey (refKey) {
-        if (refKey.isRoot()) {
+    if (refKey.isRoot()) {
       this.emit('error', 'cannot delete a single init key. ' + 'use deleteTree() instead')
       return
     }

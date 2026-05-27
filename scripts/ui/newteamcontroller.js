@@ -24,8 +24,8 @@ class NewTeamController extends Controller {
   }
 
   readPlayerNames () {
-        const names = this.$players.map(function (id, player) {
-            const $player = $(player)
+    const names = this.$players.map(function (id, player) {
+      const $player = $(player)
       if ($player.prop('disabled')) {
         return undefined
       }
@@ -46,7 +46,7 @@ class NewTeamController extends Controller {
   }
 
   createPlayers () {
-        const names = this.readPlayerNames()
+    const names = this.readPlayerNames()
     if (names.length === 0) {
       console.error('NewTeamController: all input fields disabled?')
       return
@@ -57,7 +57,7 @@ class NewTeamController extends Controller {
   }
 
   createNewTeam () {
-        const players = this.createPlayers()
+    const players = this.createPlayers()
     if (players.every(function (player) {
       return player.getName() !== PlayerModel.NONAME
     })) {
@@ -71,7 +71,7 @@ class NewTeamController extends Controller {
   }
 
   createAdvanced () {
-        const players = this.createPlayers()
+    const players = this.createPlayers()
     const team = new TeamModel(players)
     this.model.push(team)
     this.view.resetFields()

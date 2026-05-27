@@ -27,7 +27,7 @@ class TeamController extends RenameController {
   }
 
   getName () {
-        if (!this.$anchor) {
+    if (!this.$anchor) {
       return ''
     }
     const nameModel = this.getNameModel(this.$anchor)
@@ -35,7 +35,7 @@ class TeamController extends RenameController {
   }
 
   setName (name) {
-        if (!this.$anchor) {
+    if (!this.$anchor) {
       return false
     }
     const nameModel = this.getNameModel(this.$anchor)

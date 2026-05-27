@@ -14,7 +14,7 @@ import Controller from '../core/controller.js'
  */
 class RenameController extends Controller {
   constructor (view, mouseSupport) {
-        super(view)
+    super(view)
     this.$anchor = undefined
     this.$rename = undefined
     this.mouseSupport = !!mouseSupport
@@ -42,7 +42,7 @@ class RenameController extends Controller {
   }
 
   startRename (evt) {
-        if (this.$anchor) {
+    if (this.$anchor) {
       return
     }
     this.$anchor = $(evt.target)
@@ -64,7 +64,7 @@ class RenameController extends Controller {
   }
 
   endRename (evt) {
-        if (!this.$anchor) {
+    if (!this.$anchor) {
       return
     }
     const name = this.$rename.val().trim()

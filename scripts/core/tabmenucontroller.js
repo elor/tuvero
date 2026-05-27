@@ -18,7 +18,7 @@ import Listener from './listener.js'
  */
 class TabMenuController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const model = this.model
     function followHash () {
       model.set(window.location.hash.replace(/^#/, ''))

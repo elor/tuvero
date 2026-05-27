@@ -15,7 +15,7 @@ import MatrixModel from '../matrixmodel.js'
 import TriangleMatrixModel from '../trianglematrixmodel.js'
 test('TriangleMatrixModel', () => {
   // constructor validation
-    expect(
+  expect(
     TriangleMatrixModel.prototype instanceof MatrixModel,
     'TriangleMatrixModel is subclass of MatrixModel'
   ).toBeTruthy()

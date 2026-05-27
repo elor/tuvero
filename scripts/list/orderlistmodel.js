@@ -13,7 +13,7 @@ import { diffLines } from 'diff'
  *          removed/added
  */
 function getdiff (a, b) {
-    a = a.join('\n')
+  a = a.join('\n')
   if (a.length > 0) {
     a += '\n'
   }

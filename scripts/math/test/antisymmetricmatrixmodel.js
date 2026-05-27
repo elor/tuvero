@@ -15,7 +15,7 @@ import MatrixModel from '../matrixmodel.js'
 import AntisymmetricMatrixModel from '../antisymmetricmatrixmodel.js'
 test('AntisymmetricMatrixModel', () => {
   // constructor validation
-    expect(
+  expect(
     AntisymmetricMatrixModel.prototype instanceof MatrixModel,
     'AntisymmetricMatrixModel is subclass of MatrixModel'
   ).toBeTruthy()

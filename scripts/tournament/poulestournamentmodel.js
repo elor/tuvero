@@ -44,7 +44,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   initialMatches () {
-        this.groups = this.createGroups()
+    this.groups = this.createGroups()
     const drawtables = this.getDrawTables()
     this.groups.forEach(function (group, groupID) {
       const draws = drawtables[group.length]
@@ -52,7 +52,7 @@ class PoulesTournamentModel extends TournamentModel {
         throw new Error('no draw mode for group of size ' + group.length)
       }
       draws.forEach(function (draw, matchID) {
-                const teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined
+        const teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined
         const teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined
         if (this.ranking.pouleid) {
           if (teamA !== undefined) {
@@ -73,7 +73,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   finalizeGroupRankings (groupID) {
-        if (this.matches.asArray().some(function (match) {
+    if (this.matches.asArray().some(function (match) {
       return match.getGroup() === groupID
     })) {
       // this was the last match of this poule
@@ -102,7 +102,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   resetGroupRankingsFromPoints (groupID) {
-        const rankingdata = this.ranking.save()
+    const rankingdata = this.ranking.save()
     const poulerankdata = new VectorModel()
     poulerankdata.restore(rankingdata.vals.poulerank)
     this.groups[groupID].forEach(function (teamID) {
@@ -128,7 +128,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   postprocessCorrection (correction) {
-        const groupID = correction.before.getGroup()
+    const groupID = correction.before.getGroup()
     if (correction.before.getGroup() !== groupID) {
       this.emit('error', 'cannot correct one poule match with a completely different one')
       return
@@ -140,7 +140,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   findMatch (matchID, groupID) {
-        const searchResult = this.matches.asArray().filter(function (match) {
+    const searchResult = this.matches.asArray().filter(function (match) {
       return groupID === match.getGroup() && matchID === match.getID()
     })
     switch (searchResult.length) {
@@ -153,7 +153,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   getDependentDraws (matchID, groupID, who) {
-        const groupSize = this.groups[groupID].length
+    const groupSize = this.groups[groupID].length
     const draws = this.getDrawTables()[groupSize]
     if (!draws) {
       throw new Error('no matching draw table found. group size: ' + groupSize)
@@ -175,7 +175,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   getRanksFromTable (matchID, groupID) {
-        const groupSize = this.groups[groupID].length
+    const groupSize = this.groups[groupID].length
     const ranks = this.getRankTables()[groupSize]
     if (ranks === undefined) {
       // decide by points
@@ -190,7 +190,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   checkFollowupMatch (result, who) {
-        const teamID = getTeamIDFromWho(result, who)
+    const teamID = getTeamIDFromWho(result, who)
     const groupID = result.getGroup()
     const dependencies = this.getDependentDraws(result.getID(), groupID, who)
     dependencies.forEach(function (dependency) {
@@ -202,7 +202,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   createFollowupMatch (match, dependencyDraw, teamID) {
-        const matchID = match.getID()
+    const matchID = match.getID()
     const groupID = match.getGroup()
     switch (dependencyDraw.draw.length) {
       case 2:
@@ -220,7 +220,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   getDrawTables () {
-        const poulesmode = this.getProperty('poulesmode')
+    const poulesmode = this.getProperty('poulesmode')
     const poulesbyemode = this.getProperty('poulesbyeteams')
     const drawmode = PoulesTables.MATCHES[poulesmode]
     if (!drawmode) {
@@ -241,7 +241,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   getRankTables () {
-        const poulesmode = this.getProperty('poulesmode')
+    const poulesmode = this.getProperty('poulesmode')
     const poulesbyemode = this.getProperty('poulesbyeteams')
     const drawmode = PoulesTables.RANKING[poulesmode]
     if (!drawmode) {
@@ -264,7 +264,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   isByePoule (pouleID) {
-        const numPoules = this.numpoules.get()
+    const numPoules = this.numpoules.get()
     const numByePoules = this.numbyepoules.get()
     switch (this.getProperty('poulesbyepoules')) {
       case PoulesTournamentModel.BYEPOULES.front:
@@ -305,7 +305,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   createGroupsOrder () {
-        const groups = this.createEmptyPoules()
+    const groups = this.createEmptyPoules()
     const teams = this.getInternalTeamIDs()
     return groups.map(function (group, groupID) {
       if (this.isByePoule(groupID)) {
@@ -317,7 +317,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   createGroupsQuarters () {
-        const groups = this.createEmptyPoules()
+    const groups = this.createEmptyPoules()
     const teams = this.getInternalTeamIDs()
     teams.forEach(function (teamID) {
       const groupID = teamID % this.numpoules.get()
@@ -327,7 +327,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   createGroupsHeads () {
-        const groups = this.createEmptyPoules()
+    const groups = this.createEmptyPoules()
     const left = this.getInternalTeamIDs()
     const heads = left.splice(0, this.numpoules.get())
     groups.forEach(function (group, groupID) {
@@ -342,7 +342,7 @@ class PoulesTournamentModel extends TournamentModel {
   }
 
   createGroupsRandom () {
-        const groups = this.createEmptyPoules()
+    const groups = this.createEmptyPoules()
     const left = this.getInternalTeamIDs()
     groups.forEach(function (group, groupID) {
       group.push(rng.pickAndRemove(left))

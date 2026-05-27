@@ -29,7 +29,7 @@ class ListModel extends Model {
    * @return the new length of the array. undefined on failure
    */
   push (object) {
-        const retval = this.list.push(object)
+    const retval = this.list.push(object)
     this.emit('insert', {
       id: this.list.length - 1,
       object
@@ -44,7 +44,7 @@ class ListModel extends Model {
    *         during this function call
    */
   pop () {
-        const object = this.list.pop()
+    const object = this.list.pop()
     this.emit('remove', {
       id: this.list.length,
       object
@@ -81,7 +81,7 @@ class ListModel extends Model {
    * @return the removed object
    */
   remove (index) {
-        if (index >= 0 && index < this.list.length) {
+    if (index >= 0 && index < this.list.length) {
       const object = this.list.splice(index, 1)[0]
       this.emit('remove', {
         id: index,

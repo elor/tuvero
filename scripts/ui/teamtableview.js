@@ -44,7 +44,7 @@ class TeamTableView extends View {
     const teamsize = this.model.get()
     teamindex = 0
     this.$names.each(function (index, elem) {
-            const $elem = $(elem)
+      const $elem = $(elem)
       if ($elem.hasClass('playercol')) {
         if (teamindex < teamsize) {
           $elem.removeClass('hidden')

@@ -40,7 +40,7 @@ class StateValueModel extends SelectionValueModel {
      * way, but it avoids any assumptions about possible subclasses
      */
     Object.keys(this.transitions).forEach(function (state) {
-            const transition = this.transitions[this.get()]
+      const transition = this.transitions[this.get()]
       if (this.get() === state) {
         // retain the current state to avoid the default value
         this.allowedValues.push(state)

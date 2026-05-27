@@ -71,7 +71,7 @@ class RankingView extends TemplateView {
       this.$rankingheader.append(this.$headercomponenttemplate.clone().text(name))
     }, this)
     ranks.displayOrder.forEach(function (teamIndex, rank) {
-            const team = this.teamList.get(ranks.ids[teamIndex])
+      const team = this.teamList.get(ranks.ids[teamIndex])
       const $row = this.$template.clone()
       $row.find('.rank').text(ranks.ranks[teamIndex] + 1)
       this.teamViews.push(new TeamView(team, $row))

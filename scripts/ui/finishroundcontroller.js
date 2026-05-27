@@ -35,7 +35,7 @@ class FinishRoundController extends Controller {
   }
 
   getScore (numTeams) {
-        const min = Options.minpoints
+    const min = Options.minpoints
     const max = Options.maxpoints
     const score = []
     while (score.length < numTeams) {

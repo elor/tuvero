@@ -8,8 +8,7 @@
  */
 import $ from 'jquery'
 import Browser from './browser.js'
-let Splash
-Splash = {
+const Splash = {
   hide: function () {
     console.error('Splash.hide() called before pageload')
   },
@@ -18,12 +17,12 @@ Splash = {
   }
 }
 $(function ($) {
-  let $splash
-  function setState (state) {
+  const $splash = $('#splash')
+
+  function setState(state) {
     $splash.removeClass()
     $splash.addClass(state)
   }
-  $splash = $('#splash')
 
   // TODO move to another function
   if (Browser.name === 'MSIE' && Browser.version < 9) {

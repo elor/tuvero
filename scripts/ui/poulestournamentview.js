@@ -23,7 +23,7 @@ class PoulesTournamentView extends TournamentView {
   }
 
   updateNumPoules () {
-        const minpoules = this.tournament.minPoules()
+    const minpoules = this.tournament.minPoules()
     const maxpoules = this.tournament.maxPoules()
     const numpoules = this.tournament.numpoules.get()
     const numbyepoules = this.tournament.numbyepoules.get()

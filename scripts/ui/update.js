@@ -13,10 +13,9 @@
 import Strings from './strings.js'
 import Toast from './toast.js'
 import Debug from './debug.js'
-let Update, appCache, downloadToast, cacheStatus
-downloadToast = undefined
-cacheStatus = function () {}
-Update = function () {
+let downloadToast = undefined
+let cacheStatus = function () { }
+const Update = function () {
   cacheStatus()
   if (Update.isCached) {
     try {
@@ -30,20 +29,20 @@ Update = function () {
 // This is just a cheap hack to keep type mismatch warnings suppressed
 Update.prototype = {}
 Update.isCached = false
-appCache = window.applicationCache
+const appCache = window.applicationCache
 if (!appCache) {
   console.info('appCache is not available. Tuvero will remain offline until ServiceWorker has been established.')
 } else {
-  function closeDownloadToast () {
+  function closeDownloadToast() {
     if (downloadToast) {
       downloadToast.close()
       downloadToast = undefined
     }
   }
-  function isLocal () {
+  function isLocal() {
     return document.location.protocol === 'file:'
   }
-  function setCached (cached) {
+  function setCached(cached) {
     if (cached) {
       Update.isCached = true
     } else {

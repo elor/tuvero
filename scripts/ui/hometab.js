@@ -84,7 +84,7 @@ class HomeTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="home"]')
+  const $tab = $('#tabs > [data-tab="home"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new HomeTab($tab)
   }

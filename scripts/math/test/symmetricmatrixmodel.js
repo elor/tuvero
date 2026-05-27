@@ -15,7 +15,7 @@ import MatrixModel from '../matrixmodel.js'
 import SymmetricMatrixModel from '../symmetricmatrixmodel.js'
 test('SymmetricMatrixModel', () => {
   // constructor validation
-    expect(
+  expect(
     SymmetricMatrixModel.prototype instanceof MatrixModel,
     'SymmetricMatrixModel is subclass of MatrixModel'
   ).toBeTruthy()

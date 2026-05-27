@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import ListModel from '../listmodel.js'
 import UniqueListModel from '../../core/uniquelistmodel.js'
 test('UniqueListModel', () => {
-    expect(
+  expect(
     UniqueListModel.prototype instanceof ListModel,
     'UniqueListModel is subclass of ListModel'
   ).toBeTruthy()

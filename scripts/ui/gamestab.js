@@ -128,7 +128,7 @@ class GamesTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="games"]')
+  const $tab = $('#tabs > [data-tab="games"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new GamesTab($tab)
   }

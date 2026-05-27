@@ -53,7 +53,7 @@ class StateSaverModel {
    * @return true on success, false otherwise
    */
   saveData (data) {
-        if (!data) {
+    if (!data) {
       return false
     }
     const string = JSON.stringify(data)

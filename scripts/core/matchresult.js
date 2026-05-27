@@ -74,7 +74,7 @@ class MatchResult extends MatchModel {
   }
 
   getLoser () {
-        const minpoints = min(this.score)
+    const minpoints = min(this.score)
     const loser = this.teams[this.score.indexOf(minpoints)]
     const loser2 = this.teams[this.score.lastIndexOf(minpoints)]
     if (loser === loser2) {

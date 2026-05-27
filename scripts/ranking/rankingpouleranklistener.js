@@ -7,7 +7,7 @@ class RankingPouleRankListener extends RankingDataListener {
   }
 
   onresult (r, e, result) {
-        const ranks = this.ranking.tournament.getRanksFromTable(result.getID(), result.getGroup())
+    const ranks = this.ranking.tournament.getRanksFromTable(result.getID(), result.getGroup())
     if (ranks) {
       this.poulerank.set(result.getWinner(), ranks.winner)
       this.poulerank.set(result.getLoser(), ranks.loser)

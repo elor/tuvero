@@ -80,7 +80,7 @@ class TeamViewTab extends View {
 }
 
 $(function ($) {
-    const $tab = $('#tabs > [data-tab="team"]')
+  const $tab = $('#tabs > [data-tab="team"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new TeamViewTab($tab)
   }

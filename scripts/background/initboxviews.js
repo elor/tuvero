@@ -10,7 +10,7 @@ import $ from 'jquery'
 let InitViews
 $(function ($) {
   $('.boxview:not(.template)').each(function () {
-        const $box = $(this)
+    const $box = $(this)
     if ($box.parents('.template').length === 0) {
       return new BoxView($box)
     }

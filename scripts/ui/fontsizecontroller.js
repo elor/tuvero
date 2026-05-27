@@ -18,7 +18,7 @@ import Controller from '../core/controller.js'
  */
 class FontSizeController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const model = this.model
 
     /**

@@ -12,7 +12,7 @@ pendingNameChange = undefined
 */
 class TournamentController extends RenameController {
   constructor (view, tournaments) {
-        super(view, false)
+    super(view, false)
     const tournament = this.model.tournament
     this.toast = undefined
     this.$runbutton = this.view.$view.find('button.runtournament')

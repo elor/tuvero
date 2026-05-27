@@ -10,7 +10,7 @@ import { test, expect } from 'vitest'
 
 import StateValueModel from '../statevaluemodel.js'
 test('StateValueModel', () => {
-    const transitions = {
+  const transitions = {
     a: ['b', 'c'],
     b: ['a'],
     c: []

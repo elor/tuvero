@@ -16,7 +16,7 @@ class LoadedImagesView extends View {
    * @param $container
    */
   appendImages ($container) {
-        const images = LoadedImagesView.imageList($container)
+    const images = LoadedImagesView.imageList($container)
     images.forEach(function (image) {
       const $image = $('<div>').attr('data-img', image)
       this.$view.append($image)
@@ -32,7 +32,7 @@ class LoadedImagesView extends View {
    *         data-img attribute
    */
   static imageList ($container) {
-        const $images = $container.find('[data-img]')
+    const $images = $container.find('[data-img]')
     const images = {}
     $images.each(function () {
       images[$(this).attr('data-img')] = true

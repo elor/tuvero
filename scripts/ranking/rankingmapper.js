@@ -65,7 +65,7 @@ class RankingMapper extends Model {
    * ranking.get().displayOrder
    */
   static updateCache () {
-        const ranks = this.ranking.get()
+    const ranks = this.ranking.get()
     const newcache = {}
     Object.keys(ranks).forEach(function (key) {
       let values

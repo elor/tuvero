@@ -16,7 +16,7 @@ import Controller from '../core/controller.js'
  */
 class CheckboxController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const model = this.model
     const $checkbox = this.view.$view
     const $parent = $checkbox.parent().filter('span')
@@ -30,7 +30,7 @@ class CheckboxController extends Controller {
      * apply checkbox state to model state
      */
     $checkbox.change(function () {
-            const viewvalue = $checkbox.prop('checked')
+      const viewvalue = $checkbox.prop('checked')
       const modelvalue = model.get()
       if (viewvalue !== modelvalue) {
         model.set(viewvalue)

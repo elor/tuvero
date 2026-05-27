@@ -10,7 +10,6 @@ import { test, expect } from 'vitest'
 
 import Type from '../type.js'
 test('Type', () => {
-  
   /*
    * Preparation
    */

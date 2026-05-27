@@ -11,7 +11,6 @@
  * @see LICENSE
  */
 
-
 /**
  * helper function to capitalize a string
  *

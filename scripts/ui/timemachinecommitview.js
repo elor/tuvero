@@ -42,7 +42,7 @@ class TimeMachineCommitView extends View {
   }
 
   updateSaveDate () {
-        const youngestAncestor = this.model.getYoungestDescendant() || this.model
+    const youngestAncestor = this.model.getYoungestDescendant() || this.model
     const saveDate = new Date(youngestAncestor.key.saveDate)
     this.saveDateView.model.set(saveDate.toLocaleString())
   }

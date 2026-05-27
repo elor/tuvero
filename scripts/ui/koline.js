@@ -44,7 +44,7 @@ function styleToString (style) {
  * @return a newly instantiated svg DOM element
  */
 function createSVG (width, height, left, top) {
-    const style = {
+  const style = {
     position: 'absolute',
     width: width + 'em',
     height: height + 'em',
@@ -67,7 +67,7 @@ function createSVG (width, height, left, top) {
  * @return the SVG line DOM object
  */
 function createSVGLine (from, to) {
-    const line = document.createElementNS(KOLine.SVGNS, 'line')
+  const line = document.createElementNS(KOLine.SVGNS, 'line')
   line.setAttributeNS(null, 'x1', from[0] + 'em')
   line.setAttributeNS(null, 'y1', from[1] + 'em')
   line.setAttributeNS(null, 'x2', to[0] + 'em')
@@ -120,7 +120,7 @@ function createSVGPath (from, to) {
  *          this.svg and is supposed to be jQuery-compatible
  */
 function KOLine (from, to) {
-    const left = Math.min(from[0], to[0])
+  const left = Math.min(from[0], to[0])
   const right = Math.max(from[0], to[0])
   const top = Math.min(from[1], to[1])
   const bottom = Math.max(from[1], to[1])

@@ -10,7 +10,6 @@
  */
 import OptionsTemplate from '../../scripts/ui/optionstemplate.js'
 
-
 const Default = {
   minpoints: 0,
   maxpoints: 15,

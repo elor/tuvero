@@ -17,7 +17,7 @@ import RLE from '../core/rle.js'
  */
 class LegacyLoaderModel extends Model {
   load (glob) {
-        State.clear()
+    State.clear()
     console.log('starting conversion')
     const tournamentDataArray = []
     const tournamentRankingArray = []
@@ -56,10 +56,10 @@ class LegacyLoaderModel extends Model {
   }
 
   loadTeams (blob) {
-        console.log('converting teams')
+    console.log('converting teams')
     const teams = JSON.parse(blob)
     teams.forEach(function (teamData) {
-            const players = teamData.names.map(function (playername) {
+      const players = teamData.names.map(function (playername) {
         return new PlayerModel(playername)
       })
       const team = new TeamModel(players)
@@ -70,7 +70,7 @@ class LegacyLoaderModel extends Model {
   }
 
   loadOptions (blob) {
-        const optionsData = JSON.parse(blob)
+    const optionsData = JSON.parse(blob)
     if (optionsData.savefile === undefined) {
       if (Presets.target !== 'boule') {
         Toast.once('cannot load pre-1.4 saves with this target: ' + Presets.target, Toast.LONG)
@@ -90,7 +90,7 @@ class LegacyLoaderModel extends Model {
   }
 
   loadTournaments (blob, tournamentDataArray, tournamentRankingArray) {
-        console.log('converting tournaments')
+    console.log('converting tournaments')
     const tournaments = JSON.parse(blob)
     const subtournamentOffsets = []
     tournaments.forEach(function (data, tournamentID) {
@@ -142,7 +142,7 @@ class LegacyLoaderModel extends Model {
 
         // add matches
         tournamentData.games.forEach(function (data) {
-                    const teams = [data.teams[0][0], data.teams[1][0]]
+          const teams = [data.teams[0][0], data.teams[1][0]]
           let id = data.id
           let group
           if (system === 'swiss') {
@@ -191,12 +191,12 @@ class LegacyLoaderModel extends Model {
     const history = JSON.parse(blob)
     console.log('converting history')
     history.forEach(function (tournamenthistory, tournamentID) {
-            console.log('converting history for tournament ' + tournamentID)
+      console.log('converting history for tournament ' + tournamentID)
       const tournament = State.tournaments.get(tournamentID)
       let round = tournament.round
       const system = tournament.SYSTEM
       function restoreMatchResult (match) {
-                let teams = [match[0], match[1]]
+        let teams = [match[0], match[1]]
         const score = [match[2], match[3]]
         const group = match[4]
         let id = match[5]
@@ -241,7 +241,7 @@ class LegacyLoaderModel extends Model {
        */
       if (tournamenthistory.corrections) {
         tournamenthistory.corrections.forEach(function (correctionData, id) {
-                    const before = restoreMatchResult(correctionData[0])
+          const before = restoreMatchResult(correctionData[0])
           const after = restoreMatchResult(correctionData[1])
           const correction = new CorrectionModel(before, after)
           console.log('converting correction ' + id + ': ' + before.teams.join(' vs. ') + ': ')

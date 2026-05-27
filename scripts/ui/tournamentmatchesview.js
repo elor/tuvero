@@ -60,10 +60,10 @@ class TournamentMatchesView extends TemplateView {
    * initialize all vote lists and tables
    */
   initVotes () {
-        this.$view.find('.votelist').hide()
+    this.$view.find('.votelist').hide()
     const $votetemplate = this.$template
     this.votelistmodels = this.model.VOTES.map(function (votetype) {
-            const $votes = this.$view.find('.votelist.' + votetype)
+      const $votes = this.$view.find('.votelist.' + votetype)
       if ($votes.length === 0) {
         return undefined
       }

@@ -19,7 +19,7 @@ import PropertyValueModel from '../core/propertyvaluemodel.js'
  */
 class SwissTournamentController extends Controller {
   constructor (view) {
-        super(view)
+    super(view)
     const tournament = this.model.tournament
     const noshuffle = this.model.noshuffle
     this.$options = this.view.$view.find('.tournamentoptions')
@@ -39,7 +39,7 @@ class SwissTournamentController extends Controller {
    * update the visibility and properties
    */
   initSpecialWinsProperties () {
-        const modevalue = new PropertyValueModel(this.model.tournament, 'swissmode')
+    const modevalue = new PropertyValueModel(this.model.tournament, 'swissmode')
     const votesenabled = new PropertyValueModel(this.model.tournament,
     //
       'enableupdown')

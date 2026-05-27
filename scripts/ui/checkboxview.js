@@ -24,7 +24,7 @@ class CheckBoxView extends View {
   * apply model state to checkbox state
   */
   update () {
-        const viewvalue = this.$view.prop('checked')
+    const viewvalue = this.$view.prop('checked')
     const modelvalue = this.model.get()
     if (viewvalue !== modelvalue) {
       this.$view.prop('checked', modelvalue)
