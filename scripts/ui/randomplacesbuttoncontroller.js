@@ -11,14 +11,13 @@ class RandomPlacesButtonController extends Controller {
   }
 
   randomizeplaces () {
-    let allmatches, places
-    allmatches = []
+        const allmatches = []
     State.tournaments.forEach(function (tournament) {
       tournament.matches.forEach(function (match) {
         allmatches.push(match)
       })
     })
-    places = random.range(1, allmatches.length + 1)
+    const places = random.range(1, allmatches.length + 1)
     allmatches.forEach(function (match, index) {
       match.setPlace(places[index].toString())
     })

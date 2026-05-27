@@ -5,8 +5,7 @@ import SwissTournamentView from './swisstournamentview.js'
 import KOTournamentView from './kotournamentview.js'
 import PlacementTournamentView from './placementtournamentview.js'
 import PoulesTournamentView from './poulestournamentview.js'
-let constructors, defaultConstructor
-constructors = {
+const constructors = {
   swiss: SwissTournamentView,
   formulex: SwissTournamentView,
   round: RoundTournamentView,
@@ -14,7 +13,7 @@ constructors = {
   placement: PlacementTournamentView,
   poules: PoulesTournamentView
 }
-defaultConstructor = TournamentView
+const defaultConstructor = TournamentView
 
 /**
    * Constructor

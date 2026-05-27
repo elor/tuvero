@@ -46,7 +46,7 @@ class Listener {
    * @return the internally created Listener, e.g. for destroy() calls
    */
   static bind (emitter, events, callback, thisArg) {
-    let listener, initialCallback
+    let initialCallback
     if (thisArg) {
       initialCallback = function (_emitter, _event, data) {
         callback.call(thisArg, _emitter, _event, data)
@@ -54,7 +54,7 @@ class Listener {
     } else {
       initialCallback = callback
     }
-    listener = new Listener(emitter)
+    const listener = new Listener(emitter)
     events.split(',').forEach(function (event) {
       // trim spaces
       event = event.replace(/^\s+|\s+$/g, '')

@@ -18,9 +18,8 @@ import Listener from './listener.js'
  */
 class TabMenuController extends Controller {
   constructor (view) {
-    let model, listener
-    super(view)
-    model = this.model
+        super(view)
+    const model = this.model
     function followHash () {
       model.set(window.location.hash.replace(/^#/, ''))
     }
@@ -29,7 +28,7 @@ class TabMenuController extends Controller {
     $(window).on('hashchange', followHash)
 
     // follow the hash if the tab accessibility has changed in our favor
-    listener = new Listener(this.view.tabnames)
+    const listener = new Listener(this.view.tabnames)
     listener.oninsert = followHash
 
     // follow the hash now

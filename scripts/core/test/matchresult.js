@@ -11,8 +11,8 @@ import { test, expect } from 'vitest'
 import MatchModel from '../matchmodel.js'
 import MatchResult from '../matchresult.js'
 test('MatchResult', () => {
-  let match, result, score, success, teams, data
-  match = new MatchModel([1, 2], 2, 5)
+  let result, score, success, teams
+  const match = new MatchModel([1, 2], 2, 5)
   result = undefined
   try {
     result = new MatchResult()
@@ -81,7 +81,7 @@ test('MatchResult', () => {
    */
 
   result = new MatchResult(new MatchModel([5, 3], 8, 1), [13, 7])
-  data = result.save()
+  const data = result.save()
   expect(data, 'save() finishes').toBeTruthy()
   teams = [5, 3]
   score = [13, 7]

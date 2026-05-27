@@ -1,9 +1,8 @@
 import { test, expect } from 'vitest'
 import RankingModel from '../rankingmodel.js'
 test('Poules Ranking', () => {
-  let ranking, ret, ref
-  ranking = new RankingModel(['pouleid', 'wins', 'saldo', 'points'], 5)
-  ref = {
+    const ranking = new RankingModel(['pouleid', 'wins', 'saldo', 'points'], 5)
+  const ref = {
     components: ['pouleid', 'wins', 'saldo', 'points'],
     ids: [0, 1, 2, 3, 4],
     ranks: [0, 0, 0, 0, 0],
@@ -13,6 +12,6 @@ test('Poules Ranking', () => {
     displayOrder: [0, 1, 2, 3, 4],
     pouleid: [1, 1, 1, 1, 1]
   }
-  ret = ranking.get()
+  const ret = ranking.get()
   expect(ret, 'empty ranking: correct H2H-score').toEqual(ref)
 })

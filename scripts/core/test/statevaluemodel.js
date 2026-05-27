@@ -10,13 +10,12 @@ import { test, expect } from 'vitest'
 
 import StateValueModel from '../statevaluemodel.js'
 test('StateValueModel', () => {
-  let state, transitions
-  transitions = {
+    const transitions = {
     a: ['b', 'c'],
     b: ['a'],
     c: []
   }
-  state = new StateValueModel('a', transitions)
+  const state = new StateValueModel('a', transitions)
   expect(state.get(), 'initial state is accepted').toBe('a')
   state.set(undefined)
   expect(state.get(), 'ignoring invalid state transition (undefined)').toBe('a')

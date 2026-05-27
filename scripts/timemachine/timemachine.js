@@ -7,16 +7,14 @@ import SortedReferenceListModel from '../list/sortedreferencelistmodel.js'
 import ListCollectorModel from '../ui/listcollectormodel.js'
 import Presets from 'presets'
 import ValueModel from '../core/valuemodel.js'
-let TimeMachine
 
 /**
  * Constructor
  */
 class TimeMachineModel extends Model {
   constructor () {
-    let latestKey
-    super()
-    latestKey = RefLog.getLatestGlobalKey()
+        super()
+    const latestKey = RefLog.getLatestGlobalKey()
 
     /*
      * unsortedRoots: base list
@@ -48,8 +46,8 @@ class TimeMachineModel extends Model {
    * reflects on this.roots
    */
   updateRoots () {
-    let rootCommits, rootKeyStrings, index, keyString
-    rootCommits = RefLog.getInitKeys().map(function (key) {
+    let rootKeyStrings, index, keyString
+    const rootCommits = RefLog.getInitKeys().map(function (key) {
       return new CommitModel(key)
     })
     rootKeyStrings = rootCommits.map(function (commit) {
@@ -129,15 +127,14 @@ class TimeMachineModel extends Model {
    *         (serialized save state)
    */
   load (commit) {
-    let data
-    if (commit === undefined && this.isInitialized()) {
+        if (commit === undefined && this.isInitialized()) {
       return this.commit.get().load()
     }
     this.unload()
     if (!(commit instanceof CommitModel) || !commit.isValid()) {
       return undefined
     }
-    data = commit.load()
+    const data = commit.load()
     if (data) {
       this.commit.set(commit)
       this.emit('load', data)
@@ -154,12 +151,12 @@ class TimeMachineModel extends Model {
   }
 
   getOrphans () {
-    let query, orphanedCommits
+    let orphanedCommits
 
     /*
      * check all localStorage keys
      */
-    query = new Query(Query.ALLKEYS)
+    const query = new Query(Query.ALLKEYS)
     orphanedCommits = query.filter().map(function (keyString) {
       return new CommitModel(keyString)
     }).filter(function (commit) {
@@ -198,16 +195,11 @@ class TimeMachineModel extends Model {
    * @return the size in the localStorage, in unicode symbols.
    */
   usedRelatedStorage (commit) {
-    let total, query
+    let total
     total = 0
-    query = new Query(commit.key)
+    const query = new Query(commit.key)
     query.filter().forEach(function (key) {
-      let data
-      if (window.localStorage) {
-        data = window.localStorage[key] || ''
-      } else {
-        data = ''
-      }
+            const data = window.localStorage ? window.localStorage[key] || '' : ''
       total += data.length
     })
     return total
@@ -220,17 +212,12 @@ class TimeMachineModel extends Model {
    *         stored targets, and where object.total is the total of all targets
    */
   usedStorage () {
-    let tuveroQuery, targetSizes, total
-    targetSizes = {}
-    tuveroQuery = new Query(Query.ALLTUVEROKEYS)
+    let total
+    const targetSizes = {}
+    const tuveroQuery = new Query(Query.ALLTUVEROKEYS)
     tuveroQuery.filter().forEach(function (key) {
-      let target, data
-      target = key.split('_')[0]
-      if (window.localStorage) {
-        data = window.localStorage[key] || ''
-      } else {
-        data = ''
-      }
+            const target = key.split('_')[0]
+      const data = window.localStorage ? window.localStorage[key] || '' : ''
       targetSizes[target] = (targetSizes[target] || 0) + data.length
     })
     total = 0
@@ -257,12 +244,11 @@ class TimeMachineModel extends Model {
    *          the number of commits to keep, excluding root and latest
    */
   cleanup (relatedCommit, keepNum) {
-    let query, relatedKeys
-    if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
+        if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
       return
     }
-    query = new Query(relatedCommit.key)
-    relatedKeys = query.filter()
+    const query = new Query(relatedCommit.key)
+    const relatedKeys = query.filter()
     relatedKeys.shift() // don't delete the root key
     relatedKeys.pop() // don't delete the latest key
 
@@ -304,5 +290,5 @@ TimeMachineModel.prototype.EVENTS = {
   unload: true
 }
 
-TimeMachine = new TimeMachineModel()
+const TimeMachine = new TimeMachineModel()
 export default TimeMachine

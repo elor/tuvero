@@ -29,8 +29,7 @@ class ListModel extends Model {
    * @return the new length of the array. undefined on failure
    */
   push (object) {
-    let retval
-    retval = this.list.push(object)
+        const retval = this.list.push(object)
     this.emit('insert', {
       id: this.list.length - 1,
       object
@@ -45,8 +44,7 @@ class ListModel extends Model {
    *         during this function call
    */
   pop () {
-    let object
-    object = this.list.pop()
+        const object = this.list.pop()
     this.emit('remove', {
       id: this.list.length,
       object
@@ -83,9 +81,8 @@ class ListModel extends Model {
    * @return the removed object
    */
   remove (index) {
-    let object
-    if (index >= 0 && index < this.list.length) {
-      object = this.list.splice(index, 1)[0]
+        if (index >= 0 && index < this.list.length) {
+      const object = this.list.splice(index, 1)[0]
       this.emit('remove', {
         id: index,
         object
@@ -186,9 +183,9 @@ class ListModel extends Model {
    * @return an array of the functions return values
    */
   map (callback, thisArg) {
-    let index, ret
+    let index
     thisArg = thisArg || undefined
-    ret = []
+    const ret = []
     for (index = 0; index < this.length; index += 1) {
       ret.push(callback.call(thisArg, this.get(index), index, this))
     }

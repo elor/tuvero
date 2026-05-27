@@ -15,7 +15,7 @@ import DelegateMatrix from '../delegatematrix.js'
 import MatrixModel from '../matrixmodel.js'
 test('DelegateMatrix', () => {
   // constructor validation
-  let a, m, state
+  let a, state
   expect(
     DelegateMatrix.prototype instanceof MatrixModel,
     'DelegateMatrix is a MatrixModel subclass'
@@ -34,7 +34,7 @@ test('DelegateMatrix', () => {
     state = false
   }
   expect(state, 'initialization with size fails').toBe(false)
-  m = new MatrixModel(5)
+  const m = new MatrixModel(5)
   a = new DelegateMatrix(m)
   expect(a, 'proper initialization').toBeTruthy()
   state = true

@@ -1,8 +1,7 @@
-let roundrobinByes, acbdRanking, winner, loser
-winner = 'winner'
-loser = 'loser'
-roundrobinByes = [[0, 2], [1, 2], [0, 1]]
-acbdRanking = [{
+const winner = 'winner'
+const loser = 'loser'
+const roundrobinByes = [[0, 2], [1, 2], [0, 1]]
+const acbdRanking = [{
   winner: 0,
   loser: 2
 }, {

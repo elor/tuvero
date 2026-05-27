@@ -55,17 +55,17 @@ class KOTreeView extends TemplateView {
    * automatically.
    */
   setSize () {
-    let numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID
-    numTeams = this.tournament.getTeams().length
-    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams, this.fullwidth.get())
-    lowestID = KOTournamentModel.firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1
-    lowestPos = new KOTreePosition(lowestID, this.group, numTeams, this.fullwidth.get())
+    let numRounds, x, y
+    const numTeams = this.tournament.getTeams().length
+    const thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams, this.fullwidth.get())
+    const lowestID = KOTournamentModel.firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1
+    const lowestPos = new KOTreePosition(lowestID, this.group, numTeams, this.fullwidth.get())
     if (this.group === 0) {
       numRounds = KOTournamentModel.initialRoundForTeams(numTeams) + 1
     } else {
       numRounds = KOTournamentModel.roundsInGroup(this.group)
     }
-    isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) === numTeams
+    const isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) === numTeams
     x = thirdPlacePos.x
     y = Math.max(lowestPos.y, thirdPlacePos.y)
     x += KOTreePosition.getWidth(this.fullwidth.get())

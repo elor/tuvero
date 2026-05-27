@@ -7,12 +7,11 @@
  * @see LICENSE
  */
 import KOTournamentModel from '../tournament/kotournamentmodel.js'
-let leftPadding, topPadding, width, height, shortWidth
-width = 17
-shortWidth = 7
-height = 4
-topPadding = -2
-leftPadding = 1
+const width = 17
+const shortWidth = 7
+const height = 4
+const topPadding = -2
+const leftPadding = 1
 
 /**
  * Constructor
@@ -63,8 +62,8 @@ class KOTreePosition {
    * @return the y position
    */
   calcYPosition () {
-    let y, yFactor
-    yFactor = Math.pow(2, this.firstRound - this.round - 1)
+    let y
+    const yFactor = Math.pow(2, this.firstRound - this.round - 1)
 
     // padding
     y = topPadding

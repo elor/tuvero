@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import ByeResult from '../byeresult.js'
 import MatchResult from '../matchresult.js'
 test('ByeResult', () => {
-  let bye, data
+  let bye
   expect(
     ByeResult.prototype instanceof MatchResult,
     'ByeResult is subclass of MatchResult'
@@ -32,7 +32,7 @@ test('ByeResult', () => {
   /*
    * save/restore
    */
-  data = bye.save()
+  const data = bye.save()
   expect(data, 'save() returns').toBeTruthy()
 
   // Not a typo. Bye is supposed to be converted into a matchresult.

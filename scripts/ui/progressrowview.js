@@ -32,10 +32,9 @@ class ProgressRowView extends TemplateView {
   }
 
   updateRank () {
-    let ranking, rankIndex, order
-    ranking = this.ranking.get()
-    rankIndex = ranking.ids.indexOf(this.model.getID())
-    order = ranking.components.slice(0)
+        const ranking = this.ranking.get()
+    const rankIndex = ranking.ids.indexOf(this.model.getID())
+    const order = ranking.components.slice(0)
     order.push('ranks')
     order.forEach(function (component, index) {
       let value = ranking[component][rankIndex]

@@ -56,8 +56,8 @@ class CommitModel extends Model {
    * @return the youngest ancestor of this commit
    */
   getYoungestDescendant () {
-    let children, youngestChild
-    children = this.getChildren()
+    let youngestChild
+    const children = this.getChildren()
     if (children.length === 0) {
       return undefined
     }
@@ -89,11 +89,10 @@ class CommitModel extends Model {
    * @return a new CommitModel instance of the root of this tree
    */
   getRoot () {
-    let rootKey
-    if (this.isRoot()) {
+        if (this.isRoot()) {
       return this
     }
-    rootKey = new KeyModel(this.key.startDate, this.key.startDate)
+    const rootKey = new KeyModel(this.key.startDate, this.key.startDate)
     return new CommitModel(rootKey)
   }
 

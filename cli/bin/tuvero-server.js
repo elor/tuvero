@@ -36,7 +36,7 @@ const allRoutes = (function (commands) {
 
 router.post('/:command', function (request, response, next) {
   const command = request.params.command || undefined
-(new Promise((resolve, reject) => {
+  (new Promise((resolve, reject) => {
     if (!command || !tuvero.commands[command]) {
       return reject('Command not recognized. Available commands: ' + allCommands.join(', '))
     }

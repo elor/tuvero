@@ -7,7 +7,6 @@ import MatrixModel from './matrixmodel.js'
  *          size of the matrix. defaults to 0
  */
 class AntisymmetricMatrixModel extends MatrixModel {
-
   /**
    * get() function, which maps super-diagonal elements to a lower triangular
    * matrix, including the necessary additive inversion

@@ -5,10 +5,9 @@ import Controller from '../core/controller.js'
  */
 class BrowserInfoController extends Controller {
   constructor (view) {
-    let model
-    super(view)
+        super(view)
     this.$updateButton = this.view.$view.find('button.update')
-    model = this.model
+    const model = this.model
     this.$updateButton.click(function () {
       model.emit('update')
     })

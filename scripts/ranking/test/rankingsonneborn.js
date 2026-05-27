@@ -13,8 +13,8 @@ import MatchResult from '../../core/matchresult.js'
 import MatchModel from '../../core/matchmodel.js'
 import CorrectionModel from '../../core/correctionmodel.js'
 test('Sonneborn-Berger Ranking', () => {
-  let ranking, ref, ret
-  ranking = new RankingModel(['wins', 'sonneborn'], 5)
+  let ref, ret
+  const ranking = new RankingModel(['wins', 'sonneborn'], 5)
   ref = {
     components: ['wins', 'sonneborn'],
     ids: [0, 1, 2, 3, 4],

@@ -60,16 +60,14 @@ class TournamentMatchesView extends TemplateView {
    * initialize all vote lists and tables
    */
   initVotes () {
-    let $votetemplate
-    this.$view.find('.votelist').hide()
-    $votetemplate = this.$template
+        this.$view.find('.votelist').hide()
+    const $votetemplate = this.$template
     this.votelistmodels = this.model.VOTES.map(function (votetype) {
-      let $votes, votelist
-      $votes = this.$view.find('.votelist.' + votetype)
+            const $votes = this.$view.find('.votelist.' + votetype)
       if ($votes.length === 0) {
         return undefined
       }
-      votelist = this.model.getVotes(votetype)
+      const votelist = this.model.getVotes(votetype)
 
       // TODO use some shared View, e.g. ListEmptyView, to hide the whole
       // view when the list is empty

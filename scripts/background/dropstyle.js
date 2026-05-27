@@ -6,8 +6,7 @@
  * @see LICENSE
  */
 import $ from 'jquery'
-let DropStyle
-DropStyle = undefined
+const DropStyle = undefined
 function initDrop ($body) {
   $body.on('dragover', function (e) {
     $body.addClass('dragover')

@@ -18,9 +18,8 @@ import Controller from '../core/controller.js'
  */
 class FontSizeController extends Controller {
   constructor (view) {
-    let model
-    super(view)
-    model = this.model
+        super(view)
+    const model = this.model
 
     /**
      * adjust the font size at the click of a button

@@ -12,8 +12,8 @@ import { test, expect } from 'vitest'
 
 import Random from '../random.js'
 test('Random', () => {
-  let min, max, r, x, i
-  r = new Random()
+  let min, max, x, i
+  const r = new Random()
   max = min = r.nextInt(64)
   for (i = 0; i < 10000; i += 1) {
     x = r.nextInt(64)

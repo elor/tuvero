@@ -20,8 +20,8 @@ class FinishRoundController extends Controller {
    */
   finishRound () {
     State.tournaments.forEach(function (tournament) {
-      let matches, finished
-      matches = tournament.getMatches()
+      let finished
+      const matches = tournament.getMatches()
       do {
         finished = true
         matches.forEach(function (match) {
@@ -35,10 +35,9 @@ class FinishRoundController extends Controller {
   }
 
   getScore (numTeams) {
-    let score, min, max
-    min = Options.minpoints
-    max = Options.maxpoints
-    score = []
+        const min = Options.minpoints
+    const max = Options.maxpoints
+    const score = []
     while (score.length < numTeams) {
       score.push(this.random ? rng.nextInt(min, max) : min)
     }

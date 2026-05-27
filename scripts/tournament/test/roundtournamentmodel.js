@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import RoundTournamentModel from '../roundtournamentmodel.js'
 import TournamentModel from '../tournamentmodel.js'
 test('RoundTournamentModel', () => {
-  let tournament, ret, ref, data, numteams, matches, teams, byes, state
+  let tournament, ret, ref, numteams, matches, teams, byes, state
   expect(
     RoundTournamentModel.prototype instanceof TournamentModel,
     'RoundTournamentModel is subclass of TournamentModel'
@@ -158,7 +158,7 @@ test('RoundTournamentModel', () => {
     wins: [5, 3, 3, 2, 2]
   }
   expect(ret, 'final ranking is correct').toEqual(ref)
-  data = tournament.save()
+  const data = tournament.save()
   expect(data, 'save() works').toBeTruthy()
   tournament = new RoundTournamentModel()
   expect(tournament, 'emptyconstruction works').toBeTruthy()

@@ -17,8 +17,8 @@ class PlacementTournamentModel extends TournamentModel {
      * @return true on success, false otherwise
      */
   initialMatches () {
-    let indices, teams, match, matchID
-    indices = this.teams.map(function (teamid, index) {
+    let teams, match, matchID
+    const indices = this.teams.map(function (teamid, index) {
       return index
     })
     matchID = 0

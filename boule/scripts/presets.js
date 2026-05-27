@@ -8,8 +8,7 @@
  * @see LICENSE
  */
 
-let Presets
-Presets = {
+const Presets = {
   target: 'boule',
   systems: {
     swiss: {

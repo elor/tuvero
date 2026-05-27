@@ -117,8 +117,7 @@ class TeamsTab extends View {
 }
 
 function sortTeamsByRankingPoints () {
-  let teams
-  teams = State.teams.asArray()
+    const teams = State.teams.asArray()
   teams.sort(function (a, b) {
     return b.rankingpoints - a.rankingpoints || a.getID() - b.getID()
   })
@@ -130,8 +129,7 @@ function sortTeamsByRankingPoints () {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab
-  $tab = $('#tabs > [data-tab="teams"]')
+    const $tab = $('#tabs > [data-tab="teams"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new TeamsTab($tab)
   }

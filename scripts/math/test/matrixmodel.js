@@ -15,7 +15,7 @@ import MatrixModel from '../matrixmodel.js'
 import VectorModel from '../vectormodel.js'
 test('MatrixModel', () => {
   // constructor validation
-  let a, v, v2, ref, savedata
+  let a, ref, savedata
   a = new MatrixModel()
   expect(a.length, 'empty size initialization').toBe(0)
   expect(a.get(0, 0), 'get(0,0): out of bounds').toBe(undefined)
@@ -59,12 +59,12 @@ test('MatrixModel', () => {
       a.set(row, col, row * a.length + col)
     })
   })
-  v = new VectorModel()
+  const v = new VectorModel()
   ref = [0, 6, 12, 18, 24]
   expect(a.diagonal(v), 'diagonal() returns the vector').toBe(v)
   expect(v.length, 'diagonal() resizes the vector').toBe(5)
   expect(v.asArray(), 'diagonal has really been extracted').toEqual(ref)
-  v2 = new VectorModel()
+  const v2 = new VectorModel()
   v2.push(1)
   v2.push(2)
   v2.push(3)

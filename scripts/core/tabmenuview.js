@@ -64,14 +64,12 @@ class TabMenuView extends View {
    * read the data-tab of the tabs, remove them and store them in tabnames
    */
   extractTabNames () {
-    let tabnames, $tabs, keys
-    tabnames = this.tabnames
-    $tabs = this.$tabs
-    keys = this.keys
+        const tabnames = this.tabnames
+    const $tabs = this.$tabs
+    const keys = this.keys
     this.$view.find('> div').each(function (index) {
-      let $this, tabname
-      $this = $(this)
-      tabname = $this.attr('data-tab')
+            const $this = $(this)
+      const tabname = $this.attr('data-tab')
       keys[tabname] = $this.attr('accesskey')
       $this.removeAttr('accesskey')
       $tabs[tabname] = $this
@@ -90,8 +88,8 @@ class TabMenuView extends View {
        * keep them active for other parts of the code. This is bad coding, but I
        * don't want another reference outside of emitters and listeners.
        */
-      let tmp, model
-      model = new TabModel()
+      let tmp
+      const model = new TabModel()
       this.tabmodels[tabname] = model
       tmp = new ClassView(model.visibility, this.$tabicons[tabname], undefined, 'hidden')
       tmp = new TabImageView(tabname, model.imgParam, this.$tabicons[tabname])
@@ -148,10 +146,9 @@ class TabMenuView extends View {
    * shows the currently active tab
    */
   update () {
-    let tabname
-
+    
     // guaranteed to be a valid index, because of SelectionValueModel
-    tabname = this.model.get()
+    const tabname = this.model.get()
     this.$view.find('>.open').removeClass('open')
     this.$menu.find('>.open').removeClass('open')
     this.$tabs[tabname].addClass('open')

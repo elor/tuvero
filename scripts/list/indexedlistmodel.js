@@ -17,12 +17,12 @@ class IndexedListModel extends ListModel {
    *          event callback data
    */
   updateIDs (data) {
-    let index, startindex
+    let index
     if (data === undefined) {
       // 'reset' event, where no data is sent
       return
     }
-    startindex = data.id || 0
+    const startindex = data.id || 0
     for (index = startindex; index < this.length; index += 1) {
       this.get(index).setID(index)
     }

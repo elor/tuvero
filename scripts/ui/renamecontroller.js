@@ -14,12 +14,11 @@ import Controller from '../core/controller.js'
  */
 class RenameController extends Controller {
   constructor (view, mouseSupport) {
-    let events
-    super(view)
+        super(view)
     this.$anchor = undefined
     this.$rename = undefined
     this.mouseSupport = !!mouseSupport
-    events = 'click' + (this.mouseSupport ? ' mouseenter' : '')
+    const events = 'click' + (this.mouseSupport ? ' mouseenter' : '')
     this.view.$view.on(events, '.rename', this.startRename.bind(this))
     this.view.$view.filter('.rename').on(events, this.startRename.bind(this))
   }
@@ -43,15 +42,14 @@ class RenameController extends Controller {
   }
 
   startRename (evt) {
-    let name
-    if (this.$anchor) {
+        if (this.$anchor) {
       return
     }
     this.$anchor = $(evt.target)
     if (!this.$anchor) {
       return
     }
-    name = this.getName()
+    const name = this.getName()
     if (name === undefined) {
       this.$anchor = undefined
       return
@@ -66,11 +64,10 @@ class RenameController extends Controller {
   }
 
   endRename (evt) {
-    let name
-    if (!this.$anchor) {
+        if (!this.$anchor) {
       return
     }
-    name = this.$rename.val().trim()
+    const name = this.$rename.val().trim()
     if (this.setName(name)) {
       this.$anchor.removeClass('hidden')
       this.$anchor = undefined

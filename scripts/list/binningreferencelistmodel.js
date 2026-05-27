@@ -49,8 +49,7 @@ class BinningReferenceListModel extends ListModel {
   *         couldn't be found and shouldn't be created
   */
   getBin (binName) {
-    let index
-    index = this.sortedBins.indexOf(binName)
+        const index = this.sortedBins.indexOf(binName)
     if (index === -1) {
       return undefined
     }
@@ -69,9 +68,8 @@ class BinningReferenceListModel extends ListModel {
   *         already exists
   */
   createBinWithObject (binName, object) {
-    let index, bin
-    bin = undefined
-    index = this.sortedBins.indexOf(binName)
+    let bin
+    let index = this.sortedBins.indexOf(binName)
     if (index === -1) {
       this.bins.push(binName)
       index = this.sortedBins.indexOf(binName)
@@ -99,9 +97,8 @@ class BinningReferenceListModel extends ListModel {
   *          the name of the bin
   */
   removeEmptyBin (binName) {
-    let binIndex, sortedBinIndex
-    binIndex = this.bins.indexOf(binName)
-    sortedBinIndex = this.sortedBins.indexOf(binName)
+        const binIndex = this.bins.indexOf(binName)
+    const sortedBinIndex = this.sortedBins.indexOf(binName)
     if (binIndex !== -1 && sortedBinIndex !== -1) {
       if (this.get(sortedBinIndex).length === 0) {
         this.bins.remove(binIndex)
@@ -177,10 +174,10 @@ class BinningReferenceListModel extends ListModel {
   * @return the bin into which the element was inserted.
   */
   static insertElement (list, elementIndex) {
-    let bin, binName, element, nextElementIndex
-    element = list.refList.get(elementIndex)
-    binName = list.binningFunction(element)
-    bin = list.getBin(binName)
+    let nextElementIndex
+    const element = list.refList.get(elementIndex)
+    const binName = list.binningFunction(element)
+    let bin = list.getBin(binName)
     if (bin === undefined) {
       bin = list.createBinWithObject(binName, element)
     } else {
@@ -211,8 +208,7 @@ class BinningReferenceListModel extends ListModel {
   *         if such an element does not exist.
   */
   static getNextBinElementIndex (list, begin, binName) {
-    let index
-    for (index = begin + 1; index < list.refList.length; index += 1) {
+    for (let index = begin + 1; index < list.refList.length; index += 1) {
       if (list.binningFunction(list.refList.get(index)) === binName) {
         return index
       }
@@ -229,13 +225,12 @@ class BinningReferenceListModel extends ListModel {
   *          the element to remove
   */
   static removeElement (list, element) {
-    let bin, binName, index
-    binName = list.binningFunction(element)
-    bin = list.getBin(binName)
+        const binName = list.binningFunction(element)
+    const bin = list.getBin(binName)
     if (bin === undefined) {
       return
     }
-    index = bin.indexOf(element)
+    const index = bin.indexOf(element)
     if (index !== -1) {
       bin.remove(index)
       if (bin.length === 0) {

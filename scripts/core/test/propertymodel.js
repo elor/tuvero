@@ -10,11 +10,11 @@ import { test, expect } from 'vitest'
 
 import PropertyModel from '../propertymodel.js'
 test('PropertyModel', () => {
-  let prop, listener, ref, savedata
+  let prop, ref
   prop = new PropertyModel()
   expect(prop !== undefined, 'empty initialization is allowed').toBeTruthy()
   expect(prop.getProperty('someprop'), 'access to undefined keys returns undefined').toBe(undefined)
-  listener = {
+  const listener = {
     success: false,
     onupdate: function () {
       this.success = true
@@ -62,7 +62,7 @@ test('PropertyModel', () => {
   prop.setProperty('int', 53241)
   prop.setProperty('float', 53.241)
   prop.setProperty('boolean', true)
-  savedata = prop.save()
+  const savedata = prop.save()
   expect(savedata, 'save() works').toBeTruthy()
   prop = new PropertyModel()
   expect(prop.restore(savedata), 'restore() works!').toBe(true)

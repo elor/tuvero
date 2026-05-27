@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 import $ from 'jquery'
-let FontHotkeys, $buttons
-FontHotkeys = undefined
+let $buttons
+const FontHotkeys = undefined
 $buttons = undefined
 function hashcheck () {
   if (!$buttons) {

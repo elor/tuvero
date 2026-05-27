@@ -11,7 +11,7 @@
  */
 import TabMenuView from '../core/tabmenuview.js'
 import $ from 'jquery'
-let tabmenu, TabsHandle
+let tabmenu
 tabmenu = {
   getTabModel: function () {
     return undefined
@@ -22,7 +22,7 @@ $(function () {
     tabmenu = new TabMenuView($('#tabs'))
   }
 })
-TabsHandle = {
+const TabsHandle = {
   hide: function (tabname) {
     const tab = tabmenu.getTabModel(tabname)
     if (!tab) {

@@ -77,9 +77,8 @@ class TournamentView extends View {
 
   hideRankingOrder () {
     this.$view.find('.rankingorder').each(function () {
-      let $anchor, $this
-      $this = $(this)
-      $anchor = $this.parent().find('.tournamentoptions.boxview')
+            const $this = $(this)
+      const $anchor = $this.parent().find('.tournamentoptions.boxview')
       if ($anchor.length === 1) {
         $anchor.append($this)
       }

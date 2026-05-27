@@ -72,8 +72,7 @@ class ReferenceListModel extends ListModel {
    *          the id to insert at
    */
   static insertMatch (referenceList, id) {
-    let ref
-    ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams)
+        const ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams)
     ListModel.prototype.insert.call(referenceList, id, ref)
   }
 

@@ -11,15 +11,15 @@ import { test, expect } from 'vitest'
 import ListModel from '../listmodel.js'
 import ListUpdateListener from '../listupdatelistener.js'
 test('ListUpdateListener', () => {
-  let list, listener, ref
-  list = new ListModel()
+  let ref
+  const list = new ListModel()
   list.push(1)
 
   /*
    * Test new-constructed instances
    */
   ref = 0
-  listener = new ListUpdateListener(list, function (data) {
+  const listener = new ListUpdateListener(list, function (data) {
     if (ref === 0) {
       expect(this, 'callback "this" is the list').toBe(list)
     }

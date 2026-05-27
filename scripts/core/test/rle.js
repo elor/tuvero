@@ -10,7 +10,7 @@ import { test, expect } from 'vitest'
 
 import RLE from '../rle.js'
 test('RLE', () => {
-  let success, data, exp, e, d
+  let success, data, exp
 
   /*
    * encoding tests: static function
@@ -185,8 +185,8 @@ test('RLE', () => {
   /*
    * Self-Consistency and Stability tests
    */
-  e = RLE.encode
-  d = RLE.decode
+  const e = RLE.encode
+  const d = RLE.decode
   exp[123] = -123.433e-43
   expect(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), 'RLE re-encoding chain').toEqual(exp)
   exp = [[[[[]]]]]

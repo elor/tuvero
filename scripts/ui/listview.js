@@ -58,16 +58,16 @@ class ListView extends TemplateView {
    *          the index of the item inside the underlying list
    */
   insertItem (index) {
-    let $subview, subview, model, $previousView, args
-    $subview = this.$template.clone()
-    model = this.model.get(index)
-    args = this.optArgs.slice(0)
+    let $previousView
+    const $subview = this.$template.clone()
+    const model = this.model.get(index)
+    const args = this.optArgs.slice(0)
     args.splice(0, 0, null, model, $subview)
     /*
      * Magic: this replaces 'new SubView(model, $subview, optArgs), but enables
      * the use of an arbitrary number of optional arguments
      */
-    subview = new (Function.prototype.bind.apply(this.SubView, args))()
+    const subview = new (Function.prototype.bind.apply(this.SubView, args))()
     if (subview.$view !== $subview) {
       console.error('$subview != subview.$view')
       throw new Error('$subview != subview.$view')
@@ -93,10 +93,10 @@ class ListView extends TemplateView {
    * @return the index of the DOM element inside the underlying list
    */
   indexOf ($view) {
-    let $parents, parentindex, index
+    let parentindex, index
 
     // verify the descendance and ascend to the subview level of the DOM
-    $parents = $view.parents()
+    const $parents = $view.parents()
     parentindex = $parents.index(this.$view)
     switch (parentindex) {
       case -1:
@@ -157,8 +157,7 @@ class ListView extends TemplateView {
    *          the index of the item upon removal
    */
   removeItem (index) {
-    let subview
-    subview = this.subviews[index]
+        const subview = this.subviews[index]
     if (subview) {
       subview.destroy()
       this.subviews.splice(index, 1)

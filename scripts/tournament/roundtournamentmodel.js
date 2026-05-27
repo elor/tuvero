@@ -113,8 +113,8 @@ class RoundTournamentModel extends TournamentModel {
    * be a RoundTournamentModel instance.
    */
   static generateSlideSystemMatches () {
-    let slideList, teamA, teamB, id
-    slideList = RoundTournamentModel.generateSlideList(this.teams.length, this.round)
+    let teamA, teamB, id
+    const slideList = RoundTournamentModel.generateSlideList(this.teams.length, this.round)
     if (slideList.length % 2 === 1) {
       teamA = slideList.pop()
       this.addBye(teamA, slideList.length / 2, this.round)

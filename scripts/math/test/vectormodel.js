@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import ListModel from '../../list/listmodel.js'
 import VectorModel from '../vectormodel.js'
 test('VectorModel', () => {
-  let vec, vec2, retvec, ref, success, data
+  let vec, vec2, ref, success, data
   expect(
     VectorModel.prototype instanceof ListModel,
     'VectorModel is subclass of ListModel'
@@ -37,7 +37,7 @@ test('VectorModel', () => {
   vec.push(6)
   vec.push(7)
   vec.push(8)
-  retvec = new VectorModel()
+  const retvec = new VectorModel()
   vec2 = new VectorModel(vec.length)
   vec2.forEach(function (elem, index) {
     vec2.set(index, index)

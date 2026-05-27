@@ -9,8 +9,7 @@ import State from '../ui/state.js'
 import Listener from '../core/listener.js'
 import Toast from '../ui/toast.js'
 import Strings from '../ui/strings.js'
-let StateToasts
-StateToasts = {}
+const StateToasts = {}
 
 /*
  * show error toasts

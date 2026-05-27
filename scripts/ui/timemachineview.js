@@ -14,12 +14,12 @@ class TimeMachineView extends View {
   }
 
   init () {
-    let $container, $template
+    let $container
     /*
      * Time Machine Commits
      */
     $container = this.$view.find('.rootcommits')
-    $template = $container.find('.timemachinecommitview.template')
+    const $template = $container.find('.timemachinecommitview.template')
     this.initCommits = new ListView(TimeMachine.roots, $container, $template, TimeMachineCommitView)
 
     /*

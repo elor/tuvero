@@ -9,8 +9,7 @@
  * @see LICENSE
  */
 import LocalStrings from 'strings'
-let Strings
-Strings = {
+const Strings = {
   autosaveoff: 'Automatisches  Speichern aus',
   autosaveon: 'Automatisches Speichern an',
   autoupdateoff: 'Automatische Aktualisierung aus',

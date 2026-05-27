@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import BinningReferenceListModel from '../binningreferencelistmodel.js'
 import ListModel from '../listmodel.js'
 test('BinningReferenceListModel', () => {
-  let success, binlist, bin, list, binningFunction
+  let success, binlist, list
   expect(
     BinningReferenceListModel.prototype instanceof ListModel,
     'BinningReferenceListModel is subclass of ListModel'
@@ -32,7 +32,7 @@ test('BinningReferenceListModel', () => {
   }
   expect(success, 'missing binning function throws an error').toBeTruthy()
   success = false
-  binningFunction = function (num) {
+  const binningFunction = function (num) {
     return num % 10
   }
   try {
@@ -47,7 +47,7 @@ test('BinningReferenceListModel', () => {
   list.push(4)
   expect(binlist.length, "there's one bin now").toBe(1)
   expect(binlist.getBinName(0), 'bin has correct name').toBe(4)
-  bin = binlist.getBin(4)
+  const bin = binlist.getBin(4)
   expect(bin.length, 'bin contains an element').toBe(1)
   expect(bin.asArray(), 'bin 4 contains the number 4').toEqual([4])
   list.push(14)

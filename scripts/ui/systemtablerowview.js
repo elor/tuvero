@@ -48,10 +48,9 @@ class SystemTableRowView extends View {
   }
 
   updateRankTexts () {
-    let ranking, globalRank, tournamentRank
-    ranking = this.tournaments.getGlobalRanking(this.teams.length)
-    globalRank = ranking.globalRanks[this.teamID]
-    tournamentRank = ranking.tournamentRanks[this.teamID]
+        const ranking = this.tournaments.getGlobalRanking(this.teams.length)
+    const globalRank = ranking.globalRanks[this.teamID]
+    const tournamentRank = ranking.tournamentRanks[this.teamID]
     if (this.globalRank !== globalRank) {
       this.$globalrank.text(globalRank + 1)
       this.globalRank = globalRank
@@ -69,16 +68,15 @@ class SystemTableRowView extends View {
    *          a global ranking object
    */
   updateLastRowClass () {
-    let tournamentID, displayID, nextTeamID, nextTournamentID, ranking
-    ranking = this.getRanking()
-    tournamentID = this.getTournamentID()
-    displayID = this.getDisplayID()
+        const ranking = this.getRanking()
+    const tournamentID = this.getTournamentID()
+    const displayID = this.getDisplayID()
     if (displayID + 1 === this.teams.length) {
       this.$view.addClass('lastrow')
       return
     }
-    nextTeamID = ranking.displayOrder[displayID + 1]
-    nextTournamentID = ranking.tournamentIDs[nextTeamID]
+    const nextTeamID = ranking.displayOrder[displayID + 1]
+    const nextTournamentID = ranking.tournamentIDs[nextTeamID]
     if (tournamentID !== nextTournamentID) {
       this.$view.addClass('lastrow')
     } else {
@@ -91,13 +89,13 @@ class SystemTableRowView extends View {
    * creates a new TournamentView, if necessary.
    */
   updateSystem () {
-    let tournament, newView, $view
+    let newView, $view
     if (!this.isFirstInTournament()) {
       this.clearTournamentView()
       this.$view.removeClass('firstrow')
       return
     }
-    tournament = this.getTournament()
+    const tournament = this.getTournament()
     if (tournament) {
       if (this.viewPopulator.getViewTeamID(this.getTournamentID()) === this.teamID) {
         return
@@ -121,9 +119,8 @@ class SystemTableRowView extends View {
     const tournamentID = this.getTournamentID()
     const rankingLength = ranking.displayOrder.length
     let nextDisplayID = displayID + 1
-    let nextTeamID
-    for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
-      nextTeamID = ranking.displayOrder[nextDisplayID]
+        for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
+      const nextTeamID = ranking.displayOrder[nextDisplayID]
       if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
         break
       }

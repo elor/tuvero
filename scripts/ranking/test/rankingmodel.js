@@ -16,10 +16,10 @@ import Model from '../../core/model.js'
 import Options from 'options'
 import CorrectionModel from '../../core/correctionmodel.js'
 test('RankingModel', () => {
-  let ranking, rankingobject, ref, listener, savedata, ret
+  let ranking, rankingobject, ref, savedata, ret
   expect(Options.byepointswon, 'Options.byepointswon is set properly').toBe(13)
   expect(Options.byepointslost, 'Options.byepointslost is set properly').toBe(7)
-  listener = new Listener()
+  const listener = new Listener()
   listener.reset = function () {
     this.updated = 0
     this.numreset = 0

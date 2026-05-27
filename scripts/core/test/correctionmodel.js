@@ -13,14 +13,14 @@ import MatchResult from '../matchresult.js'
 import CorrectionModel from '../correctionmodel.js'
 import Model from '../model.js'
 test('CorrectionModel', () => {
-  let match, result, result2, correction, data, success
+  let correction, success
   expect(
     CorrectionModel.prototype instanceof Model,
     'CorrectionModel is subclass of Model'
   ).toBeTruthy()
-  match = new MatchModel([1, 4], 0, 1)
-  result = new MatchResult(match, [13, 7])
-  result2 = new MatchResult(result, [7, 13])
+  const match = new MatchModel([1, 4], 0, 1)
+  const result = new MatchResult(match, [13, 7])
+  const result2 = new MatchResult(result, [7, 13])
   correction = new CorrectionModel(result, result2)
   expect(correction, 'construction works').toBeTruthy()
   expect(correction.before, "'before' stored as reference").toBe(result)
@@ -52,7 +52,7 @@ test('CorrectionModel', () => {
    * save/restore
    */
   correction = new CorrectionModel(result, result2)
-  data = correction.save()
+  const data = correction.save()
   expect(data, 'save() returns').toBeTruthy()
   correction = new CorrectionModel()
   expect(correction.restore(data), 'restore() returns').toBeTruthy()

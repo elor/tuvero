@@ -43,8 +43,8 @@ class RankingView extends TemplateView {
   }
 
   update () {
-    let ranks, teamsize, i
-    ranks = this.model.get()
+    let teamsize, i
+    const ranks = this.model.get()
     if (!ranks) {
       return false
     }
@@ -71,9 +71,8 @@ class RankingView extends TemplateView {
       this.$rankingheader.append(this.$headercomponenttemplate.clone().text(name))
     }, this)
     ranks.displayOrder.forEach(function (teamIndex, rank) {
-      let $row, team
-      team = this.teamList.get(ranks.ids[teamIndex])
-      $row = this.$template.clone()
+            const team = this.teamList.get(ranks.ids[teamIndex])
+      const $row = this.$template.clone()
       $row.find('.rank').text(ranks.ranks[teamIndex] + 1)
       this.teamViews.push(new TeamView(team, $row))
       ranks.components.forEach(function (componentName) {

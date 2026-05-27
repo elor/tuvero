@@ -1,7 +1,6 @@
 import RankingComponent from './rankingcomponent.js'
 
 class RankingPouleIDComponent extends RankingComponent {
-
   value (i) {
     return Number(this.ranking.pouleid.get(i)) + 1
   }

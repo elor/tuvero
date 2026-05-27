@@ -11,7 +11,7 @@ import { test, expect } from 'vitest'
 import CombinedReferenceListModel from '../combinedreferencelistmodel.js'
 import ListModel from '../listmodel.js'
 test('CombinedReferenceListModel', () => {
-  let list1, list2, combined, success
+  let list1, combined, success
   expect(
     CombinedReferenceListModel.prototype instanceof ListModel,
     'CombinedReferenceListModel is subclass of ListModel'
@@ -41,7 +41,7 @@ test('CombinedReferenceListModel', () => {
   list1.clear()
   expect(combined.asArray(), 'clear is mirrored').toEqual([])
   list1 = new ListModel([1, 3, 5])
-  list2 = new ListModel([2, 4, 6])
+  const list2 = new ListModel([2, 4, 6])
   combined = new CombinedReferenceListModel(list1, list2)
   expect(combined.asArray(), 'multiple lists are appended').toEqual([1, 3, 5, 2, 4, 6])
   list2.insert(1, 13)

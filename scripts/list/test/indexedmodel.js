@@ -11,12 +11,12 @@ import { test, expect } from 'vitest'
 import Model from '../../core/model.js'
 import IndexedModel from '../indexedmodel.js'
 test('IndexedModel', () => {
-  let model, listener, data
+  let model
   expect(
     IndexedModel.prototype instanceof Model,
     'IndexedModel is subclass of Model'
   ).toBeTruthy()
-  listener = {
+  const listener = {
     updatecount: 0,
     /**
      * Callback listener
@@ -51,7 +51,7 @@ test('IndexedModel', () => {
   model.setID()
   expect(model.getID(), 'empty setID sets the id to -1').toBe(-1)
   model.setID(5)
-  data = model.save()
+  const data = model.save()
   expect(data, 'Model.save() returns something').toBeTruthy()
   model = new IndexedModel(3)
   expect(model.restore(data), 'restore() works').toBe(true)

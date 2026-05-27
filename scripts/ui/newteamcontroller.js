@@ -24,10 +24,8 @@ class NewTeamController extends Controller {
   }
 
   readPlayerNames () {
-    let names
-    names = this.$players.map(function (id, player) {
-      let $player
-      $player = $(player)
+        const names = this.$players.map(function (id, player) {
+            const $player = $(player)
       if ($player.prop('disabled')) {
         return undefined
       }
@@ -48,8 +46,7 @@ class NewTeamController extends Controller {
   }
 
   createPlayers () {
-    let names
-    names = this.readPlayerNames()
+        const names = this.readPlayerNames()
     if (names.length === 0) {
       console.error('NewTeamController: all input fields disabled?')
       return
@@ -60,12 +57,11 @@ class NewTeamController extends Controller {
   }
 
   createNewTeam () {
-    let team, players
-    players = this.createPlayers()
+        const players = this.createPlayers()
     if (players.every(function (player) {
       return player.getName() !== PlayerModel.NONAME
     })) {
-      team = new TeamModel(players)
+      const team = new TeamModel(players)
       team.setName(this.$teamname.val())
       team.rankingpoints = Number(this.$rankingpoints.val())
       this.model.push(team)
@@ -75,9 +71,8 @@ class NewTeamController extends Controller {
   }
 
   createAdvanced () {
-    let players, team
-    players = this.createPlayers()
-    team = new TeamModel(players)
+        const players = this.createPlayers()
+    const team = new TeamModel(players)
     this.model.push(team)
     this.view.resetFields()
     State.focusedteam.set(team)

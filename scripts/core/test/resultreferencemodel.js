@@ -13,15 +13,14 @@ import MatchResult from '../matchresult.js'
 import MatchModel from '../matchmodel.js'
 import ListModel from '../../list/listmodel.js'
 test('ResultReferenceModel', () => {
-  let game, result, ref, teamlist
-  teamlist = new ListModel()
+    const teamlist = new ListModel()
   teamlist.push(5)
   teamlist.push(7)
   teamlist.push(3)
   teamlist.push(9)
-  game = new MatchModel([3, 2, 1, 0], 2, 5)
-  result = new MatchResult(game, [13, 7, 5, 2])
-  ref = new ResultReferenceModel(result, teamlist)
+  const game = new MatchModel([3, 2, 1, 0], 2, 5)
+  const result = new MatchResult(game, [13, 7, 5, 2])
+  const ref = new ResultReferenceModel(result, teamlist)
   expect(ref.getID(), 'identical game ids').toBe(game.getID())
   expect(ref.getGroup(), 'identical game group').toBe(game.getGroup())
   expect(ref.score, 'score is retained').toEqual([13, 7, 5, 2])

@@ -24,8 +24,8 @@ const allTournamentModels = [
   FormuleXTournamentModel
 ]
 
-let TournamentIndex, tournamentSystems, i, sys
-tournamentSystems = {}
+let i, sys
+const tournamentSystems = {}
 for (i = 0; i < allTournamentModels.length; i += 1) {
   sys = allTournamentModels[i].prototype.SYSTEM
   if (tournamentSystems[sys]) {
@@ -33,7 +33,7 @@ for (i = 0; i < allTournamentModels.length; i += 1) {
   }
   tournamentSystems[sys] = allTournamentModels[i]
 }
-TournamentIndex = {
+const TournamentIndex = {
   /**
    * creates a tournament
    *

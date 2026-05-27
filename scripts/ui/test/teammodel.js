@@ -12,12 +12,12 @@ import TeamModel from '../teammodel.js'
 import IndexedModel from '../../list/indexedmodel.js'
 import PlayerModel from '../playermodel.js'
 test('TeamModel', () => {
-  let team, players, names, listener
+  let team
   expect(
     TeamModel.prototype instanceof IndexedModel,
     'TeamModel is subclass of IndexedModel'
   ).toBeTruthy()
-  listener = {
+  const listener = {
     updatecount: 0,
     /**
      * Callback listener
@@ -42,8 +42,8 @@ test('TeamModel', () => {
   expect(team.getID(), 'empty initialization sets id to -1').toBe(-1)
   expect(team.getPlayer(-1), 'getPlayer(-1) returns undefined').toBe(undefined)
   expect(team.getPlayer(5), 'out of bounds getPlayer returns undefined').toBe(undefined)
-  names = ['Erik E. Lorenz', 'Fabian Böttcher', 'Detlef Schwede']
-  players = [new PlayerModel(names[0]), new PlayerModel(names[1]), new PlayerModel(names[2])]
+  const names = ['Erik E. Lorenz', 'Fabian Böttcher', 'Detlef Schwede']
+  const players = [new PlayerModel(names[0]), new PlayerModel(names[1]), new PlayerModel(names[2])]
   team = new TeamModel(players, 5)
   expect(team.length, 'proper initialization: team length').toBe(players.length)
   expect(team.getID(), 'proper initialization sets id').toBe(5)

@@ -63,9 +63,9 @@ class MatchResult extends MatchModel {
   }
 
   getWinner () {
-    let maxpoints, winner, winnerIndex
-    maxpoints = max(this.score)
-    winnerIndex = this.score.indexOf(maxpoints)
+    let winner
+    const maxpoints = max(this.score)
+    const winnerIndex = this.score.indexOf(maxpoints)
     if (winnerIndex === this.score.lastIndexOf(maxpoints)) {
       winner = this.teams[winnerIndex]
       return winner
@@ -74,10 +74,9 @@ class MatchResult extends MatchModel {
   }
 
   getLoser () {
-    let loser, loser2, minpoints
-    minpoints = min(this.score)
-    loser = this.teams[this.score.indexOf(minpoints)]
-    loser2 = this.teams[this.score.lastIndexOf(minpoints)]
+        const minpoints = min(this.score)
+    const loser = this.teams[this.score.indexOf(minpoints)]
+    const loser2 = this.teams[this.score.lastIndexOf(minpoints)]
     if (loser === loser2) {
       return loser
     }

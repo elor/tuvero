@@ -33,8 +33,8 @@ class MatchController extends Controller {
   }
 
   initKeyListeners () {
-    let controller, $lastinput
-    controller = this
+    let $lastinput
+    const controller = this
     this.$form.keydown(function (e) {
       switch (e.which) {
         case 27:
@@ -81,9 +81,9 @@ class MatchController extends Controller {
     // when
     // the focus is lost or the value is changed incrementally
     this.$scores.on('change keyup', function () {
-      let $this, value, valid
+      let value, valid
       valid = true
-      $this = $(this)
+      const $this = $(this)
       value = $this.val()
       if (value.length === 0) {
         valid = false
@@ -142,11 +142,10 @@ class MatchController extends Controller {
    * @return true on success, false otherwise
    */
   accept () {
-    let points
-    if (!this.validateScore()) {
+        if (!this.validateScore()) {
       return false
     }
-    points = []
+    const points = []
     this.$scores.each(function (i) {
       points[i] = Number($(this).val())
     })

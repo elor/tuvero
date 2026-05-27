@@ -65,8 +65,8 @@ class PopoutController extends Controller {
   }
 
   popout (e) {
-    let $popoutView, stylepath, $style, $title, $body
-    $popoutView = this.view.$popoutTemplate.clone()
+    let stylepath, $style, $title, $body
+    const $popoutView = this.view.$popoutTemplate.clone()
     if (!isMainPopoutOpen()) {
       console.log('opening new popout')
       mainPopout = window.open('', '', 'location=0')

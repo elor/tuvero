@@ -6,10 +6,9 @@ import Toast from './toast.js'
 import Strings from './strings.js'
 
 class TeamToastsListener extends Listener {
-
   onupdate (teamlist, event, data) {
-    let newname, team, player
-    team = data.source
+    let newname, player
+    const team = data.source
     if (team) {
       player = team.getPlayer(data.id)
       if (player) {
@@ -20,14 +19,12 @@ class TeamToastsListener extends Listener {
   }
 
   oninsert (teamlist, event, data) {
-    let teamno
-    teamno = data.id
+        const teamno = data.id
     return new Toast(Strings.teamadded.replace('%s', teamno + 1))
   }
 
   onremove (teamlist, event, data) {
-    let teamno
-    teamno = data.id
+        const teamno = data.id
     return new Toast(Strings.teamdeleted.replace('%s', teamno + 1))
   }
 

@@ -7,7 +7,6 @@ import DelegateMatrix from './delegatematrix.js'
  *          the matrix to bind itself to
  */
 class AbsoluteMatrix extends DelegateMatrix {
-
   /**
    * return the absolute value at the given position
    *

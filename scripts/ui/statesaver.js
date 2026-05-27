@@ -9,7 +9,6 @@
 import State from './state.js'
 import TimeMachine from '../timemachine/timemachine.js'
 import StateLoader from './stateloader.js'
-let StateSaver
 
 /**
  * Constructor of the singleton StateSaver
@@ -54,11 +53,10 @@ class StateSaverModel {
    * @return true on success, false otherwise
    */
   saveData (data) {
-    let string
-    if (!data) {
+        if (!data) {
       return false
     }
-    string = JSON.stringify(data)
+    const string = JSON.stringify(data)
     return this.saveString(string)
   }
 
@@ -70,7 +68,7 @@ class StateSaverModel {
    * @return true on success, false otherwise
    */
   saveString (string) {
-    let commit, success
+    let commit
     if (!string) {
       return false
     }
@@ -82,7 +80,7 @@ class StateSaverModel {
     if (!commit) {
       return false
     }
-    success = commit.isValid()
+    const success = commit.isValid()
     if (success) {
       this.createTree = undefined
       TimeMachine.cleanup(commit, 3)
@@ -105,5 +103,5 @@ class StateSaverModel {
 /*
  * StateSaver is a singleton
  */
-StateSaver = new StateSaverModel()
+const StateSaver = new StateSaverModel()
 export default StateSaver

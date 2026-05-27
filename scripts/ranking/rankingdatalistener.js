@@ -12,14 +12,13 @@ import Listener from '../core/listener.js'
  */
 class RankingDataListener extends Listener {
   constructor (ranking, fieldobject) {
-    let Const
-    super()
+        super()
 
     /**
      * This.constructor, on inherited classes, is NOT RankingDataListener, but
      * the constructor that was invoked by 'new'
      */
-    Const = this.constructor
+    const Const = this.constructor
     this.ranking = ranking
 
     // resize and map the ranking field

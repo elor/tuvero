@@ -47,14 +47,14 @@ class KOLineView extends View {
    * @return a jquery object of a KO line, ready to be inserted
    */
   createLine () {
-    let line, from, to, pos
+    let pos
     pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.numTeams, this.fullwidth.get())
     this.x = pos.x
     this.y = pos.y
     pos = pos.getFollowingPosition()
-    from = [this.x + KOTreePosition.getWidth(this.fullwidth.get()) - 1, this.y + 2]
-    to = [pos.x + 0.4, pos.y + 2]
-    line = new KOLine(from, to)
+    const from = [this.x + KOTreePosition.getWidth(this.fullwidth.get()) - 1, this.y + 2]
+    const to = [pos.x + 0.4, pos.y + 2]
+    const line = new KOLine(from, to)
     return $(line.svg).addClass('.koline')
   }
 

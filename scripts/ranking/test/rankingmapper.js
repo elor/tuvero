@@ -16,19 +16,19 @@ import MatchModel from '../../core/matchmodel.js'
 import Model from '../../core/model.js'
 import Listener from '../../core/listener.js'
 test('RankingMapper', () => {
-  let internal, ranking, listener, teams, ref
+  let ref
   expect(
     RankingMapper.prototype instanceof Model,
     'RankingMapper is subclass of Model'
   ).toBeTruthy()
-  teams = new ListModel()
+  const teams = new ListModel()
   teams.push(5)
   teams.push(4)
   teams.push(3)
   teams.push(2)
   teams.push(1)
-  internal = new RankingModel(['wins', 'saldo'], teams.length)
-  ranking = new RankingMapper(internal, teams)
+  const internal = new RankingModel(['wins', 'saldo'], teams.length)
+  const ranking = new RankingMapper(internal, teams)
   ref = {
     components: ['wins', 'saldo'],
     ids: [5, 4, 3, 2, 1],
@@ -51,11 +51,10 @@ test('RankingMapper', () => {
     saldo: [0, 6, -6, 0, 0]
   }
   expect(ranking.get(), 'ids remapped after first result').toEqual(ref)
-  listener = new Listener(ranking)
+  const listener = new Listener(ranking)
   listener.onupdate = function (emitter) {
-    let reference
-    this.success = true
-    reference = {
+        this.success = true
+    const reference = {
       components: ['wins', 'saldo'],
       ids: [5, 4, 3, 2, 1],
       ranks: [2, 0, 0, 2, 4],

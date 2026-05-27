@@ -13,8 +13,7 @@ import { diffLines } from 'diff'
  *          removed/added
  */
 function getdiff (a, b) {
-  let diffresult
-  a = a.join('\n')
+    a = a.join('\n')
   if (a.length > 0) {
     a += '\n'
   }
@@ -22,7 +21,7 @@ function getdiff (a, b) {
   if (b.length > 0) {
     b += '\n'
   }
-  diffresult = diffLines(a, b)
+  const diffresult = diffLines(a, b)
   diffresult.forEach(function (lines) {
     lines.value = lines.value.replace(/\n$/, '').split('\n').map(Number)
   })
@@ -46,8 +45,8 @@ class OrderListModel extends ListModel {
    *          The wanted end result
    */
   enforceOrder (order) {
-    let index, diffresult
-    diffresult = getdiff(this.list, order)
+    let index
+    const diffresult = getdiff(this.list, order)
     index = 0
     diffresult.forEach((lines) => {
       lines.value.forEach((value) => {

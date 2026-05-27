@@ -27,7 +27,7 @@ import RankingPlacementComponent from './rankingplacementcomponent.js'
 import RankingPouleIDComponent from './rankingpouleidcomponent.js'
 import RankingPouleRankComponent from './rankingpoulerankcomponent.js'
 
-let RankingComponentIndex, index, Component, allComponents
+let index, Component
 
 const allComponentList = [
   RankingIDComponent,
@@ -52,8 +52,8 @@ const allComponentList = [
 ]
 
 // build the index from the XXXRankingComponent.NAME fields
-RankingComponentIndex = {}
-allComponents = {}
+const RankingComponentIndex = {}
+const allComponents = {}
 for (index = 0; index < allComponentList.length; index += 1) {
   Component = allComponentList[index]
   allComponents[Component.NAME.toLowerCase()] = Component

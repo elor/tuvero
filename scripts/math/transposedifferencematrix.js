@@ -7,7 +7,6 @@ import DelegateMatrix from './delegatematrix.js'
  *          the matrix to bind itself to
  */
 class TransposeDifferenceMatrix extends DelegateMatrix {
-
   /**
    * return only positive values
    *
@@ -18,9 +17,8 @@ class TransposeDifferenceMatrix extends DelegateMatrix {
    * @return get(row, col)+get(col, row), i.e. (A + A^T)
    */
   get (row, col) {
-    let v1, v2
-    v1 = this.superget(row, col)
-    v2 = this.superget(col, row)
+        const v1 = this.superget(row, col)
+    const v2 = this.superget(col, row)
     if (v1 === undefined || v2 === undefined) {
       return undefined
     }

@@ -19,12 +19,11 @@ import PropertyValueModel from '../core/propertyvaluemodel.js'
  */
 class SwissTournamentController extends Controller {
   constructor (view) {
-    let $mode, tournament, noshuffle
-    super(view)
-    tournament = this.model.tournament
-    noshuffle = this.model.noshuffle
+        super(view)
+    const tournament = this.model.tournament
+    const noshuffle = this.model.noshuffle
     this.$options = this.view.$view.find('.tournamentoptions')
-    $mode = this.$options.find('select.mode')
+    const $mode = this.$options.find('select.mode')
     $mode.change(function () {
       tournament.setProperty('swissmode', $(this).val())
       $mode.val($(this).val())
@@ -40,12 +39,11 @@ class SwissTournamentController extends Controller {
    * update the visibility and properties
    */
   initSpecialWinsProperties () {
-    let modevalue, votesenabled, byeafterbye
-    modevalue = new PropertyValueModel(this.model.tournament, 'swissmode')
-    votesenabled = new PropertyValueModel(this.model.tournament,
+        const modevalue = new PropertyValueModel(this.model.tournament, 'swissmode')
+    const votesenabled = new PropertyValueModel(this.model.tournament,
     //
       'enableupdown')
-    byeafterbye = new PropertyValueModel(this.model.tournament, 'byeafterbye')
+    const byeafterbye = new PropertyValueModel(this.model.tournament, 'byeafterbye')
     Listener.bind(modevalue, 'update', function () {
       votesenabled.set(modevalue.get() === 'wins')
       if (!votesenabled.get()) {

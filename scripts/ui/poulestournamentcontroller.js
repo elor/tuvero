@@ -14,14 +14,13 @@ function numberToAlphaString (number) {
 
 class PoulesTournamentController extends Controller {
   constructor (view) {
-    let $mode, $seed, $byepoules, $byeteams, $numpoules, tournament
-    super(view)
-    tournament = this.model.tournament
-    $mode = this.view.$mode
-    $seed = this.view.$seed
-    $byepoules = this.view.$byepoules
-    $byeteams = this.view.$byeteams
-    $numpoules = this.view.$numpoulesinput
+        super(view)
+    const tournament = this.model.tournament
+    const $mode = this.view.$mode
+    const $seed = this.view.$seed
+    const $byepoules = this.view.$byepoules
+    const $byeteams = this.view.$byeteams
+    const $numpoules = this.view.$numpoulesinput
     this.view.$view.find('button.flipranking').click(function () {
       tournament.flipGroupRankings()
     })

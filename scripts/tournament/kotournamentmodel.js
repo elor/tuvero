@@ -25,15 +25,15 @@ class KOTournamentModel extends TournamentModel {
    * @return true on success, false otherwise
    */
   initialMatches () {
-    let mode, indices, indexFunction, matchID, roundID, match, teams
-    mode = this.getProperty('komode')
-    indexFunction = KOTournamentModel[mode + 'Indices']
+    let matchID, match, teams
+    const mode = this.getProperty('komode')
+    const indexFunction = KOTournamentModel[mode + 'Indices']
     if (!Type.isFunction(indexFunction)) {
       this.emit('error', 'unknown KO mode: ' + mode)
       return false
     }
-    indices = indexFunction(this.teams.length)
-    roundID = KOTournamentModel.initialRoundForTeams(this.teams.length)
+    const indices = indexFunction(this.teams.length)
+    const roundID = KOTournamentModel.initialRoundForTeams(this.teams.length)
     if (roundID < 0) {
       this.emit('error', 'not enough players for KO tournament')
       return false
@@ -121,16 +121,16 @@ class KOTournamentModel extends TournamentModel {
    * create all placeholder matches
    */
   createPlaceholderMatches () {
-    let groups, groupMatchIDLimit, id, maxgroup, existingMatches
-    maxgroup = Math.min(this.getProperty('komaxgroup'), (this.teams.length - 1) / 2)
-    groups = []
+    let id
+    const maxgroup = Math.min(this.getProperty('komaxgroup'), (this.teams.length - 1) / 2)
+    const groups = []
     while (groups.length <= maxgroup) {
       groups.push(groups.length)
     }
-    groupMatchIDLimit = groups.map(function (group) {
+    const groupMatchIDLimit = groups.map(function (group) {
       return KOTournamentModel.firstMatchIDOfRound(KOTournamentModel.roundsInGroup(group))
     })
-    existingMatches = groups.map(function () {
+    const existingMatches = groups.map(function () {
       return []
     })
     this.matches.forEach(function (match) {
@@ -155,8 +155,7 @@ class KOTournamentModel extends TournamentModel {
    * to be used for repairs only.
    */
   createWaitingMatches () {
-    let teamMatches, lastresults
-    teamMatches = this.teams.map(function () {
+        const teamMatches = this.teams.map(function () {
       return undefined
     })
     this.matches.forEach(function (match) {
@@ -164,7 +163,7 @@ class KOTournamentModel extends TournamentModel {
         teamMatches[teamID] = match
       })
     })
-    lastresults = []
+    const lastresults = []
     teamMatches.forEach(function (team, teamid) {
       let lastHistoryResult
       if (team === undefined) {
@@ -193,17 +192,17 @@ class KOTournamentModel extends TournamentModel {
    *          a MatchResult (or MatchModel or ByeResult)
    */
   checkForFollowupMatches (result) {
-    let currentMatchID, nextMatchID, winnergroup, losergroup, winner, loser
-    currentMatchID = result.getID()
+    let winner, loser
+    const currentMatchID = result.getID()
     if (currentMatchID === 0) {
       // don't advance beyond the finale
       return
     }
 
     // calculate the IDs
-    nextMatchID = KOTournamentModel.nextRoundMatchID(currentMatchID)
-    winnergroup = result.getGroup()
-    losergroup = KOTournamentModel.loserGroupID(winnergroup, currentMatchID)
+    const nextMatchID = KOTournamentModel.nextRoundMatchID(currentMatchID)
+    const winnergroup = result.getGroup()
+    const losergroup = KOTournamentModel.loserGroupID(winnergroup, currentMatchID)
 
     // get winners
     if (result.isBye()) {
@@ -238,9 +237,9 @@ class KOTournamentModel extends TournamentModel {
    *          the current match, which has just ended
    */
   createFollowupMatch (teamID, nextMatchID, nextGroupID, currentMatch) {
-    let opponent, match, complementaryMatchID, currentMatchID, currentGroupID, teams
-    currentMatchID = currentMatch.getID()
-    currentGroupID = currentMatch.getGroup()
+    let opponent, match, complementaryMatchID, teams
+    const currentMatchID = currentMatch.getID()
+    const currentGroupID = currentMatch.getGroup()
     if (currentMatchID <= 1) {
       return
     }
@@ -291,11 +290,11 @@ class KOTournamentModel extends TournamentModel {
    * @return an array of team indices for a matched tournament
    */
   static matchedIndices (length) {
-    let indices, index, value, length2
+    let index, value, indices
     if (length === 1) {
       indices = [0]
     } else if (length > 1) {
-      length2 = KOTournamentModel.ceilPowerOfTwo(length)
+      const length2 = KOTournamentModel.ceilPowerOfTwo(length)
       indices = KOTournamentModel.matchedIndices(length2 >> 1)
       for (index = indices.length - 1; index >= 0; index -= 1) {
         value = indices[index]
@@ -318,9 +317,9 @@ class KOTournamentModel extends TournamentModel {
    *         for the init function
    */
   static orderedIndices (length) {
-    let indices, length2, index
-    length2 = KOTournamentModel.ceilPowerOfTwo(length)
-    indices = []
+    let index
+    const length2 = KOTournamentModel.ceilPowerOfTwo(length)
+    const indices = []
     while (indices.length < length) {
       indices.push(indices.length)
     }
@@ -338,13 +337,13 @@ class KOTournamentModel extends TournamentModel {
    *         matches
    */
   static shuffledIndices (length) {
-    let indices, length2, index, teamids
-    length2 = KOTournamentModel.ceilPowerOfTwo(length)
-    teamids = []
+    let index
+    const length2 = KOTournamentModel.ceilPowerOfTwo(length)
+    const teamids = []
     while (teamids.length < length) {
       teamids.push(teamids.length)
     }
-    indices = []
+    const indices = []
     while (teamids.length > 0) {
       indices.push(rng.pickAndRemove(teamids))
     }

@@ -10,13 +10,12 @@ import { test, expect } from 'vitest'
 
 import Type from '../type.js'
 test('Type', () => {
-  let types, ref, functionnames, constructors
-
+  
   /*
    * Preparation
    */
 
-  types = []
+  const types = []
   types.push(5)
   types.push({
     asd: 123
@@ -31,8 +30,8 @@ test('Type', () => {
   types.push(function () {
     return '3.1415'
   })
-  ref = ['number', 'object', 'string', 'undefined', 'null', 'date', 'array', 'regexp', 'boolean', 'function']
-  constructors = [Number, Object, String, undefined, null, Date, Array, RegExp, Boolean, Function]
+  const ref = ['number', 'object', 'string', 'undefined', 'null', 'date', 'array', 'regexp', 'boolean', 'function']
+  const constructors = [Number, Object, String, undefined, null, Date, Array, RegExp, Boolean, Function]
 
   /*
    * Type()
@@ -41,7 +40,7 @@ test('Type', () => {
   ref.forEach(function (typename, index) {
     expect(Type(types[index]), 'Type ' + typename + ' detected').toBe(typename)
   })
-  functionnames = ref.map(function (typename) {
+  const functionnames = ref.map(function (typename) {
     return 'is' + [typename[0].toUpperCase() + typename.slice(1)]
   })
 

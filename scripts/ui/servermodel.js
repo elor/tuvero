@@ -29,12 +29,11 @@ class ServerModel extends Model {
   }
 
   validateToken () {
-    let message
-    this.tokenvalid.set(undefined)
+        this.tokenvalid.set(undefined)
     if (!this.token.get()) {
       return
     }
-    message = this.message('/')
+    const message = this.message('/')
     message.onreceive = function () {
       this.tokenvalid.set(true)
       this.logged_in.set(true)
@@ -84,12 +83,11 @@ class ServerModel extends Model {
   }
 
   invalidateToken () {
-    let message
-    if (!this.token.get()) {
+        if (!this.token.get()) {
       this.tokenvalid.set(false)
       return
     }
-    message = this.message('/token/delete')
+    const message = this.message('/token/delete')
     if (message) {
       message.send() // fire and forget
     }

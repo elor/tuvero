@@ -15,12 +15,11 @@ import MatrixModel from '../matrixmodel.js'
 import AntisymmetricMatrixModel from '../antisymmetricmatrixmodel.js'
 test('AntisymmetricMatrixModel', () => {
   // constructor validation
-  let a
-  expect(
+    expect(
     AntisymmetricMatrixModel.prototype instanceof MatrixModel,
     'AntisymmetricMatrixModel is subclass of MatrixModel'
   ).toBeTruthy()
-  a = new AntisymmetricMatrixModel(5)
+  const a = new AntisymmetricMatrixModel(5)
   expect(a.length, 'length at initialization is accepted').toBe(5)
   expect(a.set(0, 4, 5), 'set() above the main diagonal works').toBe(a)
   expect(a.get(0, 4), 'get() confirms the written value').toBe(5)

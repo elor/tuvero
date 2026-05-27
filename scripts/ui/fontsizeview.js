@@ -15,8 +15,7 @@ import $ from 'jquery'
 import View from '../core/view.js'
 import FontSizeController from './fontsizecontroller.js'
 import FontSizeModel from './fontsizemodel.js'
-let classprefix
-classprefix = 'fontsize'
+const classprefix = 'fontsize'
 
 /**
  * Constructor, which also calls update() for the first time

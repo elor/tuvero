@@ -24,8 +24,8 @@ class RankingTwoPointListener extends RankingDataListener {
    *          a game result
    */
   onresult (r, e, result) {
-    let winner, maxpoints
-    winner = result.getWinner()
+    let maxpoints
+    const winner = result.getWinner()
     if (winner !== undefined) {
       this.twopoint.add(winner, 2)
     } else {
@@ -66,8 +66,8 @@ class RankingTwoPointListener extends RankingDataListener {
    *          a game correction
    */
   oncorrect (r, e, correction) {
-    let winner, maxpoints
-    winner = correction.before.getWinner()
+    let maxpoints
+    const winner = correction.before.getWinner()
     if (winner !== undefined) {
       this.twopoint.set(winner, this.twopoint.get(winner) - 2)
     } else {

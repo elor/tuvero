@@ -36,7 +36,7 @@ class HomeTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-    let $button, $errorlink, $container, $template
+    let $button, $container
 
     // TODO move to a controller
     $button = this.$view.find('button.reset')
@@ -47,7 +47,7 @@ class HomeTab extends View {
     })
 
     // TODO move to a view
-    $errorlink = this.$view.find('a.errorlink')
+    const $errorlink = this.$view.find('a.errorlink')
     $errorlink.attr('href', $errorlink.attr('href') + '&browser=' + Browser.name + ' ' + Browser.version)
 
     /*
@@ -71,7 +71,7 @@ class HomeTab extends View {
     this.serverAutoloadModel = new ServerAutoloadModel(Server)
     this.serverTournamentListModel = new ServerTournamentListModel(Server)
     $container = this.$view.find('.servertournaments')
-    $template = $container.find('.template')
+    const $template = $container.find('.template')
     this.serverTournamentListView = new ListView(this.serverTournamentListModel, $container, $template, ServerTournamentView)
     $container = this.$view.find('.loginview')
     this.loginView = new LoginView(Server, $container)
@@ -84,8 +84,7 @@ class HomeTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab
-  $tab = $('#tabs > [data-tab="home"]')
+    const $tab = $('#tabs > [data-tab="home"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new HomeTab($tab)
   }

@@ -11,17 +11,12 @@ import BoxView from './boxview.js'
 import PopoutController from './popoutcontroller.js'
 import ValueModel from '../core/valuemodel.js'
 import ClassView from '../core/classview.js'
-let $iconTemplate,
-  $popoutIconTemplate,
-  $closeIconTemplate,
-  //
-  $pageBreakIconTemplate
-$iconTemplate = $('<div>').addClass('icon').addClass('noprint')
+const $iconTemplate = $('<div>').addClass('icon').addClass('noprint')
 
 // TODO read this from DOM.
-$popoutIconTemplate = $iconTemplate.clone().addClass('popout').text('↗')
-$closeIconTemplate = $iconTemplate.clone().addClass('close').text('x')
-$pageBreakIconTemplate = $iconTemplate.clone().addClass('pagebreak').text('⏎')
+const $popoutIconTemplate = $iconTemplate.clone().addClass('popout').text('↗')
+const $closeIconTemplate = $iconTemplate.clone().addClass('close').text('x')
+const $pageBreakIconTemplate = $iconTemplate.clone().addClass('pagebreak').text('⏎')
 
 /**
  * Constructor

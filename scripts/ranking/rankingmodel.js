@@ -8,8 +8,7 @@ import RankingDataListenerIndex from './rankingdatalistenerindex.js'
  * @return an array of ids, where the index matches the value
  */
 function getIDs () {
-  let ids
-  ids = []
+    const ids = []
   while (ids.length < this.length) {
     ids.push(ids.length)
   }
@@ -24,9 +23,8 @@ function getIDs () {
  * @return an array of ids, sorted by rank
  */
 function getRankingOrder (ids) {
-  let order, chain
-  order = ids.slice(0)
-  chain = this.componentchain
+    const order = ids.slice(0)
+  const chain = this.componentchain
   order.sort(function (a, b) {
     return chain.compare(a, b) || a - b
   }, this)
@@ -43,8 +41,7 @@ function getRankingOrder (ids) {
  * @return an array of ranks, as retrieved from the ids
  */
 function getRanks (ids) {
-  let ranks
-  ranks = new Array(this.length)
+    const ranks = new Array(this.length)
   ids.forEach(function (teamid, index) {
     if (index === 0) {
       ranks[teamid] = 0
@@ -70,11 +67,11 @@ function getRanks (ids) {
  *          false otherwise.
  */
 function updateRanking (norecalc) {
-  let newRanking, components
+  let components
   if (!norecalc) {
     this.emit('recalc')
   }
-  newRanking = {
+  const newRanking = {
     components: this.componentnames
   }
   newRanking.ids = getIDs.call(this)
@@ -127,7 +124,7 @@ class RankingModel extends Model {
    * @return true on success, false otherwise
    */
   init (components, size, extDependencies) {
-    let dependencies, dataListenerArray
+    let dependencies
 
     // abort if the ranking object has not been reset
     if (this.componentchain || this.componentnames.length !== 0 || Object.keys(this.dataListeners).length !== 0) {
@@ -144,7 +141,7 @@ class RankingModel extends Model {
       this.extDeps.push.apply(this.extDeps, extDependencies)
       dependencies.push.apply(dependencies, this.extDeps)
     }
-    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this, dependencies)
+    const dataListenerArray = RankingDataListenerIndex.registerDataListeners(this, dependencies)
     if (dataListenerArray && components && components.length > 0) {
       dataListenerArray.forEach(function (dataListener, index) {
         this.dataListeners[dependencies[index]] = dataListener
@@ -313,8 +310,7 @@ class RankingModel extends Model {
 
     // only store primary dataListeners. Abort on error
     if (!Object.keys(this.dataListeners).every(function (name) {
-      let listener
-      listener = this.dataListeners[name]
+            const listener = this.dataListeners[name]
       if (listener.isPrimary(listener)) {
         if (this[name] && Type.isFunction(this[name].save)) {
           data.vals[name] = this[name].save()

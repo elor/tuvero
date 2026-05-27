@@ -75,8 +75,7 @@ class TournamentListModel extends IndexedListModel {
    * @return an array with a 'true' or 'false' entry for every tournament.
    */
   areTournamentsClosed () {
-    let closed
-    closed = []
+        const closed = []
     while (closed.length < this.length) {
       closed.push(false)
     }
@@ -95,22 +94,21 @@ class TournamentListModel extends IndexedListModel {
    * @return a globalRanking object
    */
   getGlobalRanking (numTeams) {
-    let teams, undefinedTeams, zeroTeams
-    if (numTeams === undefined || numTeams < 0) {
+        if (numTeams === undefined || numTeams < 0) {
       console.error('invalid numTeams argument')
       return undefined
     }
     if (this.rankingCache && this.rankingCache.displayOrder && this.rankingCache.displayOrder.length === numTeams) {
       return this.rankingCache
     }
-    teams = []
+    const teams = []
     while (teams.length < numTeams) {
       teams.push(teams.length)
     }
-    undefinedTeams = teams.map(function () {
+    const undefinedTeams = teams.map(function () {
       return undefined
     })
-    zeroTeams = teams.map(function () {
+    const zeroTeams = teams.map(function () {
       return 0
     })
 
@@ -212,17 +210,15 @@ class TournamentListModel extends IndexedListModel {
    *          a globalRanking object.
    */
   applyTournamentToRanks (tournament, globalRanking) {
-    let tournamentID, tournamentRanking, startIndex, isClosed
-    tournamentID = tournament.getID()
-    tournamentRanking = tournament.getRanking().get()
-    startIndex = this.startIndex.get(tournamentID)
-    isClosed = this.closedTournaments.indexOf(tournamentID) !== -1
+        const tournamentID = tournament.getID()
+    const tournamentRanking = tournament.getRanking().get()
+    const startIndex = this.startIndex.get(tournamentID)
+    const isClosed = this.closedTournaments.indexOf(tournamentID) !== -1
     tournamentRanking.displayOrder.forEach(function (tournamentTeamID, displayID) {
-      let globalTeamID, globalDisplayID, tournamentRank, oldDisplayPlace
-      globalTeamID = tournamentRanking.ids[tournamentTeamID]
-      globalDisplayID = startIndex + displayID
-      tournamentRank = tournamentRanking.ranks[tournamentTeamID]
-      oldDisplayPlace = globalRanking.displayOrder.indexOf(globalTeamID)
+            const globalTeamID = tournamentRanking.ids[tournamentTeamID]
+      const globalDisplayID = startIndex + displayID
+      const tournamentRank = tournamentRanking.ranks[tournamentTeamID]
+      const oldDisplayPlace = globalRanking.displayOrder.indexOf(globalTeamID)
       globalRanking.displayOrder.splice(oldDisplayPlace, 1)
       globalRanking.displayOrder.splice(globalDisplayID, 0, globalTeamID)
       globalRanking.tournamentRanks[globalTeamID] = tournamentRank
@@ -246,9 +242,8 @@ class TournamentListModel extends IndexedListModel {
     lastTournamentRank = 0
     rank = undefined
     ranking.displayOrder.forEach(function (teamID, displayID) {
-      let tournamentID, tournamentRank
-      tournamentID = ranking.lastTournamentIDs[teamID]
-      tournamentRank = ranking.tournamentRanks[teamID]
+            const tournamentID = ranking.lastTournamentIDs[teamID]
+      const tournamentRank = ranking.tournamentRanks[teamID]
       if (rank === undefined || tournamentID !== lastTournamentID || lastTournamentRank !== tournamentRank) {
         rank = displayID
         lastTournamentRank = tournamentRank

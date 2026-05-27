@@ -9,7 +9,6 @@ import RankingComponent from './rankingcomponent.js'
  *          the next component in the component chain
  */
 class RankingHeadToHeadComponent extends RankingComponent {
-
   /**
   * @param i
   *          a team index

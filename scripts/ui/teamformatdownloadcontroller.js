@@ -4,8 +4,7 @@ import Toast from './toast.js'
 import Strings from './strings.js'
 import Presets from 'presets'
 import State from './state.js'
-let examplefiles
-examplefiles = []
+const examplefiles = []
 examplefiles[1] = 'Teilnehmer 1\n' + 'Teilnehmer 2\n' + 'Teilnehmer 3\n' + 'Teilnehmer 4\n' + '\n# Hinweis: Tete-a-tete -> ein Name pro Zeile\n'
 examplefiles[2] = 'Erik E. Lorenz, Fabian "Fabe" Böttcher\n' + 'Spieler 3, Spieler 4\n' + 'Spieler 5, Spieler 6\n' + 'Spieler 7, Spieler 8\n' + '\n# Hinweis: Doublette -> Zwei Namen pro Zeile, mit Komma getrennt\n'
 examplefiles[3] = 'Erik E. Lorenz, Fabian "Fabe" Böttcher, Spieler 3\n' + 'Spieler 4, Spieler 5, Spieler 6\n' + 'Spieler 7, Spieler 8, Spieler 9\n' + '\n# Hinweis: Triplette -> Drei Namen pro Zeile, mit Komma getrennt\n'

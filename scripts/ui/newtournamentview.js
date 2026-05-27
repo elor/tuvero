@@ -34,9 +34,8 @@ class NewTournamentView extends View {
     this.model.tournaments = tournaments
     this.model.teams = teams
     this.$view.find('button').each(function () {
-      let $button, system
-      $button = $(this)
-      system = $button.attr('data-system')
+            const $button = $(this)
+      const system = $button.attr('data-system')
       if (system && !Presets.systems[system]) {
         $button.hide()
       }

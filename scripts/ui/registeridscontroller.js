@@ -17,8 +17,8 @@ class RegisterIDsController extends Controller {
   }
 
   registerTeams () {
-    let numTeams, id
-    numTeams = Number(this.$numteams.val())
+    let id
+    const numTeams = Number(this.$numteams.val())
     if (isNaN(numTeams)) {
       return
     }
@@ -31,12 +31,11 @@ class RegisterIDsController extends Controller {
   }
 
   static createTeam (id) {
-    let players, team
-    players = []
+        const players = []
     while (players.length < State.teamsize.get()) {
       players.push(new PlayerModel('' + id))
     }
-    team = new TeamModel(players)
+    const team = new TeamModel(players)
     return team
   }
 }

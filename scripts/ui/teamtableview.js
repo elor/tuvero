@@ -40,12 +40,11 @@ class TeamTableView extends View {
    * show one column for each player in a team (teamsize)
    */
   updatePlayerColumns () {
-    let teamsize, teamindex
-    teamsize = this.model.get()
+    let teamindex
+    const teamsize = this.model.get()
     teamindex = 0
     this.$names.each(function (index, elem) {
-      let $elem
-      $elem = $(elem)
+            const $elem = $(elem)
       if ($elem.hasClass('playercol')) {
         if (teamindex < teamsize) {
           $elem.removeClass('hidden')

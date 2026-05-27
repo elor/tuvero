@@ -30,7 +30,7 @@ class RankingWinsMatrixListener extends RankingDataListener {
    *          a game result
    */
   onresult (r, e, result) {
-    let maxpoints, draw, score
+    let maxpoints, draw
 
     // get the max points, remember if there's a draw
     maxpoints = undefined
@@ -45,7 +45,7 @@ class RankingWinsMatrixListener extends RankingDataListener {
     }, this)
 
     // only give half the score for a draw
-    score = draw ? 0.5 : 1
+    const score = draw ? 0.5 : 1
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
@@ -78,7 +78,7 @@ class RankingWinsMatrixListener extends RankingDataListener {
   oncorrect (r, e, correction) {
     // TODO DRY - Don't Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
-    let maxpoints, draw, score
+    let maxpoints, draw
 
     // get the max points, remember if there's a draw
     maxpoints = undefined
@@ -93,7 +93,7 @@ class RankingWinsMatrixListener extends RankingDataListener {
     }, this)
 
     // only give half the score for a draw
-    score = draw ? 0.5 : 1
+    const score = draw ? 0.5 : 1
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)

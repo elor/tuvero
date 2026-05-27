@@ -16,13 +16,11 @@ import RLE from '../core/rle.js'
  * Constructor
  */
 class LegacyLoaderModel extends Model {
-
   load (glob) {
-    let tournamentDataArray, tournamentRankingArray
-    State.clear()
+        State.clear()
     console.log('starting conversion')
-    tournamentDataArray = []
-    tournamentRankingArray = []
+    const tournamentDataArray = []
+    const tournamentRankingArray = []
 
     /*
      * Options
@@ -58,15 +56,13 @@ class LegacyLoaderModel extends Model {
   }
 
   loadTeams (blob) {
-    let teams
-    console.log('converting teams')
-    teams = JSON.parse(blob)
+        console.log('converting teams')
+    const teams = JSON.parse(blob)
     teams.forEach(function (teamData) {
-      let players, team
-      players = teamData.names.map(function (playername) {
+            const players = teamData.names.map(function (playername) {
         return new PlayerModel(playername)
       })
-      team = new TeamModel(players)
+      const team = new TeamModel(players)
       State.teams.push(team)
       console.log('converting team ' + team.getID() + ': ' + teamData.names.join(', '))
     })
@@ -74,8 +70,7 @@ class LegacyLoaderModel extends Model {
   }
 
   loadOptions (blob) {
-    let optionsData
-    optionsData = JSON.parse(blob)
+        const optionsData = JSON.parse(blob)
     if (optionsData.savefile === undefined) {
       if (Presets.target !== 'boule') {
         Toast.once('cannot load pre-1.4 saves with this target: ' + Presets.target, Toast.LONG)
@@ -95,28 +90,17 @@ class LegacyLoaderModel extends Model {
   }
 
   loadTournaments (blob, tournamentDataArray, tournamentRankingArray) {
-    let tournaments, subtournamentOffsets
-    console.log('converting tournaments')
-    tournaments = JSON.parse(blob)
-    subtournamentOffsets = []
+        console.log('converting tournaments')
+    const tournaments = JSON.parse(blob)
+    const subtournamentOffsets = []
     tournaments.forEach(function (data, tournamentID) {
-      let tournament,
-        system,
-        name,
-        blob,
-        teams,
-        ranking,
-        parent,
-        //
-        rankingorder,
-        tournamentData,
-        startIndex
-      system = data[0]
-      name = data[1]
-      blob = data[2]
-      teams = data[3]
-      ranking = data[4]
-      parent = data[5]
+      let tournamentData, startIndex
+      const system = data[0]
+      const name = data[1]
+      const blob = data[2]
+      const teams = data[3]
+      const ranking = data[4]
+      const parent = data[5]
       console.log('converting tournament ' + tournamentID + ': ' + name)
       if (blob) {
         tournamentData = JSON.parse(blob)
@@ -125,13 +109,13 @@ class LegacyLoaderModel extends Model {
       }
       tournamentDataArray[tournamentID] = tournamentData
       tournamentRankingArray[tournamentID] = ranking
-      rankingorder = {
+      const rankingorder = {
         swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo', 'votes'],
         ko: ['ko']
       }[system]
 
       // create tournament
-      tournament = TournamentIndex.createTournament(system, rankingorder)
+      const tournament = TournamentIndex.createTournament(system, rankingorder)
       if (!tournament) {
         console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system)
         return
@@ -158,16 +142,16 @@ class LegacyLoaderModel extends Model {
 
         // add matches
         tournamentData.games.forEach(function (data) {
-          let teams, match, id, group
-          teams = [data.teams[0][0], data.teams[1][0]]
-          id = data.id
+                    const teams = [data.teams[0][0], data.teams[1][0]]
+          let id = data.id
+          let group
           if (system === 'swiss') {
             group = tournament.round
           } else {
             group = tournamentData.roundids[teams[0]]
             id += 1
           }
-          match = new MatchModel(teams, id, group)
+          const match = new MatchModel(teams, id, group)
           console.log('converting match ' + group + ':' + id + ': ' + teams.join(' vs. '))
           tournament.matches.push(match)
         })
@@ -207,17 +191,15 @@ class LegacyLoaderModel extends Model {
     const history = JSON.parse(blob)
     console.log('converting history')
     history.forEach(function (tournamenthistory, tournamentID) {
-      let tournament, round, system
-      console.log('converting history for tournament ' + tournamentID)
-      tournament = State.tournaments.get(tournamentID)
-      round = tournament.round
-      system = tournament.SYSTEM
+            console.log('converting history for tournament ' + tournamentID)
+      const tournament = State.tournaments.get(tournamentID)
+      let round = tournament.round
+      const system = tournament.SYSTEM
       function restoreMatchResult (match) {
-        let result, teams, score, id, group
-        teams = [match[0], match[1]]
-        score = [match[2], match[3]]
-        group = match[4]
-        id = match[5]
+                let teams = [match[0], match[1]]
+        const score = [match[2], match[3]]
+        const group = match[4]
+        let id = match[5]
         if (group > round) {
           round = group
         }
@@ -226,7 +208,7 @@ class LegacyLoaderModel extends Model {
         }
         teams = teams.map(tournament.teams.indexOf.bind(tournament.teams))
         match = new MatchModel(teams, id, group)
-        result = new MatchResult(match, score)
+        const result = new MatchResult(match, score)
         return result
       }
 
@@ -259,10 +241,9 @@ class LegacyLoaderModel extends Model {
        */
       if (tournamenthistory.corrections) {
         tournamenthistory.corrections.forEach(function (correctionData, id) {
-          let before, after, correction
-          before = restoreMatchResult(correctionData[0])
-          after = restoreMatchResult(correctionData[1])
-          correction = new CorrectionModel(before, after)
+                    const before = restoreMatchResult(correctionData[0])
+          const after = restoreMatchResult(correctionData[1])
+          const correction = new CorrectionModel(before, after)
           console.log('converting correction ' + id + ': ' + before.teams.join(' vs. ') + ': ')
           tournament.corrections.push(correction)
         })
@@ -273,11 +254,11 @@ class LegacyLoaderModel extends Model {
        * Votes
        */
       tournamenthistory.votes.forEach(function (data) {
-        let type, teamid, round, vote, id
-        type = data[0]
-        teamid = data[1]
-        round = data[2]
-        id = tournament.getTeams().length >> 1
+        let vote
+        const type = data[0]
+        const teamid = data[1]
+        const round = data[2]
+        const id = tournament.getTeams().length >> 1
         if (type === 0) {
           // bye
           vote = new ByeResult(teamid, [Options.byepointswon, Options.byepointslost], id, round)
@@ -318,12 +299,12 @@ class LegacyLoaderModel extends Model {
   loadVotes (tournamentDataArray, tournamentRankingArray) {
     console.log('converting votes')
     tournamentDataArray.forEach(function (tournamentData, tournamentID) {
-      let tournament, system, ranking, upvoteArray, downvoteArray, displayOrder
+      let upvoteArray, downvoteArray
       console.log('converting votes of tournament ' + tournamentID)
-      tournament = State.tournaments.get(tournamentID)
-      ranking = tournamentRankingArray[tournamentID]
-      displayOrder = tournament.getRanking().get().displayOrder
-      system = tournament.SYSTEM
+      const tournament = State.tournaments.get(tournamentID)
+      const ranking = tournamentRankingArray[tournamentID]
+      const displayOrder = tournament.getRanking().get().displayOrder
+      const system = tournament.SYSTEM
       if (tournamentData) {
         console.log('converting votes from tournament data')
         if (tournamentData.upvote) {

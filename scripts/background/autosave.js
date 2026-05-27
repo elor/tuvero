@@ -12,8 +12,8 @@ import TournamentModel from '../tournament/tournamentmodel.js'
 import StateSaver from '../ui/statesaver.js'
 import Listener from '../core/listener.js'
 import upload from './upload.js'
-let updatePending, nameListener, AutoSave
-AutoSave = undefined
+let updatePending
+const AutoSave = undefined
 updatePending = undefined
 function save () {
   if (updatePending === undefined) {
@@ -51,7 +51,7 @@ Listener.bind(State.tournaments, 'resize', save)
 Listener.bind(State.tournaments, 'update', save)
 
 // save on tournament name change
-nameListener = new Listener()
+const nameListener = new Listener()
 nameListener.onupdate = save
 
 // register tournament listeners

@@ -12,7 +12,7 @@ import MatchModel from '../matchmodel.js'
 import MatchResult from '../matchresult.js'
 import Listener from '../listener.js'
 test('MatchModel', () => {
-  let game, array, ref, listener, data
+  let game, data
   game = new MatchModel()
   expect(game, 'empty initialization works').toBeTruthy()
   game = new MatchModel([15])
@@ -31,13 +31,13 @@ test('MatchModel', () => {
   expect(game.getTeamID(1), 'getTeamID at game.length').toBe(undefined)
   expect(game.getTeamID(12), 'getTeamID outside of range').toBe(undefined)
   expect(game.getTeamID(0), 'getTeamID inside range').toBe(15)
-  array = [1, 2, 3, 4, 5]
+  const array = [1, 2, 3, 4, 5]
   game = new MatchModel(array, 2, 3)
   array[3] = 321
   expect(game.getTeamID(3), 'MatchModel() copies the team array').toBe(4)
   game = new MatchModel([1, 2], 0, 0)
-  ref = new MatchResult(game, [13, 7])
-  listener = new Listener()
+  const ref = new MatchResult(game, [13, 7])
+  const listener = new Listener()
   listener.finished = false
   listener.onfinish = function () {
     this.finished = true

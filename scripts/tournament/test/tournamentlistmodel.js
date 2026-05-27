@@ -12,7 +12,7 @@ import TournamentListModel from '../tournamentlistmodel.js'
 import TournamentIndex from '../tournamentindex.js'
 import IndexedListModel from '../../list/indexedlistmodel.js'
 test('TournamentListModel', () => {
-  let tournament, list, ref, savedata, ranking
+  let tournament, list, ref
   expect(
     TournamentListModel.prototype instanceof IndexedListModel,
     'TournamentListModel is subclass of IndexedListModel'
@@ -50,7 +50,7 @@ test('TournamentListModel', () => {
     list.tournamentIDsForEachTeam(),
     'ids of finished tournaments are ignored (undefined)'
   ).toEqual(ref)
-  savedata = list.save()
+  const savedata = list.save()
   expect(savedata, 'save() returns properly').toBeTruthy()
   list = new TournamentListModel()
   expect(list.restore(savedata), 'restore() returns true').toBeTruthy()
@@ -92,6 +92,6 @@ test('TournamentListModel', () => {
   list.closeTournament(1)
   list.interlaceCount.set(2)
   ref = undefined
-  ranking = list.getGlobalRanking(6)
+  const ranking = list.getGlobalRanking(6)
   expect(ranking.displayOrder, 'displayOrder').toEqual([0, 3, 1, 4, 2, 5])
 })

@@ -22,11 +22,10 @@ class ProgressListModel extends BinningReferenceListModel {
    * @return a ListModel containing all matches and their reversed counterparts
    */
   static createCombinedList (tournament) {
-    let matches, reverseMatches, history, reverseHistory
-    matches = tournament.getMatches()
-    reverseMatches = new ReferenceListModel(matches, undefined, ReverseMatchReferenceModel)
-    history = tournament.getHistory()
-    reverseHistory = new ReferenceListModel(history, undefined, ReverseResultReferenceModel)
+        const matches = tournament.getMatches()
+    const reverseMatches = new ReferenceListModel(matches, undefined, ReverseMatchReferenceModel)
+    const history = tournament.getHistory()
+    const reverseHistory = new ReferenceListModel(history, undefined, ReverseResultReferenceModel)
     return new CombinedReferenceListModel(matches, reverseMatches, history, reverseHistory)
   }
 

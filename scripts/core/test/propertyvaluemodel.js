@@ -13,20 +13,19 @@ import PropertyModel from '../propertymodel.js'
 import ValueModel from '../valuemodel.js'
 import Listener from '../listener.js'
 test('PropertyValueModel', () => {
-  let model, value, listener
-  expect(
+    expect(
     PropertyValueModel.prototype instanceof ValueModel,
     'PropertyValueModel is subclass of ValueModel'
   ).toBeTruthy()
-  model = new PropertyModel({
+  const model = new PropertyModel({
     bool: true,
     num: 5,
     str: 'dapfen'
   })
-  value = new PropertyValueModel(model, 'bool')
+  const value = new PropertyValueModel(model, 'bool')
   expect(value, 'bool value initialization').toBeTruthy()
   expect(value.get(), 'value is initialized to current value').toBe(true)
-  listener = new Listener(value)
+  const listener = new Listener(value)
   listener.updates = 0
   listener.onupdate = function () {
     this.updates += 1

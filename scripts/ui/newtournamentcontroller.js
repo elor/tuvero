@@ -21,9 +21,8 @@ import ClassView from '../core/classview.js'
  */
 class NewTournamentController extends Controller {
   constructor (view) {
-    let controller
-    super(view)
-    controller = this
+        super(view)
+    const controller = this
     this.$interlacecount = this.view.$view.find('input.interlacecount')
     this.interlaceMaximum = new AttributeValueView(this.model.tournaments.interlaceMaximum, this.$interlacecount, 'max')
     this.interlaceVisibility = new ClassView(this.model.tournaments.interlaceAllowed, this.view.$view.find('.interlace'), undefined, 'hidden')
@@ -40,10 +39,9 @@ class NewTournamentController extends Controller {
       window.setTimeout(controller.updateViewHeight.bind(controller), 1)
     })
     this.$buttons.click(function (e) {
-      let $button, type, size
-      $button = $(this)
-      type = $button.attr('data-system')
-      size = Number(controller.$tournamentsize.val())
+            const $button = $(this)
+      const type = $button.attr('data-system')
+      const size = Number(controller.$tournamentsize.val())
       controller.createTournament(type, size)
     })
   }
@@ -58,15 +56,14 @@ class NewTournamentController extends Controller {
   }
 
   updateViewHeight () {
-    let size
-    size = Number(this.$tournamentsize.val())
+        const size = Number(this.$tournamentsize.val())
     if (this.validateSize(size)) {
       this.view.$view.attr('rowspan', size)
     }
   }
 
   createTournament (type, size) {
-    let tournament, ranking, i, imax, rankingorder
+    let i, rankingorder
     if (!this.validateSize(size)) {
       return
     }
@@ -74,10 +71,10 @@ class NewTournamentController extends Controller {
     if (Presets.systems[type] && Presets.systems[type].ranking) {
       rankingorder = Presets.systems[type].ranking.slice(0)
     }
-    tournament = TournamentIndex.createTournament(type, rankingorder)
+    const tournament = TournamentIndex.createTournament(type, rankingorder)
     tournament.getName().set(Strings['defaultname' + tournament.SYSTEM] || Strings.defaultnamegeneric)
-    ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length)
-    imax = Math.min(this.model.firstTeamID + size,
+    const ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length)
+    const imax = Math.min(this.model.firstTeamID + size,
     //
       ranking.displayOrder.length)
     for (i = this.model.firstTeamID; i < imax; i += 1) {
@@ -92,9 +89,8 @@ class NewTournamentController extends Controller {
   updateDisabledButtons () {
     const numTeams = Number(this.$tournamentsize.val())
     this.$buttons.each(function () {
-      let $button, minTeams
-      $button = $(this)
-      minTeams = Number($button.attr('data-minteams')) || 0
+            const $button = $(this)
+      const minTeams = Number($button.attr('data-minteams')) || 0
       $button.prop('disabled', numTeams < minTeams)
     })
   }

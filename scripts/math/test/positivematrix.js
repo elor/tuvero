@@ -16,13 +16,12 @@ import DelegateMatrix from '../delegatematrix.js'
 import MatrixModel from '../matrixmodel.js'
 test('PositiveMatrix', () => {
   // constructor validation
-  let a, m
-  expect(
+    expect(
     PositiveMatrix.prototype instanceof DelegateMatrix,
     'PositiveMatrix is a DelegateMatrix subclass'
   ).toBeTruthy()
-  m = new MatrixModel(5)
-  a = new PositiveMatrix(m);
+  const m = new MatrixModel(5)
+  const a = new PositiveMatrix(m);
   [0, 1, 2, 3, 4].forEach(function (row) {
     [0, 1, 2, 3, 4].forEach(function (col) {
       m.set(row, col, 12 - (row * a.length + col))

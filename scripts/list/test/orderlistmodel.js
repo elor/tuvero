@@ -11,12 +11,12 @@ import { test, expect } from 'vitest'
 import OrderListModel from '../orderlistmodel.js'
 import ListModel from '../listmodel.js'
 test('OrderListModel', () => {
-  let list, ref
+  let ref
   expect(
     OrderListModel.prototype instanceof ListModel,
     'OrderListModel is subclass of ListModel'
   ).toBeTruthy()
-  list = new OrderListModel()
+  const list = new OrderListModel()
   expect(list.length, 'initial length is 0').toBe(0)
   expect(list.asArray(), 'initial list is empty').toEqual([])
   ref = [4, 3, 1, 0, 2]

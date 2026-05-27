@@ -14,12 +14,12 @@ import MatchModel from '../../core/matchmodel.js'
 import CorrectionModel from '../../core/correctionmodel.js'
 import Options from 'options'
 test('TAC Ranking', () => {
-  let ranking, ret, ref, optionbak
+  let ranking, ret, ref
 
   /*
    * adjust options to fit typical TAC options
    */
-  optionbak = {
+  const optionbak = {
     byepointswon: Options.byepointswon,
     byepointslost: Options.byepointslost,
     maxpoints: Options.maxpoints

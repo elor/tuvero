@@ -43,8 +43,7 @@ class MatchResultController extends MatchController {
   }
 
   accept () {
-    let score
-    score = []
+        const score = []
     score.push(Number(this.$scores.eq(0).val()))
     score.push(Number(this.$scores.eq(1).val()))
     if (isNaN(score[0]) || isNaN(score[1])) {

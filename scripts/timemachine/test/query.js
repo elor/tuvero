@@ -27,7 +27,7 @@ try {
 }
 Query.source = localStorage
 test('Query', () => {
-  let query, key, key2, key3, key4, ref
+  let query, ref
   query = new Query(Query.ALLKEYS)
   expect(query, 'ALLKEYS construction successful').toBeTruthy()
   expect(Type.isArray(query.filter()), 'filter() result is an array').toBeTruthy()
@@ -42,12 +42,12 @@ test('Query', () => {
   })
   expect(query.filter(), 'ALL-query on cleared localStorage returns no results').toEqual([])
   ref = Presets.target + '_2016-02-12T12:10:11.591Z_2016-02-12T12:10:11.591Z'
-  key = KeyModel.fromString(ref)
-  key2 = KeyModel.createChild(key)
+  const key = KeyModel.fromString(ref)
+  const key2 = KeyModel.createChild(key)
   ref = Presets.target + '_2015-06-01T19:55:12.512Z_2015-06-01T19:55:12.512Z'
-  key3 = KeyModel.fromString(ref)
+  const key3 = KeyModel.fromString(ref)
   ref = Presets.target + '_2015-06-01T19:55:12.512Z_2345-10-01T20:55:12.512Z'
-  key4 = KeyModel.fromString(ref)
+  const key4 = KeyModel.fromString(ref)
   if (localStorage) {
     localStorage.setItem(key, 'test')
     localStorage.setItem(key2, 'test')

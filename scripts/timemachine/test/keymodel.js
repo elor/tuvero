@@ -12,7 +12,7 @@ import KeyModel from '../keymodel.js'
 import Model from '../../core/model.js'
 import Presets from 'presets'
 test('KeyModel', () => {
-  let key, key2, ref, date
+  let key, ref, date
   expect(KeyModel.prototype instanceof Model, 'KeyModel is subclass of Model').toBeTruthy()
 
   /*
@@ -40,7 +40,7 @@ test('KeyModel', () => {
    * save-keys
    */
 
-  key2 = KeyModel.createChild(key)
+  const key2 = KeyModel.createChild(key)
   expect(key2, 'reference initialization works (save-key)').toBeTruthy()
   expect(key2.toString(), 'save-key serialization works').toBeTruthy()
   expect(key2.startDate, 'save-key startDate is set').toBeTruthy()

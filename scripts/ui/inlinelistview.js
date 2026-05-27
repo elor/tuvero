@@ -19,7 +19,6 @@ import ListView from './listview.js'
  */
 class InlineListView extends ListView {
   static insertBeforeView = true
-
 }
 
 export default InlineListView

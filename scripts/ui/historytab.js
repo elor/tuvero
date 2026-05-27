@@ -33,8 +33,8 @@ class HistoryTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-    let $template, $container, value, fullwidth
-    fullwidth = new ValueModel()
+    let $container, value
+    const fullwidth = new ValueModel()
     fullwidth.dependencies = [State.tabOptions.showNames, State.tabOptions.showTeamName]
     fullwidth.onupdate = function () {
       this.set(this.dependencies.some(function (dep) {
@@ -48,7 +48,7 @@ class HistoryTab extends View {
 
     // tournamentlist
     $container = this.$view.find('.tournamentlist')
-    $template = $container.find('.tournament.template')
+    const $template = $container.find('.tournament.template')
     this.tournamentList = new ListView(State.tournaments, $container, $template, TournamentHistoryView, State.teams, State.teamsize, fullwidth)
 
     // HACK: close tournaments
@@ -161,8 +161,7 @@ class HistoryTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab
-  $tab = $('#tabs > [data-tab="history"]')
+    const $tab = $('#tabs > [data-tab="history"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new HistoryTab($tab)
   }

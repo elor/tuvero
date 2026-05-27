@@ -22,8 +22,7 @@ class TeamSizeView extends View {
    * when the new and old values match, i.e. there's no actual change
    */
   update () {
-    let teamsize
-    teamsize = this.model.get()
+        const teamsize = this.model.get()
     this.$buttons.removeClass('selected')
     this.$buttons.eq(teamsize - 1).addClass('selected')
   }

@@ -7,7 +7,6 @@ import MatrixModel from './matrixmodel.js'
  *          size of the matrix. defaults to 0
  */
 class TriangleMatrixModel extends MatrixModel {
-
   /**
    * get() function, which ignores super-diagonal elements
    *

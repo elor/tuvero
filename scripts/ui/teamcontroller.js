@@ -9,12 +9,12 @@ class TeamController extends RenameController {
   }
 
   getPlayer ($name) {
-    let index, $names
+    let $names
     $names = this.view.$view.find('.name')
     if ($names.length === 0) {
       $names = this.view.$view.filter('.name')
     }
-    index = $names.index($name)
+    const index = $names.index($name)
     return this.model.getPlayer(index)
   }
 
@@ -27,20 +27,18 @@ class TeamController extends RenameController {
   }
 
   getName () {
-    let nameModel
-    if (!this.$anchor) {
+        if (!this.$anchor) {
       return ''
     }
-    nameModel = this.getNameModel(this.$anchor)
+    const nameModel = this.getNameModel(this.$anchor)
     return nameModel.getName()
   }
 
   setName (name) {
-    let nameModel
-    if (!this.$anchor) {
+        if (!this.$anchor) {
       return false
     }
-    nameModel = this.getNameModel(this.$anchor)
+    const nameModel = this.getNameModel(this.$anchor)
     nameModel.setName(name)
     return true
   }

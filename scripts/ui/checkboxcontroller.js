@@ -16,11 +16,10 @@ import Controller from '../core/controller.js'
  */
 class CheckboxController extends Controller {
   constructor (view) {
-    let model, $checkbox, $parent
-    super(view)
-    model = this.model
-    $checkbox = this.view.$view
-    $parent = $checkbox.parent().filter('span')
+        super(view)
+    const model = this.model
+    const $checkbox = this.view.$view
+    const $parent = $checkbox.parent().filter('span')
     $parent.click(function (e) {
       if ($(e.target).prop('tagName') === 'SPAN') {
         $checkbox.click()
@@ -31,9 +30,8 @@ class CheckboxController extends Controller {
      * apply checkbox state to model state
      */
     $checkbox.change(function () {
-      let viewvalue, modelvalue
-      viewvalue = $checkbox.prop('checked')
-      modelvalue = model.get()
+            const viewvalue = $checkbox.prop('checked')
+      const modelvalue = model.get()
       if (viewvalue !== modelvalue) {
         model.set(viewvalue)
       }

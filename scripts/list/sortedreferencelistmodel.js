@@ -147,8 +147,7 @@ class SortedReferenceListModel extends ListModel {
    *         0 to list.length.
    */
   static findPosition (list, element, begin, end) {
-    let relation, mid
-    if (begin === undefined) {
+        if (begin === undefined) {
       begin = 0
     }
     if (end === undefined) {
@@ -157,8 +156,8 @@ class SortedReferenceListModel extends ListModel {
     if (begin === end) {
       return begin
     }
-    mid = begin + end >> 1
-    relation = list.sortFunction(list.get(mid), element)
+    const mid = begin + end >> 1
+    const relation = list.sortFunction(list.get(mid), element)
     if (relation > 0) {
       return SortedReferenceListModel.findPosition(list, element, begin, mid)
     }

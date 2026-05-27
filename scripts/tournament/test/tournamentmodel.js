@@ -11,20 +11,7 @@ import { test, expect } from 'vitest'
 import TournamentModel from '../tournamentmodel.js'
 import PropertyModel from '../../core/propertymodel.js'
 test('TournamentModel', () => {
-  let tournament,
-    state,
-    teams,
-    matches,
-    byes,
-    match,
-    ranking,
-    ref,
-    data,
-    //
-    history,
-    combinedHistory,
-    corrections,
-    result
+  let tournament, state, teams, matches, byes, match, ranking, ref, history, corrections, result
   expect(
     TournamentModel.prototype instanceof PropertyModel,
     'TournamentModel is subclass of PropertyModel'
@@ -35,7 +22,7 @@ test('TournamentModel', () => {
   teams = tournament.getTeams()
   matches = tournament.getMatches()
   history = tournament.getHistory()
-  combinedHistory = tournament.getCombinedHistory()
+  const combinedHistory = tournament.getCombinedHistory()
   corrections = tournament.getCorrections()
   byes = tournament.getVotes('bye')
   ranking = tournament.getRanking()
@@ -155,7 +142,7 @@ test('TournamentModel', () => {
   tournament.getMatches().get(0).finish([8, 13])
   tournament.run()
   tournament.setID(3)
-  data = tournament.save()
+  const data = tournament.save()
   expect(data, 'save() finishes').toBeTruthy()
   ref = tournament
   tournament = new TournamentModel()

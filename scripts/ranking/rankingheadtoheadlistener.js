@@ -22,10 +22,9 @@ class RankingHeadToHeadListener extends RankingDataListener {
    *         but stops its ranking just before the 'headtohead' component
    */
   createDummyRanking () {
-    let components, dummyRanking
-    components = this.ranking.componentnames.slice(0)
+        const components = this.ranking.componentnames.slice(0)
     components.splice(components.indexOf(RankingHeadToHeadComponent.NAME))
-    dummyRanking = new RankingModel(components, this.ranking.length)
+    const dummyRanking = new RankingModel(components, this.ranking.length)
     Object.keys(this.ranking.dataListeners).forEach(function (name) {
       if (dummyRanking[name]) {
         dummyRanking[name] = this.ranking[name]
@@ -80,10 +79,9 @@ class RankingHeadToHeadListener extends RankingDataListener {
    * equally-ranked teams
    */
   onrecalc () {
-    let dummyRanking, ranks, groups
-    dummyRanking = this.createDummyRanking()
-    ranks = dummyRanking.getNoRecalc()
-    groups = this.getGroups(ranks)
+        const dummyRanking = this.createDummyRanking()
+    const ranks = dummyRanking.getNoRecalc()
+    const groups = this.getGroups(ranks)
     this.calculatePoints(groups)
   }
 

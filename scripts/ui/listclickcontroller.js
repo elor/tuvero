@@ -35,8 +35,7 @@ import ValueModel from '../core/valuemodel.js'
  */
 class ListClickController extends Controller {
   constructor (view, callback, options) {
-    let listview, listmodel
-    super(view)
+        super(view)
     options = options || {}
     options.active = options.active || new ValueModel(true)
     options.callbackthis = options.callbackthis || window
@@ -46,8 +45,8 @@ class ListClickController extends Controller {
     } else {
       options.selector = options.selector || '>'
     }
-    listview = this.view
-    listmodel = this.model
+    const listview = this.view
+    const listmodel = this.model
 
     /**
      * handle the click action

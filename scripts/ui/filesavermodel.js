@@ -23,8 +23,8 @@ class FileSaverModel extends Model {
    * @return true on success, false otherwise
    */
   save () {
-    let commit, basename, filename, data, blob, saveState
-    commit = this.commit || TimeMachine.commit.get()
+    let blob, saveState
+    const commit = this.commit || TimeMachine.commit.get()
     if (!commit) {
       console.error('FileSaver: There is no commit to save')
       return false
@@ -33,9 +33,9 @@ class FileSaverModel extends Model {
       console.error('FileSaver: The commit is not valid')
       return false
     }
-    basename = commit.getTreeName() || Presets.target
-    filename = basename.replace(/(\.json)+$/, '').substr(0, 64) + '.json'
-    data = commit.load()
+    const basename = commit.getTreeName() || Presets.target
+    const filename = basename.replace(/(\.json)+$/, '').substr(0, 64) + '.json'
+    const data = commit.load()
     if (!data) {
       console.error('FileSaver: commit contains no data')
       return false

@@ -12,9 +12,8 @@ class TournamentViewPopulator {
   constructor ($templatesArray, tournaments) {
     const $templates = {}
     $templatesArray.each(function () {
-      let $template, type
-      $template = $(this)
-      type = $template.attr('data-system')
+            const $template = $(this)
+      const type = $template.attr('data-system')
       $templates[type] = $template
     })
     this.$templates = $templates
@@ -54,8 +53,7 @@ class TournamentViewPopulator {
    *          an empty container for the actual view
    */
   populate (tournament, $view) {
-    let type
-    type = tournament && tournament.SYSTEM
+        const type = tournament && tournament.SYSTEM
     if (this.$templates[type] === undefined) {
       console.error('system template has not been loaded: ' + type)
     } else {

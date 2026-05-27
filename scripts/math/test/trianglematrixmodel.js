@@ -15,12 +15,11 @@ import MatrixModel from '../matrixmodel.js'
 import TriangleMatrixModel from '../trianglematrixmodel.js'
 test('TriangleMatrixModel', () => {
   // constructor validation
-  let a
-  expect(
+    expect(
     TriangleMatrixModel.prototype instanceof MatrixModel,
     'TriangleMatrixModel is subclass of MatrixModel'
   ).toBeTruthy()
-  a = new TriangleMatrixModel(5)
+  const a = new TriangleMatrixModel(5)
   expect(a.length, 'length at initialization is accepted').toBe(5)
   expect(
     a.set(0, 4, 5),

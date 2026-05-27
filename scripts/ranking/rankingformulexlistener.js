@@ -5,12 +5,12 @@ function winscore (round) {
   return (Math.floor(round / 4) + 1) * Options.formulexpoints
 }
 function formulePoints (score, round) {
-  let winner, points, difference
+  let winner
   if (score.length !== 2) {
     throw new Error('FormuleX ranking requires exactly two teams per match')
   }
-  points = score.slice()
-  difference = Math.abs(score[0] - score[1])
+  const points = score.slice()
+  const difference = Math.abs(score[0] - score[1])
   if (difference) {
     winner = Number(score[1] > score[0])
     points[winner] += winscore(round) + difference

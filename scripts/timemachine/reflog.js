@@ -2,7 +2,6 @@ import Model from '../core/model.js'
 import Presets from 'presets'
 import Listener from '../core/listener.js'
 import KeyModel from './keymodel.js'
-let RefLog
 
 /**
  * Constructor of the singleton. Don't expose.
@@ -62,12 +61,11 @@ class RefLogModel extends Model {
    * currently opened tournament, not others.
    */
   store () {
-    let dataString
-    if (!this.isValid()) {
+        if (!this.isValid()) {
       this.emit('error', 'RefLogModel: this.data is not valid!')
       return false
     }
-    dataString = JSON.stringify(this.data)
+    const dataString = JSON.stringify(this.data)
     if (window.localStorage) {
       window.localStorage[this.storageKey] = dataString
       return window.localStorage[this.storageKey] === dataString
@@ -95,19 +93,18 @@ class RefLogModel extends Model {
    * @return the new key. Returns undefined on error.
    */
   newSaveKey (parentKey) {
-    let newKey, startDate, refDate, saveDate
-    if (!parentKey) {
+        if (!parentKey) {
       this.emit('error', 'newSaveKey: no parent key given')
       return undefined
     }
-    newKey = KeyModel.createChild(parentKey)
+    const newKey = KeyModel.createChild(parentKey)
     if (!parentKey.isRelated(newKey)) {
       this.emit('error', 'unexpected error: newKey is unrelated to parentKey')
       return undefined
     }
-    startDate = parentKey.startDate
-    refDate = parentKey.saveDate
-    saveDate = newKey.saveDate
+    const startDate = parentKey.startDate
+    const refDate = parentKey.saveDate
+    const saveDate = newKey.saveDate
     if (!this.contains(parentKey)) {
       this.emit('error', 'newSaveKey(): parentKey is not in reflog!')
       return undefined
@@ -121,13 +118,13 @@ class RefLogModel extends Model {
    * @return a new root key which hasn't been in the reflog before
    */
   newInitKey (name) {
-    let newKey
-
+    
     /*
      * Creating keys within milliseconds of another can cause rootkey collision
      *
      * Reading the reflog takes care of that.
      */
+    let newKey
     do {
       newKey = KeyModel.createRoot()
     } while (this.contains(newKey))
@@ -274,8 +271,7 @@ class RefLogModel extends Model {
    * @return an array of all keys in the reflog.
    */
   getAllKeys () {
-    let keys
-    keys = this.getInitKeys()
+        const keys = this.getInitKeys()
     this.listStartDates().forEach(function (startDate) {
       this.listSaveDates(startDate).forEach(function (saveDate) {
         keys.push(new KeyModel(startDate, saveDate))
@@ -298,8 +294,7 @@ class RefLogModel extends Model {
    *         latest save state
    */
   getLatestGlobalKey () {
-    let latestKey
-    latestKey = this.listStartDates().map(function (startDate) {
+        const latestKey = this.listStartDates().map(function (startDate) {
       const saveDate = this.listSaveDates(startDate).sort().pop() || startDate
       return new KeyModel(startDate, saveDate)
     }, this).sort(KeyModel.sortFunction).pop()
@@ -316,12 +311,12 @@ class RefLogModel extends Model {
    * @return the youngest key in the whole tree
    */
   getLatestRelatedKey (refKey) {
-    let startDate, saveDate, rootKey
+    let rootKey
     if (!KeyModel.isValidKey(refKey)) {
       this.emit('error', 'getLatestRelatedKey(): refKey is invalid')
       return undefined
     }
-    startDate = refKey.startDate
+    const startDate = refKey.startDate
     if (!this.contains(refKey)) {
       rootKey = new KeyModel(startDate, startDate)
       if (!this.contains(rootKey)) {
@@ -329,7 +324,7 @@ class RefLogModel extends Model {
         return undefined
       }
     }
-    saveDate = this.listSaveDates(startDate).sort().pop() || startDate
+    const saveDate = this.listSaveDates(startDate).sort().pop() || startDate
     return new KeyModel(startDate, saveDate)
   }
 
@@ -376,8 +371,7 @@ class RefLogModel extends Model {
    *          save key. root keys cannot be deleted.
    */
   deleteKey (refKey) {
-    let parentKey, children
-    if (refKey.isRoot()) {
+        if (refKey.isRoot()) {
       this.emit('error', 'cannot delete a single init key. ' + 'use deleteTree() instead')
       return
     }
@@ -385,12 +379,12 @@ class RefLogModel extends Model {
       // this.emit('error', 'deleteKey(): refKey is not in reflog!');
       return
     }
-    parentKey = this.getParent(refKey)
+    const parentKey = this.getParent(refKey)
     if (!parentKey) {
       this.emit('error', 'deleteKey(): parent key is not in reflog!')
       return
     }
-    children = this.getChildren(refKey)
+    const children = this.getChildren(refKey)
     if (children === undefined) {
       this.emit('error', 'deleteKey(): Children cannot be extracted!')
       return
@@ -432,5 +426,5 @@ RefLogModel.prototype.EVENTS = {
  * RefLog is a singleton. Since we're dealing with localStorage, it wouldn't
  * make sense to use multiple of them, anyway
  */
-RefLog = new RefLogModel()
+const RefLog = new RefLogModel()
 export default RefLog

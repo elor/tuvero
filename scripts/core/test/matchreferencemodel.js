@@ -13,8 +13,8 @@ import '../matchresult.js'
 import MatchReferenceModel from '../matchreferencemodel.js'
 import ListModel from '../../list/listmodel.js'
 test('MatchReferenceModel', () => {
-  let game, gameref, teamlist, listener
-  teamlist = new ListModel()
+  let game, gameref
+  const teamlist = new ListModel()
   teamlist.push(5)
   teamlist.push(7)
   teamlist.push(3)
@@ -42,7 +42,7 @@ test('MatchReferenceModel', () => {
   expect(gameref.getTeamID(1), 'teamlist changes have no impact').toBe(3)
   expect(gameref.getTeamID(2), 'teamlist changes have no impact').toBe(7)
   expect(gameref.getTeamID(3), 'teamlist changes have no impact').toBe(5)
-  listener = {
+  const listener = {
     finished: false,
     onfinish: function () {
       this.finished = true

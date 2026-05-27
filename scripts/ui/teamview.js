@@ -13,7 +13,7 @@ class TeamView extends View {
   }
 
   update () {
-    let $names, i, $name, $teamno, player, $rankingpoints, $teamname
+    let $names, i, $name, $teamno, player, $teamname
     $teamno = this.$view.find('.teamno')
     if ($teamno.length === 0) {
       $teamno = this.$view.filter('.teamno')
@@ -24,7 +24,7 @@ class TeamView extends View {
       $teamname = this.$view.filter('.teamname')
     }
     $teamname.text(this.model.getName())
-    $rankingpoints = this.$view.find('.rankingpoints')
+    const $rankingpoints = this.$view.find('.rankingpoints')
     $rankingpoints.text(this.model.rankingpoints)
     $names = this.$view.find('.name')
     if ($names.length === 0) {

@@ -1,8 +1,7 @@
 import View from '../core/view.js'
 import ProgressTableView from './progresstableview.js'
 import KOHistoryView from './kohistoryview.js'
-let types
-types = {
+const types = {
   swiss: {
     constructor: ProgressTableView,
     selector: '.progresstable',
@@ -43,10 +42,10 @@ types = {
  */
 class GenericTournamentHistoryView extends View {
   constructor (tournament, $view, groups, teamlist, teamsize, fullwidth) {
-    let Constructor, $subview, type
+    let Constructor, $subview
     super(undefined, $view)
     this.tournament = tournament
-    type = types[tournament.SYSTEM]
+    const type = types[tournament.SYSTEM]
     if (tournament && type) {
       $subview = this.$view.find(type.selector)
       $subview.removeClass('hidden')

@@ -9,8 +9,7 @@
  * @see LICENSE
  */
 import OptionsTemplate from '../../scripts/ui/optionstemplate.js'
-let Default
-Default = {
+const Default = {
   // must stay the same across this save, hence OptionsTemplate, not Presets
   minpoints: 0,
   maxpoints: 15,

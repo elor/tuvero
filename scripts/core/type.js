@@ -11,7 +11,6 @@
  * @see LICENSE
  */
 
-let types
 
 /**
  * helper function to capitalize a string
@@ -27,7 +26,7 @@ function capitalize (str) {
 function getFunctionName (func) {
   return func.toString().replace(/\s+/g, ' ').replace(/^\s*function ([A-Za-z]+)\(.*$/, '$1').toLowerCase()
 }
-types = [1, {}, '', undefined, null, new Date(), [], /asd/, true,
+const types = [1, {}, '', undefined, null, new Date(), [], /asd/, true,
 /**
  * anonymous reference function
  */

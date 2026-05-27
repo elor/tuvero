@@ -15,18 +15,18 @@ import '../../core/matchresult.js'
 import MatchReferenceModel from '../../core/matchreferencemodel.js'
 import ReferenceListModel from '../referencelistmodel.js'
 test('ReferenceListModel', () => {
-  let teams, matches, refs, listener, matchref
-  teams = new ListModel()
+  let listener, matchref
+  const teams = new ListModel()
   teams.push(5)
   teams.push(4)
   teams.push(3)
   teams.push(2)
   teams.push(1)
   teams.push(0)
-  matches = new ListModel()
+  const matches = new ListModel()
   matches.push(new MatchModel([1, 2], 0, 0))
   matches.push(new MatchModel([0, 5], 1, 0))
-  refs = new ReferenceListModel(matches, teams, MatchReferenceModel)
+  const refs = new ReferenceListModel(matches, teams, MatchReferenceModel)
   expect(refs.length, 'number of teams match after initialization').toBe(matches.length)
   listener = new Listener(refs)
   listener.success = false

@@ -29,7 +29,7 @@ class TeamViewTab extends View {
   }
 
   init () {
-    let $container, $template
+    let $container
     $container = this.$view.find('.hasteam')
     this.hasnoteam = new ClassView(State.focusedteam, $container, undefined, 'hidden')
     $container = this.$view.find('.hasnoteam')
@@ -41,7 +41,7 @@ class TeamViewTab extends View {
     // hide when registration is closed
     this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments), $container, 'hidden')
     $container = this.$view.find('.playersettings')
-    $template = $container.find('.template')
+    const $template = $container.find('.template')
     this.playerlistview = new ListView(this.players, $container, $template, PlayerSettingsView, this)
     this.update()
   }
@@ -80,8 +80,7 @@ class TeamViewTab extends View {
 }
 
 $(function ($) {
-  let $tab
-  $tab = $('#tabs > [data-tab="team"]')
+    const $tab = $('#tabs > [data-tab="team"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new TeamViewTab($tab)
   }

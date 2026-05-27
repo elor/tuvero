@@ -22,7 +22,6 @@ import CorrectionReferenceModel from '../core/correctionreferencemodel.js'
 import SortedReferenceListModel from '../list/sortedreferencelistmodel.js'
 import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js'
 import ByeResult from '../core/byeresult.js'
-let STATETRANSITIONS, INITIALSTATE
 
 /*
  * STATES lists the possible states.The following states are possible:
@@ -43,13 +42,13 @@ let STATETRANSITIONS, INITIALSTATE
  * state.
  *
  */
-STATETRANSITIONS = {
+const STATETRANSITIONS = {
   initial: ['running'],
   running: ['idle', 'finished'],
   idle: ['running', 'finished'],
   finished: []
 }
-INITIALSTATE = 'initial'
+const INITIALSTATE = 'initial'
 
 /**
  * Constructor
@@ -59,8 +58,7 @@ INITIALSTATE = 'initial'
  */
 class TournamentModel extends PropertyModel {
   constructor (rankingorder) {
-    let collector
-    super()
+        super()
     IndexedModel.prototype.setID.call(this, undefined)
 
     // TODO initialize with properties
@@ -86,7 +84,7 @@ class TournamentModel extends PropertyModel {
     this.setProperty('addteamidle', false)
 
     // listen to the matches
-    collector = new ListCollectorModel(this.matches, MatchModel)
+    const collector = new ListCollectorModel(this.matches, MatchModel)
     collector.registerListener(this)
 
     // print error messages to the output
@@ -136,8 +134,7 @@ class TournamentModel extends PropertyModel {
   }
 
   verifyRanking () {
-    let rankingcopy
-    rankingcopy = new RankingModel()
+        const rankingcopy = new RankingModel()
     rankingcopy.clone(this.ranking)
     rankingcopy.recalculate(this.history, this.totalvotes)
     return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get())
@@ -183,8 +180,8 @@ class TournamentModel extends PropertyModel {
   }
 
   removeTeam (externalTeamID) {
-    let mapID, toRemove
-    mapID = this.teams.indexOf(externalTeamID)
+    let toRemove
+    const mapID = this.teams.indexOf(externalTeamID)
     if (mapID === -1) {
       return
     }
@@ -199,12 +196,11 @@ class TournamentModel extends PropertyModel {
       return val
     })
     toRemove.reverse().forEach(function (values) {
-      let index, match, matchID, groupID, opponent
-      index = values[0]
-      match = values[1]
-      groupID = match.getGroup()
-      matchID = match.getID()
-      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
+            const index = values[0]
+      const match = values[1]
+      const groupID = match.getGroup()
+      const matchID = match.getID()
+      const opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
       this.matches.remove(index)
       if (opponent !== mapID) {
         this.addBye(opponent, matchID, groupID)
@@ -221,12 +217,11 @@ class TournamentModel extends PropertyModel {
       return val
     })
     toRemove.reverse().forEach(function (values) {
-      let index, match, matchID, groupID, opponent
-      index = values[0]
-      match = values[1]
-      groupID = match.getGroup()
-      matchID = match.getID()
-      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
+            const index = values[0]
+      const match = values[1]
+      const groupID = match.getGroup()
+      const matchID = match.getID()
+      const opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
       this.history.remove(index)
       if (opponent !== mapID) {
         this.addBye(opponent, matchID, groupID)
@@ -471,8 +466,7 @@ class TournamentModel extends PropertyModel {
    *          instance
    */
   onfinish (emitter, event, matchresult) {
-    let match
-    match = matchresult.source
+        const match = matchresult.source
     if (this.matches.indexOf(match) === -1) {
       this.emit('error', 'onfinish: match is not open anymore or does not exist')
       return
@@ -501,8 +495,7 @@ class TournamentModel extends PropertyModel {
    * @return true if the result is valid, false otherwise
    */
   validateMatchResult (matchresult) {
-    let valid
-    valid = matchresult.score.every(function (score) {
+        const valid = matchresult.score.every(function (score) {
       return score >= Options.minpoints && score <= Options.maxpoints
     })
     return valid
@@ -619,7 +612,7 @@ class TournamentModel extends PropertyModel {
    * @return true on success, false otherwise
    */
   correct (result, newScore) {
-    let index, correction, newResult, baseResult
+    let baseResult
     baseResult = result
     while (baseResult.result !== undefined) {
       if (baseResult.hasReversedTeams) {
@@ -627,17 +620,17 @@ class TournamentModel extends PropertyModel {
       }
       baseResult = baseResult.result
     }
-    index = this.history.indexOf(baseResult)
+    const index = this.history.indexOf(baseResult)
     if (index === -1) {
       this.emit('error', 'correct(): result does not exist in history')
       return false
     }
-    newResult = new MatchResult(baseResult, newScore)
+    const newResult = new MatchResult(baseResult, newScore)
     if (!this.validateMatchResult(newResult)) {
       this.emit('error', 'correction has invalid score')
       return false
     }
-    correction = new CorrectionModel(baseResult, newResult)
+    const correction = new CorrectionModel(baseResult, newResult)
     if (!this.validateCorrection(correction)) {
       this.emit('error', 'correction is invalid, although the score is fine')
       return false
@@ -750,8 +743,7 @@ class TournamentModel extends PropertyModel {
    * @return a dictionary of vote lists
    */
   static initVoteLists (types) {
-    let votes
-    votes = {}
+        const votes = {}
     types.forEach(function (type) {
       votes[type] = new ListModel()
     })

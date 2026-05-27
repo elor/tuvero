@@ -19,8 +19,7 @@ class TimeMachineNewTreeController extends Controller {
    * @return true. always.
    */
   create () {
-    let name
-    name = this.$input.val()
+        const name = this.$input.val()
     if (!name) {
       this.$input.focus()
       return

@@ -25,22 +25,20 @@ class SettingsTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-    let $container
-    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
+        this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
 
     /*
      * CSV buttons
      */
-    $container = this.$view.find('.csv')
+    const $container = this.$view.find('.csv')
     this.csvExportController = new CSVExportController(new View(undefined, $container))
   }
 }
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab
-  $tab = $('#tabs > [data-tab="settings"]')
+    const $tab = $('#tabs > [data-tab="settings"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new SettingsTab($tab)
   }

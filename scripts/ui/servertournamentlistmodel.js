@@ -16,8 +16,8 @@ class ServerTournamentListModel extends ListModel {
     this.clear()
     if (data.logged_in) {
       Object.keys(data.tournaments).forEach(function (tournamentID) {
-        let tournament, tournamentData
-        tournamentData = data.tournaments[tournamentID]
+        let tournament
+        const tournamentData = data.tournaments[tournamentID]
         if (tournamentData.target === Presets.target) {
           tournament = new ServerTournamentModel(this.server, tournamentData)
           this.push(tournament)

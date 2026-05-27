@@ -21,8 +21,8 @@ import SystemTableRowView from './systemtablerowview.js'
  */
 class SystemListView extends ListView {
   constructor (teams, $view, tournaments, teamsize, tournamentViewFactory) {
-    let orderList, updateTimeout
-    orderList = new OrderListModel()
+    let updateTimeout
+    const orderList = new OrderListModel()
     super(
       orderList,
       $view,

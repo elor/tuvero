@@ -107,13 +107,12 @@ class MatchModel extends IndexedModel {
    *         otherwise
    */
   finish (points) {
-    let result
-    if (!points || points.length !== this.length) {
+        if (!points || points.length !== this.length) {
       console.error("MatchModel.finish(): lengths don't match")
       return undefined
     }
 
-    result = new _MatchResult(this, points)
+    const result = new _MatchResult(this, points)
     this.emit('finish', result)
     return result
   }

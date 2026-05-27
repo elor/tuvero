@@ -11,12 +11,11 @@ import { test, expect } from 'vitest'
 import ListModel from '../listmodel.js'
 import UniqueListModel from '../../core/uniquelistmodel.js'
 test('UniqueListModel', () => {
-  let list
-  expect(
+    expect(
     UniqueListModel.prototype instanceof ListModel,
     'UniqueListModel is subclass of ListModel'
   ).toBeTruthy()
-  list = new UniqueListModel()
+  const list = new UniqueListModel()
   expect(list.push(1), 'push works').toBe(1)
   expect(list.push(2), 'push works').toBe(2)
   expect(list.push(1), 'push aborts').toBe(undefined)

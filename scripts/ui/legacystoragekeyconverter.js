@@ -15,20 +15,18 @@ const keyRegex = new RegExp('^' + Presets.target + 's?tournament$')
  * Constructor. Does nothing.
  */
 class LegacyStorageKeyConverter {
-
-
   /**
    * Find all legacy keys in the local storage for the current target and
    * convert them.
    */
   convertAll () {
-    let allKeys, legacyKeys
+    let allKeys
     if (window.localStorage) {
       allKeys = Object.keys(window.localStorage)
     } else {
       allKeys = []
     }
-    legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex))
+    const legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex))
     legacyKeys.forEach(this.convert.bind(this))
   }
 
@@ -41,19 +39,18 @@ class LegacyStorageKeyConverter {
    * @return true on success, false otherwise
    */
   convert (legacyKey) {
-    let storedString, commit
-    if (!legacyKey) {
+        if (!legacyKey) {
       return true
     }
     if (!window.localStorage) {
       return false
     }
-    storedString = window.localStorage[legacyKey]
+    const storedString = window.localStorage[legacyKey]
     if (!storedString) {
       window.localStorage.removeItem(legacyKey)
       return true
     }
-    commit = CommitModel.createRoot(storedString, 'imported_' + legacyKey)
+    const commit = CommitModel.createRoot(storedString, 'imported_' + legacyKey)
     if (commit && commit.isValid()) {
       window.localStorage.removeItem(legacyKey)
       return true

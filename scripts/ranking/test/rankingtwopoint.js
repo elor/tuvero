@@ -13,8 +13,8 @@ import MatchResult from '../../core/matchresult.js'
 import MatchModel from '../../core/matchmodel.js'
 import CorrectionModel from '../../core/correctionmodel.js'
 test('TwoPoint Ranking', () => {
-  let ranking, ret, ref
-  ranking = new RankingModel(['twopoint', 'wins', 'points'], 5)
+  let ret, ref
+  const ranking = new RankingModel(['twopoint', 'wins', 'points'], 5)
   expect(
     ranking.dataListeners.twopoint.isPrimary(),
     'twopoint is a primary dataListener'

@@ -8,7 +8,6 @@ import TeamModel from './teammodel.js'
 import Presets from 'presets'
 
 class TeamsFileLoadController extends FileLoadController {
-
   unreadFile () {}
 
   static guessCSVType (teams) {
@@ -31,14 +30,13 @@ class TeamsFileLoadController extends FileLoadController {
      * @returns {number} the team size, or 0 on failure.
      */
   static guessCSVTeamsize (teams) {
-    let teamsizes, teamsize
-    if (teams.length === 0) {
+        if (teams.length === 0) {
       return 0
     }
-    teamsizes = teams.map(function (team) {
+    const teamsizes = teams.map(function (team) {
       return team.length
     })
-    teamsize = teamsizes[0]
+    const teamsize = teamsizes[0]
     if (teamsizes.some(function (size) {
       return size !== teamsize
     })) {
@@ -54,13 +52,12 @@ class TeamsFileLoadController extends FileLoadController {
      * @returns {boolean} true on success, false otherwise
      */
   static load (input) {
-    let teams, teamsize
-    input = io.utf8.latin2utf8(input)
+        input = io.utf8.latin2utf8(input)
     if (State.teams.length !== 0) {
       Toast.once(Strings.teamsnotempty)
       return false
     }
-    teams = TeamsFileLoadController.loadDPV(input)
+    let teams = TeamsFileLoadController.loadDPV(input)
     if (!teams) {
       teams = TeamsFileLoadController.loadCSV(input)
     }
@@ -68,7 +65,7 @@ class TeamsFileLoadController extends FileLoadController {
       Toast.once(Strings.invalidfileformat)
       return false
     }
-    teamsize = teamsizeFromTeams(teams)
+    const teamsize = teamsizeFromTeams(teams)
     State.teamsize.set(teamsize)
     teams.forEach(function (team) {
       State.teams.push(team)
@@ -78,9 +75,8 @@ class TeamsFileLoadController extends FileLoadController {
   }
 
   static loadCSV (input) {
-    let teams, type
-    teams = TeamsFileLoadController.parseCSVString(input)
-    type = TeamsFileLoadController.guessCSVType(teams)
+        const teams = TeamsFileLoadController.parseCSVString(input)
+    const type = TeamsFileLoadController.guessCSVType(teams)
     switch (type) {
       case 'tuvero_teams_export':
         return TeamsFileLoadController.loadTuveroTeamExport(teams)
@@ -94,24 +90,23 @@ class TeamsFileLoadController extends FileLoadController {
   }
 
   static loadTuveroTeamExport (teams) {
-    let teamsize, header, hasTeamNumber
-    header = teams.shift()
-    hasTeamNumber = header[0] === 'No.'
-    teamsize = TeamsFileLoadController.guessCSVTeamsize(teams)
+        const header = teams.shift()
+    const hasTeamNumber = header[0] === 'No.'
+    let teamsize = TeamsFileLoadController.guessCSVTeamsize(teams)
     if (hasTeamNumber) {
       teamsize -= 1
     }
     if (teamsize >= Presets.registration.minteamsize && teamsize <= Presets.registration.maxteamsize) {
       // create TeamModels
       return teams.map(function (names) {
-        let teamNumber, team
+        let teamNumber
         if (hasTeamNumber) {
           teamNumber = names.shift()
         }
         const players = names.map(function (name) {
           return new PlayerModel(name)
         })
-        team = new TeamModel(players)
+        const team = new TeamModel(players)
         if (hasTeamNumber) {
           TeamModel.number = teamNumber
         }
@@ -142,9 +137,8 @@ class TeamsFileLoadController extends FileLoadController {
   }
 
   static loadDPV (input) {
-    let teams
-    try {
-      teams = TeamsFileLoadController.parseDPVString(input)
+        try {
+      const teams = TeamsFileLoadController.parseDPVString(input)
       if (teams.length > 0) {
         return teams.map(dpv2team)
       }
@@ -158,9 +152,8 @@ class TeamsFileLoadController extends FileLoadController {
 
 TeamsFileLoadController.prototype.readFile = TeamsFileLoadController.load
 function dpv2player (dpv) {
-  let name, player
-  name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr
-  player = new PlayerModel(name)
+    const name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr
+  const player = new PlayerModel(name)
   player.club = dpv.Verein
   player.license = dpv.LizNr
   player.firstname = dpv.Vorname

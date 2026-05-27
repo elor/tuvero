@@ -11,8 +11,8 @@ import { test, expect } from 'vitest'
 import ListModel from '../listmodel.js'
 import ReadonlyListModel from '../readonlylistmodel.js'
 test('ReadonlyListModel', () => {
-  let list, obj, i, ret, res, listener, rolist
-  listener = {
+  let i
+  const listener = {
     reset: function () {
       listener.length = 0
       listener.insertions = 0
@@ -30,8 +30,8 @@ test('ReadonlyListModel', () => {
     emitters: []
   }
   listener.reset()
-  list = new ListModel()
-  rolist = new ReadonlyListModel(list)
+  const list = new ListModel()
+  const rolist = new ReadonlyListModel(list)
   rolist.registerListener(listener)
   expect(rolist.push, 'ReadOnlyList.push: undefined').toBe(undefined)
   expect(rolist.pop, 'ReadOnlyList.pop: undefined').toBe(undefined)
@@ -112,7 +112,7 @@ test('ReadonlyListModel', () => {
   list.push(2)
   list.push(1)
   i = 0
-  ret = rolist.map(function (num, index, thelist) {
+  const ret = rolist.map(function (num, index, thelist) {
     expect(this, 'map(): this === thisArg, ' + index).toBe(5)
     expect(index, 'map(): iterating in ascending order, ' + index).toBe(i)
     expect(num, 'first argument is the list content' + index).toBe(rolist.length - index)
@@ -120,12 +120,12 @@ test('ReadonlyListModel', () => {
     i += 1
     return num * num
   }, 5)
-  res = [16, 9, 4, 1]
+  const res = [16, 9, 4, 1]
   expect(ret, 'map(): return value is preserved').toEqual(res)
   list.clear()
   expect(rolist.length, 'cleared size is 0').toBe(0)
   expect(rolist.asArray(), 'asArray returns empty array after clear').toEqual([])
-  obj = {
+  const obj = {
     tmp: true,
     tmpLong: 'very much so'
   }

@@ -1,10 +1,9 @@
 import RankingDataListener from './rankingdatalistener.js'
 import VectorModel from '../math/vectormodel.js'
 import Options from 'options'
-let winscore
 
 // FIXME extract "12" to the config.in
-winscore = 12
+const winscore = 12
 function sign (num) {
   if (num < 0) {
     return -1

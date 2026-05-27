@@ -110,7 +110,7 @@ RLE.encode = function (array) {
  *         failure
  */
 RLE.decode = function (blob) {
-  let array, nesting, i, num, char, isnull, nullsleft, newarray
+  let array, i, num, char, isnull, nullsleft, newarray
   if (Type(blob) !== 'string') {
     console.error('RLE.decode: input is no string, but of type "' + Type(blob) + "'")
     return undefined
@@ -118,7 +118,7 @@ RLE.decode = function (blob) {
   if (blob.length === 0) {
     return []
   }
-  nesting = []
+  const nesting = []
   num = ''
   array = undefined
   isnull = false

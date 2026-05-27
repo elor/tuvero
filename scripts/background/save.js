@@ -13,8 +13,7 @@ import Strings from '../ui/strings.js'
 let Save
 $(function ($) {
   $('#tabs').on('click', 'button.save', function () {
-    let fileSaver
-    fileSaver = new FileSaverModel()
+        const fileSaver = new FileSaverModel()
     if (!fileSaver.save()) {
       Toast.once(Strings.savefailed)
     }

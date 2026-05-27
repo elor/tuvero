@@ -18,9 +18,8 @@ class ClosedTournamentCollapseListener extends Listener {
    *          the tournament id
    */
   collapse (tournamentID) {
-    let tournamentView, boxView
-    tournamentView = this.tournamentlistview.getSubview(tournamentID)
-    boxView = tournamentView.boxview
+        const tournamentView = this.tournamentlistview.getSubview(tournamentID)
+    const boxView = tournamentView.boxview
     if (!boxView.$view.hasClass('collapsed')) {
       boxView.model.emit('toggle')
     }

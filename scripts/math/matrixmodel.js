@@ -215,9 +215,8 @@ class MatrixModel extends Model {
    * @return a serializable data object
    */
   save () {
-    let data, mat
-    data = super.save()
-    mat = this.data.map(function (row) {
+        const data = super.save()
+    const mat = this.data.map(function (row) {
       return row.map(function (cell) {
         return cell || 0
       })
@@ -228,12 +227,11 @@ class MatrixModel extends Model {
   }
 
   restore (data) {
-    let mat
-    if (!super.restore(data)) {
+        if (!super.restore(data)) {
       return false
     }
     this.resize(0)
-    mat = RLE.decode(data.mat)
+    const mat = RLE.decode(data.mat)
     mat.forEach(function (row, rowindex) {
       this.data[rowindex] = row.slice()
     }, this)

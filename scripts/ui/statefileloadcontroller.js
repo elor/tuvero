@@ -11,7 +11,6 @@ import Strings from './strings.js'
  *          the file load button
  */
 class StateFileLoadController extends FileLoadController {
-
   /**
    * load the file as json or teams-csv.
    *

@@ -63,14 +63,13 @@ const allListeners = [
   RankingPouleRankListener
 ]
 
-let RankingDataListenerIndex
 
 /**
  * build the index from the RankingXXXListener.NAME fields
  */
-RankingDataListenerIndex = (function (DataListeners) {
-  let RDLI, index, DataListener
-  RDLI = {}
+const RankingDataListenerIndex = (function (DataListeners) {
+  let index, DataListener
+  const RDLI = {}
   for (index = 0; index < DataListeners.length; index += 1) {
     DataListener = DataListeners[index]
     RDLI[DataListener.NAME.toLowerCase()] = DataListener
@@ -177,8 +176,7 @@ function removeMultipleDependencies (dependencies) {
    * @return true of an element has been moved, false otherwise
    */
 function orderDependenciesOnce (input, output) {
-  let added
-  added = [] // array of indices
+    const added = [] // array of indices
 
   // transfer every name whose dependencies have been fulfilled
   input.forEach(function (name, index) {
@@ -206,8 +204,7 @@ function orderDependenciesOnce (input, output) {
    * @return false on failure, true on success
    */
 function orderDependencies (names) {
-  let input
-  input = names.splice(0).reverse()
+    const input = names.splice(0).reverse()
   addMissingDependencies(input)
   removeMultipleDependencies(input)
 
@@ -254,14 +251,13 @@ function extractUndefinedNames (names) {
    *         otherwise
    */
 RankingDataListenerIndex.registerDataListeners = function (ranking, names) {
-  let DataListeners
-  if (!names) {
+    if (!names) {
     return undefined
   }
   if (!orderDependencies(names)) {
     return undefined
   }
-  DataListeners = names.map(function (name) {
+  const DataListeners = names.map(function (name) {
     return getDataListener(name)
   })
   if (DataListeners.indexOf(undefined) >= 0) {

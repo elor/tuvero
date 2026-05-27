@@ -12,19 +12,19 @@ import Listener from '../../core/listener.js'
 import ListModel from '../listmodel.js'
 import MapListModel from '../maplistmodel.js'
 test('MapListModel', () => {
-  let teams, refs, listener, indices
-  teams = new ListModel()
+  let listener
+  const teams = new ListModel()
   teams.push(5)
   teams.push(4)
   teams.push(3)
   teams.push(2)
   teams.push(1)
   teams.push(0)
-  indices = new ListModel()
+  const indices = new ListModel()
   indices.push(1)
   indices.push(3)
   indices.push(5)
-  refs = new MapListModel(indices, teams)
+  const refs = new MapListModel(indices, teams)
   expect(refs.length, 'number of teams match after initialization').toBe(indices.length)
   expect(refs.asArray(), 'ids get translated').toEqual([4, 2, 0])
   listener = new Listener(refs)

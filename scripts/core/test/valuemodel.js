@@ -10,8 +10,8 @@ import { test, expect } from 'vitest'
 
 import ValueModel from '../valuemodel.js'
 test('ValueModel', () => {
-  let model, listener, obj, model2
-  listener = {
+  let model, obj
+  const listener = {
     lastdata: undefined,
     updatecount: 0,
     onupdate: function (emitter, event, data) {
@@ -39,7 +39,7 @@ test('ValueModel', () => {
   obj = {}
   model.set(obj)
   expect(model.get(), 'set(): objects are referenced directly').toBe(obj)
-  model2 = new ValueModel()
+  const model2 = new ValueModel()
   model = new ValueModel()
   model.bind(model2)
   model2.set(5)

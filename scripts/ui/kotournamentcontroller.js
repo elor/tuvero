@@ -18,12 +18,11 @@ import Listener from '../core/listener.js'
  */
 class KOTournamentController extends Controller {
   constructor (view) {
-    let $mode, tournament, initialByes
-    super(view)
-    tournament = this.model.tournament
-    initialByes = this.model.initialByes
+        super(view)
+    const tournament = this.model.tournament
+    const initialByes = this.model.initialByes
     this.$options = this.view.$view.find('.tournamentoptions')
-    $mode = this.$options.find('select.mode')
+    const $mode = this.$options.find('select.mode')
     $mode.change(function () {
       tournament.setProperty('komode', $(this).val())
       $mode.val($(this).val())

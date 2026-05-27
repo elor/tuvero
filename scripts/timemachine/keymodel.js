@@ -1,17 +1,16 @@
 import Model from '../core/model.js'
 import Type from '../core/type.js'
 import Presets from 'presets'
-let delimiter, dateRegexSource, dateRegex, targetRegex, keyRegex, tuveroKeyRegex
 
 /*
  * local regexes, which are used internally for format validation
  */
-delimiter = '_'
-dateRegexSource = '[0-9]{4}-[0-9]{2}-[0-9]{2}' + 'T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z'
-dateRegex = new RegExp('^' + dateRegexSource + '$')
-targetRegex = new RegExp('^(' + Presets.target + ')' + delimiter)
-keyRegex = new RegExp(targetRegex.source + '(' + dateRegexSource + ')' + delimiter + '(' + dateRegexSource + ')$')
-tuveroKeyRegex = new RegExp('^([a-z]*)' + delimiter + '(' + dateRegexSource + ')' + delimiter + '(' + dateRegexSource + ')$')
+const delimiter = '_'
+const dateRegexSource = '[0-9]{4}-[0-9]{2}-[0-9]{2}' + 'T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z'
+const dateRegex = new RegExp('^' + dateRegexSource + '$')
+const targetRegex = new RegExp('^(' + Presets.target + ')' + delimiter)
+const keyRegex = new RegExp(targetRegex.source + '(' + dateRegexSource + ')' + delimiter + '(' + dateRegexSource + ')$')
+const tuveroKeyRegex = new RegExp('^([a-z]*)' + delimiter + '(' + dateRegexSource + ')' + delimiter + '(' + dateRegexSource + ')$')
 
 /**
  * Constructor. Constructs a new key from the current target (Presets.target),
@@ -78,8 +77,7 @@ class KeyModel extends Model {
    * @return true if target and start date match, false otherwise.
    */
   isRelated (key) {
-    let relatedRegex
-    relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate + ')' + delimiter + '(' + dateRegexSource + ')$', 'i')
+        const relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate + ')' + delimiter + '(' + dateRegexSource + ')$', 'i')
     return relatedRegex.test(key.toString())
   }
 
@@ -149,11 +147,10 @@ class KeyModel extends Model {
    * @return a new key with a later saveDate but the same startDate
    */
   static createChild (parentKey) {
-    let startDate, saveDate
-    if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
+        if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
       throw new Error('createChild(): parentKey is not valid')
     }
-    startDate = parentKey.startDate
+    const startDate = parentKey.startDate
 
     /*
      * Avoid creating an identical key by accidentally having the exact same
@@ -164,6 +161,7 @@ class KeyModel extends Model {
      * Normally, you don't create two keys that close to another, and even then
      * it's only max. 200 loop executions.
      */
+    let saveDate
     do {
       saveDate = new Date().toISOString()
     } while (saveDate === startDate)
@@ -178,19 +176,18 @@ class KeyModel extends Model {
    * @return a KeyModel instance with the extracted startDate and saveDate.
    */
   static fromString (keyString) {
-    let startDate, saveDate, matches
-    if (!targetRegex.test(keyString)) {
+        if (!targetRegex.test(keyString)) {
       throw new Error('KeyModel reference string has wrong target: ' + keyString)
     }
-    matches = keyRegex.exec(keyString)
+    const matches = keyRegex.exec(keyString)
     if (!matches) {
       throw new Error('KeyModel reference string does not match format')
     }
     if (matches.length !== 4) {
       throw new Error('Regex Error? wrong number of captures (not 3): ' + matches.join(','))
     }
-    startDate = matches[2]
-    saveDate = matches[3]
+    const startDate = matches[2]
+    const saveDate = matches[3]
     return new KeyModel(startDate, saveDate)
   }
 

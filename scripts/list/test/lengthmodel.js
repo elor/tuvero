@@ -12,7 +12,7 @@ import ListModel from '../listmodel.js'
 import LengthModel from '../lengthmodel.js'
 import ValueModel from '../../core/valuemodel.js'
 test('LengthModel', () => {
-  let length, list, success
+  let success
   expect(
     LengthModel.prototype instanceof ValueModel,
     'LengthModel is subclass of ValueModel'
@@ -24,8 +24,8 @@ test('LengthModel', () => {
     success = true
   }
   expect(success, 'empty construction fails').toBeTruthy()
-  list = new ListModel([1, 2, 3])
-  length = new LengthModel(list)
+  const list = new ListModel([1, 2, 3])
+  const length = new LengthModel(list)
   expect(length.get(), 'constructor reads the initial length of the list').toBe(3)
   list.pop()
   expect(length.get(), 'list.pop() is mirrored').toBe(2)

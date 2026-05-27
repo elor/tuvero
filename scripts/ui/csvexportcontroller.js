@@ -16,8 +16,8 @@ import Strings from './strings.js'
 import TimeMachine from '../timemachine/timemachine.js'
 const validsets = ['teams', 'ranking', 'history', 'dpv']
 function player2dpv (player, team, ranking, tournaments) {
-  let teamID, tournamentID, tournament, tournamentName
-  teamID = team.getID()
+  let tournamentID, tournament, tournamentName
+  const teamID = team.getID()
   tournamentID = ranking.tournamentIDs[teamID]
   if (tournamentID === undefined) {
     tournamentID = ranking.lastTournamentIDs[teamID]
@@ -53,14 +53,12 @@ function player2dpv (player, team, ranking, tournaments) {
  */
 class CSVExportController extends Controller {
   constructor (view) {
-    let controller
-    super(view)
-    controller = this
+        super(view)
+    const controller = this
     this.$buttons = this.view.$view.find('button')
     this.$buttons.click(function () {
-      let $button, classes
-      $button = $(this)
-      classes = $button.attr('class').split(' ').filter(function (dataset) {
+            const $button = $(this)
+      const classes = $button.attr('class').split(' ').filter(function (dataset) {
         return validsets.indexOf(dataset) !== -1
       })
       controller.saveCSV(classes)
@@ -68,14 +66,14 @@ class CSVExportController extends Controller {
   }
 
   saveCSV (datasets) {
-    let data, blob, filename, basename
+    let blob
     if (!TimeMachine.isInitialized()) {
       Toast.once(Strings.notournament, Toast.LONG)
       return
     }
-    basename = TimeMachine.commit.get().getTreeName() || Presets.target
-    filename = basename.substr(0, 64) + '_' + datasets.join('_') + '.csv'
-    data = this.generateCSV(datasets)
+    const basename = TimeMachine.commit.get().getTreeName() || Presets.target
+    const filename = basename.substr(0, 64) + '_' + datasets.join('_') + '.csv'
+    const data = this.generateCSV(datasets)
     try {
       blob = new Blob([data], {
         type: 'text/csv'
@@ -115,10 +113,9 @@ class CSVExportController extends Controller {
    * @returns {string} a CSV string which represents the registered teams
    */
   teamsToCSV () {
-    let csvLines
-    csvLines = State.teams.map(function (team) {
-      let i, line
-      line = [team.getID() + 1]
+        const csvLines = State.teams.map(function (team) {
+      let i
+      const line = [team.getID() + 1]
       for (i = 0; i < team.length; i += 1) {
         line.push(this.escape(team.getPlayer(i).getName()))
       }
@@ -133,12 +130,10 @@ class CSVExportController extends Controller {
    */
   rankingToCSV () {
     const tournaments = State.tournaments.map(function (tournament) {
-      let lines, ranking
-      ranking = tournament.getRanking().get()
-      lines = ranking.displayOrder.map(function (displayID) {
-        let teamID, fields
-        teamID = ranking.ids[displayID]
-        fields = [ranking.ranks[displayID] + 1, teamID + 1]
+            const ranking = tournament.getRanking().get()
+      const lines = ranking.displayOrder.map(function (displayID) {
+                const teamID = ranking.ids[displayID]
+        const fields = [ranking.ranks[displayID] + 1, teamID + 1]
         ranking.components.forEach(function (componentname) {
           fields.push(ranking[componentname][displayID])
         })
@@ -156,12 +151,11 @@ class CSVExportController extends Controller {
    *         placeholders
    */
   historyToCSV () {
-    let csvTournaments
-    csvTournaments = State.tournaments.map(function (tournament) {
+        const csvTournaments = State.tournaments.map(function (tournament) {
       const lines = [this.escape(tournament.getName().get()), Strings.csvheader_history]
       tournament.getHistory().forEach(function (result) {
-        let fields, i
-        fields = []
+        let i
+        const fields = []
         fields.push(result.getGroup() + 1)
         fields.push(result.getID() + 1)
         if (result.isResult()) {
@@ -184,13 +178,12 @@ class CSVExportController extends Controller {
   }
 
   dpvToCSV () {
-    let teams, fields, fieldNames, ranking
-    fieldNames = ['Platz', 'Unterturnier', 'Platz_Unterturnier', 'Name/Pseudonym', 'Nachname', 'Vorname', 'LizNr', 'Verein', 'TeamNummer', 'TeamPseudonym', 'TeamRLpunkte', 'TeamVerein']
-    ranking = State.tournaments.getGlobalRanking(State.teams.length)
-    teams = ranking.displayOrder.map(function (teamID) {
+        const fieldNames = ['Platz', 'Unterturnier', 'Platz_Unterturnier', 'Name/Pseudonym', 'Nachname', 'Vorname', 'LizNr', 'Verein', 'TeamNummer', 'TeamPseudonym', 'TeamRLpunkte', 'TeamVerein']
+    const ranking = State.tournaments.getGlobalRanking(State.teams.length)
+    const teams = ranking.displayOrder.map(function (teamID) {
       return State.teams.get(teamID)
     })
-    fields = [fieldNames]
+    const fields = [fieldNames]
     teams.forEach(function (team) {
       team.players.forEach(function (player) {
         const dpvPlayer = player2dpv(player, team, ranking, State.tournaments)

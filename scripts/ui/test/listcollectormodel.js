@@ -12,23 +12,22 @@ import ValueModel from '../../core/valuemodel.js'
 import ListModel from '../../list/listmodel.js'
 import ListCollectorModel from '../listcollectormodel.js'
 test('ListCollectorModel', () => {
-  let model, list, listener, obj
-  listener = {
+    const listener = {
     updatecount: 0,
     onupdate: function () {
       listener.updatecount += 1
     },
     emitters: []
   }
-  list = new ListModel()
-  model = new ListCollectorModel(list, ValueModel)
+  const list = new ListModel()
+  const model = new ListCollectorModel(list, ValueModel)
   model.registerListener(listener)
   expect(model.emitters.length, 'starting without any emitters').toBe(0)
   list.push(new ValueModel())
   expect(model.emitters.length, 'automatically adding emitters').toBe(1)
   list.get(0).set(5)
   expect(listener.updatecount, 'recieving update events from inside the list').toBe(1)
-  obj = list.pop()
+  const obj = list.pop()
   expect(
     model.emitters.length,
     'unregistering from emitters when they are removed from the list'

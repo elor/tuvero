@@ -31,11 +31,11 @@ class GamesTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-    let $template, $container, value
+    let $container, value
 
     // tournamentlist
     $container = this.$view.find('.tournamentlist')
-    $template = $container.find('.tournament.template')
+    const $template = $container.find('.tournament.template')
     this.tournamentList = new ListView(State.tournaments, $container, $template, TournamentMatchesView, State.teams, State.teamsize)
 
     // name maxwidth checkbox
@@ -128,8 +128,7 @@ class GamesTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab
-  $tab = $('#tabs > [data-tab="games"]')
+    const $tab = $('#tabs > [data-tab="games"]')
   if ($tab.length && $('#testmain').length === 0) {
     return new GamesTab($tab)
   }

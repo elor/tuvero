@@ -11,12 +11,11 @@ import { test, expect } from 'vitest'
 import ListModel from '../listmodel.js'
 import Model from '../../core/model.js'
 import extend from '../../lib/extend.js'
-let DummyModel
 
 /*
  * dummy Model, which can be saved/restored for testing
  */
-DummyModel = function (optional) {
+const DummyModel = function (optional) {
   if (optional) {
     this.data = 'asd' + optional
   }
@@ -32,8 +31,8 @@ DummyModel = function (optional) {
 }
 extend(DummyModel, Model)
 test('ListModel', () => {
-  let list, obj, i, ret, res, listener, data
-  listener = {
+  let list, i, data
+  const listener = {
     reset: function () {
       listener.length = 0
       listener.insertions = 0
@@ -130,7 +129,7 @@ test('ListModel', () => {
   list.push(2)
   list.push(1)
   i = 0
-  ret = list.map(function (num, index, thelist) {
+  const ret = list.map(function (num, index, thelist) {
     expect(this, 'map(): this === thisArg, ' + index).toBe(5)
     expect(index, 'map(): iterating in ascending order, ' + index).toBe(i)
     expect(num, 'first argument is the list content' + index).toBe(list.length - index)
@@ -138,12 +137,12 @@ test('ListModel', () => {
     i += 1
     return num * num
   }, 5)
-  res = [16, 9, 4, 1]
+  const res = [16, 9, 4, 1]
   expect(ret, 'map(): return value is preserved').toEqual(res)
   list.clear()
   expect(list.length, 'cleared size is 0').toBe(0)
   expect(list.asArray(), 'asArray returns empty array after clear').toEqual([])
-  obj = {
+  const obj = {
     tmp: true,
     tmpLong: 'very much so'
   }

@@ -25,8 +25,7 @@ pending = []
  * read the transition durations
  */
 function getTransitionDuration () {
-  let transition
-  transition = Toast.$template.css('transition')
+    const transition = Toast.$template.css('transition')
   if (transition === undefined) {
     console.error('could not read any transition lengths. ' + "What's your browser?")
     return 0.2
@@ -61,8 +60,7 @@ class Toast {
    * display a toast
    */
   display () {
-    let $toast
-    if (!initialized) {
+        if (!initialized) {
       console.error('Cannot display Toast: ' + 'Toast.init() has not been called yet.')
       return
     }
@@ -70,7 +68,7 @@ class Toast {
       console.error('toast is already visible')
       return
     }
-    $toast = this.$toast = Toast.$template.clone().removeClass('hidden')
+    const $toast = this.$toast = Toast.$template.clone().removeClass('hidden')
 
     // decide between text and jquery object handle
     if (Type.isString(this.message)) {
@@ -105,9 +103,8 @@ class Toast {
    * @return a close function
    */
   close () {
-    let $toast
-    if (initialized && this.$toast) {
-      $toast = this.$toast
+        if (initialized && this.$toast) {
+      const $toast = this.$toast
 
       // let the toast fade out
       $toast.removeClass('toast')

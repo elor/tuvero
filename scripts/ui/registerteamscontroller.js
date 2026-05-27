@@ -5,8 +5,7 @@ import TeamModel from './teammodel.js'
 import PlayerModel from './playermodel.js'
 import Random from '../core/random.js'
 import StateSaver from './statesaver.js'
-let rng
-rng = new Random()
+const rng = new Random()
 
 /**
  * Constructor
@@ -39,19 +38,18 @@ class RegisterTeamsController extends Controller {
   }
 
   static createTeam () {
-    let players, team
-    players = []
+        const players = []
     while (players.length < State.teamsize.get()) {
       players.push(new PlayerModel(RegisterTeamsController.randomName()))
     }
-    team = new TeamModel(players)
+    const team = new TeamModel(players)
     return team
   }
 
   static randomName () {
-    let first, last, length, i, letters, Letters
-    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä', 'ö', 'ü', 'ß']
-    Letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü']
+    let first, last, length, i
+    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä', 'ö', 'ü', 'ß']
+    const Letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Ü']
     length = rng.nextInt(6) + 3
     first = ''
     first += rng.pick(Letters)

@@ -11,8 +11,8 @@ import { test, expect } from 'vitest'
 import RankingComponentIndex from '../rankingcomponentindex.js'
 import Type from '../../core/type.js'
 test('RankingComponentIndex', () => {
-  let chain, ranking, components, chainlength
-  ranking = {}
+  let chain, components, chainlength
+  const ranking = {}
   components = []
   chain = RankingComponentIndex.createComponentChain(ranking, components)
   expect(chain, 'chain creation fails without components').toBe(undefined)

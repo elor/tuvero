@@ -59,11 +59,10 @@ class RankingKOListener extends RankingDataListener {
    *          a game correction
    */
   oncorrect (r, e, correction) {
-    let winner, loser, winnerPoints, loserPoints
-    winner = correction.before.getWinner()
-    loser = correction.before.getWinner()
-    winnerPoints = getWinnerPoints(correction.before)
-    loserPoints = getLoserPoints(correction.before)
+        const winner = correction.before.getWinner()
+    const loser = correction.before.getWinner()
+    const winnerPoints = getWinnerPoints(correction.before)
+    const loserPoints = getLoserPoints(correction.before)
     if (this.ko.get(winner) !== winnerPoints || this.ko.get(loser) !== loserPoints) {
       return
     }

@@ -13,15 +13,15 @@
  */
 // NOTE TO SELF: Don't remove the '[],' from this line
 // Removing it WILL break EVERYTHING after r.js compilation !!!
-let OptionsTemplate, Default
+let Default
 Default = {}
-OptionsTemplate = {}
+const OptionsTemplate = {}
 OptionsTemplate.toBlob = function () {
   return JSON.stringify(OptionsTemplate)
 }
 OptionsTemplate.fromBlob = function (blob) {
-  let opts, key
-  opts = JSON.parse(blob)
+  let key
+  const opts = JSON.parse(blob)
 
   // delete everything
   for (key in OptionsTemplate) {

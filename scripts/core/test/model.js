@@ -11,9 +11,9 @@ import { test, expect } from 'vitest'
 import Model from '../model.js'
 import Emitter from '../emitter.js'
 test('Model', () => {
-  let model, success
+  let success
   expect(Model.prototype instanceof Emitter, 'Model is an Emitter subclass').toBeTruthy()
-  model = new Model()
+  const model = new Model()
   expect(model.save(), 'Model.save() returns empty object').toEqual({})
   try {
     expect(model.restore({}), 'Model.restore() returns true on success').toBe(true)

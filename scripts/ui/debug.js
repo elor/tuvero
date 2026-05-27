@@ -7,12 +7,10 @@
  * @see LICENSE
  */
 import $ from 'jquery'
-let Debug
-Debug = {
+const Debug = {
   stackTrace: function () {
-    let e, stack
-    e = new Error('dummy')
-    stack = e.stack.replace(/^[^(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
+        const e = new Error('dummy')
+    const stack = e.stack.replace(/^[^(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
     console.log(stack)
   },
   isDevVersion: undefined

@@ -6,11 +6,10 @@ import PlayerModel from './playermodel.js'
 import TeamModel from './teammodel.js'
 import Strings from './strings.js'
 import Type from '../core/type.js'
-let emptyPlayer, byePlayer
 
 // player name for bye votes
-byePlayer = new PlayerModel(Strings.byename)
-emptyPlayer = new PlayerModel('')
+const byePlayer = new PlayerModel(Strings.byename)
+const emptyPlayer = new PlayerModel('')
 emptyPlayer.alias = '' // avoid 'NONAME'
 emptyPlayer.setName = function () {}
 
@@ -21,29 +20,27 @@ emptyPlayer.setName = function () {}
  *         bye players and a (textual) team id which represents a bye vote
  */
 function createByeTeam (length) {
-  let players, team
-  players = []
+    const players = []
   while (players.length < length) {
     players.push(byePlayer)
   }
-  team = new TeamModel(players)
+  const team = new TeamModel(players)
   team.setID(Strings.byeid)
   return team
 }
 function createEmptyTeam (length) {
-  let players, team
-  players = []
+    const players = []
   while (players.length < length) {
     players.push(emptyPlayer)
   }
-  team = new TeamModel(players)
+  const team = new TeamModel(players)
   team.setID('')
   return team
 }
 function $createTeamsLists ($elements) {
-  let team, teams, i, $element
-  team = undefined
-  teams = []
+  let i, $element
+  let team = undefined
+  const teams = []
   for (i = 0; i <= $elements.length; i += 1) {
     $element = $elements.eq(i)
     if (i === $elements.length || $element.hasClass('teamno')) {
@@ -110,7 +107,7 @@ class MatchView extends View {
    * update all the values
    */
   update () {
-    let $teams, i, $team, teamid, isBye, team, teamsize
+    let $teams, i, $team, teamid, teamsize
     $teams = this.$view.find('.team')
     if ($teams.length === 0) {
       $teams = $createTeamsLists(this.$view.find('>.teamno , >.name , >.teamname'))
@@ -120,12 +117,13 @@ class MatchView extends View {
     }
     teamsize = undefined
     this.destroyTeamViews()
-    isBye = this.model.isBye && this.model.isBye()
+    const isBye = this.model.isBye && this.model.isBye()
 
     // should support a varying number of teams
     for (i = 0; i < $teams.length; i += 1) {
       $team = $($teams[i])
       teamid = this.model.getTeamID(i % this.model.length)
+      let team
       if (this.teamlist) {
         if (teamid !== undefined) {
           team = this.teamlist.get(teamid)

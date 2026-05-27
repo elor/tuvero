@@ -33,12 +33,12 @@ class SwissTournamentModel extends RoundTournamentModel {
    * @return true on success, false otherwise
    */
   idleMatches () {
-    let rankGroups, matches, votes, mode
+    let rankGroups
 
     /*
      * validate swiss mode
      */
-    mode = this.getProperty('swissmode')
+    const mode = this.getProperty('swissmode')
     if (SwissTournamentModel.MODES[mode] === undefined) {
       this.emit('error', 'invalid mode: ' + mode)
       return false
@@ -62,8 +62,8 @@ class SwissTournamentModel extends RoundTournamentModel {
     /*
      * use awesome algorithm to find an allowed solution
      */
-    matches = []
-    votes = {}
+    const matches = []
+    const votes = {}
     if (!this.findSwissByesAndMatches(matches, votes, rankGroups)) {
       this.emit('error', 'cannot find unique byes and matches')
       return false
@@ -118,8 +118,8 @@ class SwissTournamentModel extends RoundTournamentModel {
   }
 
   correctWinGroupRankingOrder () {
-    let components, windex
-    components = this.ranking.componentnames
+    let windex
+    const components = this.ranking.componentnames
     if (this.getProperty('swissmode') === 'wins' && components[0] !== 'wins') {
       windex = components.indexOf('wins')
       if (windex !== -1) {
@@ -153,11 +153,10 @@ class SwissTournamentModel extends RoundTournamentModel {
       reverseRankGroups = rankGroups.slice(0).reverse()
       if (!reverseRankGroups.some(function (group) {
         return group.slice(0).reverse().some(function (teamid) {
-          let index
-          if (!this.canGetBye(teamid)) {
+                    if (!this.canGetBye(teamid)) {
             return false
           }
-          index = group.indexOf(teamid)
+          const index = group.indexOf(teamid)
           group.splice(index, 1)
           if (this.prefilterSwissMatches(rankGroups)) {
             if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
@@ -228,7 +227,7 @@ class SwissTournamentModel extends RoundTournamentModel {
    * @return true on success, false otherwise
    */
   findSwissMatches (outMatches, outVotes, rankGroups) {
-    let currentGroup, teamA, teamB, updown
+    let currentGroup, teamB, updown
 
     // console.log(getGroupsTeamCount(rankGroups));
     // console.log(JSON.stringify(rankGroups));
@@ -250,7 +249,7 @@ class SwissTournamentModel extends RoundTournamentModel {
         return false
       }
     }
-    teamA = currentGroup.shift()
+    const teamA = currentGroup.shift()
     teamB = undefined
     updown = false // whether the next non-empty group has already been tried
 
@@ -445,7 +444,7 @@ class SwissTournamentModel extends RoundTournamentModel {
    *         rank
    */
   static getGroups (ranking, mode) {
-    let allGroups, currentGroup, lastID, getID
+    let currentGroup, lastID, getID
 
     /*
      * build different getIDs for different models
@@ -482,7 +481,7 @@ class SwissTournamentModel extends RoundTournamentModel {
         return undefined
     }
     currentGroup = []
-    allGroups = [currentGroup]
+    const allGroups = [currentGroup]
     lastID = undefined
     ranking.displayOrder.forEach(function (teamid, rankingid) {
       const id = getID(rankingid)
@@ -509,8 +508,7 @@ class SwissTournamentModel extends RoundTournamentModel {
    */
   static shuffleGroupTeams (rankGroups) {
     return rankGroups.map(function (group) {
-      let newgroup
-      newgroup = []
+            const newgroup = []
       while (group.length) {
         newgroup.push(rng.pickAndRemove(group))
       }

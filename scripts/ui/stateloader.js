@@ -12,8 +12,7 @@ import TimeMachine from '../timemachine/timemachine.js'
 import LegacyLoaderModel from './legacyloadermodel.js'
 import LegacyStorageKeyConverter from './legacystoragekeyconverter.js'
 import TeamsFileLoadController from './teamsfileloadcontroller.js'
-let StateLoader, versionFixers
-versionFixers = {
+const versionFixers = {
   '1.5.25': function (data) {
     data.tournaments.tournaments.forEach(function (tournament) {
       if (!tournament.totalvotes) {
@@ -72,11 +71,10 @@ class StateLoaderModel {
      * @returns {boolean} true on success, false otherwise
      */
   loadCommit (commit) {
-    let string
-    if (!commit || !commit.isValid()) {
+        if (!commit || !commit.isValid()) {
       return false
     }
-    string = TimeMachine.load(commit)
+    const string = TimeMachine.load(commit)
     if (!string) {
       return false
     }
@@ -113,8 +111,7 @@ class StateLoaderModel {
      * @returns {boolean} true on success, false otherwise.
      */
   loadData (data) {
-    let success
-    if (!data) {
+        if (!data) {
       return false
     }
     if (!data.version) {
@@ -122,7 +119,7 @@ class StateLoaderModel {
       return this.loadLegacyData(data)
     }
     this.fixVersions(data)
-    success = State.restore(data)
+    const success = State.restore(data)
     if (success) {
       console.log('savestate loaded')
     }
@@ -138,9 +135,8 @@ class StateLoaderModel {
      * @return {boolean} true on success, false otherwise
      */
   loadLegacyData (data) {
-    let loader
-    console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly')
-    loader = new LegacyLoaderModel()
+        console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly')
+    const loader = new LegacyLoaderModel()
     try {
       if (loader.load(data)) {
         console.log('legacy savestate loaded')
@@ -184,5 +180,5 @@ class StateLoaderModel {
 /*
    * StateLoader is a singleton
    */
-StateLoader = new StateLoaderModel()
+const StateLoader = new StateLoaderModel()
 export default StateLoader

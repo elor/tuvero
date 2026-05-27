@@ -12,7 +12,6 @@
 import $ from 'jquery'
 import Strings from '../ui/strings.js'
 import Update from '../ui/update.js'
-let Online
 
 /**
  * Check for an internet connection. Does not check for an active connection
@@ -20,7 +19,7 @@ let Online
  *
  * @return true if there's an active internet connection, false otherwise.
  */
-Online = function () {
+const Online = function () {
   return navigator.onLine
 }
 

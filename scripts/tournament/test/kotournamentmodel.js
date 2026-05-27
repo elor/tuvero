@@ -11,12 +11,12 @@ import { test, expect } from 'vitest'
 import KOTournamentModel from '../kotournamentmodel.js'
 import TournamentModel from '../tournamentmodel.js'
 test('KOTournamentModel', () => {
-  let ids, result, ref, tournament
+  let result, ref
   expect(
     KOTournamentModel.prototype instanceof TournamentModel,
     'KOTournamentModel is subclass of TournamentModel'
   ).toBeTruthy()
-  ids = []
+  const ids = []
   while (ids.length <= 33) {
     ids.push(ids.length)
   }
@@ -90,7 +90,7 @@ test('KOTournamentModel', () => {
   /*
    * initial matches
    */
-  tournament = new KOTournamentModel()
+  const tournament = new KOTournamentModel()
   tournament.addTeam(0)
   tournament.addTeam(1)
   tournament.addTeam(2)

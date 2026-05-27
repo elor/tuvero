@@ -14,22 +14,21 @@ import MatchModel from '../matchmodel.js'
 import MatchResult from '../matchresult.js'
 import ListModel from '../../list/listmodel.js'
 test('CorrectionReferenceModel', () => {
-  let result, result2, correction, reference, teams
-  expect(
+    expect(
     CorrectionReferenceModel.prototype instanceof CorrectionModel,
     'CorrectionReferenceModel is subclass of CorrectionModel'
   ).toBeTruthy()
-  teams = new ListModel()
+  const teams = new ListModel()
   teams.push(5)
   teams.push(3)
   teams.push(6)
   teams.push(1)
   teams.push(13)
   teams.push(0)
-  result = new MatchResult(new MatchModel([5, 3], 1, 2), [13, 7])
-  result2 = new MatchResult(new MatchModel([2, 4], 2, 1), [8, 9])
-  correction = new CorrectionModel(result, result2)
-  reference = new CorrectionReferenceModel(correction, teams)
+  const result = new MatchResult(new MatchModel([5, 3], 1, 2), [13, 7])
+  const result2 = new MatchResult(new MatchModel([2, 4], 2, 1), [8, 9])
+  const correction = new CorrectionModel(result, result2)
+  const reference = new CorrectionReferenceModel(correction, teams)
   expect(reference.before.result, 'before result reference is set').toBe(result)
   expect(reference.after.result, 'after result reference is set').toBe(result2)
   expect(reference.before.teams, 'before teams correctly referenced').toEqual([0, 1])

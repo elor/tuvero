@@ -8,9 +8,8 @@
  */
 import RankingComponentIndex from '../../scripts/ranking/rankingcomponentindex.js'
 
-let Presets
 
-Presets = {
+const Presets = {
   target: 'test',
   systems: {
     swiss: {
