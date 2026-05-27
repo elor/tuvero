@@ -13,19 +13,15 @@
     "@playwright/test": "^1.60.0",
     "diff": "^9.0.0",
     "file-saver": "^2.0.5",
-    "gulp": "^5.0.0",
     "jquery": "^3.7.1",
     "normalize.css": "^8.0.1",
     "semver": "~4.3.6",
     "standard": "^17.1.2",
-    "through2": "^4.0.2",
     "typescript": "^6.0.3",
-    "vinyl": "^3.0.0",
     "vite": "^8.0.13",
     "vitest": "^3.2.4"
   },
   "scripts": {
-    "postinstall": "gulp update",
     "build": "npm run vite:build",
     "vite:dev": "vite",
     "vite:build": "npm run vite:build:basic && npm run vite:build:boule && npm run vite:build:tac",
@@ -35,13 +31,18 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:watch": "SLOWMO=250 playwright test --headed --workers=1",
-    "lint": "gulp lint",
-    "update": "gulp update",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "dev": "vite"
   },
   "standard": {
-    "globals": [
-      "define"
+    "ignore": [
+      "**/lib/**",
+      "**/dist/**",
+      "build/**",
+      "tmp/**",
+      "scripts/core/common.js",
+      "**/{require,qunit}.js"
     ]
   }
 }
