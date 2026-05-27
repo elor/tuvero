@@ -17,7 +17,6 @@ node_modules/
 *.user
 *.dll
 obj/
-style/mainstyle.css
 test/scripts/test.js
 test/scripts/require.js
 test/scripts/qunit.js
