@@ -13,8 +13,9 @@
 import Strings from './strings.js'
 import Toast from './toast.js'
 import Debug from './debug.js'
-let Update, appCache, downloadToast
+let Update, appCache, downloadToast, cacheStatus
 downloadToast = undefined
+cacheStatus = function () {}
 Update = function () {
   cacheStatus()
   if (Update.isCached) {
@@ -55,7 +56,7 @@ if (!appCache) {
     }
     closeDownloadToast()
   }
-  function cacheStatus () {
+  cacheStatus = function () {
     switch (appCache.status) {
       case appCache.OBSOLETE:
       case appCache.UNCACHED:

@@ -182,8 +182,8 @@ class MatchView extends View {
    */
   static bindTeamList (teamlist) {
     class MyMatchView extends MatchView {
-      constructor () {
-        MyMatchView.superconstructor.apply(this, arguments)
+      constructor (...args) {
+        super(...args)
       }
     }
 

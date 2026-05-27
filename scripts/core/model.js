@@ -50,10 +50,6 @@ class Model extends Emitter {
     return clone
   }
 
-  clone (source) {
-    this.restore(source.save())
-  }
-
   /**
    * save the state of this object, so it can later be restored using the
    * restore() function. Subclasses are supposed to call superclass.save()
