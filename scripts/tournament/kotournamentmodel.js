@@ -14,7 +14,7 @@ const rng = new Random()
 class KOTournamentModel extends TournamentModel {
   constructor () {
     super(['ko'])
-    this.setProperty('komode', Presets.systems.ko && Presets.systems.ko.mode || KOTournamentModel.MODES.matched)
+    this.setProperty('komode', (Presets.systems.ko && Presets.systems.ko.mode) || KOTournamentModel.MODES.matched)
     this.setProperty('komaxgroup', 1)
     this.setProperty('initialbyes', false)
   }

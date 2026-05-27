@@ -9,7 +9,7 @@ import Presets from 'presets'
 class FormuleXTournamentModel extends SwissTournamentModel {
   constructor (rankingorder) {
     super(rankingorder)
-    this.setProperty('swissmode', Presets.systems.formulex && Presets.systems.formulex.mode || FormuleXTournamentModel.MODES.ranks)
+    this.setProperty('swissmode', (Presets.systems.formulex && Presets.systems.formulex.mode) || FormuleXTournamentModel.MODES.ranks)
   }
 
   static MODES = {

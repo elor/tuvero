@@ -51,7 +51,7 @@ class RankingView extends TemplateView {
     this.reset()
     teamsize = 0
     ranks.displayOrder.forEach(function (teamIndex) {
-      const size = this.teamList.get(teamIndex) && this.teamList.get(teamIndex).length || 0
+      const size = (this.teamList.get(teamIndex) && this.teamList.get(teamIndex).length) || 0
       if (teamsize < size) {
         teamsize = size
       }

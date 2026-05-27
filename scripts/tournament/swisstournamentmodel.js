@@ -12,7 +12,7 @@ const rng = new Random()
 class SwissTournamentModel extends RoundTournamentModel {
   constructor (rankingorder) {
     super(rankingorder)
-    this.setProperty('swissmode', Presets.systems.swiss && Presets.systems.swiss.mode || SwissTournamentModel.MODES.ranks)
+    this.setProperty('swissmode', (Presets.systems.swiss && Presets.systems.swiss.mode) || SwissTournamentModel.MODES.ranks)
     this.setProperty('swissshuffle', true)
     this.setProperty('swisstranspose', false)
     this.setProperty('byeafterbye', false)
