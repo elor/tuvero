@@ -36,7 +36,13 @@ class Query {
   constructor (reference) {
     this.source = Query.source || window.localStorage
     this.reference = reference
-    if (reference === Query.ALLKEYS) {} else if (reference === Query.ROOTKEYS) {} else if (reference === Query.LASTKEYS) {} else if (reference === Query.LATESTSAVE) {} else if (reference === Query.ALLTUVEROKEYS) {} else if (Type.isString(reference)) {
+    if (reference === Query.ALLKEYS ||
+      reference === Query.ROOTKEYS ||
+      reference === Query.LASTKEYS ||
+      reference === Query.LATESTSAVE ||
+      reference === Query.ALLTUVEROKEYS) {
+      // known query constant — no referenceKey needed
+    } else if (Type.isString(reference)) {
       this.referenceKey = KeyModel.fromString(reference)
     } else if (reference instanceof KeyModel) {
       this.referenceKey = reference

@@ -125,7 +125,9 @@ class RoundTournamentModel extends TournamentModel {
       teamB = slideList.pop()
       if (teamA > this.teams.length) {
         this.addBye(teamB, id, this.round)
-      } else if (teamB > this.teams.length) {} else {
+      } else if (teamB > this.teams.length) {
+        // teamB is a phantom bye slot — skip this pairing
+      } else {
         this.matches.push(new MatchModel([teamA, teamB], id, this.round))
       }
       id += 1
