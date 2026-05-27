@@ -1,45 +1,45 @@
-import TournamentView from './tournamentview.js';
-import PoulesTournamentController from './poulestournamentcontroller.js';
+import TournamentView from './tournamentview.js'
+import PoulesTournamentController from './poulestournamentcontroller.js'
 
 class PoulesTournamentView extends TournamentView {
-  constructor(model, $view, tournaments) {
-    super(model, $view, tournaments);
-    this.tournament = this.model.tournament;
-    this.$mode = this.$view.find('.tournamentoptions .option select.mode');
-    this.$mode.val(this.tournament.getProperty('poulesmode'));
-    this.$seed = this.$view.find('.tournamentoptions .option select.seed');
-    this.$seed.val(this.tournament.getProperty('poulesseed'));
-    this.$byepoules = this.$view.find('.tournamentoptions .option select.byepoules');
-    this.$byepoules.val(this.tournament.getProperty('poulesbyepoules'));
-    this.$byeteams = this.$view.find('.tournamentoptions .option select.byeteams');
-    this.$byeteams.val(this.tournament.getProperty('poulesbyeteams'));
-    this.$numpoulesinput = this.$view.find('input.numpoules');
-    this.$numpoulestext = this.$view.find('.numpoulestext');
-    this.$numbyepoulestext = this.$view.find('.numbyepoules');
-    this.tournament.numpoules.registerListener(this);
-    this.tournament.numbyepoules.registerListener(this);
-    this.updateNumPoules();
-    this.subcontroller = new PoulesTournamentController(this);
+  constructor (model, $view, tournaments) {
+    super(model, $view, tournaments)
+    this.tournament = this.model.tournament
+    this.$mode = this.$view.find('.tournamentoptions .option select.mode')
+    this.$mode.val(this.tournament.getProperty('poulesmode'))
+    this.$seed = this.$view.find('.tournamentoptions .option select.seed')
+    this.$seed.val(this.tournament.getProperty('poulesseed'))
+    this.$byepoules = this.$view.find('.tournamentoptions .option select.byepoules')
+    this.$byepoules.val(this.tournament.getProperty('poulesbyepoules'))
+    this.$byeteams = this.$view.find('.tournamentoptions .option select.byeteams')
+    this.$byeteams.val(this.tournament.getProperty('poulesbyeteams'))
+    this.$numpoulesinput = this.$view.find('input.numpoules')
+    this.$numpoulestext = this.$view.find('.numpoulestext')
+    this.$numbyepoulestext = this.$view.find('.numbyepoules')
+    this.tournament.numpoules.registerListener(this)
+    this.tournament.numbyepoules.registerListener(this)
+    this.updateNumPoules()
+    this.subcontroller = new PoulesTournamentController(this)
   }
 
-  updateNumPoules() {
-    let numpoules, numbyepoules, minpoules, maxpoules;
-    minpoules = this.tournament.minPoules();
-    maxpoules = this.tournament.maxPoules();
-    numpoules = this.tournament.numpoules.get();
-    numbyepoules = this.tournament.numbyepoules.get();
-    this.$numpoulesinput.prop('min', minpoules);
-    this.$numpoulesinput.prop('max', maxpoules);
-    this.$numpoulesinput.val(numpoules);
-    this.$numpoulesinput.prop('disabled', minpoules === maxpoules);
-    this.$numpoulestext.text(numpoules);
-    this.$numbyepoulestext.text(numbyepoules);
-    this.$byepoules.prop('disabled', numbyepoules === 0 || numpoules === numbyepoules);
+  updateNumPoules () {
+    let numpoules, numbyepoules, minpoules, maxpoules
+    minpoules = this.tournament.minPoules()
+    maxpoules = this.tournament.maxPoules()
+    numpoules = this.tournament.numpoules.get()
+    numbyepoules = this.tournament.numbyepoules.get()
+    this.$numpoulesinput.prop('min', minpoules)
+    this.$numpoulesinput.prop('max', maxpoules)
+    this.$numpoulesinput.val(numpoules)
+    this.$numpoulesinput.prop('disabled', minpoules === maxpoules)
+    this.$numpoulestext.text(numpoules)
+    this.$numbyepoulestext.text(numbyepoules)
+    this.$byepoules.prop('disabled', numbyepoules === 0 || numpoules === numbyepoules)
   }
 
-  onupdate() {
-    this.updateNumPoules();
+  onupdate () {
+    this.updateNumPoules()
   }
 }
 
-export default PoulesTournamentView;
+export default PoulesTournamentView

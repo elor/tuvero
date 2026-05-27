@@ -6,21 +6,21 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-let Debug;
+import $ from 'jquery'
+let Debug
 Debug = {
   stackTrace: function () {
-    let e, stack;
-    e = new Error('dummy');
-    stack = e.stack.replace(/^[^(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@');
-    console.log(stack);
+    let e, stack
+    e = new Error('dummy')
+    stack = e.stack.replace(/^[^(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
+    console.log(stack)
   },
   isDevVersion: undefined
-};
+}
 
 // Not waiting for document load. We're just reading a header text, not
 // manipulating the DOM. We should be safe.
 // $(function($) {
-Debug.isDevVersion = !/\s[0-9]+(\.[0-9]+)+(-rc[0-9]*)?$/.test($('head title').text());
+Debug.isDevVersion = !/\s[0-9]+(\.[0-9]+)+(-rc[0-9]*)?$/.test($('head title').text())
 // });
-export default Debug;
+export default Debug

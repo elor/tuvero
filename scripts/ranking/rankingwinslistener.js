@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,9 +8,9 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingWinsListener extends RankingDataListener {
-  constructor(ranking) {
+  constructor (ranking) {
     super(ranking, // autoformat
-    new VectorModel());
+      new VectorModel())
   }
 
   /**
@@ -23,10 +23,10 @@ class RankingWinsListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
-    const winner = result.getWinner();
+  onresult (r, e, result) {
+    const winner = result.getWinner()
     if (winner !== undefined) {
-      this.wins.add(winner, 1);
+      this.wins.add(winner, 1)
     }
   }
 
@@ -40,10 +40,10 @@ class RankingWinsListener extends RankingDataListener {
    * @param teams
    *          an array of team ids
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     data.teams.forEach(function (teamid) {
-      this.wins.add(teamid, 1);
-    }, this);
+      this.wins.add(teamid, 1)
+    }, this)
   }
 
   /**
@@ -57,16 +57,16 @@ class RankingWinsListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
-    const winner = correction.before.getWinner();
+  oncorrect (r, e, correction) {
+    const winner = correction.before.getWinner()
     if (winner !== undefined) {
-      this.wins.set(winner, this.wins.get(winner) - 1);
+      this.wins.set(winner, this.wins.get(winner) - 1)
     }
-    this.onresult(r, e, correction.after);
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'wins';
-  static DEPENDENCIES = undefined;
+  static NAME = 'wins'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingWinsListener;
+export default RankingWinsListener

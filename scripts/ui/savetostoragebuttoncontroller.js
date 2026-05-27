@@ -1,23 +1,23 @@
-import Controller from '../core/controller.js';
-import View from '../core/view.js';
-import StateSaver from './statesaver.js';
-import Toast from './toast.js';
+import Controller from '../core/controller.js'
+import View from '../core/view.js'
+import StateSaver from './statesaver.js'
+import Toast from './toast.js'
 
 class SaveToStorageButtonController extends Controller {
-  constructor($button) {
-    super(new View(undefined, $button));
-    this.view.$view.click(this.savenow.bind(this));
+  constructor ($button) {
+    super(new View(undefined, $button))
+    this.view.$view.click(this.savenow.bind(this))
   }
 
-  savenow() {
+  savenow () {
     if (StateSaver.canSave()) {
       if (!StateSaver.saveState()) {
-        console.error('autosave failed');
-        return new Toast('Speichern fehlgeschlagen');
+        console.error('autosave failed')
+        return new Toast('Speichern fehlgeschlagen')
       }
-      return new Toast('Turnierstand gespeichert');
+      return new Toast('Turnierstand gespeichert')
     }
   }
 }
 
-export default SaveToStorageButtonController;
+export default SaveToStorageButtonController

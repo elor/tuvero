@@ -1,29 +1,29 @@
-import { io } from 'tuvero';
-import FileLoadController from './fileloadcontroller.js';
-import Toast from './toast.js';
-import Strings from './strings.js';
-import State from './state.js';
-import PlayerModel from './playermodel.js';
-import TeamModel from './teammodel.js';
-import Presets from 'presets';
+import { io } from 'tuvero'
+import FileLoadController from './fileloadcontroller.js'
+import Toast from './toast.js'
+import Strings from './strings.js'
+import State from './state.js'
+import PlayerModel from './playermodel.js'
+import TeamModel from './teammodel.js'
+import Presets from 'presets'
 
 class TeamsFileLoadController extends FileLoadController {
-  constructor($button) {
-    super($button);
+  constructor ($button) {
+    super($button)
   }
 
-  unreadFile() {}
+  unreadFile () {}
 
-  static guessCSVType(teams) {
+  static guessCSVType (teams) {
     if (teams.length === 0) {
-      return 'empty';
+      return 'empty'
     }
     if (teams[0].every(function (field) {
-      return ['No.', 'Name', 'Team', 'Spieler'].indexOf(field) !== -1;
+      return ['No.', 'Name', 'Team', 'Spieler'].indexOf(field) !== -1
     })) {
-      return 'tuvero_teams_export';
+      return 'tuvero_teams_export'
     }
-    return 'pure_csv';
+    return 'pure_csv'
   }
 
   /**
@@ -33,21 +33,21 @@ class TeamsFileLoadController extends FileLoadController {
      *          a 2d teams array
      * @returns {number} the team size, or 0 on failure.
      */
-  static guessCSVTeamsize(teams) {
-    let teamsizes, teamsize;
+  static guessCSVTeamsize (teams) {
+    let teamsizes, teamsize
     if (teams.length === 0) {
-      return 0;
+      return 0
     }
     teamsizes = teams.map(function (team) {
-      return team.length;
-    });
-    teamsize = teamsizes[0];
+      return team.length
+    })
+    teamsize = teamsizes[0]
     if (teamsizes.some(function (size) {
-      return size !== teamsize;
+      return size !== teamsize
     })) {
-      return 0;
+      return 0
     }
-    return teamsize;
+    return teamsize
   }
 
   /**
@@ -56,131 +56,131 @@ class TeamsFileLoadController extends FileLoadController {
      * @param {string} input A (multiline) csv string
      * @returns {boolean} true on success, false otherwise
      */
-  static load(input) {
-    let teams, teamsize;
-    input = io.utf8.latin2utf8(input);
+  static load (input) {
+    let teams, teamsize
+    input = io.utf8.latin2utf8(input)
     if (State.teams.length !== 0) {
-      Toast.once(Strings.teamsnotempty);
-      return false;
+      Toast.once(Strings.teamsnotempty)
+      return false
     }
-    teams = TeamsFileLoadController.loadDPV(input);
+    teams = TeamsFileLoadController.loadDPV(input)
     if (!teams) {
-      teams = TeamsFileLoadController.loadCSV(input);
+      teams = TeamsFileLoadController.loadCSV(input)
     }
     if (!teams) {
-      Toast.once(Strings.invalidfileformat);
-      return false;
+      Toast.once(Strings.invalidfileformat)
+      return false
     }
-    teamsize = teamsizeFromTeams(teams);
-    State.teamsize.set(teamsize);
+    teamsize = teamsizeFromTeams(teams)
+    State.teamsize.set(teamsize)
     teams.forEach(function (team) {
-      State.teams.push(team);
-    });
-    Toast.once(Strings.loaded);
-    return true;
+      State.teams.push(team)
+    })
+    Toast.once(Strings.loaded)
+    return true
   }
 
-  static loadCSV(input) {
-    let teams, type;
-    teams = TeamsFileLoadController.parseCSVString(input);
-    type = TeamsFileLoadController.guessCSVType(teams);
+  static loadCSV (input) {
+    let teams, type
+    teams = TeamsFileLoadController.parseCSVString(input)
+    type = TeamsFileLoadController.guessCSVType(teams)
     switch (type) {
       case 'tuvero_teams_export':
-        return TeamsFileLoadController.loadTuveroTeamExport(teams);
+        return TeamsFileLoadController.loadTuveroTeamExport(teams)
       case 'pure_csv':
       case 'empty':
-        return TeamsFileLoadController.loadPureCSV(teams);
+        return TeamsFileLoadController.loadPureCSV(teams)
       default:
-        console.error('unknown csv type: ' + type);
-        return TeamsFileLoadController.loadPureCSV(teams);
+        console.error('unknown csv type: ' + type)
+        return TeamsFileLoadController.loadPureCSV(teams)
     }
   }
 
-  static loadTuveroTeamExport(teams) {
-    let teamsize, header, hasTeamNumber;
-    header = teams.shift();
-    hasTeamNumber = header[0] === 'No.';
-    teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
+  static loadTuveroTeamExport (teams) {
+    let teamsize, header, hasTeamNumber
+    header = teams.shift()
+    hasTeamNumber = header[0] === 'No.'
+    teamsize = TeamsFileLoadController.guessCSVTeamsize(teams)
     if (hasTeamNumber) {
-      teamsize -= 1;
+      teamsize -= 1
     }
     if (teamsize >= Presets.registration.minteamsize && teamsize <= Presets.registration.maxteamsize) {
       // create TeamModels
       return teams.map(function (names) {
-        let teamNumber, team;
+        let teamNumber, team
         if (hasTeamNumber) {
-          teamNumber = names.shift();
+          teamNumber = names.shift()
         }
         const players = names.map(function (name) {
-          return new PlayerModel(name);
-        });
-        team = new TeamModel(players);
+          return new PlayerModel(name)
+        })
+        team = new TeamModel(players)
         if (hasTeamNumber) {
-          TeamModel.number = teamNumber;
+          TeamModel.number = teamNumber
         }
-        return team;
-      });
+        return team
+      })
     } else {
       // TODO handle failure gracefully
     }
-    return undefined;
+    return undefined
   }
 
-  static loadPureCSV(teams) {
-    const teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
+  static loadPureCSV (teams) {
+    const teamsize = TeamsFileLoadController.guessCSVTeamsize(teams)
 
     // validate team size
     if (teamsize >= Presets.registration.minteamsize && teamsize <= Presets.registration.maxteamsize) {
       // create TeamModels
       return teams.map(function (names) {
         const players = names.map(function (name) {
-          return new PlayerModel(name);
-        });
-        return new TeamModel(players);
-      });
+          return new PlayerModel(name)
+        })
+        return new TeamModel(players)
+      })
     } else {
       // TODO handle failure gracefully
     }
-    return undefined;
+    return undefined
   }
 
-  static loadDPV(input) {
-    let teams;
+  static loadDPV (input) {
+    let teams
     try {
-      teams = TeamsFileLoadController.parseDPVString(input);
+      teams = TeamsFileLoadController.parseDPVString(input)
       if (teams.length > 0) {
-        return teams.map(dpv2team);
+        return teams.map(dpv2team)
       }
     } catch (e) {}
-    return undefined;
+    return undefined
   }
 
-  static parseCSVString = io.csv.read;
-  static parseDPVString = io.dpv.import.csv;
+  static parseCSVString = io.csv.read
+  static parseDPVString = io.dpv.import.csv
 }
 
-TeamsFileLoadController.prototype.readFile = TeamsFileLoadController.load;
-function dpv2player(dpv) {
-  let name, player;
-  name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr;
-  player = new PlayerModel(name);
-  player.club = dpv.Verein;
-  player.license = dpv.LizNr;
-  player.firstname = dpv.Vorname;
-  player.lastname = dpv.Name;
-  return player;
+TeamsFileLoadController.prototype.readFile = TeamsFileLoadController.load
+function dpv2player (dpv) {
+  let name, player
+  name = dpv.Vorname + ' ' + dpv.Name || dpv.SpielerID || dpv.LizNr
+  player = new PlayerModel(name)
+  player.club = dpv.Verein
+  player.license = dpv.LizNr
+  player.firstname = dpv.Vorname
+  player.lastname = dpv.Name
+  return player
 }
-function dpv2team(dpv) {
-  const team = new TeamModel(dpv.Spieler.map(dpv2player), dpv.Teamnummer);
-  team.number = dpv.Teamnummer;
-  team.alias = dpv.Pseudonym;
-  team.club = dpv['Anmeldender Verein'];
-  team.rankingpoints = Number(dpv.RLpunkteTeam);
-  return team;
+function dpv2team (dpv) {
+  const team = new TeamModel(dpv.Spieler.map(dpv2player), dpv.Teamnummer)
+  team.number = dpv.Teamnummer
+  team.alias = dpv.Pseudonym
+  team.club = dpv['Anmeldender Verein']
+  team.rankingpoints = Number(dpv.RLpunkteTeam)
+  return team
 }
-function teamsizeFromTeams(teams) {
+function teamsizeFromTeams (teams) {
   return Math.min.apply(undefined, teams.map(function (team) {
-    return team.length;
-  }));
+    return team.length
+  }))
 }
-export default TeamsFileLoadController;
+export default TeamsFileLoadController

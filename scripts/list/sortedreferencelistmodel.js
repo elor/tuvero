@@ -1,4 +1,4 @@
-import ListModel from './listmodel.js';
+import ListModel from './listmodel.js'
 
 /**
  * @param list
@@ -12,22 +12,22 @@ import ListModel from './listmodel.js';
  *          careful when you use it.
  */
 class SortedReferenceListModel extends ListModel {
-  constructor(list, sortFunction, unique) {
-    super();
-    this.makeReadonly();
+  constructor (list, sortFunction, unique) {
+    super()
+    this.makeReadonly()
     if (list === undefined) {
-      throw new Error('SortedReferenceListModel: list argument is missing');
+      throw new Error('SortedReferenceListModel: list argument is missing')
     }
     if (sortFunction === undefined) {
-      sortFunction = SortedReferenceListModel.ascending;
+      sortFunction = SortedReferenceListModel.ascending
     }
-    this.refList = list;
-    this.sortFunction = sortFunction;
-    this.unique = unique || false;
+    this.refList = list
+    this.sortFunction = sortFunction
+    this.unique = unique || false
     list.map(function (element) {
-      SortedReferenceListModel.insertElement(this, element);
-    }, this);
-    list.registerListener(this);
+      SortedReferenceListModel.insertElement(this, element)
+    }, this)
+    list.registerListener(this)
   }
 
   /**
@@ -41,9 +41,9 @@ class SortedReferenceListModel extends ListModel {
    * @param data
    *          a data object, as emitted by insert() from the original list
    */
-  oninsert(emitter, event, data) {
+  oninsert (emitter, event, data) {
     if (emitter === this.refList) {
-      SortedReferenceListModel.insertElement(this, data.object);
+      SortedReferenceListModel.insertElement(this, data.object)
     }
   }
 
@@ -57,9 +57,9 @@ class SortedReferenceListModel extends ListModel {
    * @param data
    *          a data object, as emitted by remove() from the original list
    */
-  onremove(emitter, event, data) {
+  onremove (emitter, event, data) {
     if (emitter === this.refList) {
-      SortedReferenceListModel.removeElement(this, data.object);
+      SortedReferenceListModel.removeElement(this, data.object)
     }
   }
 
@@ -72,14 +72,14 @@ class SortedReferenceListModel extends ListModel {
    *          the second object
    * @return the ordering relation between the two, i.e. -1, 0 or +1
    */
-  static ascending(a, b) {
+  static ascending (a, b) {
     switch (true) {
       case a > b:
-        return 1;
+        return 1
       case a < b:
-        return -1;
+        return -1
       default:
-        return 0;
+        return 0
     }
   }
 
@@ -92,8 +92,8 @@ class SortedReferenceListModel extends ListModel {
    *          the second object
    * @return the ordering relation between the two, i.e. -1, 0 or +1
    */
-  static descending(a, b) {
-    return -SortedReferenceListModel.ascending(a, b);
+  static descending (a, b) {
+    return -SortedReferenceListModel.ascending(a, b)
   }
 
   /**
@@ -104,14 +104,14 @@ class SortedReferenceListModel extends ListModel {
    * @param element
    *          the element to insert into the list
    */
-  static insertElement(list, element) {
-    const index = SortedReferenceListModel.findPosition(list, element);
+  static insertElement (list, element) {
+    const index = SortedReferenceListModel.findPosition(list, element)
     if (list.unique && index !== 0) {
       if (list.sortFunction(list.get(index - 1), element) === 0) {
-        return;
+        return
       }
     }
-    ListModel.prototype.insert.call(list, index, element);
+    ListModel.prototype.insert.call(list, index, element)
   }
 
   /**
@@ -122,10 +122,10 @@ class SortedReferenceListModel extends ListModel {
    * @param element
    *          the element to remove from the list
    */
-  static removeElement(list, element) {
-    const index = list.indexOf(element);
+  static removeElement (list, element) {
+    const index = list.indexOf(element)
     if (index >= 0) {
-      ListModel.prototype.remove.call(list, index);
+      ListModel.prototype.remove.call(list, index)
     }
   }
 
@@ -146,24 +146,24 @@ class SortedReferenceListModel extends ListModel {
    * @return the position at which an element is to be inserted. Can range from
    *         0 to list.length.
    */
-  static findPosition(list, element, begin, end) {
-    let relation, mid;
+  static findPosition (list, element, begin, end) {
+    let relation, mid
     if (begin === undefined) {
-      begin = 0;
+      begin = 0
     }
     if (end === undefined) {
-      end = list.length;
+      end = list.length
     }
     if (begin === end) {
-      return begin;
+      return begin
     }
-    mid = begin + end >> 1;
-    relation = list.sortFunction(list.get(mid), element);
+    mid = begin + end >> 1
+    relation = list.sortFunction(list.get(mid), element)
     if (relation > 0) {
-      return SortedReferenceListModel.findPosition(list, element, begin, mid);
+      return SortedReferenceListModel.findPosition(list, element, begin, mid)
     }
-    return SortedReferenceListModel.findPosition(list, element, mid + 1, end);
+    return SortedReferenceListModel.findPosition(list, element, mid + 1, end)
   }
 }
 
-export default SortedReferenceListModel;
+export default SortedReferenceListModel

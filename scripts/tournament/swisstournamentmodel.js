@@ -1,8 +1,8 @@
-import RoundTournamentModel from './roundtournamentmodel.js';
-import Random from '../core/random.js';
-import MatchModel from '../core/matchmodel.js';
-import Presets from 'presets';
-const rng = new Random();
+import RoundTournamentModel from './roundtournamentmodel.js'
+import Random from '../core/random.js'
+import MatchModel from '../core/matchmodel.js'
+import Presets from 'presets'
+const rng = new Random()
 
 /**
  * Constructor
@@ -10,21 +10,21 @@ const rng = new Random();
  * @param rankingorder
  */
 class SwissTournamentModel extends RoundTournamentModel {
-  constructor(rankingorder) {
-    super(rankingorder);
-    this.setProperty('swissmode', Presets.systems.swiss && Presets.systems.swiss.mode || SwissTournamentModel.MODES.ranks);
-    this.setProperty('swissshuffle', true);
-    this.setProperty('swisstranspose', false);
-    this.setProperty('byeafterbye', false);
-    this.setProperty('byeafterup', true);
-    this.setProperty('byeafterdown', true);
-    this.setProperty('upafterbye', true);
-    this.setProperty('upafterup', false);
-    this.setProperty('upafterdown', true);
-    this.setProperty('downafterbye', true);
-    this.setProperty('downafterup', true);
-    this.setProperty('downafterdown', false);
-    this.setProperty('enableupdown', this.getProperty('swissmode') === 'wins');
+  constructor (rankingorder) {
+    super(rankingorder)
+    this.setProperty('swissmode', Presets.systems.swiss && Presets.systems.swiss.mode || SwissTournamentModel.MODES.ranks)
+    this.setProperty('swissshuffle', true)
+    this.setProperty('swisstranspose', false)
+    this.setProperty('byeafterbye', false)
+    this.setProperty('byeafterup', true)
+    this.setProperty('byeafterdown', true)
+    this.setProperty('upafterbye', true)
+    this.setProperty('upafterup', false)
+    this.setProperty('upafterdown', true)
+    this.setProperty('downafterbye', true)
+    this.setProperty('downafterup', true)
+    this.setProperty('downafterdown', false)
+    this.setProperty('enableupdown', this.getProperty('swissmode') === 'wins')
   }
 
   /**
@@ -32,67 +32,67 @@ class SwissTournamentModel extends RoundTournamentModel {
    *
    * @return true on success, false otherwise
    */
-  idleMatches() {
-    let rankGroups, matches, votes, mode;
+  idleMatches () {
+    let rankGroups, matches, votes, mode
 
     /*
      * validate swiss mode
      */
-    mode = this.getProperty('swissmode');
+    mode = this.getProperty('swissmode')
     if (SwissTournamentModel.MODES[mode] === undefined) {
-      this.emit('error', 'invalid mode: ' + mode);
-      return false;
+      this.emit('error', 'invalid mode: ' + mode)
+      return false
     }
-    rankGroups = SwissTournamentModel.getGroups(this.ranking.get(), mode);
+    rankGroups = SwissTournamentModel.getGroups(this.ranking.get(), mode)
 
     /*
      * shuffle if wanted
      */
     if (this.getProperty('swissshuffle') === true) {
-      rankGroups = SwissTournamentModel.shuffleGroupTeams(rankGroups);
+      rankGroups = SwissTournamentModel.shuffleGroupTeams(rankGroups)
     }
 
     /*
      * transpose if wanted
      */
     if (this.getProperty('swisstranspose') === true) {
-      rankGroups = SwissTournamentModel.transposeGroups(rankGroups);
+      rankGroups = SwissTournamentModel.transposeGroups(rankGroups)
     }
 
     /*
      * use awesome algorithm to find an allowed solution
      */
-    matches = [];
-    votes = {};
+    matches = []
+    votes = {}
     if (!this.findSwissByesAndMatches(matches, votes, rankGroups)) {
-      this.emit('error', 'cannot find unique byes and matches');
-      return false;
+      this.emit('error', 'cannot find unique byes and matches')
+      return false
     }
 
     /*
      * advance the round index
      */
-    this.round += 1;
+    this.round += 1
     votes.ups.forEach(function (upTeamID) {
-      this.votes.up.push(upTeamID);
-      this.ranking.upvotes.add(upTeamID, 1);
-    }, this);
+      this.votes.up.push(upTeamID)
+      this.ranking.upvotes.add(upTeamID, 1)
+    }, this)
     votes.downs.forEach(function (downTeamID) {
-      this.votes.down.push(downTeamID);
-      this.ranking.downvotes.add(downTeamID, 1);
-    }, this);
+      this.votes.down.push(downTeamID)
+      this.ranking.downvotes.add(downTeamID, 1)
+    }, this)
 
     /*
      * add the byes and matches to the current tournament
      */
     votes.byes.forEach(function (byeTeamID, byeIndex) {
-      this.addBye(byeTeamID, matches.length + byeIndex, this.round);
-    }, this);
+      this.addBye(byeTeamID, matches.length + byeIndex, this.round)
+    }, this)
     matches.forEach(function (matchTeams, matchid) {
-      this.matches.push(new MatchModel(matchTeams, matchid, this.round));
-    }, this);
-    this.ranking.invalidate();
-    return true;
+      this.matches.push(new MatchModel(matchTeams, matchid, this.round))
+    }, this)
+    this.ranking.invalidate()
+    return true
   }
 
   /**
@@ -100,33 +100,33 @@ class SwissTournamentModel extends RoundTournamentModel {
    *
    * @return true on success, false otherwise
    */
-  initialMatches() {
-    this.correctWinGroupRankingOrder();
-    return this.idleMatches();
+  initialMatches () {
+    this.correctWinGroupRankingOrder()
+    return this.idleMatches()
   }
 
-  setRankingOrder(rankingorder) {
+  setRankingOrder (rankingorder) {
     if (rankingorder === undefined || rankingorder.length === 0) {
-      rankingorder = ['wins'];
+      rankingorder = ['wins']
     }
     if (super.setRankingOrder(rankingorder)) {
-      this.correctWinGroupRankingOrder();
-      return true;
+      this.correctWinGroupRankingOrder()
+      return true
     } else {
-      return false;
+      return false
     }
   }
 
-  correctWinGroupRankingOrder() {
-    let components, windex;
-    components = this.ranking.componentnames;
+  correctWinGroupRankingOrder () {
+    let components, windex
+    components = this.ranking.componentnames
     if (this.getProperty('swissmode') === 'wins' && components[0] !== 'wins') {
-      windex = components.indexOf('wins');
+      windex = components.indexOf('wins')
       if (windex !== -1) {
-        components.splice(windex, 1);
+        components.splice(windex, 1)
       }
-      components.unshift('wins');
-      this.setRankingOrder(components);
+      components.unshift('wins')
+      this.setRankingOrder(components)
     }
   }
 
@@ -144,38 +144,38 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          a 2d groups array
    * @return true on success, false otherwise
    */
-  findSwissByesAndMatches(outMatches, outVotes, rankGroups) {
-    let reverseRankGroups;
-    outVotes.byes = [];
-    outVotes.ups = [];
-    outVotes.downs = [];
+  findSwissByesAndMatches (outMatches, outVotes, rankGroups) {
+    let reverseRankGroups
+    outVotes.byes = []
+    outVotes.ups = []
+    outVotes.downs = []
     if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
-      reverseRankGroups = rankGroups.slice(0).reverse();
+      reverseRankGroups = rankGroups.slice(0).reverse()
       if (!reverseRankGroups.some(function (group) {
         return group.slice(0).reverse().some(function (teamid) {
-          let index;
+          let index
           if (!this.canGetBye(teamid)) {
-            return false;
+            return false
           }
-          index = group.indexOf(teamid);
-          group.splice(index, 1);
+          index = group.indexOf(teamid)
+          group.splice(index, 1)
           if (this.prefilterSwissMatches(rankGroups)) {
             if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
-              outVotes.byes.push(teamid);
-              return true;
+              outVotes.byes.push(teamid)
+              return true
             }
           }
-          group.splice(index, 0, teamid);
-          return false;
-        }, this);
+          group.splice(index, 0, teamid)
+          return false
+        }, this)
       }, this)) {
-        return false;
+        return false
       }
     }
     if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   /**
@@ -187,34 +187,34 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          a 2D array of rank groups
    * @return true if there's no obvious error, false otherwise
    */
-  prefilterSwissMatches(rankGroups) {
-    let downvote = false;
+  prefilterSwissMatches (rankGroups) {
+    let downvote = false
 
     // verify up/downvotes
     if (this.getProperty('enableupdown')) {
       if (!rankGroups.every(function (group) {
-        let teams = group.length;
+        let teams = group.length
         if (downvote) {
           // upvote required
           if (!group.some(this.canGetUpvote.bind(this))) {
-            return false;
+            return false
           }
-          downvote = false;
-          teams -= 1;
+          downvote = false
+          teams -= 1
         }
         if (teams % 2 !== 0) {
           // downvote required
           if (!group.some(this.canGetDownvote.bind(this))) {
-            return false;
+            return false
           }
-          downvote = true;
+          downvote = true
         }
-        return true;
+        return true
       }, this)) {
-        return false;
+        return false
       }
     }
-    return true;
+    return true
   }
 
   /**
@@ -227,77 +227,77 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          The rank groups.
    * @return true on success, false otherwise
    */
-  findSwissMatches(outMatches, outVotes, rankGroups) {
-    let currentGroup, teamA, teamB, updown;
+  findSwissMatches (outMatches, outVotes, rankGroups) {
+    let currentGroup, teamA, teamB, updown
 
     // console.log(getGroupsTeamCount(rankGroups));
     // console.log(JSON.stringify(rankGroups));
 
-    currentGroup = undefined;
+    currentGroup = undefined
 
     // get firstGroupIndex by searching for the first non-empty group
     if (!rankGroups.some(function (group) {
-      currentGroup = group;
-      return group.length > 0;
+      currentGroup = group
+      return group.length > 0
     })) {
       // success! there's no team left
-      return true;
+      return true
     }
 
     // verify eventual downvote
     if (currentGroup.length === 1 && this.getProperty('enableupdown')) {
       if (!this.canGetDownvote(currentGroup[0])) {
-        return false;
+        return false
       }
     }
-    teamA = currentGroup.shift();
-    teamB = undefined;
-    updown = false; // whether the next non-empty group has already been tried
+    teamA = currentGroup.shift()
+    teamB = undefined
+    updown = false // whether the next non-empty group has already been tried
 
     // try to find a match in any subsequent group, or just this or the one
     // after.
     if (rankGroups.some(function (group) {
       if (group.length === 0) {
-        return false;
+        return false
       }
       if (this.getProperty('enableupdown')) {
         if (updown) {
-          return false;
+          return false
         }
         if (group !== currentGroup) {
-          updown = true;
+          updown = true
         }
       }
       return group.some(function (team, index) {
-        let secondGroup, teamBindex;
+        let secondGroup, teamBindex
         if (this.canPlayMatch(teamA, team, updown)) {
-          secondGroup = group;
-          teamB = team;
-          teamBindex = index;
+          secondGroup = group
+          teamB = team
+          teamBindex = index
           if (updown) {
-            outVotes.downs.push(teamA);
-            outVotes.ups.push(teamB);
+            outVotes.downs.push(teamA)
+            outVotes.ups.push(teamB)
           }
-          secondGroup.splice(teamBindex, 1);
+          secondGroup.splice(teamBindex, 1)
           if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
-            return true;
+            return true
           }
-          secondGroup.splice(teamBindex, 0, teamB);
+          secondGroup.splice(teamBindex, 0, teamB)
           if (updown) {
-            outVotes.downs.pop();
-            outVotes.ups.pop();
+            outVotes.downs.pop()
+            outVotes.ups.pop()
           }
         }
-        return false;
-      }, this);
+        return false
+      }, this)
     }, this)) {
       // don't use push, because the best-ranked team should be listed in
       // the first match
-      outMatches.unshift([teamA, teamB]);
-      return true;
+      outMatches.unshift([teamA, teamB])
+      return true
     }
-    currentGroup.unshift(teamA);
-    return false;
+    currentGroup.unshift(teamA)
+    return false
   }
 
   /**
@@ -305,8 +305,8 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          the id of the team
    * @return true if the team already has a bye
    */
-  hasBye(teamid) {
-    return this.ranking.byes.get(teamid) !== 0;
+  hasBye (teamid) {
+    return this.ranking.byes.get(teamid) !== 0
   }
 
   /**
@@ -314,8 +314,8 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          the id of the team
    * @return true if the team already has an upvote
    */
-  hasUpvote(teamid) {
-    return this.ranking.upvotes.get(teamid) !== 0;
+  hasUpvote (teamid) {
+    return this.ranking.upvotes.get(teamid) !== 0
   }
 
   /**
@@ -323,8 +323,8 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          the id of the team
    * @return true if the team already has a downvote
    */
-  hasDownvote(teamid) {
-    return this.ranking.downvotes.get(teamid) !== 0;
+  hasDownvote (teamid) {
+    return this.ranking.downvotes.get(teamid) !== 0
   }
 
   /**
@@ -334,17 +334,17 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          the prospective team id
    * @return true if the bye would be valid, false otherwise
    */
-  canGetBye(teamid) {
+  canGetBye (teamid) {
     if (!this.getProperty('byeafterbye') && this.hasBye(teamid)) {
-      return false;
+      return false
     }
     if (!this.getProperty('byeafterup') && this.hasUpvote(teamid)) {
-      return false;
+      return false
     }
     if (!this.getProperty('byeafterdown') && this.hasDownvote(teamid)) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   /**
@@ -354,17 +354,17 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          the prospective team id
    * @return true if the upvote is allowed, false otherwise
    */
-  canGetUpvote(teamid) {
+  canGetUpvote (teamid) {
     if (!this.getProperty('upafterup') && this.hasUpvote(teamid)) {
-      return false;
+      return false
     }
     if (!this.getProperty('upafterbye') && this.hasBye(teamid)) {
-      return false;
+      return false
     }
     if (!this.getProperty('upafterdown') && this.hasDownvote(teamid)) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   /**
@@ -374,17 +374,17 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          the prospective team id
    * @return true if the downvote is allowed, false otherwise
    */
-  canGetDownvote(teamid) {
+  canGetDownvote (teamid) {
     if (!this.getProperty('downafterdown') && this.hasDownvote(teamid)) {
-      return false;
+      return false
     }
     if (!this.getProperty('downafterbye') && this.hasBye(teamid)) {
-      return false;
+      return false
     }
     if (!this.getProperty('downafterup') && this.hasUpvote(teamid)) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   /**
@@ -396,16 +396,16 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          if true, teamA is checked for downvotes and teamB for downvotes
    * @return true if they can play a match, false otherwise
    */
-  canPlayMatch(teamA, teamB, updown) {
+  canPlayMatch (teamA, teamB, updown) {
     if (this.ranking.gamematrix.get(teamA, teamB) !== 0) {
-      return false;
+      return false
     }
     if (updown) {
       if (!this.canGetDownvote(teamA) || !this.canGetUpvote(teamB)) {
-        return false;
+        return false
       }
     }
-    return true;
+    return true
   }
 
   /**
@@ -420,17 +420,17 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          2d groups array
    * @return a 2d groups array where the groups are transposed
    */
-  static transposeGroups(groups) {
-    const transposed = [];
+  static transposeGroups (groups) {
+    const transposed = []
     groups.forEach(function (group) {
       group.forEach(function (teamid, index) {
         if (transposed[index] === undefined) {
-          transposed[index] = [];
+          transposed[index] = []
         }
-        transposed[index].push(teamid);
-      });
-    });
-    return transposed;
+        transposed[index].push(teamid)
+      })
+    })
+    return transposed
   }
 
   /**
@@ -444,58 +444,58 @@ class SwissTournamentModel extends RoundTournamentModel {
    *         have the same rank, and outer array is ordered from best to worst
    *         rank
    */
-  static getGroups(ranking, mode) {
-    let allGroups, currentGroup, lastID, getID;
+  static getGroups (ranking, mode) {
+    let allGroups, currentGroup, lastID, getID
 
     /*
      * build different getIDs for different models
      */
-    getID = undefined;
+    getID = undefined
     switch (mode) {
       case SwissTournamentModel.MODES.all:
         getID = function (rankingid) {
-          return 0;
-        };
-        break;
+          return 0
+        }
+        break
       case SwissTournamentModel.MODES.halves:
         getID = function (rankingid) {
-          return rankingid < ranking.displayOrder.length >> 1;
-        };
-        break;
+          return rankingid < ranking.displayOrder.length >> 1
+        }
+        break
       case SwissTournamentModel.MODES.wins:
         getID = function (rankingid) {
-          return ranking.wins[ranking.displayOrder[rankingid]];
-        };
-        break;
+          return ranking.wins[ranking.displayOrder[rankingid]]
+        }
+        break
       case SwissTournamentModel.MODES.ranks:
         getID = function (rankingid) {
-          return ranking.ranks[rankingid];
-        };
-        break;
+          return ranking.ranks[rankingid]
+        }
+        break
       case SwissTournamentModel.MODES.individual:
         getID = function (rankingid) {
-          return rankingid;
-        };
-        break;
+          return rankingid
+        }
+        break
       default:
-        console.error('invalid mode');
-        return undefined;
+        console.error('invalid mode')
+        return undefined
     }
-    currentGroup = [];
-    allGroups = [currentGroup];
-    lastID = undefined;
+    currentGroup = []
+    allGroups = [currentGroup]
+    lastID = undefined
     ranking.displayOrder.forEach(function (teamid, rankingid) {
-      const id = getID(rankingid);
+      const id = getID(rankingid)
       if (id !== lastID) {
-        lastID = id;
+        lastID = id
         if (currentGroup && currentGroup.length) {
-          currentGroup = [];
-          allGroups.push(currentGroup);
+          currentGroup = []
+          allGroups.push(currentGroup)
         }
       }
-      currentGroup.push(teamid);
-    });
-    return allGroups;
+      currentGroup.push(teamid)
+    })
+    return allGroups
   }
 
   /**
@@ -507,15 +507,15 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          a getGroups() result
    * @return a rankGroup 2d array where the order of the inner arrays is random
    */
-  static shuffleGroupTeams(rankGroups) {
+  static shuffleGroupTeams (rankGroups) {
     return rankGroups.map(function (group) {
-      let newgroup;
-      newgroup = [];
+      let newgroup
+      newgroup = []
       while (group.length) {
-        newgroup.push(rng.pickAndRemove(group));
+        newgroup.push(rng.pickAndRemove(group))
       }
-      return newgroup;
-    });
+      return newgroup
+    })
   }
 
   /**
@@ -525,12 +525,12 @@ class SwissTournamentModel extends RoundTournamentModel {
    *          a rankGroups object, as returned by getGroups
    * @return the number of teams in the rank group
    */
-  static getGroupsTeamCount(rankGroups) {
-    let sum = 0;
+  static getGroupsTeamCount (rankGroups) {
+    let sum = 0
     rankGroups.forEach(function (group) {
-      sum += group.length;
-    });
-    return sum;
+      sum += group.length
+    })
+    return sum
   }
 
   static MODES = {
@@ -541,14 +541,14 @@ class SwissTournamentModel extends RoundTournamentModel {
     individual: 'individual',
     // TODO enable the use of global team ids (rangliste, elo, ...)
     globalteamid: undefined
-  };
+  }
 }
 
-SwissTournamentModel.prototype.SYSTEM = 'swiss';
-SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ['votes', 'gamematrix'];
+SwissTournamentModel.prototype.SYSTEM = 'swiss'
+SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ['votes', 'gamematrix']
 
 /**
  * an array of required vote lists
  */
-SwissTournamentModel.prototype.VOTES = ['bye', 'up', 'down'];
-export default SwissTournamentModel;
+SwissTournamentModel.prototype.VOTES = ['bye', 'up', 'down']
+export default SwissTournamentModel

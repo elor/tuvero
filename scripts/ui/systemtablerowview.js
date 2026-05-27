@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from '../core/view.js';
-import TeamView from './teamview.js';
-import NewTournamentView from './newtournamentview.js';
-import TeamDeleteController from './teamdeletecontroller.js';
+import $ from 'jquery'
+import View from '../core/view.js'
+import TeamView from './teamview.js'
+import NewTournamentView from './newtournamentview.js'
+import TeamDeleteController from './teamdeletecontroller.js'
 
 /**
  * Constructor
@@ -28,37 +28,37 @@ import TeamDeleteController from './teamdeletecontroller.js';
  *          cells
  */
 class SystemTableRowView extends View {
-  constructor(index, $view, teams, tournaments, viewPopulator, $newTournamentTemplate) {
-    super(teams.get(index), $view);
-    this.teamID = index;
-    this.teams = teams;
-    this.tournaments = tournaments;
-    this.teamView = new TeamView(this.model, this.$view);
-    this.teamDeleteController = new TeamDeleteController(this);
-    this.tournamentRank = -1;
-    this.globalRank = -1;
-    this.updatepending = undefined;
-    this.$tournamentrank = this.$view.find('.tournamentrank');
-    this.$globalrank = this.$view.find('.rank');
-    this.tournamentView = undefined;
-    this.viewPopulator = viewPopulator;
-    this.updateEverything();
-    this.teams.registerListener(this);
-    this.tournaments.registerListener(this);
+  constructor (index, $view, teams, tournaments, viewPopulator, $newTournamentTemplate) {
+    super(teams.get(index), $view)
+    this.teamID = index
+    this.teams = teams
+    this.tournaments = tournaments
+    this.teamView = new TeamView(this.model, this.$view)
+    this.teamDeleteController = new TeamDeleteController(this)
+    this.tournamentRank = -1
+    this.globalRank = -1
+    this.updatepending = undefined
+    this.$tournamentrank = this.$view.find('.tournamentrank')
+    this.$globalrank = this.$view.find('.rank')
+    this.tournamentView = undefined
+    this.viewPopulator = viewPopulator
+    this.updateEverything()
+    this.teams.registerListener(this)
+    this.tournaments.registerListener(this)
   }
 
-  updateRankTexts() {
-    let ranking, globalRank, tournamentRank;
-    ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    globalRank = ranking.globalRanks[this.teamID];
-    tournamentRank = ranking.tournamentRanks[this.teamID];
+  updateRankTexts () {
+    let ranking, globalRank, tournamentRank
+    ranking = this.tournaments.getGlobalRanking(this.teams.length)
+    globalRank = ranking.globalRanks[this.teamID]
+    tournamentRank = ranking.tournamentRanks[this.teamID]
     if (this.globalRank !== globalRank) {
-      this.$globalrank.text(globalRank + 1);
-      this.globalRank = globalRank;
+      this.$globalrank.text(globalRank + 1)
+      this.globalRank = globalRank
     }
     if (this.tournamentRank !== tournamentRank) {
-      this.$tournamentrank.text(tournamentRank + 1);
-      this.tournamentRank = tournamentRank;
+      this.$tournamentrank.text(tournamentRank + 1)
+      this.tournamentRank = tournamentRank
     }
   }
 
@@ -68,21 +68,21 @@ class SystemTableRowView extends View {
    * @param ranking
    *          a global ranking object
    */
-  updateLastRowClass() {
-    let tournamentID, displayID, nextTeamID, nextTournamentID, ranking;
-    ranking = this.getRanking();
-    tournamentID = this.getTournamentID();
-    displayID = this.getDisplayID();
+  updateLastRowClass () {
+    let tournamentID, displayID, nextTeamID, nextTournamentID, ranking
+    ranking = this.getRanking()
+    tournamentID = this.getTournamentID()
+    displayID = this.getDisplayID()
     if (displayID + 1 === this.teams.length) {
-      this.$view.addClass('lastrow');
-      return;
+      this.$view.addClass('lastrow')
+      return
     }
-    nextTeamID = ranking.displayOrder[displayID + 1];
-    nextTournamentID = ranking.tournamentIDs[nextTeamID];
+    nextTeamID = ranking.displayOrder[displayID + 1]
+    nextTournamentID = ranking.tournamentIDs[nextTeamID]
     if (tournamentID !== nextTournamentID) {
-      this.$view.addClass('lastrow');
+      this.$view.addClass('lastrow')
     } else {
-      this.$view.removeClass('lastrow');
+      this.$view.removeClass('lastrow')
     }
   }
 
@@ -90,128 +90,128 @@ class SystemTableRowView extends View {
    * finds out if the current team is the first team in the tournament and
    * creates a new TournamentView, if necessary.
    */
-  updateSystem() {
-    let tournament, newView, $view;
+  updateSystem () {
+    let tournament, newView, $view
     if (!this.isFirstInTournament()) {
-      this.clearTournamentView();
-      this.$view.removeClass('firstrow');
-      return;
+      this.clearTournamentView()
+      this.$view.removeClass('firstrow')
+      return
     }
-    tournament = this.getTournament();
+    tournament = this.getTournament()
     if (tournament) {
       if (this.viewPopulator.getViewTeamID(this.getTournamentID()) === this.teamID) {
-        return;
+        return
       }
-      newView = this.viewPopulator.getCachedView(this.getTournamentID(), this.teamID);
+      newView = this.viewPopulator.getCachedView(this.getTournamentID(), this.teamID)
     } else {
-      $view = $('<td>').addClass('system');
-      this.viewPopulator.populate(tournament, $view);
-      newView = new NewTournamentView(this.getDisplayID(), this.estimateNewTournamentSize(), $view, this.tournaments, this.teams);
+      $view = $('<td>').addClass('system')
+      this.viewPopulator.populate(tournament, $view)
+      newView = new NewTournamentView(this.getDisplayID(), this.estimateNewTournamentSize(), $view, this.tournaments, this.teams)
     }
-    this.clearTournamentView();
-    this.tournamentView = newView;
-    $view = this.tournamentView.$view;
-    this.$view.append($view);
-    this.$view.addClass('firstrow');
+    this.clearTournamentView()
+    this.tournamentView = newView
+    $view = this.tournamentView.$view
+    this.$view.append($view)
+    this.$view.addClass('firstrow')
   }
 
-  estimateNewTournamentSize() {
-    const ranking = this.getRanking();
-    const displayID = this.getDisplayID();
-    const tournamentID = this.getTournamentID();
-    const rankingLength = ranking.displayOrder.length;
-    let nextDisplayID = displayID + 1;
-    let nextTeamID;
+  estimateNewTournamentSize () {
+    const ranking = this.getRanking()
+    const displayID = this.getDisplayID()
+    const tournamentID = this.getTournamentID()
+    const rankingLength = ranking.displayOrder.length
+    let nextDisplayID = displayID + 1
+    let nextTeamID
     for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
-      nextTeamID = ranking.displayOrder[nextDisplayID];
+      nextTeamID = ranking.displayOrder[nextDisplayID]
       if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
-        break;
+        break
       }
     }
-    const tournamentSize = nextDisplayID - displayID;
-    return tournamentSize;
+    const tournamentSize = nextDisplayID - displayID
+    return tournamentSize
   }
 
-  updateEverything() {
-    this.updateRankTexts();
-    this.updateLastRowClass();
-    this.updateSystem();
+  updateEverything () {
+    this.updateRankTexts()
+    this.updateLastRowClass()
+    this.updateSystem()
   }
 
-  onupdate(emitter, event, data) {
-    const rowview = this;
+  onupdate (emitter, event, data) {
+    const rowview = this
     if (emitter === this.tournaments) {
       if (this.updatepending === undefined) {
-        this.updatepending = true;
+        this.updatepending = true
         window.setTimeout(function () {
-          rowview.updateEverything();
-          rowview.updatepending = undefined;
-        }, 1);
+          rowview.updateEverything()
+          rowview.updatepending = undefined
+        }, 1)
       }
     }
   }
 
-  oninsert(emitter, event, data) {
+  oninsert (emitter, event, data) {
     if (emitter === this.teams) {
-      this.updateEverything();
+      this.updateEverything()
     }
   }
 
-  onremove(emitter, event, data) {
+  onremove (emitter, event, data) {
     if (emitter === this.teams) {
-      this.updateEverything();
+      this.updateEverything()
     }
   }
 
-  destroy() {
-    this.clearTournamentView();
-    super.destroy();
+  destroy () {
+    this.clearTournamentView()
+    super.destroy()
   }
 
-  getDisplayID() {
-    const ranking = this.getRanking();
-    const displayID = ranking.displayOrder.indexOf(this.teamID);
-    return displayID;
+  getDisplayID () {
+    const ranking = this.getRanking()
+    const displayID = ranking.displayOrder.indexOf(this.teamID)
+    return displayID
   }
 
-  getTournamentID() {
-    const ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    const tournamentID = ranking.tournamentIDs[this.teamID];
-    return tournamentID;
+  getTournamentID () {
+    const ranking = this.tournaments.getGlobalRanking(this.teams.length)
+    const tournamentID = ranking.tournamentIDs[this.teamID]
+    return tournamentID
   }
 
-  getRanking() {
-    return this.tournaments.getGlobalRanking(this.teams.length);
+  getRanking () {
+    return this.tournaments.getGlobalRanking(this.teams.length)
   }
 
-  isFirstInTournament() {
-    const displayID = this.getDisplayID();
-    const tournamentID = this.getTournamentID();
-    const ranking = this.getRanking();
-    let isFirstInTournament = false;
+  isFirstInTournament () {
+    const displayID = this.getDisplayID()
+    const tournamentID = this.getTournamentID()
+    const ranking = this.getRanking()
+    let isFirstInTournament = false
     if (displayID === 0) {
-      isFirstInTournament = true;
+      isFirstInTournament = true
     } else {
-      const previousTeamID = ranking.displayOrder[displayID - 1];
+      const previousTeamID = ranking.displayOrder[displayID - 1]
       if (ranking.tournamentIDs[previousTeamID] !== tournamentID) {
-        isFirstInTournament = true;
+        isFirstInTournament = true
       }
     }
-    return isFirstInTournament;
+    return isFirstInTournament
   }
 
-  getTournament() {
-    return this.tournaments.get(this.getTournamentID());
+  getTournament () {
+    return this.tournaments.get(this.getTournamentID())
   }
 
-  clearTournamentView() {
+  clearTournamentView () {
     if (this.tournamentView) {
       if (this.tournamentView.$view.parent().is(this.$view)) {
-        this.tournamentView.$view.detach();
+        this.tournamentView.$view.detach()
       }
-      this.tournamentView = undefined;
+      this.tournamentView = undefined
     }
   }
 }
 
-export default SystemTableRowView;
+export default SystemTableRowView

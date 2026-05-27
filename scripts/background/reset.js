@@ -9,36 +9,36 @@
  * @license MIT License
  * @see LICENSE
  */
-import Toast from '../ui/toast.js';
-import TimeMachine from '../timemachine/timemachine.js';
-import Strings from '../ui/strings.js';
-import $ from 'jquery';
-let Reset;
-function hashcheck() {
+import Toast from '../ui/toast.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import Strings from '../ui/strings.js'
+import $ from 'jquery'
+let Reset
+function hashcheck () {
   if (window.location.hash === '#reset') {
-    console.log('clearing localstorage');
+    console.log('clearing localstorage')
     if (window.localStorage) {
-      window.localStorage.clear();
+      window.localStorage.clear()
     }
-    TimeMachine.updateRoots();
-    Toast.once(Strings.reset, Toast.LONG);
-    window.location.hash = '#debug';
-    return true;
+    TimeMachine.updateRoots()
+    Toast.once(Strings.reset, Toast.LONG)
+    window.location.hash = '#debug'
+    return true
   }
-  return false;
+  return false
 }
 $(window).on('hashchange', function () {
   if (hashcheck()) {
-    window.location.reload();
+    window.location.reload()
   }
-});
+})
 
 // also bind the reset button by delegating its click to a Tab_Storage
 // element
 $(function ($) {
   $('#tabs').on('click', 'button.reset', function (e) {
-    $('#tabs > [data-tab="settings"] .local button.clear').click();
-  });
-});
-hashcheck();
-export default Reset;
+    $('#tabs > [data-tab="settings"] .local button.clear').click()
+  })
+})
+hashcheck()
+export default Reset

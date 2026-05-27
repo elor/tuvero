@@ -1,7 +1,7 @@
-import $ from 'jquery';
-import View from '../core/view.js';
-import CSVExportController from './csvexportcontroller.js';
-import FontSizeView from './fontsizeview.js';
+import $ from 'jquery'
+import View from '../core/view.js'
+import CSVExportController from './csvexportcontroller.js'
+import FontSizeView from './fontsizeview.js'
 
 /**
  * represents a whole team tab
@@ -14,9 +14,9 @@ import FontSizeView from './fontsizeview.js';
  *          the tab DOM element
  */
 class SettingsTab extends View {
-  constructor($tab) {
-    super(undefined, $tab);
-    this.init();
+  constructor ($tab) {
+    super(undefined, $tab)
+    this.init()
   }
 
   /**
@@ -24,25 +24,25 @@ class SettingsTab extends View {
    *
    * TODO maybe split it into multiple autodetected functions?
    */
-  init() {
-    let $container;
-    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
-    this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
+  init () {
+    let $container
+    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
+    this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
 
     /*
      * CSV buttons
      */
-    $container = this.$view.find('.csv');
-    this.csvExportController = new CSVExportController(new View(undefined, $container));
+    $container = this.$view.find('.csv')
+    this.csvExportController = new CSVExportController(new View(undefined, $container))
   }
 }
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab;
-  $tab = $('#tabs > [data-tab="settings"]');
+  let $tab
+  $tab = $('#tabs > [data-tab="settings"]')
   if ($tab.length && $('#testmain').length === 0) {
-    return new SettingsTab($tab);
+    return new SettingsTab($tab)
   }
-});
-export default SettingsTab;
+})
+export default SettingsTab

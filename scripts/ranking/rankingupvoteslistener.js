@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,8 +8,8 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingUpvotesListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
   /**
@@ -18,12 +18,12 @@ class RankingUpvotesListener extends RankingDataListener {
    *
    * @return true
    */
-  isPrimary() {
-    return true;
+  isPrimary () {
+    return true
   }
 
-  static NAME = 'upvotes';
-  static DEPENDENCIES = undefined;
+  static NAME = 'upvotes'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingUpvotesListener;
+export default RankingUpvotesListener

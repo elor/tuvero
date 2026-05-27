@@ -1,4 +1,4 @@
-import View from '../core/view.js';
+import View from '../core/view.js'
 
 /**
  * Constructor
@@ -9,29 +9,29 @@ import View from '../core/view.js';
  *          the associated DOM element
  */
 class ValueView extends View {
-  constructor(model, $view) {
-    super(model, $view);
-    this.update();
+  constructor (model, $view) {
+    super(model, $view)
+    this.update()
   }
 
   /**
    * write the contents of get() to the DOM
    */
-  update() {
-    const value = this.model.get();
+  update () {
+    const value = this.model.get()
     if (value === undefined) {
-      this.$view.text('undefined');
+      this.$view.text('undefined')
     } else {
-      this.$view.text(value);
+      this.$view.text(value)
     }
   }
 
   /**
    * Callback listener
    */
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 }
 
-export default ValueView;
+export default ValueView

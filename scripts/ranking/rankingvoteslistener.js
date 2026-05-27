@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,35 +8,35 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingVotesListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
-  onrecalc() {
+  onrecalc () {
     this.votes.map(function (oldVote, teamID) {
-      let i, string;
-      string = '';
+      let i, string
+      string = ''
 
       // byes
       for (i = 0; i < this.byes.get(teamID); i += 1) {
-        string += '∅';
+        string += '∅'
       }
 
       // upvotes
       for (i = 0; i < this.upvotes.get(teamID); i += 1) {
-        string += '▲';
+        string += '▲'
       }
 
       // downvotes
       for (i = 0; i < this.downvotes.get(teamID); i += 1) {
-        string += '▼';
+        string += '▼'
       }
-      this.votes.set(teamID, string);
-    }, this);
+      this.votes.set(teamID, string)
+    }, this)
   }
 
-  static NAME = 'votes';
-  static DEPENDENCIES = ['upvotes', 'downvotes', 'byes'];
+  static NAME = 'votes'
+  static DEPENDENCIES = ['upvotes', 'downvotes', 'byes']
 }
 
-export default RankingVotesListener;
+export default RankingVotesListener

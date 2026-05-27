@@ -1,5 +1,5 @@
-import MatchResultView from './matchresultview.js';
-import KOTreePosition from './kotreeposition.js';
+import MatchResultView from './matchresultview.js'
+import KOTreePosition from './kotreeposition.js'
 
 /**
  * Constructor
@@ -17,25 +17,25 @@ import KOTreePosition from './kotreeposition.js';
  * @returns {undefined}
  */
 class KOMatchResultView extends MatchResultView {
-  constructor(model, $view, teamlist, tournament, fullwidth) {
-    super(model, $view, teamlist, tournament);
-    this.tournament = tournament;
-    this.fullwidth = fullwidth;
-    this.reposition();
-    fullwidth.registerListener(this);
+  constructor (model, $view, teamlist, tournament, fullwidth) {
+    super(model, $view, teamlist, tournament)
+    this.tournament = tournament
+    this.fullwidth = fullwidth
+    this.reposition()
+    fullwidth.registerListener(this)
   }
 
-  reposition() {
-    const pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.tournament.getTeams().length, this.fullwidth.get());
-    this.x = pos.x;
-    this.y = pos.y;
-    this.$view.css('left', this.x + 'em');
-    this.$view.css('top', this.y + 'em');
+  reposition () {
+    const pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.tournament.getTeams().length, this.fullwidth.get())
+    this.x = pos.x
+    this.y = pos.y
+    this.$view.css('left', this.x + 'em')
+    this.$view.css('top', this.y + 'em')
   }
 
-  onupdate() {
-    this.reposition();
+  onupdate () {
+    this.reposition()
   }
 }
 
-export default KOMatchResultView;
+export default KOMatchResultView

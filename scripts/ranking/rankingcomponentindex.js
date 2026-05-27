@@ -7,27 +7,27 @@
  * @license MIT License
  * @see LICENSE
  */
-import RankingIDComponent from './rankingidcomponent.js';
-import RankingPointsComponent from './rankingpointscomponent.js';
-import RankingLostPointsComponent from './rankinglostpointscomponent.js';
-import RankingSaldoComponent from './rankingsaldocomponent.js';
-import RankingBuchholzComponent from './rankingbuchholzcomponent.js';
-import RankingFineBuchholzComponent from './rankingfinebuchholzcomponent.js';
-import RankingSonnebornComponent from './rankingsonneborncomponent.js';
-import RankingWinsComponent from './rankingwinscomponent.js';
-import RankingHeadToHeadComponent from './rankingheadtoheadcomponent.js';
-import RankingTacComponent from './rankingtaccomponent.js';
-import RankingFormulexComponent from './rankingformulexcomponent.js';
-import RankingVotesComponent from './rankingvotescomponent.js';
-import RankingNumGamesComponent from './rankingnumgamescomponent.js';
-import RankingKOComponent from './rankingkocomponent.js';
-import RankingThreePointComponent from './rankingthreepointcomponent.js';
-import RankingTwoPointComponent from './rankingtwopointcomponent.js';
-import RankingPlacementComponent from './rankingplacementcomponent.js';
-import RankingPouleIDComponent from './rankingpouleidcomponent.js';
-import RankingPouleRankComponent from './rankingpoulerankcomponent.js';
+import RankingIDComponent from './rankingidcomponent.js'
+import RankingPointsComponent from './rankingpointscomponent.js'
+import RankingLostPointsComponent from './rankinglostpointscomponent.js'
+import RankingSaldoComponent from './rankingsaldocomponent.js'
+import RankingBuchholzComponent from './rankingbuchholzcomponent.js'
+import RankingFineBuchholzComponent from './rankingfinebuchholzcomponent.js'
+import RankingSonnebornComponent from './rankingsonneborncomponent.js'
+import RankingWinsComponent from './rankingwinscomponent.js'
+import RankingHeadToHeadComponent from './rankingheadtoheadcomponent.js'
+import RankingTacComponent from './rankingtaccomponent.js'
+import RankingFormulexComponent from './rankingformulexcomponent.js'
+import RankingVotesComponent from './rankingvotescomponent.js'
+import RankingNumGamesComponent from './rankingnumgamescomponent.js'
+import RankingKOComponent from './rankingkocomponent.js'
+import RankingThreePointComponent from './rankingthreepointcomponent.js'
+import RankingTwoPointComponent from './rankingtwopointcomponent.js'
+import RankingPlacementComponent from './rankingplacementcomponent.js'
+import RankingPouleIDComponent from './rankingpouleidcomponent.js'
+import RankingPouleRankComponent from './rankingpoulerankcomponent.js'
 
-let RankingComponentIndex, index, Component, allComponents;
+let RankingComponentIndex, index, Component, allComponents
 
 const allComponentList = [
   RankingIDComponent,
@@ -49,14 +49,14 @@ const allComponentList = [
   RankingPlacementComponent,
   RankingPouleIDComponent,
   RankingPouleRankComponent
-];
+]
 
 // build the index from the XXXRankingComponent.NAME fields
-RankingComponentIndex = {};
-allComponents = {};
+RankingComponentIndex = {}
+allComponents = {}
 for (index = 0; index < allComponentList.length; index += 1) {
-  Component = allComponentList[index];
-  allComponents[Component.NAME.toLowerCase()] = Component;
+  Component = allComponentList[index]
+  allComponents[Component.NAME.toLowerCase()] = Component
 }
 
 /**
@@ -71,29 +71,29 @@ for (index = 0; index < allComponentList.length; index += 1) {
    *         the first element in the components array
    */
 RankingComponentIndex.createComponentChain = function (ranking, components) {
-  let chainfront;
-  chainfront = undefined;
+  let chainfront
+  chainfront = undefined
 
   // copy the array and revert it: we'll construct the chain from its end
-  components = components.slice(0);
-  components.reverse();
+  components = components.slice(0)
+  components.reverse()
 
   // iterate over the components and chain them in order.
   // Abort if a component is not defined.
   if (!components.every(function (component) {
-    component = component.toLowerCase();
-    const constructor = allComponents[component];
+    component = component.toLowerCase()
+    const constructor = allComponents[component]
     if (constructor === undefined) {
-      console.error('RankingComponentIndex.createComponentChain error: ' + 'undefined component name: ' + component);
-      return false;
+      console.error('RankingComponentIndex.createComponentChain error: ' + 'undefined component name: ' + component)
+      return false
     }
-    chainfront = new constructor(ranking, chainfront);
-    return true;
+    chainfront = new constructor(ranking, chainfront)
+    return true
   })) {
     // some component could not be created. Abort.
-    return undefined;
+    return undefined
   }
-  return chainfront;
-};
-RankingComponentIndex.components = Object.keys(allComponents).sort();
-export default RankingComponentIndex;
+  return chainfront
+}
+RankingComponentIndex.components = Object.keys(allComponents).sort()
+export default RankingComponentIndex

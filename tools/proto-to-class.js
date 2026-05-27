@@ -55,7 +55,7 @@ module.exports = function transform (fileInfo, api) {
   // ── 3. Collect ClassName.staticKey = value ────────────────────────────────
   const SKIP_KEYS = new Set(['prototype', 'superclass', 'superconstructor'])
   const staticMethods = new Map() // ClassName → [{key, value, path}]
-  const staticProps = new Map()   // ClassName → [{key, value, path}]
+  const staticProps = new Map() // ClassName → [{key, value, path}]
 
   root.find(j.ExpressionStatement).filter(isDirectMemberAssignment).forEach(path => {
     const expr = path.node.expression

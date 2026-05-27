@@ -1,26 +1,26 @@
-import ValueModel from '../core/valuemodel.js';
+import ValueModel from '../core/valuemodel.js'
 
 class NoRegModel extends ValueModel {
-  constructor(tournaments) {
+  constructor (tournaments) {
     const isClosed = () => tournaments.asArray().some(function (tournament) {
-      return tournament.state.get() !== 'initial' || !tournaments.closedTournaments.includes(tournament.getID());
-    });
-    super(isClosed());
-    this.tournaments = tournaments;
-    this.tournaments.registerListener(this);
-    this.tournaments.closedTournaments.registerListener(this);
+      return tournament.state.get() !== 'initial' || !tournaments.closedTournaments.includes(tournament.getID())
+    })
+    super(isClosed())
+    this.tournaments = tournaments
+    this.tournaments.registerListener(this)
+    this.tournaments.closedTournaments.registerListener(this)
   }
 
-  isClosed() {
+  isClosed () {
     return this.tournaments.asArray().some(function (tournament) {
-      return tournament.state.get() !== 'initial' || !this.tournaments.closedTournaments.includes(tournament.getID());
-    }, this);
+      return tournament.state.get() !== 'initial' || !this.tournaments.closedTournaments.includes(tournament.getID())
+    }, this)
   }
 
-  onupdate() {
-    super.set(this.isClosed());
+  onupdate () {
+    super.set(this.isClosed())
   }
 }
 
-NoRegModel.prototype.set = undefined;
-export default NoRegModel;
+NoRegModel.prototype.set = undefined
+export default NoRegModel

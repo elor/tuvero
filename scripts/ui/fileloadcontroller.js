@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
-import InputView from './inputview.js';
-import Toast from './toast.js';
-import Strings from './strings.js';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
+import InputView from './inputview.js'
+import Toast from './toast.js'
+import Strings from './strings.js'
 
 /**
  * Constructor. Attention: It doesn't take a View, but a jquery element!
@@ -20,21 +20,21 @@ import Strings from './strings.js';
  *          file selection/open
  */
 class FileLoadController extends Controller {
-  constructor($button) {
-    let controller, view;
-    view = new InputView($('<input>').attr('type', 'file'));
-    super(view);
-    controller = this;
-    this.reader = undefined;
-    this.file = undefined;
+  constructor ($button) {
+    let controller, view
+    view = new InputView($('<input>').attr('type', 'file'))
+    super(view)
+    controller = this
+    this.reader = undefined
+    this.file = undefined
     this.view.$view.change(function (evt) {
-      controller.initFileRead(evt.target.files[0]);
-    });
-    $button.on('dragover', this.buttonDragOver.bind(this));
-    $button.on('drop', this.buttonDrop.bind(this));
+      controller.initFileRead(evt.target.files[0])
+    })
+    $button.on('dragover', this.buttonDragOver.bind(this))
+    $button.on('drop', this.buttonDrop.bind(this))
     $button.click(function () {
-      controller.view.$view.click();
-    });
+      controller.view.$view.click()
+    })
   }
 
   /*
@@ -44,8 +44,8 @@ class FileLoadController extends Controller {
   /**
    * unread a file, e.g. on file read error. Please overload.
    */
-  unreadFile() {
-    console.warn('FileLoadController.unreadfile() called but not overloaded');
+  unreadFile () {
+    console.warn('FileLoadController.unreadfile() called but not overloaded')
   }
 
   /**
@@ -54,8 +54,8 @@ class FileLoadController extends Controller {
    * @param fileContents
    *          the contents of the loaded file
    */
-  readFile(fileContents) {
-    console.log(fileContents);
+  readFile (fileContents) {
+    console.log(fileContents)
   }
 
   /*
@@ -69,8 +69,8 @@ class FileLoadController extends Controller {
    *          the dragover event
    * @return false
    */
-  buttonDragOver(evt) {
-    evt.originalEvent.dataTransfer.dropEffect = 'copy';
+  buttonDragOver (evt) {
+    evt.originalEvent.dataTransfer.dropEffect = 'copy'
   }
 
   /**
@@ -80,19 +80,19 @@ class FileLoadController extends Controller {
    * @param evt
    * @return false
    */
-  buttonDrop(evt) {
-    const files = evt.originalEvent.dataTransfer.files;
+  buttonDrop (evt) {
+    const files = evt.originalEvent.dataTransfer.files
     if (files.length < 1) {
-      Toast.once(Strings.nofiles, Toast.LONG);
-      return;
+      Toast.once(Strings.nofiles, Toast.LONG)
+      return
     } else if (files.length > 1) {
-      Toast.once(Strings.onlyonefile, Toast.LONG);
-      return;
+      Toast.once(Strings.onlyonefile, Toast.LONG)
+      return
     }
     if (files[0]) {
-      this.initFileRead(files[0]);
+      this.initFileRead(files[0])
     } else {
-      Toast.once(Strings.nofiles, Toast.LONG);
+      Toast.once(Strings.nofiles, Toast.LONG)
     }
   }
 
@@ -101,13 +101,13 @@ class FileLoadController extends Controller {
    *
    * @param file
    */
-  initFileRead(file) {
-    this.file = file;
-    this.reader = new window.FileReader();
-    this.reader.onerror = this.loadError.bind(this);
-    this.reader.onabort = this.loadAbort.bind(this);
-    this.reader.onload = this.loadSuccess.bind(this);
-    this.reader.readAsText(this.file);
+  initFileRead (file) {
+    this.file = file
+    this.reader = new window.FileReader()
+    this.reader.onerror = this.loadError.bind(this)
+    this.reader.onabort = this.loadAbort.bind(this)
+    this.reader.onload = this.loadSuccess.bind(this)
+    this.reader.readAsText(this.file)
   }
 
   /**
@@ -116,21 +116,21 @@ class FileLoadController extends Controller {
    *
    * @param evt
    */
-  loadError(evt) {
-    this.unreadFile();
+  loadError (evt) {
+    this.unreadFile()
     switch (evt.target.error.code) {
       case evt.target.error.NOT_FOUND_ERR:
-        Toast.once(Strings.filenotfound);
-        break;
+        Toast.once(Strings.filenotfound)
+        break
       case evt.target.error.NOT_READABLE_ERR:
-        Toast.once(Strings.filenotreadable);
-        break;
+        Toast.once(Strings.filenotreadable)
+        break
       case evt.target.error.ABORT_ERR:
-        break;
+        break
       default:
-        Toast.once(Strings.fileerror, Toast.LONG);
+        Toast.once(Strings.fileerror, Toast.LONG)
     }
-    this.model.emit('reset');
+    this.model.emit('reset')
   }
 
   /**
@@ -138,22 +138,22 @@ class FileLoadController extends Controller {
    *
    * @param evt
    */
-  loadSuccess(evt) {
+  loadSuccess (evt) {
     if (evt.target === this.reader) {
-      this.readFile(evt.target.result);
+      this.readFile(evt.target.result)
     } else {
-      Toast.once(Strings.loadfailed, Toast.LONG);
+      Toast.once(Strings.loadfailed, Toast.LONG)
     }
-    this.model.emit('reset');
+    this.model.emit('reset')
   }
 
   /**
    * FileReader callback function: loading was aborted (e.g. during file
    * selection)
    */
-  loadAbort() {
-    Toast.once(Strings.fileabort);
+  loadAbort () {
+    Toast.once(Strings.fileabort)
   }
 }
 
-export default FileLoadController;
+export default FileLoadController

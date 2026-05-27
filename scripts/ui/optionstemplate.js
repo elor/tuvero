@@ -13,39 +13,39 @@
  */
 // NOTE TO SELF: Don't remove the '[],' from this line
 // Removing it WILL break EVERYTHING after r.js compilation !!!
-let OptionsTemplate, Default;
-Default = {};
-OptionsTemplate = {};
+let OptionsTemplate, Default
+Default = {}
+OptionsTemplate = {}
 OptionsTemplate.toBlob = function () {
-  return JSON.stringify(OptionsTemplate);
-};
+  return JSON.stringify(OptionsTemplate)
+}
 OptionsTemplate.fromBlob = function (blob) {
-  let opts, key;
-  opts = JSON.parse(blob);
+  let opts, key
+  opts = JSON.parse(blob)
 
   // delete everything
   for (key in OptionsTemplate) {
     if (typeof OptionsTemplate[key] !== 'function') {
-      delete OptionsTemplate[key];
+      delete OptionsTemplate[key]
     }
   }
 
   // apply default options
   for (key in Default) {
-    OptionsTemplate[key] = Default[key];
+    OptionsTemplate[key] = Default[key]
   }
 
   // reset everything
   for (key in opts) {
-    OptionsTemplate[key] = opts[key];
+    OptionsTemplate[key] = opts[key]
   }
-};
+}
 OptionsTemplate.setDefault = function (newDefault) {
-  Default = newDefault;
-};
+  Default = newDefault
+}
 OptionsTemplate.reset = function () {
   // just use available functions instead of cloning
-  OptionsTemplate.fromBlob(JSON.stringify(Default));
-};
-OptionsTemplate.reset();
-export default OptionsTemplate;
+  OptionsTemplate.fromBlob(JSON.stringify(Default))
+}
+OptionsTemplate.reset()
+export default OptionsTemplate

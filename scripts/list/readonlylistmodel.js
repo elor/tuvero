@@ -1,5 +1,5 @@
-import Model from '../core/model.js';
-import ListModel from './listmodel.js';
+import Model from '../core/model.js'
+import ListModel from './listmodel.js'
 
 /**
  * Constructor
@@ -8,31 +8,31 @@ import ListModel from './listmodel.js';
  *          another ListModel instance
  */
 class ReadonlyListModel extends Model {
-  constructor(list) {
-    super();
-    this.list = list;
-    this.length = this.list.length;
-    this.list.registerListener(this);
+  constructor (list) {
+    super()
+    this.list = list
+    this.length = this.list.length
+    this.list.registerListener(this)
   }
 
-  get() {
-    return this.list.get.apply(this.list, arguments);
+  get () {
+    return this.list.get.apply(this.list, arguments)
   }
 
-  indexOf() {
-    return this.list.indexOf.apply(this.list, arguments);
+  indexOf () {
+    return this.list.indexOf.apply(this.list, arguments)
   }
 
-  map() {
-    return this.list.map.apply(this, arguments);
+  map () {
+    return this.list.map.apply(this, arguments)
   }
 
-  asArray() {
-    return this.list.asArray.apply(this.list, arguments);
+  asArray () {
+    return this.list.asArray.apply(this.list, arguments)
   }
 
-  updateLength() {
-    this.length = this.list.length;
+  updateLength () {
+    this.length = this.list.length
   }
 
   /**
@@ -42,8 +42,8 @@ class ReadonlyListModel extends Model {
    * @param event
    * @param data
    */
-  oninsert(emitter, event, data) {
-    this.emit(event, data);
+  oninsert (emitter, event, data) {
+    this.emit(event, data)
   }
 
   /**
@@ -53,8 +53,8 @@ class ReadonlyListModel extends Model {
    * @param event
    * @param data
    */
-  onremove(emitter, event, data) {
-    this.emit(event, data);
+  onremove (emitter, event, data) {
+    this.emit(event, data)
   }
 
   /**
@@ -64,8 +64,8 @@ class ReadonlyListModel extends Model {
    * @param event
    * @param data
    */
-  onreset(emitter, event, data) {
-    this.emit(event, data);
+  onreset (emitter, event, data) {
+    this.emit(event, data)
   }
 
   /**
@@ -75,11 +75,11 @@ class ReadonlyListModel extends Model {
    * @param event
    * @param data
    */
-  onresize(emitter, event, data) {
-    this.updateLength();
-    this.emit(event, data);
+  onresize (emitter, event, data) {
+    this.updateLength()
+    this.emit(event, data)
   }
 }
 
-ReadonlyListModel.prototype.EVENTS = ListModel.prototype.EVENTS;
-export default ReadonlyListModel;
+ReadonlyListModel.prototype.EVENTS = ListModel.prototype.EVENTS
+export default ReadonlyListModel

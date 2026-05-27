@@ -1,7 +1,7 @@
-import View from '../core/view.js';
-import $ from 'jquery';
-import KOLine from './koline.js';
-import KOTreePosition from './kotreeposition.js';
+import View from '../core/view.js'
+import $ from 'jquery'
+import KOLine from './koline.js'
+import KOTreePosition from './kotreeposition.js'
 
 /**
  * Constructor
@@ -16,26 +16,26 @@ import KOTreePosition from './kotreeposition.js';
  *          a ValueModel which evaluates to true if any name should be shown
  */
 class KOLineView extends View {
-  constructor(model, $view, numTeams, fullwidth) {
-    super(model, $view);
-    this.numTeams = numTeams;
-    this.fullwidth = fullwidth;
-    this.render();
-    fullwidth.registerListener(this);
+  constructor (model, $view, numTeams, fullwidth) {
+    super(model, $view)
+    this.numTeams = numTeams
+    this.fullwidth = fullwidth
+    this.render()
+    fullwidth.registerListener(this)
   }
 
-  clear() {
+  clear () {
     if (this.$line) {
-      this.$line.remove();
-      this.$line = undefined;
+      this.$line.remove()
+      this.$line = undefined
     }
   }
 
-  render() {
-    this.clear();
+  render () {
+    this.clear()
     if (this.model.getID() > 1) {
-      this.$line = this.createLine();
-      this.$view.append(this.$line);
+      this.$line = this.createLine()
+      this.$view.append(this.$line)
     }
   }
 
@@ -46,21 +46,21 @@ class KOLineView extends View {
    *          the total number of teams in the KO tournament
    * @return a jquery object of a KO line, ready to be inserted
    */
-  createLine() {
-    let line, from, to, pos;
-    pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.numTeams, this.fullwidth.get());
-    this.x = pos.x;
-    this.y = pos.y;
-    pos = pos.getFollowingPosition();
-    from = [this.x + KOTreePosition.getWidth(this.fullwidth.get()) - 1, this.y + 2];
-    to = [pos.x + 0.4, pos.y + 2];
-    line = new KOLine(from, to);
-    return $(line.svg).addClass('.koline');
+  createLine () {
+    let line, from, to, pos
+    pos = new KOTreePosition(this.model.getID(), this.model.getGroup(), this.numTeams, this.fullwidth.get())
+    this.x = pos.x
+    this.y = pos.y
+    pos = pos.getFollowingPosition()
+    from = [this.x + KOTreePosition.getWidth(this.fullwidth.get()) - 1, this.y + 2]
+    to = [pos.x + 0.4, pos.y + 2]
+    line = new KOLine(from, to)
+    return $(line.svg).addClass('.koline')
   }
 
-  onupdate(emitter, event, data) {
-    this.render();
+  onupdate (emitter, event, data) {
+    this.render()
   }
 }
 
-export default KOLineView;
+export default KOLineView

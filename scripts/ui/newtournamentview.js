@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from '../core/view.js';
-import NewTournamentController from './newtournamentcontroller.js';
-import Presets from 'presets';
+import $ from 'jquery'
+import View from '../core/view.js'
+import NewTournamentController from './newtournamentcontroller.js'
+import Presets from 'presets'
 
 /**
  * Constructor
@@ -21,28 +21,28 @@ import Presets from 'presets';
  * @param teams
  */
 class NewTournamentView extends View {
-  constructor(firstTeamID, numTeams, $view, tournaments, teams) {
-    super(undefined, $view);
-    this.$view.addClass('newsystem');
+  constructor (firstTeamID, numTeams, $view, tournaments, teams) {
+    super(undefined, $view)
+    this.$view.addClass('newsystem')
     if (numTeams < 2) {
-      this.$view.addClass('notenoughteams');
+      this.$view.addClass('notenoughteams')
     }
 
     // anonymous model
-    this.model.firstTeamID = firstTeamID;
-    this.model.numTeams = numTeams;
-    this.model.tournaments = tournaments;
-    this.model.teams = teams;
+    this.model.firstTeamID = firstTeamID
+    this.model.numTeams = numTeams
+    this.model.tournaments = tournaments
+    this.model.teams = teams
     this.$view.find('button').each(function () {
-      let $button, system;
-      $button = $(this);
-      system = $button.attr('data-system');
+      let $button, system
+      $button = $(this)
+      system = $button.attr('data-system')
       if (system && !Presets.systems[system]) {
-        $button.hide();
+        $button.hide()
       }
-    });
-    this.controller = new NewTournamentController(this);
+    })
+    this.controller = new NewTournamentController(this)
   }
 }
 
-export default NewTournamentView;
+export default NewTournamentView

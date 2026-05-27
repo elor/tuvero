@@ -1,4 +1,4 @@
-import DelegateMatrix from './delegatematrix.js';
+import DelegateMatrix from './delegatematrix.js'
 
 /**
  * Constructor
@@ -7,8 +7,8 @@ import DelegateMatrix from './delegatematrix.js';
  *          the matrix to bind itself to
  */
 class AbsoluteMatrix extends DelegateMatrix {
-  constructor(matrix) {
-    super(matrix);
+  constructor (matrix) {
+    super(matrix)
   }
 
   /**
@@ -20,13 +20,13 @@ class AbsoluteMatrix extends DelegateMatrix {
    *          the column
    * @return the absolute value at position (row,col)
    */
-  get(row, col) {
-    const value = this.superget(row, col);
+  get (row, col) {
+    const value = this.superget(row, col)
     if (value < 0) {
-      return -value;
+      return -value
     }
-    return value;
+    return value
   }
 }
 
-export default AbsoluteMatrix;
+export default AbsoluteMatrix

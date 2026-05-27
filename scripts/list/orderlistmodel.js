@@ -1,5 +1,5 @@
-import ListModel from './listmodel.js';
-import { diffLines } from 'diff';
+import ListModel from './listmodel.js'
+import { diffLines } from 'diff'
 /**
  * get a diffresult of two integer arrays
  *
@@ -12,30 +12,30 @@ import { diffLines } from 'diff';
  *          the removed/added properties are true if the values need to be
  *          removed/added
  */
-function getdiff(a, b) {
-  let diffresult;
-  a = a.join('\n');
+function getdiff (a, b) {
+  let diffresult
+  a = a.join('\n')
   if (a.length > 0) {
-    a += '\n';
+    a += '\n'
   }
-  b = b.join('\n');
+  b = b.join('\n')
   if (b.length > 0) {
-    b += '\n';
+    b += '\n'
   }
-  diffresult = diffLines(a, b);
+  diffresult = diffLines(a, b)
   diffresult.forEach(function (lines) {
-    lines.value = lines.value.replace(/\n$/, '').split('\n').map(Number);
-  });
-  return diffresult;
+    lines.value = lines.value.replace(/\n$/, '').split('\n').map(Number)
+  })
+  return diffresult
 }
 
 /**
  * Constructor
  */
 class OrderListModel extends ListModel {
-  constructor() {
-    super();
-    this.makeReadonly();
+  constructor () {
+    super()
+    this.makeReadonly()
   }
 
   /**
@@ -45,22 +45,22 @@ class OrderListModel extends ListModel {
    * @param order
    *          The wanted end result
    */
-  enforceOrder(order) {
-    let index, diffresult;
-    diffresult = getdiff(this.list, order);
-    index = 0;
+  enforceOrder (order) {
+    let index, diffresult
+    diffresult = getdiff(this.list, order)
+    index = 0
     diffresult.forEach((lines) => {
       lines.value.forEach((value) => {
         if (lines.added) {
-          super.insert(index, value);
+          super.insert(index, value)
         } else if (lines.removed) {
-          super.remove(index);
-          index -= 1;
+          super.remove(index)
+          index -= 1
         }
-        index += 1;
-      });
-    });
+        index += 1
+      })
+    })
   }
 }
 
-export default OrderListModel;
+export default OrderListModel

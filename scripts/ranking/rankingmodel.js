@@ -1,19 +1,19 @@
-import Model from '../core/model.js';
-import RankingComponentIndex from './rankingcomponentindex.js';
-import Type from '../core/type.js';
-import RankingDataListenerIndex from './rankingdatalistenerindex.js';
+import Model from '../core/model.js'
+import RankingComponentIndex from './rankingcomponentindex.js'
+import Type from '../core/type.js'
+import RankingDataListenerIndex from './rankingdatalistenerindex.js'
 /**
  * create a list of IDs for reference
  *
  * @return an array of ids, where the index matches the value
  */
-function getIDs() {
-  let ids;
-  ids = [];
+function getIDs () {
+  let ids
+  ids = []
   while (ids.length < this.length) {
-    ids.push(ids.length);
+    ids.push(ids.length)
   }
-  return ids;
+  return ids
 }
 
 /**
@@ -23,14 +23,14 @@ function getIDs() {
  *          an array of ids
  * @return an array of ids, sorted by rank
  */
-function getRankingOrder(ids) {
-  let order, chain;
-  order = ids.slice(0);
-  chain = this.componentchain;
+function getRankingOrder (ids) {
+  let order, chain
+  order = ids.slice(0)
+  chain = this.componentchain
   order.sort(function (a, b) {
-    return chain.compare(a, b) || a - b;
-  }, this);
-  return order;
+    return chain.compare(a, b) || a - b
+  }, this)
+  return order
 }
 
 /**
@@ -42,21 +42,21 @@ function getRankingOrder(ids) {
  *
  * @return an array of ranks, as retrieved from the ids
  */
-function getRanks(ids) {
-  let ranks;
-  ranks = new Array(this.length);
+function getRanks (ids) {
+  let ranks
+  ranks = new Array(this.length)
   ids.forEach(function (teamid, index) {
     if (index === 0) {
-      ranks[teamid] = 0;
+      ranks[teamid] = 0
     } else {
       if (this.componentchain.compare(ids[index - 1], teamid) < 0) {
-        ranks[teamid] = index;
+        ranks[teamid] = index
       } else {
-        ranks[teamid] = ranks[ids[index - 1]];
+        ranks[teamid] = ranks[ids[index - 1]]
       }
     }
-  }, this);
-  return ranks;
+  }, this)
+  return ranks
 }
 
 /**
@@ -69,28 +69,28 @@ function getRanks(ids) {
  *          true if the data listeners shouldn't be recalculated, undefined or
  *          false otherwise.
  */
-function updateRanking(norecalc) {
-  let newRanking, components;
+function updateRanking (norecalc) {
+  let newRanking, components
   if (!norecalc) {
-    this.emit('recalc');
+    this.emit('recalc')
   }
   newRanking = {
     components: this.componentnames
-  };
-  newRanking.ids = getIDs.call(this);
-  newRanking.displayOrder = getRankingOrder.call(this, newRanking.ids);
-  newRanking.ranks = getRanks.call(this, newRanking.displayOrder);
-  if (this.componentchain !== undefined) {
-    components = this.componentchain.getValues();
-    components.forEach(function (component, index) {
-      let name;
-      if (component !== undefined) {
-        name = this.componentnames[index];
-        newRanking[name] = component;
-      }
-    }, this);
   }
-  this.ranking = newRanking;
+  newRanking.ids = getIDs.call(this)
+  newRanking.displayOrder = getRankingOrder.call(this, newRanking.ids)
+  newRanking.ranks = getRanks.call(this, newRanking.displayOrder)
+  if (this.componentchain !== undefined) {
+    components = this.componentchain.getValues()
+    components.forEach(function (component, index) {
+      let name
+      if (component !== undefined) {
+        name = this.componentnames[index]
+        newRanking[name] = component
+      }
+    }, this)
+  }
+  this.ranking = newRanking
 }
 
 /**
@@ -105,17 +105,17 @@ function updateRanking(norecalc) {
  *          for "have they played"-type questions
  */
 class RankingModel extends Model {
-  constructor(components, size, externalDependencies) {
-    super();
-    components = components || [];
-    size = size || 0;
-    this.ranking = undefined;
-    this.componentnames = [];
-    this.componentchain = undefined;
-    this.length = 0;
-    this.extDeps = [];
-    this.dataListeners = {};
-    this.init(components, size, externalDependencies);
+  constructor (components, size, externalDependencies) {
+    super()
+    components = components || []
+    size = size || 0
+    this.ranking = undefined
+    this.componentnames = []
+    this.componentchain = undefined
+    this.length = 0
+    this.extDeps = []
+    this.dataListeners = {}
+    this.init(components, size, externalDependencies)
   }
 
   /**
@@ -126,55 +126,55 @@ class RankingModel extends Model {
    * @param extDependencies
    * @return true on success, false otherwise
    */
-  init(components, size, extDependencies) {
-    let dependencies, dataListenerArray;
+  init (components, size, extDependencies) {
+    let dependencies, dataListenerArray
 
     // abort if the ranking object has not been reset
     if (this.componentchain || this.componentnames.length !== 0 || Object.keys(this.dataListeners).length !== 0) {
-      return false;
+      return false
     }
-    this.componentnames = components.slice(0);
-    this.componentchain = RankingComponentIndex.createComponentChain(this, components);
+    this.componentnames = components.slice(0)
+    this.componentchain = RankingComponentIndex.createComponentChain(this, components)
     if (this.componentchain) {
-      dependencies = this.componentchain.dependencies;
+      dependencies = this.componentchain.dependencies
     } else {
-      dependencies = [];
+      dependencies = []
     }
     if (extDependencies) {
-      this.extDeps.push.apply(this.extDeps, extDependencies);
-      dependencies.push.apply(dependencies, this.extDeps);
+      this.extDeps.push.apply(this.extDeps, extDependencies)
+      dependencies.push.apply(dependencies, this.extDeps)
     }
-    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this, dependencies);
+    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this, dependencies)
     if (dataListenerArray && components && components.length > 0) {
       dataListenerArray.forEach(function (dataListener, index) {
-        this.dataListeners[dependencies[index]] = dataListener;
-      }, this);
-      this.resize(size);
+        this.dataListeners[dependencies[index]] = dataListener
+      }, this)
+      this.resize(size)
     }
-    return true;
+    return true
   }
 
   /**
    * restore everything to an initial state, as provided by an empty
    * RankingModel construction
    */
-  reset() {
+  reset () {
     Object.keys(this.dataListeners).forEach(function (key) {
-      this.dataListeners[key].destroy();
-    }, this);
+      this.dataListeners[key].destroy()
+    }, this)
 
-    this.ranking = undefined;
-    this.componentnames = [];
-    this.componentchain = undefined;
-    this.length = 0;
-    this.extDeps = [];
-    this.dataListeners = {};
-    this.init([], 0);
+    this.ranking = undefined
+    this.componentnames = []
+    this.componentchain = undefined
+    this.length = 0
+    this.extDeps = []
+    this.dataListeners = {}
+    this.init([], 0)
 
-    this.emit('reset');
+    this.emit('reset')
 
     // trigger an 'update' event
-    this.invalidate();
+    this.invalidate()
   }
 
   /**
@@ -183,34 +183,34 @@ class RankingModel extends Model {
    * @param result
    *          a GameResult instance
    */
-  result(result) {
+  result (result) {
     // TODO result verification?
-    this.emit('result', result);
-    this.invalidate();
+    this.emit('result', result)
+    this.invalidate()
   }
 
-  recalculate(matchResults, votes) {
-    this.resize(this.length);
+  recalculate (matchResults, votes) {
+    this.resize(this.length)
     Object.keys(this.dataListeners).forEach(function (key) {
-      this.dataListeners[key].zero();
-    }, this);
+      this.dataListeners[key].zero()
+    }, this)
     if (votes.up && this.upvotes) {
       votes.up.forEach(function (teamID) {
-        this.upvotes.add(teamID, 1);
-      }, this);
+        this.upvotes.add(teamID, 1)
+      }, this)
     }
     if (votes.down && this.downvotes) {
       votes.down.forEach(function (teamID) {
-        this.downvotes.add(teamID, 1);
-      }, this);
+        this.downvotes.add(teamID, 1)
+      }, this)
     }
     matchResults.forEach(function (result) {
       if (result.isBye()) {
-        this.bye(result.getTeamID(0), result.group);
+        this.bye(result.getTeamID(0), result.group)
       } else {
-        this.result(result);
+        this.result(result)
       }
-    }, this);
+    }, this)
   }
 
   /**
@@ -219,29 +219,29 @@ class RankingModel extends Model {
    * @param teams
    *          an array of affected teams
    */
-  bye(teams, round) {
+  bye (teams, round) {
     if (Type.isNumber(teams)) {
-      teams = [teams];
+      teams = [teams]
     }
     this.emit('bye', {
-      teams: teams,
-      round: round
-    });
-    this.invalidate();
+      teams,
+      round
+    })
+    this.invalidate()
   }
 
-  correct(correction) {
-    this.emit('correct', correction);
-    this.invalidate();
+  correct (correction) {
+    this.emit('correct', correction)
+    this.invalidate()
   }
 
   /**
    * force a full recalculation of the ranking from the data fields. This will
    * not replay the tournament from history, just update dependent data fields.
    */
-  invalidate() {
-    this.ranking = undefined;
-    this.emit('update');
+  invalidate () {
+    this.ranking = undefined
+    this.emit('update')
   }
 
   /**
@@ -262,16 +262,16 @@ class RankingModel extends Model {
    *
    * @return the current ranking, as a ranking object
    */
-  get() {
+  get () {
     if (this.ranking === undefined) {
-      updateRanking.call(this);
+      updateRanking.call(this)
     }
-    return this.ranking;
+    return this.ranking
   }
 
-  getNoRecalc() {
-    updateRanking.call(this, true);
-    return this.ranking;
+  getNoRecalc () {
+    updateRanking.call(this, true)
+    return this.ranking
   }
 
   /**
@@ -283,18 +283,18 @@ class RankingModel extends Model {
    *          the new size
    * @return true on success, false otherwise
    */
-  resize(size) {
+  resize (size) {
     if (size === this.length) {
-      return true;
+      return true
     }
     if (size >= 0) {
-      this.length = size;
-      this.emit('resize');
-      this.invalidate();
-      return true;
+      this.length = size
+      this.emit('resize')
+      this.invalidate()
+      return true
     }
-    console.error('RankingModel.resize: invalid size: ' + size);
-    return false;
+    console.error('RankingModel.resize: invalid size: ' + size)
+    return false
   }
 
   /**
@@ -304,30 +304,30 @@ class RankingModel extends Model {
    *
    * @return a serializable data object
    */
-  save() {
-    const data = super.save();
-    data.len = this.length;
-    data.comps = this.componentnames.slice(0);
-    data.edep = this.extDeps.slice(0);
-    data.vals = {};
+  save () {
+    const data = super.save()
+    data.len = this.length
+    data.comps = this.componentnames.slice(0)
+    data.edep = this.extDeps.slice(0)
+    data.vals = {}
 
     // only store primary dataListeners. Abort on error
     if (!Object.keys(this.dataListeners).every(function (name) {
-      let listener;
-      listener = this.dataListeners[name];
+      let listener
+      listener = this.dataListeners[name]
       if (listener.isPrimary(listener)) {
         if (this[name] && Type.isFunction(this[name].save)) {
-          data.vals[name] = this[name].save();
+          data.vals[name] = this[name].save()
         } else {
-          console.error('datalistener cannot be saved: ' + name);
-          return false;
+          console.error('datalistener cannot be saved: ' + name)
+          return false
         }
       }
-      return true;
+      return true
     }, this)) {
-      return undefined;
+      return undefined
     }
-    return data;
+    return data
   }
 
   /**
@@ -337,29 +337,29 @@ class RankingModel extends Model {
    *          a deserialized data object
    * @return true on success, false otherwise
    */
-  restore(data) {
+  restore (data) {
     if (!super.restore(data)) {
-      return false;
+      return false
     }
-    this.reset();
+    this.reset()
     if (!this.init(data.comps, data.len, data.edep)) {
-      this.reset();
-      return false;
+      this.reset()
+      return false
     }
     if (!Object.keys(data.vals).every(function (name) {
       if (this[name] && this[name].restore) {
         if (this[name].restore(data.vals[name])) {
-          return true;
+          return true
         }
       }
-      console.error('RankingModel.restore(): cannot restore listener ' + name);
-      return false;
+      console.error('RankingModel.restore(): cannot restore listener ' + name)
+      return false
     }, this)) {
-      this.reset();
-      return false;
+      this.reset()
+      return false
     }
-    this.invalidate();
-    return true;
+    this.invalidate()
+    return true
   }
 }
 
@@ -367,25 +367,25 @@ class RankingModel extends Model {
  * the different events
  */
 RankingModel.prototype.EVENTS = {
-  'result': true,
+  result: true,
   // insert a new game result
-  'bye': true,
+  bye: true,
   // insert a new bye
-  'correct': true,
+  correct: true,
   // correct a game
-  'recalc': true,
+  recalc: true,
   // force a recalculation
-  'update': true,
+  update: true,
   // there has been an update
-  'reset': true,
+  reset: true,
   // everything has to be reset
-  'resize': true
+  resize: true
   // the size of the ranking has been changed
-};
+}
 
-RankingModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
-RankingModel.prototype.SAVEFORMAT.len = Number;
-RankingModel.prototype.SAVEFORMAT.comps = [String];
-RankingModel.prototype.SAVEFORMAT.edep = [String];
-RankingModel.prototype.SAVEFORMAT.vals = Object;
-export default RankingModel;
+RankingModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT)
+RankingModel.prototype.SAVEFORMAT.len = Number
+RankingModel.prototype.SAVEFORMAT.comps = [String]
+RankingModel.prototype.SAVEFORMAT.edep = [String]
+RankingModel.prototype.SAVEFORMAT.vals = Object
+export default RankingModel

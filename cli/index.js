@@ -2,7 +2,7 @@
 
 'use strict'
 
-var tuvero = require('./state.js')
+const tuvero = require('./state.js')
 
 exports.load = tuvero.load
 exports.parse = tuvero.parse

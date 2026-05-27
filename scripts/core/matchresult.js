@@ -1,9 +1,9 @@
-import MatchModel, { _registerMatchResult } from './matchmodel.js';
-function min(array) {
-  return Math.min.apply(Math, array);
+import MatchModel, { _registerMatchResult } from './matchmodel.js'
+function min (array) {
+  return Math.min.apply(Math, array)
 }
-function max(array) {
-  return Math.max.apply(Math, array);
+function max (array) {
+  return Math.max.apply(Math, array)
 }
 
 /**
@@ -15,25 +15,25 @@ function max(array) {
  *          an array of scored points
  */
 class MatchResult extends MatchModel {
-  constructor(match, score) {
-    super(match && match.teams, match && match.id, match && match.group);
+  constructor (match, score) {
+    super(match && match.teams, match && match.id, match && match.group)
 
     // empty default constructor for list-based construction
     if (score === undefined) {
-      this.score = [];
-      return;
+      this.score = []
+      return
     }
     if (this.teams.length !== score.length) {
-      throw new Error('MatchResult(): array lengths differ: ' + this.teams.length + '<>' + score.length);
+      throw new Error('MatchResult(): array lengths differ: ' + this.teams.length + '<>' + score.length)
     }
-    this.score = score.slice(0);
+    this.score = score.slice(0)
   }
 
   /**
    * @return true if this result is a bye, false otherwise
    */
-  isBye() {
-    return this.isResult() && this.length === 2 && this.getTeamID(0) === this.getTeamID(1);
+  isBye () {
+    return this.isResult() && this.length === 2 && this.getTeamID(0) === this.getTeamID(1)
   }
 
   /**
@@ -41,10 +41,10 @@ class MatchResult extends MatchModel {
    *
    * @return a serializable data object on success, undefined otherwise
    */
-  save() {
-    const data = super.save();
-    data.s = this.score;
-    return data;
+  save () {
+    const data = super.save()
+    data.s = this.score
+    return data
   }
 
   /**
@@ -54,44 +54,44 @@ class MatchResult extends MatchModel {
    *          the data object
    * @return true on success, false otherwise
    */
-  restore(data) {
+  restore (data) {
     if (!super.restore(data)) {
-      return false;
+      return false
     }
-    this.score = data.s;
-    return true;
+    this.score = data.s
+    return true
   }
 
-  getWinner() {
-    let maxpoints, winner, winnerIndex;
-    maxpoints = max(this.score);
-    winnerIndex = this.score.indexOf(maxpoints);
+  getWinner () {
+    let maxpoints, winner, winnerIndex
+    maxpoints = max(this.score)
+    winnerIndex = this.score.indexOf(maxpoints)
     if (winnerIndex === this.score.lastIndexOf(maxpoints)) {
-      winner = this.teams[winnerIndex];
-      return winner;
+      winner = this.teams[winnerIndex]
+      return winner
     }
-    return undefined;
+    return undefined
   }
 
-  getLoser() {
-    let loser, loser2, minpoints;
-    minpoints = min(this.score);
-    loser = this.teams[this.score.indexOf(minpoints)];
-    loser2 = this.teams[this.score.lastIndexOf(minpoints)];
+  getLoser () {
+    let loser, loser2, minpoints
+    minpoints = min(this.score)
+    loser = this.teams[this.score.indexOf(minpoints)]
+    loser2 = this.teams[this.score.lastIndexOf(minpoints)]
     if (loser === loser2) {
-      return loser;
+      return loser
     }
-    return undefined;
+    return undefined
   }
 }
 
-_registerMatchResult(MatchResult);
+_registerMatchResult(MatchResult)
 
 /**
  * Disable the finish() function
  */
-MatchResult.prototype.finish = undefined;
+MatchResult.prototype.finish = undefined
 
-MatchResult.prototype.SAVEFORMAT = Object.create(MatchModel.prototype.SAVEFORMAT);
-MatchResult.prototype.SAVEFORMAT.s = [Number];
-export default MatchResult;
+MatchResult.prototype.SAVEFORMAT = Object.create(MatchModel.prototype.SAVEFORMAT)
+MatchResult.prototype.SAVEFORMAT.s = [Number]
+export default MatchResult

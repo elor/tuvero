@@ -1,4 +1,4 @@
-import Listener from '../core/listener.js';
+import Listener from '../core/listener.js'
 
 /**
  * Constructor
@@ -7,29 +7,29 @@ import Listener from '../core/listener.js';
  *          the ListModel instance
  */
 class ListCleanupListener extends Listener {
-  constructor(listmodel) {
-    super(listmodel);
+  constructor (listmodel) {
+    super(listmodel)
   }
 
   /**
    * Callback function, which destroys removed objects
    */
 
-  onremove(emitter, event, data) {
+  onremove (emitter, event, data) {
     if (!data) {
-      console.warn('ListCleanupListener: no data object emitted');
-      return;
+      console.warn('ListCleanupListener: no data object emitted')
+      return
     }
     if (!data.object) {
-      console.warn('ListCleanupListener: data contains no object property');
-      return;
+      console.warn('ListCleanupListener: data contains no object property')
+      return
     }
     if (!data.object.destroy) {
-      console.warn('ListCleanupListener: data.object has no destroy method');
-      return;
+      console.warn('ListCleanupListener: data.object has no destroy method')
+      return
     }
-    data.object.destroy();
+    data.object.destroy()
   }
 }
 
-export default ListCleanupListener;
+export default ListCleanupListener

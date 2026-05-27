@@ -6,21 +6,21 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
 
 /**
  * Constructor
  */
 class InputValueController extends Controller {
-  constructor(view) {
-    let controller;
-    super(view);
-    controller = this;
+  constructor (view) {
+    let controller
+    super(view)
+    controller = this
     this.view.$view.change(function () {
-      controller.model.set(Number(controller.view.$view.val()));
-    });
+      controller.model.set(Number(controller.view.$view.val()))
+    })
   }
 }
 
-export default InputValueController;
+export default InputValueController

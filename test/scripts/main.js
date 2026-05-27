@@ -16,13 +16,13 @@
 require.config({
   baseUrl: '../scripts',
   paths: {
-    'options': '../test/scripts/options',
-    'presets': '../test/scripts/presets',
-    'strings': '../test/scripts/strings'
+    options: '../test/scripts/options',
+    presets: '../test/scripts/presets',
+    strings: '../test/scripts/strings'
   }
 })
 
 require(['core/config', 'core/common'], function (Config, Common) {
-  var $ = require('jquery')
+  const $ = require('jquery')
   TestMain(Common, $)
 })

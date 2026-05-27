@@ -1,6 +1,6 @@
-import ListModel from './listmodel.js';
-import Type from '../core/type.js';
-import SortedReferenceListModel from './sortedreferencelistmodel.js';
+import ListModel from './listmodel.js'
+import Type from '../core/type.js'
+import SortedReferenceListModel from './sortedreferencelistmodel.js'
 
 /**
  * Constructor
@@ -11,31 +11,31 @@ import SortedReferenceListModel from './sortedreferencelistmodel.js';
  *          a function
  */
 class BinningReferenceListModel extends ListModel {
-  constructor(list, binningFunction) {
-    super();
-    this.makeReadonly();
+  constructor (list, binningFunction) {
+    super()
+    this.makeReadonly()
     if (list === undefined) {
-      throw new Error('list argument is missing');
+      throw new Error('list argument is missing')
     }
     if (binningFunction === undefined) {
-      throw new Error('binning function is missing');
+      throw new Error('binning function is missing')
     }
-    this.binningFunction = binningFunction;
-    this.bins = new ListModel();
-    this.sortedBins = new SortedReferenceListModel(this.bins, this.binSortFunction, true);
-    this.refList = list;
+    this.binningFunction = binningFunction
+    this.bins = new ListModel()
+    this.sortedBins = new SortedReferenceListModel(this.bins, this.binSortFunction, true)
+    this.refList = list
     this.refList.map(function (element, index) {
-      BinningReferenceListModel.insertElement(this, index);
-    }, this);
-    this.refList.registerListener(this);
+      BinningReferenceListModel.insertElement(this, index)
+    }, this)
+    this.refList.registerListener(this)
   }
 
   /**
   * @return a readonly ListModel instance, which contains the names of all
   *         bins, in the bin order.
   */
-  getBinNames() {
-    return this.sortedBins;
+  getBinNames () {
+    return this.sortedBins
   }
 
   /**
@@ -48,13 +48,13 @@ class BinningReferenceListModel extends ListModel {
   * @return the bin (i.e. an empty ListModel instance), or undefined if it
   *         couldn't be found and shouldn't be created
   */
-  getBin(binName) {
-    let index;
-    index = this.sortedBins.indexOf(binName);
+  getBin (binName) {
+    let index
+    index = this.sortedBins.indexOf(binName)
     if (index === -1) {
-      return undefined;
+      return undefined
     }
-    return this.get(index);
+    return this.get(index)
   }
 
   /**
@@ -68,17 +68,17 @@ class BinningReferenceListModel extends ListModel {
   * @return the newly created bin (a ListModel), or undefined if the bin
   *         already exists
   */
-  createBinWithObject(binName, object) {
-    let index, bin;
-    bin = undefined;
-    index = this.sortedBins.indexOf(binName);
+  createBinWithObject (binName, object) {
+    let index, bin
+    bin = undefined
+    index = this.sortedBins.indexOf(binName)
     if (index === -1) {
-      this.bins.push(binName);
-      index = this.sortedBins.indexOf(binName);
-      bin = new ListModel([object]);
-      super.insert(index, bin);
+      this.bins.push(binName)
+      index = this.sortedBins.indexOf(binName)
+      bin = new ListModel([object])
+      super.insert(index, bin)
     }
-    return bin;
+    return bin
   }
 
   /**
@@ -88,8 +88,8 @@ class BinningReferenceListModel extends ListModel {
   * @return the name of the bin, as returned by the binning function for each
   *         element in the respective bin
   */
-  getBinName(binIndex) {
-    return this.sortedBins.get(binIndex);
+  getBinName (binIndex) {
+    return this.sortedBins.get(binIndex)
   }
 
   /**
@@ -98,14 +98,14 @@ class BinningReferenceListModel extends ListModel {
   * @param binName
   *          the name of the bin
   */
-  removeEmptyBin(binName) {
-    let binIndex, sortedBinIndex;
-    binIndex = this.bins.indexOf(binName);
-    sortedBinIndex = this.sortedBins.indexOf(binName);
+  removeEmptyBin (binName) {
+    let binIndex, sortedBinIndex
+    binIndex = this.bins.indexOf(binName)
+    sortedBinIndex = this.sortedBins.indexOf(binName)
     if (binIndex !== -1 && sortedBinIndex !== -1) {
       if (this.get(sortedBinIndex).length === 0) {
-        this.bins.remove(binIndex);
-        super.remove(sortedBinIndex);
+        this.bins.remove(binIndex)
+        super.remove(sortedBinIndex)
       }
     }
   }
@@ -121,9 +121,9 @@ class BinningReferenceListModel extends ListModel {
   * @param data
   *          a data object, as emitted by insert() from the original list
   */
-  oninsert(emitter, event, data) {
+  oninsert (emitter, event, data) {
     if (emitter === this.refList) {
-      BinningReferenceListModel.insertElement(this, data.id);
+      BinningReferenceListModel.insertElement(this, data.id)
     }
   }
 
@@ -137,9 +137,9 @@ class BinningReferenceListModel extends ListModel {
   * @param data
   *          a data object, as emitted by remove() from the original list
   */
-  onremove(emitter, event, data) {
+  onremove (emitter, event, data) {
     if (emitter === this.refList) {
-      BinningReferenceListModel.removeElement(this, data.object);
+      BinningReferenceListModel.removeElement(this, data.object)
     }
   }
 
@@ -153,17 +153,17 @@ class BinningReferenceListModel extends ListModel {
   *          another bin name
   * @return +1 is a > b, -1 if a < b, 0 otherwise
   */
-  binSortFunction(a, b) {
+  binSortFunction (a, b) {
     if (Type.isNumber(a) && Type.isNumber(b)) {
-      return a - b;
+      return a - b
     }
     if (a < b) {
-      return -1;
+      return -1
     }
     if (a > b) {
-      return 1;
+      return 1
     }
-    return 0;
+    return 0
   }
 
   /**
@@ -176,26 +176,26 @@ class BinningReferenceListModel extends ListModel {
   *          the index of the element inside list.refList.
   * @return the bin into which the element was inserted.
   */
-  static insertElement(list, elementIndex) {
-    let bin, binName, element, nextElementIndex;
-    element = list.refList.get(elementIndex);
-    binName = list.binningFunction(element);
-    bin = list.getBin(binName);
+  static insertElement (list, elementIndex) {
+    let bin, binName, element, nextElementIndex
+    element = list.refList.get(elementIndex)
+    binName = list.binningFunction(element)
+    bin = list.getBin(binName)
     if (bin === undefined) {
-      bin = list.createBinWithObject(binName, element);
+      bin = list.createBinWithObject(binName, element)
     } else {
-      nextElementIndex = BinningReferenceListModel.getNextBinElementIndex(list, elementIndex, binName);
+      nextElementIndex = BinningReferenceListModel.getNextBinElementIndex(list, elementIndex, binName)
       if (nextElementIndex === -1) {
-        nextElementIndex = bin.length;
+        nextElementIndex = bin.length
       } else {
-        nextElementIndex = bin.indexOf(list.refList.get(nextElementIndex));
+        nextElementIndex = bin.indexOf(list.refList.get(nextElementIndex))
         if (nextElementIndex === -1) {
-          nextElementIndex = bin.length;
+          nextElementIndex = bin.length
         }
       }
-      bin.insert(nextElementIndex, element);
+      bin.insert(nextElementIndex, element)
     }
-    return bin;
+    return bin
   }
 
   /**
@@ -210,14 +210,14 @@ class BinningReferenceListModel extends ListModel {
   * @return the index at which to find the next element of the same bin, or -1
   *         if such an element does not exist.
   */
-  static getNextBinElementIndex(list, begin, binName) {
-    let index;
+  static getNextBinElementIndex (list, begin, binName) {
+    let index
     for (index = begin + 1; index < list.refList.length; index += 1) {
       if (list.binningFunction(list.refList.get(index)) === binName) {
-        return index;
+        return index
       }
     }
-    return -1;
+    return -1
   }
 
   /**
@@ -228,21 +228,21 @@ class BinningReferenceListModel extends ListModel {
   * @param element
   *          the element to remove
   */
-  static removeElement(list, element) {
-    let bin, binName, index;
-    binName = list.binningFunction(element);
-    bin = list.getBin(binName);
+  static removeElement (list, element) {
+    let bin, binName, index
+    binName = list.binningFunction(element)
+    bin = list.getBin(binName)
     if (bin === undefined) {
-      return;
+      return
     }
-    index = bin.indexOf(element);
+    index = bin.indexOf(element)
     if (index !== -1) {
-      bin.remove(index);
+      bin.remove(index)
       if (bin.length === 0) {
-        list.removeEmptyBin(binName);
+        list.removeEmptyBin(binName)
       }
     }
   }
 }
 
-export default BinningReferenceListModel;
+export default BinningReferenceListModel

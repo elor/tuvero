@@ -13,21 +13,21 @@
  * @param emitter
  */
 class Listener {
-  constructor(emitter) {
+  constructor (emitter) {
     if (!this.emitters) {
-      this.emitters = [];
+      this.emitters = []
     }
     if (emitter) {
-      emitter.registerListener(this);
+      emitter.registerListener(this)
     }
   }
 
   /**
    * destroy the listener, i.e. remove it from all emitters
    */
-  destroy() {
+  destroy () {
     while (this.emitters.length > 0) {
-      this.emitters[0].unregisterListener(this);
+      this.emitters[0].unregisterListener(this)
     }
   }
 
@@ -45,27 +45,27 @@ class Listener {
    *          returned listener
    * @return the internally created Listener, e.g. for destroy() calls
    */
-  static bind(emitter, events, callback, thisArg) {
-    let listener, initialCallback;
+  static bind (emitter, events, callback, thisArg) {
+    let listener, initialCallback
     if (thisArg) {
       initialCallback = function (_emitter, _event, data) {
-        callback.call(thisArg, _emitter, _event, data);
-      };
+        callback.call(thisArg, _emitter, _event, data)
+      }
     } else {
-      initialCallback = callback;
+      initialCallback = callback
     }
-    listener = new Listener(emitter);
+    listener = new Listener(emitter)
     events.split(',').forEach(function (event) {
       // trim spaces
-      event = event.replace(/^\s+|\s+$/g, '');
+      event = event.replace(/^\s+|\s+$/g, '')
       if (emitter.EVENTS[event]) {
-        listener['on' + event] = initialCallback;
+        listener['on' + event] = initialCallback
       } else {
-        console.error('Listener.bind: emitter does not emit event:"' + event);
+        console.error('Listener.bind: emitter does not emit event:"' + event)
       }
-    });
-    return listener;
+    })
+    return listener
   }
 }
 
-export default Listener;
+export default Listener

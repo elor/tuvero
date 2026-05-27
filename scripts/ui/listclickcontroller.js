@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
-import ValueModel from '../core/valuemodel.js';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
+import ValueModel from '../core/valuemodel.js'
 
 /**
  * Constructor
@@ -34,37 +34,37 @@ import ValueModel from '../core/valuemodel.js';
  *          Optional. An option object. See above
  */
 class ListClickController extends Controller {
-  constructor(view, callback, options) {
-    let listview, listmodel;
-    super(view);
-    options = options || {};
-    options.active = options.active || new ValueModel(true);
-    options.callbackthis = options.callbackthis || window;
-    options.event = options.event || 'click';
+  constructor (view, callback, options) {
+    let listview, listmodel
+    super(view)
+    options = options || {}
+    options.active = options.active || new ValueModel(true)
+    options.callbackthis = options.callbackthis || window
+    options.event = options.event || 'click'
     if (this.view.$view.prop('tagName') === 'TABLE') {
-      options.selector = options.selector || '> tbody >';
+      options.selector = options.selector || '> tbody >'
     } else {
-      options.selector = options.selector || '>';
+      options.selector = options.selector || '>'
     }
-    listview = this.view;
-    listmodel = this.model;
+    listview = this.view
+    listmodel = this.model
 
     /**
      * handle the click action
      */
     this.view.$view.on(options.event, options.selector, function (e) {
-      let $subview, index;
+      let $subview, index
       if (options.active.get()) {
-        $subview = $(this);
-        index = listview.indexOf($subview);
+        $subview = $(this)
+        index = listview.indexOf($subview)
         if (index !== -1) {
-          callback.call(options.callbackthis, listmodel, index);
-          e.preventDefault();
-          return false;
+          callback.call(options.callbackthis, listmodel, index)
+          e.preventDefault()
+          return false
         }
       }
-    });
+    })
   }
 }
 
-export default ListClickController;
+export default ListClickController

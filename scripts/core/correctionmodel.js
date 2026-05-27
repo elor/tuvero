@@ -1,5 +1,5 @@
-import Model from './model.js';
-import MatchResult from './matchresult.js';
+import Model from './model.js'
+import MatchResult from './matchresult.js'
 
 /**
  * Constructor
@@ -10,21 +10,21 @@ import MatchResult from './matchresult.js';
  *          the result after the correction
  */
 class CorrectionModel extends Model {
-  constructor(oldResult, newResult) {
-    super();
+  constructor (oldResult, newResult) {
+    super()
     if (oldResult === undefined) {
-      this.before = new MatchResult();
+      this.before = new MatchResult()
     } else if (oldResult instanceof MatchResult) {
-      this.before = oldResult;
+      this.before = oldResult
     } else {
-      throw new Error('CorrectionModel: oldResult is not a MatchResult!');
+      throw new Error('CorrectionModel: oldResult is not a MatchResult!')
     }
     if (newResult === undefined) {
-      this.after = new MatchResult();
+      this.after = new MatchResult()
     } else if (newResult instanceof MatchResult) {
-      this.after = newResult;
+      this.after = newResult
     } else {
-      throw new Error('CorrectionModel: newResult is not a MatchResult!');
+      throw new Error('CorrectionModel: newResult is not a MatchResult!')
     }
   }
 
@@ -33,11 +33,11 @@ class CorrectionModel extends Model {
    *
    * @return a serializable data object
    */
-  save() {
-    const data = super.save();
-    data.b = this.before.save();
-    data.a = this.after.save();
-    return data;
+  save () {
+    const data = super.save()
+    data.b = this.before.save()
+    data.a = this.after.save()
+    return data
   }
 
   /**
@@ -47,26 +47,26 @@ class CorrectionModel extends Model {
    *          a deserialized data object
    * @return true on success, false otherwise
    */
-  restore(data) {
+  restore (data) {
     if (!super.restore(data)) {
-      return false;
+      return false
     }
     if (!this.before.restore(data.b)) {
-      return false;
+      return false
     }
     if (!this.after.restore(data.a)) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 }
 
 /**
  * This model does not emit events. It's for storage only.
  */
-CorrectionModel.prototype.EVENTS = {};
+CorrectionModel.prototype.EVENTS = {}
 
-CorrectionModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
-CorrectionModel.prototype.SAVEFORMAT.a = Object;
-CorrectionModel.prototype.SAVEFORMAT.b = Object;
-export default CorrectionModel;
+CorrectionModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT)
+CorrectionModel.prototype.SAVEFORMAT.a = Object
+CorrectionModel.prototype.SAVEFORMAT.b = Object
+export default CorrectionModel

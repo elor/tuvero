@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,9 +8,9 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingByeListener extends RankingDataListener {
-  constructor(ranking) {
+  constructor (ranking) {
     super(ranking, // autoformat
-    new VectorModel());
+      new VectorModel())
   }
 
   /**
@@ -23,14 +23,14 @@ class RankingByeListener extends RankingDataListener {
    * @param teams
    *          an array of team ids
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     data.teams.forEach(function (teamid) {
-      this.byes.add(teamid, 1);
-    }, this);
+      this.byes.add(teamid, 1)
+    }, this)
   }
 
-  static NAME = 'byes';
-  static DEPENDENCIES = undefined;
+  static NAME = 'byes'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingByeListener;
+export default RankingByeListener

@@ -6,36 +6,36 @@
  * @license MIT License
  * @see LICENSE
  */
-import semver from 'semver';
-import State from './state.js';
-import TimeMachine from '../timemachine/timemachine.js';
-import LegacyLoaderModel from './legacyloadermodel.js';
-import LegacyStorageKeyConverter from './legacystoragekeyconverter.js';
-import TeamsFileLoadController from './teamsfileloadcontroller.js';
-let StateLoader, versionFixers;
+import semver from 'semver'
+import State from './state.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import LegacyLoaderModel from './legacyloadermodel.js'
+import LegacyStorageKeyConverter from './legacystoragekeyconverter.js'
+import TeamsFileLoadController from './teamsfileloadcontroller.js'
+let StateLoader, versionFixers
 versionFixers = {
   '1.5.25': function (data) {
     data.tournaments.tournaments.forEach(function (tournament) {
       if (!tournament.totalvotes) {
-        tournament.totalvotes = tournament.votes;
+        tournament.totalvotes = tournament.votes
       }
-    });
+    })
   },
   '1.5.26': function (data) {
     data.tournaments.tournaments.forEach(function (tournament) {
       tournament.matches.forEach(function (match) {
         if (!match.place) {
-          match.place = '';
+          match.place = ''
         }
-      });
+      })
       tournament.history.forEach(function (match) {
         if (!match.place) {
-          match.place = '';
+          match.place = ''
         }
-      });
-    });
+      })
+    })
   }
-};
+}
 
 /**
    * Constructor. Also auto-converts all legacy storage keys. This will only be
@@ -44,9 +44,9 @@ versionFixers = {
    * @returns {StateLoaderModel} instance
    */
 class StateLoaderModel {
-  constructor() {
-    const converter = new LegacyStorageKeyConverter();
-    converter.convertAll();
+  constructor () {
+    const converter = new LegacyStorageKeyConverter()
+    converter.convertAll()
   }
 
   /**
@@ -54,14 +54,14 @@ class StateLoaderModel {
      *
      * @returns {boolean} true on success, false otherwise
      */
-  loadLatest() {
-    let lastCommit;
+  loadLatest () {
+    let lastCommit
     if (TimeMachine.roots.length === 0) {
-      return false;
+      return false
     }
-    lastCommit = TimeMachine.roots.get(TimeMachine.roots.length - 1);
-    lastCommit = lastCommit.getYoungestDescendant() || lastCommit;
-    return this.loadCommit(lastCommit);
+    lastCommit = TimeMachine.roots.get(TimeMachine.roots.length - 1)
+    lastCommit = lastCommit.getYoungestDescendant() || lastCommit
+    return this.loadCommit(lastCommit)
   }
 
   /**
@@ -71,16 +71,16 @@ class StateLoaderModel {
      *          a valid commit to load.
      * @returns {boolean} true on success, false otherwise
      */
-  loadCommit(commit) {
-    let string;
+  loadCommit (commit) {
+    let string
     if (!commit || !commit.isValid()) {
-      return false;
+      return false
     }
-    string = TimeMachine.load(commit);
+    string = TimeMachine.load(commit)
     if (!string) {
-      return false;
+      return false
     }
-    return this.loadString(string);
+    return this.loadString(string)
   }
 
   /**
@@ -90,18 +90,18 @@ class StateLoaderModel {
      *          the serialized data
      * @return {boolean} true on success, false otherwise
      */
-  loadString(string) {
-    let data;
+  loadString (string) {
+    let data
     if (!string) {
-      return false;
+      return false
     }
     try {
-      data = JSON.parse(string);
+      data = JSON.parse(string)
     } catch (e) {
       // try CSV-loading
-      return this.loadTeamsCSV(string);
+      return this.loadTeamsCSV(string)
     }
-    return this.loadData(data);
+    return this.loadData(data)
   }
 
   /**
@@ -112,21 +112,21 @@ class StateLoaderModel {
      *          the past
      * @returns {boolean} true on success, false otherwise.
      */
-  loadData(data) {
-    let success;
+  loadData (data) {
+    let success
     if (!data) {
-      return false;
+      return false
     }
     if (!data.version) {
       // pre-1.5.0
-      return this.loadLegacyData(data);
+      return this.loadLegacyData(data)
     }
-    this.fixVersions(data);
-    success = State.restore(data);
+    this.fixVersions(data)
+    success = State.restore(data)
     if (success) {
-      console.log('savestate loaded');
+      console.log('savestate loaded')
     }
-    return success;
+    return success
   }
 
   /**
@@ -137,37 +137,37 @@ class StateLoaderModel {
      *          a data object of pre-1.5.0 format
      * @return {boolean} true on success, false otherwise
      */
-  loadLegacyData(data) {
-    let loader;
-    console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly');
-    loader = new LegacyLoaderModel();
+  loadLegacyData (data) {
+    let loader
+    console.warn('Saved data is older than 1.5.0. ' + 'Tuvero tries to auto-convert it, but success is not guaranteed.' + 'Please check the results before trusting them blindly')
+    loader = new LegacyLoaderModel()
     try {
       if (loader.load(data)) {
-        console.log('legacy savestate loaded');
-        return true;
+        console.log('legacy savestate loaded')
+        return true
       }
     } catch (e) {
-      console.error(e.stack);
+      console.error(e.stack)
     }
-    return false;
+    return false
   }
 
-  fixVersions(data) {
+  fixVersions (data) {
     const versions = Object.keys(versionFixers).filter(function (version) {
-      return semver.lt(data.version, version);
-    }).sort(semver.compare);
+      return semver.lt(data.version, version)
+    }).sort(semver.compare)
     versions.forEach(function (version) {
-      console.log('updating json data to version ' + version);
-      versionFixers[version](data);
-    });
+      console.log('updating json data to version ' + version)
+      versionFixers[version](data)
+    })
   }
 
-  loadTeamsCSV(csvString) {
+  loadTeamsCSV (csvString) {
     try {
-      State.clear();
-      return TeamsFileLoadController.load(csvString);
+      State.clear()
+      return TeamsFileLoadController.load(csvString)
     } catch (e) {}
-    return false;
+    return false
   }
 
   /**
@@ -175,14 +175,14 @@ class StateLoaderModel {
      *
      * @returns {undefined}
      */
-  unload() {
-    TimeMachine.unload();
-    State.clear();
+  unload () {
+    TimeMachine.unload()
+    State.clear()
   }
 }
 
 /*
    * StateLoader is a singleton
    */
-StateLoader = new StateLoaderModel();
-export default StateLoader;
+StateLoader = new StateLoaderModel()
+export default StateLoader

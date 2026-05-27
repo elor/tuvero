@@ -1,4 +1,4 @@
-import Model from '../core/model.js';
+import Model from '../core/model.js'
 
 /**
  * Constructor
@@ -7,9 +7,9 @@ import Model from '../core/model.js';
  *          a preferably unique numeric id
  */
 class IndexedModel extends Model {
-  constructor(id) {
-    super();
-    IndexedModel.prototype.setID.call(this, id);
+  constructor (id) {
+    super()
+    IndexedModel.prototype.setID.call(this, id)
   }
 
   /**
@@ -17,8 +17,8 @@ class IndexedModel extends Model {
    *
    * @return the id of this object within a certain set of objects
    */
-  getID() {
-    return this.id;
+  getID () {
+    return this.id
   }
 
   /**
@@ -27,13 +27,13 @@ class IndexedModel extends Model {
    * @param id
    *          a preferably unique numeric id
    */
-  setID(id) {
+  setID (id) {
     if (id === undefined) {
-      id = -1;
+      id = -1
     }
     if (id !== this.id) {
-      this.id = id;
-      this.emit('update');
+      this.id = id
+      this.emit('update')
     }
   }
 
@@ -42,10 +42,10 @@ class IndexedModel extends Model {
    *
    * @return the current state, as a data object
    */
-  save() {
-    const data = super.save();
-    data.id = this.id;
-    return data;
+  save () {
+    const data = super.save()
+    data.id = this.id
+    return data
   }
 
   /**
@@ -55,15 +55,15 @@ class IndexedModel extends Model {
    *          a stored state
    * @return true on success, false otherwise
    */
-  restore(data) {
+  restore (data) {
     if (!super.restore(data)) {
-      return false;
+      return false
     }
-    this.id = data.id;
-    return true;
+    this.id = data.id
+    return true
   }
 }
 
-IndexedModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
-IndexedModel.prototype.SAVEFORMAT.id = Number;
-export default IndexedModel;
+IndexedModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT)
+IndexedModel.prototype.SAVEFORMAT.id = Number
+export default IndexedModel

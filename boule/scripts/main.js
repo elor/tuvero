@@ -6,4 +6,4 @@
  * @license MIT License
  * @see LICENSE
  */
-import '../../scripts/core/main.js';
+import '../../scripts/core/main.js'

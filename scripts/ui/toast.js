@@ -13,27 +13,27 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Type from '../core/type.js';
-let initialized, pending;
+import $ from 'jquery'
+import Type from '../core/type.js'
+let initialized, pending
 
 // pending toasts which have been issued before jquery was available
-initialized = false;
-pending = [];
+initialized = false
+pending = []
 
 /**
  * read the transition durations
  */
-function getTransitionDuration() {
-  let transition;
-  transition = Toast.$template.css('transition');
+function getTransitionDuration () {
+  let transition
+  transition = Toast.$template.css('transition')
   if (transition === undefined) {
-    console.error('could not read any transition lengths. ' + "What's your browser?");
-    return 0.2;
+    console.error('could not read any transition lengths. ' + "What's your browser?")
+    return 0.2
   }
 
   // return duration
-  return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1'));
+  return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1'))
 }
 
 /**
@@ -46,54 +46,54 @@ function getTransitionDuration() {
  *          Toast.INFINITE. Defaults to Toast.SHORT.
  */
 class Toast {
-  constructor(message, seconds) {
-    this.message = message;
-    this.duration = seconds || Toast.SHORT;
-    this.$toast = undefined;
+  constructor (message, seconds) {
+    this.message = message
+    this.duration = seconds || Toast.SHORT
+    this.$toast = undefined
     if (initialized) {
-      this.display();
+      this.display()
     } else {
-      pending.push(this);
+      pending.push(this)
     }
   }
 
   /**
    * display a toast
    */
-  display() {
-    let $toast;
+  display () {
+    let $toast
     if (!initialized) {
-      console.error('Cannot display Toast: ' + 'Toast.init() has not been called yet.');
-      return;
+      console.error('Cannot display Toast: ' + 'Toast.init() has not been called yet.')
+      return
     }
     if (this.$toast) {
-      console.error('toast is already visible');
-      return;
+      console.error('toast is already visible')
+      return
     }
-    $toast = this.$toast = Toast.$template.clone().removeClass('hidden');
+    $toast = this.$toast = Toast.$template.clone().removeClass('hidden')
 
     // decide between text and jquery object handle
     if (Type.isString(this.message)) {
-      this.$toast.text(this.message);
+      this.$toast.text(this.message)
     } else {
-      this.$toast.append(this.message);
+      this.$toast.append(this.message)
     }
 
     // insert the toast and a line break
-    Toast.$container.append(this.$toast);
-    Toast.$container.append('<br>');
+    Toast.$container.append(this.$toast)
+    Toast.$container.append('<br>')
 
     // let the toast fade in
     window.setTimeout(function () {
-      $toast.addClass('toast');
-    }, 10);
+      $toast.addClass('toast')
+    }, 10)
 
     // Let the toast fade out if it's not infinite
     if (this.duration > 0) {
-      window.setTimeout(this.close.bind(this), 1000 * (this.duration + Toast.fadeinDuration));
-      $toast.addClass('temporary');
+      window.setTimeout(this.close.bind(this), 1000 * (this.duration + Toast.fadeinDuration))
+      $toast.addClass('temporary')
     } else {
-      $toast.addClass('infinite');
+      $toast.addClass('infinite')
     }
   }
 
@@ -104,24 +104,24 @@ class Toast {
    *          the toast id
    * @return a close function
    */
-  close() {
-    let $toast;
+  close () {
+    let $toast
     if (initialized && this.$toast) {
-      $toast = this.$toast;
+      $toast = this.$toast
 
       // let the toast fade out
-      $toast.removeClass('toast');
+      $toast.removeClass('toast')
 
       // remove the toast after fadeout
       window.setTimeout(function () {
-        $toast.next().remove();
-        $toast.remove();
-      }, 1000 * Toast.fadeoutDuration);
+        $toast.next().remove()
+        $toast.remove()
+      }, 1000 * Toast.fadeoutDuration)
 
       // forbid the close function from fading out a second time
-      this.$toast = undefined;
+      this.$toast = undefined
     } else if (pending && pending.indexOf(this) !== -1) {
-      pending.splice(pending.indexOf(this), 1);
+      pending.splice(pending.indexOf(this), 1)
     }
   }
 
@@ -129,58 +129,58 @@ class Toast {
    * initialize the toast. This function has to be called explicitly, or the
    * unit tests show toasts for every error.
    */
-  static init() {
-    Toast.$container = $('<div id="toasts">');
-    Toast.$template = $('<div class="hidden">ERROR</div>');
-    Toast.fadeinDuration = getTransitionDuration();
-    Toast.fadeoutDuration = getTransitionDuration();
-    Toast.$container.append(Toast.$template);
-    $('body').append(Toast.$container);
+  static init () {
+    Toast.$container = $('<div id="toasts">')
+    Toast.$template = $('<div class="hidden">ERROR</div>')
+    Toast.fadeinDuration = getTransitionDuration()
+    Toast.fadeoutDuration = getTransitionDuration()
+    Toast.$container.append(Toast.$template)
+    $('body').append(Toast.$container)
 
     // abort if the style is not set
     if ($('#toasts').css('position') !== 'fixed') {
-      console.error('Toast: stylesheet not found. Initialization failed.');
+      console.error('Toast: stylesheet not found. Initialization failed.')
     } else {
-      Toast.$template.addClass('toast');
+      Toast.$template.addClass('toast')
       if (Toast.fadeinDuration !== Number(Toast.fadeinDuration) || !isFinite(Toast.fadeinDuration) || isNaN(Toast.fadeinDuration)) {
-        console.error('Toast.fadeinDuration: not a valid number: ' + Toast.fadeinDuration);
-        Toast.$template.removeClass('hidden');
+        console.error('Toast.fadeinDuration: not a valid number: ' + Toast.fadeinDuration)
+        Toast.$template.removeClass('hidden')
       }
       if (Toast.fadeoutDuration !== Number(Toast.fadeoutDuration) || !isFinite(Toast.fadeoutDuration) || isNaN(Toast.fadeoutDuration)) {
-        console.error('Toast.fadeoutDuration: not a valid number: ' + Toast.fadeoutDuration);
-        Toast.$template.removeClass('hidden');
+        console.error('Toast.fadeoutDuration: not a valid number: ' + Toast.fadeoutDuration)
+        Toast.$template.removeClass('hidden')
       }
     }
-    initialized = true;
+    initialized = true
 
     // issue any pending toasts
     pending.forEach(function (toast) {
-      toast.display();
-    }, this);
-    pending = undefined;
+      toast.display()
+    }, this)
+    pending = undefined
   }
 
-  static closeTemporaryToasts() {
+  static closeTemporaryToasts () {
     Toast.$container.find('.toast.temporary').map(function () {
-      const $toast = $(this);
-      $toast.next().hide();
-      $toast.hide();
-    });
+      const $toast = $(this)
+      $toast.next().hide()
+      $toast.hide()
+    })
   }
 
-  static once(message, seconds) {
-    return new Toast(message, seconds);
+  static once (message, seconds) {
+    return new Toast(message, seconds)
   }
 
-  static fadeinDuration = 0.2;
-  static fadeoutDuration = 0.2;
-  static $container = undefined;
-  static $template = undefined;
-  static SHORT = 2;
-  static LONG = 5;
-  static INFINITE = -1;
+  static fadeinDuration = 0.2
+  static fadeoutDuration = 0.2
+  static $container = undefined
+  static $template = undefined
+  static SHORT = 2
+  static LONG = 5
+  static INFINITE = -1
 }
 
 // remember: return by reference. The new function will replace the old
 // one
-export default Toast;
+export default Toast

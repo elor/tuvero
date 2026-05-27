@@ -1,4 +1,4 @@
-import MatchModel from './matchmodel.js';
+import MatchModel from './matchmodel.js'
 
 /**
  * Constructor
@@ -10,25 +10,25 @@ import MatchModel from './matchmodel.js';
  *          tournament) the the external id (global team id)
  */
 class MatchReferenceModel extends MatchModel {
-  constructor(match, teamlist) {
+  constructor (match, teamlist) {
     const teams = teamlist
       ? match.teams.map(teamid => teamlist.get(teamid))
-      : match.teams.slice();
-    super(teams, match.id, match.group, match.place);
-    this.match = match;
+      : match.teams.slice()
+    super(teams, match.id, match.group, match.place)
+    this.match = match
     this.updateTeams = function () {
       if (teamlist) {
         this.teams = this.match.teams.map(function (teamid) {
-          return teamlist.get(teamid);
-        });
+          return teamlist.get(teamid)
+        })
       } else {
-        this.teams = this.match.teams.slice();
+        this.teams = this.match.teams.slice()
       }
-    };
+    }
     this.updatePlace = function () {
-      this.place = this.match.place;
-    };
-    match.registerListener(this);
+      this.place = this.match.place
+    }
+    match.registerListener(this)
   }
 
   /**
@@ -38,11 +38,11 @@ class MatchReferenceModel extends MatchModel {
    *          an array of points for each team. Lengths have to match!
    * @return true on success, undefined otherwise
    */
-  finish(score) {
+  finish (score) {
     if (this.match.finish(score) === undefined) {
-      return undefined;
+      return undefined
     }
-    return true;
+    return true
   }
 
   /**
@@ -54,16 +54,16 @@ class MatchReferenceModel extends MatchModel {
    * This function also unregisters from the match itself to avoid memory leaks.
    * The current specification disallows any events after 'finish'.
    */
-  onfinish() {
-    this.match.unregisterListener(this);
-    this.emit('finish');
+  onfinish () {
+    this.match.unregisterListener(this)
+    this.emit('finish')
   }
 
-  onupdate() {
-    this.updateTeams();
-    this.updatePlace();
-    this.emit('update');
+  onupdate () {
+    this.updateTeams()
+    this.updatePlace()
+    this.emit('update')
   }
 }
 
-export default MatchReferenceModel;
+export default MatchReferenceModel

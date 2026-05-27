@@ -1,5 +1,5 @@
-import TemplateView from './templateview.js';
-import TextView from './textview.js';
+import TemplateView from './templateview.js'
+import TextView from './textview.js'
 
 /**
  * Constructor
@@ -19,35 +19,35 @@ import TextView from './textview.js';
  *          SubView constructor
  */
 class ListView extends TemplateView {
-  constructor(model, $view, $template, SubView) {
-    let i;
-    super(model, $view, $template);
-    this.SubView = SubView || TextView;
-    this.optArgs = [];
-    this.subviews = [];
+  constructor (model, $view, $template, SubView) {
+    let i
+    super(model, $view, $template)
+    this.SubView = SubView || TextView
+    this.optArgs = []
+    this.subviews = []
     for (i = 4; i < arguments.length; i += 1) {
-      this.optArgs.push(arguments[i]);
+      this.optArgs.push(arguments[i])
     }
-    this.update();
+    this.update()
   }
 
   /**
    * reset to an empty state
    */
-  reset() {
+  reset () {
     while (this.subviews.length > 0) {
-      this.removeItem(0);
+      this.removeItem(0)
     }
   }
 
   /**
    * redraw everything
    */
-  update() {
-    let index;
-    this.reset();
+  update () {
+    let index
+    this.reset()
     for (index = 0; index < this.model.length; index += 1) {
-      this.insertItem(index);
+      this.insertItem(index)
     }
   }
 
@@ -57,32 +57,32 @@ class ListView extends TemplateView {
    * @param index
    *          the index of the item inside the underlying list
    */
-  insertItem(index) {
-    let $subview, subview, model, $previousView, args;
-    $subview = this.$template.clone();
-    model = this.model.get(index);
-    args = this.optArgs.slice(0);
-    args.splice(0, 0, null, model, $subview);
+  insertItem (index) {
+    let $subview, subview, model, $previousView, args
+    $subview = this.$template.clone()
+    model = this.model.get(index)
+    args = this.optArgs.slice(0)
+    args.splice(0, 0, null, model, $subview)
     /*
      * Magic: this replaces 'new SubView(model, $subview, optArgs), but enables
      * the use of an arbitrary number of optional arguments
      */
-    subview = new (Function.prototype.bind.apply(this.SubView, args))();
+    subview = new (Function.prototype.bind.apply(this.SubView, args))()
     if (subview.$view !== $subview) {
-      console.error('$subview != subview.$view');
-      throw new Error('$subview != subview.$view');
+      console.error('$subview != subview.$view')
+      throw new Error('$subview != subview.$view')
     }
     if (index === this.subviews.length) {
       if (this.insertBeforeView || this.constructor.insertBeforeView) {
-        this.$view.before(subview.$view);
+        this.$view.before(subview.$view)
       } else {
-        this.$view.append(subview.$view);
+        this.$view.append(subview.$view)
       }
     } else {
-      $previousView = this.subviews[index].$view;
-      $previousView.eq(0).before(subview.$view);
+      $previousView = this.subviews[index].$view
+      $previousView.eq(0).before(subview.$view)
     }
-    this.subviews.splice(index, 0, subview);
+    this.subviews.splice(index, 0, subview)
   }
 
   /**
@@ -92,50 +92,50 @@ class ListView extends TemplateView {
    *          the DOM element for which to look
    * @return the index of the DOM element inside the underlying list
    */
-  indexOf($view) {
-    let $parents, parentindex, index;
+  indexOf ($view) {
+    let $parents, parentindex, index
 
     // verify the descendance and ascend to the subview level of the DOM
-    $parents = $view.parents();
-    parentindex = $parents.index(this.$view);
+    $parents = $view.parents()
+    parentindex = $parents.index(this.$view)
     switch (parentindex) {
       case -1:
-        console.warn('listview.indexOf: ' + '$view is not a descendant of this.$view');
-        return -1;
+        console.warn('listview.indexOf: ' + '$view is not a descendant of this.$view')
+        return -1
       case 0:
         // $view is a direct descendant of this.$view, i.e. child
-        break;
+        break
       default:
         if (this.$template.prop('tagName') !== 'TBODY' && $parents.eq(parentindex - 1).prop('tagName') === 'TBODY') {
           // adjust parentindex if we have to step over an automatically inserted
           // tbody element. This is against the standard, but more intuitive
-          parentindex -= 1;
+          parentindex -= 1
           if (parentindex === 0) {
             // NOW, the parentindex is 0
-            break;
+            break
           }
         }
-        $view = $parents.eq(parentindex - 1);
-        break;
+        $view = $parents.eq(parentindex - 1)
+        break
     }
 
     /**
      * get the actual index
      */
-    index = undefined;
+    index = undefined
     this.subviews.some(function (subview, subviewid) {
       // Note to self: cannot compare separate jQuery objects directly, but
       // their data() object is unique for each DOM element
       if (subview.$view.data() === $view.data()) {
-        index = subviewid;
-        return true;
+        index = subviewid
+        return true
       }
-      return false;
-    });
+      return false
+    })
     if (index === undefined) {
-      return -1;
+      return -1
     }
-    return index;
+    return index
   }
 
   /**
@@ -145,8 +145,8 @@ class ListView extends TemplateView {
    *          the index of the subview
    * @return undefined on failure, a subview reference on success
    */
-  getSubview(index) {
-    return this.subviews[index];
+  getSubview (index) {
+    return this.subviews[index]
   }
 
   /**
@@ -156,12 +156,12 @@ class ListView extends TemplateView {
    * @param index
    *          the index of the item upon removal
    */
-  removeItem(index) {
-    let subview;
-    subview = this.subviews[index];
+  removeItem (index) {
+    let subview
+    subview = this.subviews[index]
     if (subview) {
-      subview.destroy();
-      this.subviews.splice(index, 1);
+      subview.destroy()
+      this.subviews.splice(index, 1)
     }
   }
 
@@ -176,8 +176,8 @@ class ListView extends TemplateView {
    * @param data
    *          data object, containing at least the index within the list
    */
-  oninsert(model, event, data) {
-    this.insertItem(data.id);
+  oninsert (model, event, data) {
+    this.insertItem(data.id)
   }
 
   /**
@@ -191,18 +191,18 @@ class ListView extends TemplateView {
    * @param data
    *          data object, containing at least the index within the list
    */
-  onremove(model, event, data) {
-    this.removeItem(data.id);
+  onremove (model, event, data) {
+    this.removeItem(data.id)
   }
 
   /**
    * Callback function, event emitted by list.clear()
    */
-  onreset() {
+  onreset () {
     // Note to self: there should have been 'remove' events. This is just for
     // safety, in case I break the code in a strange way.
-    this.reset();
+    this.reset()
   }
 }
 
-export default ListView;
+export default ListView

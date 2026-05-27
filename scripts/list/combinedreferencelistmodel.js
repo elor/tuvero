@@ -1,4 +1,4 @@
-import ListModel from './listmodel.js';
+import ListModel from './listmodel.js'
 
 /**
  * @param list1
@@ -8,25 +8,25 @@ import ListModel from './listmodel.js';
  *          are merged into a single list (i.e. this)
  */
 class CombinedReferenceListModel extends ListModel {
-  constructor(list1, list2) {
-    let i;
-    super();
-    this.makeReadonly();
+  constructor (list1, list2) {
+    let i
+    super()
+    this.makeReadonly()
     if (list1 === undefined) {
-      throw new Error('No lists to combine');
+      throw new Error('No lists to combine')
     }
-    this.refLists = [];
-    this.listOffsets = [];
+    this.refLists = []
+    this.listOffsets = []
     for (i = 0; i < arguments.length; i += 1) {
-      this.refLists.push(arguments[i]);
-      this.listOffsets.push(0);
+      this.refLists.push(arguments[i])
+      this.listOffsets.push(0)
     }
     this.refLists.map(function (refList, listID) {
       refList.map(function (element, elementID) {
-        CombinedReferenceListModel.insertElement(this, listID, elementID);
-      }, this);
-      refList.registerListener(this);
-    }, this);
+        CombinedReferenceListModel.insertElement(this, listID, elementID)
+      }, this)
+      refList.registerListener(this)
+    }, this)
   }
 
   /**
@@ -40,10 +40,10 @@ class CombinedReferenceListModel extends ListModel {
    * @param data
    *          a data object, as emitted by insert() from the original list
    */
-  oninsert(emitter, evt, data) {
-    const listIndex = this.refLists.indexOf(emitter);
+  oninsert (emitter, evt, data) {
+    const listIndex = this.refLists.indexOf(emitter)
     if (listIndex !== -1) {
-      CombinedReferenceListModel.insertElement(this, listIndex, data.id);
+      CombinedReferenceListModel.insertElement(this, listIndex, data.id)
     }
   }
 
@@ -57,10 +57,10 @@ class CombinedReferenceListModel extends ListModel {
    * @param data
    *          a data object, as emitted by remove() from the original list
    */
-  onremove(emitter, evt, data) {
-    const listIndex = this.refLists.indexOf(emitter);
+  onremove (emitter, evt, data) {
+    const listIndex = this.refLists.indexOf(emitter)
     if (listIndex !== -1) {
-      CombinedReferenceListModel.removeElement(this, listIndex, data.id);
+      CombinedReferenceListModel.removeElement(this, listIndex, data.id)
     }
   }
 
@@ -74,21 +74,21 @@ class CombinedReferenceListModel extends ListModel {
    * @return the supposed index of the element inside the combined list, or -1
    *         if it shouldn't be inside it
    */
-  findPosition(listID, elementID) {
-    return this.listOffsets[listID] + elementID;
+  findPosition (listID, elementID) {
+    return this.listOffsets[listID] + elementID
   }
 
-  increaseOffsets(startingListIndex) {
-    let id;
+  increaseOffsets (startingListIndex) {
+    let id
     for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
-      this.listOffsets[id] += 1;
+      this.listOffsets[id] += 1
     }
   }
 
-  reduceOffsets(startingListIndex) {
-    let id;
+  reduceOffsets (startingListIndex) {
+    let id
     for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
-      this.listOffsets[id] -= 1;
+      this.listOffsets[id] -= 1
     }
   }
 
@@ -100,11 +100,11 @@ class CombinedReferenceListModel extends ListModel {
    * @param elementID
    *          the element to insert into the list
    */
-  static insertElement(list, listID, elementID) {
-    const index = list.findPosition(listID, elementID);
+  static insertElement (list, listID, elementID) {
+    const index = list.findPosition(listID, elementID)
     if (index !== -1) {
-      ListModel.prototype.insert.call(list, index, list.refLists[listID].get(elementID));
-      list.increaseOffsets(listID);
+      ListModel.prototype.insert.call(list, index, list.refLists[listID].get(elementID))
+      list.increaseOffsets(listID)
     }
   }
 
@@ -116,13 +116,13 @@ class CombinedReferenceListModel extends ListModel {
    * @param element
    *          the element to remove from the list
    */
-  static removeElement(list, listID, elementID) {
-    const index = list.findPosition(listID, elementID);
+  static removeElement (list, listID, elementID) {
+    const index = list.findPosition(listID, elementID)
     if (index !== -1) {
-      ListModel.prototype.remove.call(list, index);
-      list.reduceOffsets(listID);
+      ListModel.prototype.remove.call(list, index)
+      list.reduceOffsets(listID)
     }
   }
 }
 
-export default CombinedReferenceListModel;
+export default CombinedReferenceListModel

@@ -21,27 +21,27 @@
  *          the next RankingComponent in the chain
  */
 class RankingComponent {
-  constructor(ranking, nextcomponent) {
-    this.ranking = ranking;
+  constructor (ranking, nextcomponent) {
+    this.ranking = ranking
     if (nextcomponent) {
-      this.nextcomponent = nextcomponent;
-      this.dependencies = this.nextcomponent.dependencies;
+      this.nextcomponent = nextcomponent
+      this.dependencies = this.nextcomponent.dependencies
     } else {
-      this.nextcomponent = RankingComponent.DUMMYCOMPONENT;
-      this.dependencies = [];
+      this.nextcomponent = RankingComponent.DUMMYCOMPONENT
+      this.dependencies = []
     }
 
     // add dependencies to the dependencies list
     // Use hasOwnProperty because static fields are inherited in ES6 classes,
     // so checking === undefined would always find the base class's DEPENDENCIES=[].
     // Also treat explicit DEPENDENCIES=undefined as "use NAME as implicit dependency".
-    const deps = this.constructor.hasOwnProperty('DEPENDENCIES') ? this.constructor.DEPENDENCIES : undefined;
+    const deps = this.constructor.hasOwnProperty('DEPENDENCIES') ? this.constructor.DEPENDENCIES : undefined
     if (deps === undefined) {
-      this.dependencies.push(this.constructor.NAME);
+      this.dependencies.push(this.constructor.NAME)
     } else {
       deps.forEach(function (DEP) {
-        this.dependencies.push(DEP);
-      }, this);
+        this.dependencies.push(DEP)
+      }, this)
     }
   }
 
@@ -54,22 +54,22 @@ class RankingComponent {
    * @return outArray, an array of value arrays for every chain level. If a
    *          level does not have any values, its entry will be set to undefined
    */
-  getValues(outArray) {
-    let values, index;
+  getValues (outArray) {
+    let values, index
     if (outArray === undefined) {
-      outArray = [];
+      outArray = []
     }
-    values = [];
+    values = []
     for (index = 0; index < this.ranking.length; index += 1) {
-      values[index] = this.value(index);
+      values[index] = this.value(index)
     }
     if (values.every(function (value) {
-      return value === undefined;
+      return value === undefined
     })) {
-      values = undefined;
+      values = undefined
     }
-    outArray.push(values);
-    return this.nextcomponent.getValues(outArray);
+    outArray.push(values)
+    return this.nextcomponent.getValues(outArray)
   }
 
   /**
@@ -84,8 +84,8 @@ class RankingComponent {
    *          a team index
    * @return a point value (or whatever) for this team
    */
-  value(i) {
-    return undefined;
+  value (i) {
+    return undefined
   }
 
   /**
@@ -102,8 +102,8 @@ class RankingComponent {
    * @return {Number} see Array.prototype.sort() for an explanation of compare
    *         functions
    */
-  compare(i, k) {
-    return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k);
+  compare (i, k) {
+    return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k)
   }
 
   /**
@@ -113,14 +113,14 @@ class RankingComponent {
    * This also is an implicit dependency, unless DEPENDENCIES is defined. If
    * there are no dependencies, set DEPENDENCIES to an empty array.
    */
-  static NAME = 'undefined';
+  static NAME = 'undefined'
 
   /**
    * a list of dependencies, i.e. names, as in ranking.name.
    *
    * If this is undefined, the NAME is an implicit dependency.
    */
-  static DEPENDENCIES = [];
+  static DEPENDENCIES = []
 
   /**
    * DUMMYCOMPONENT is the default "nextcomponent", so the sort function does
@@ -137,15 +137,15 @@ class RankingComponent {
      *         places can happen.
      */
     compare: function (i, k) {
-      return 0;
+      return 0
     },
     /**
      * do nothing, just return the output array
      */
     getValues: function (outArray) {
-      return outArray;
+      return outArray
     }
-  };
+  }
 }
 
-export default RankingComponent;
+export default RankingComponent

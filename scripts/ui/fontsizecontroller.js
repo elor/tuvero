@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
 
 /**
  * Constructor
@@ -17,18 +17,18 @@ import Controller from '../core/controller.js';
  *          the FontSizeView
  */
 class FontSizeController extends Controller {
-  constructor(view) {
-    let model;
-    super(view);
-    model = this.model;
+  constructor (view) {
+    let model
+    super(view)
+    model = this.model
 
     /**
      * adjust the font size at the click of a button
      */
     this.view.$view.on('click', '> button', function () {
-      model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1'));
-    });
+      model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1'))
+    })
   }
 }
 
-export default FontSizeController;
+export default FontSizeController

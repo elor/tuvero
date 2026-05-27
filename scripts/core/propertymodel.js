@@ -1,5 +1,5 @@
-import Model from './model.js';
-import Type from './type.js';
+import Model from './model.js'
+import Type from './type.js'
 
 /**
  * Constructor
@@ -8,15 +8,15 @@ import Type from './type.js';
  *          Optional. Native object from which to copy the initial properties
  */
 class PropertyModel extends Model {
-  constructor(defaultProperties) {
-    super();
-    this.props = {};
+  constructor (defaultProperties) {
+    super()
+    this.props = {}
 
     // initialize with the init object, if available
     if (defaultProperties) {
       Object.keys(defaultProperties).forEach(function (key) {
-        this.setProperty(key, defaultProperties[key]);
-      }, this);
+        this.setProperty(key, defaultProperties[key])
+      }, this)
     }
   }
 
@@ -27,8 +27,8 @@ class PropertyModel extends Model {
    *          String. the key
    * @return the value which is stored under the key
    */
-  getProperty(key) {
-    return this.props[key];
+  getProperty (key) {
+    return this.props[key]
   }
 
   /**
@@ -41,22 +41,22 @@ class PropertyModel extends Model {
    *          the value to store under the key
    * @return true on success, false otherwise
    */
-  setProperty(key, value) {
+  setProperty (key, value) {
     if (this.getProperty(key) !== value) {
       if (Type.isString(value) || Type.isNumber(value) || Type.is(value, Boolean)) {
-        this.props[key] = value;
+        this.props[key] = value
         if (this.getProperty(key) === value) {
           this.emit('update', {
-            key: key,
-            value: value
-          });
-          return true;
+            key,
+            value
+          })
+          return true
         }
       } else {
-        console.error('setProperty(): unsupported property type: ' + Type(value));
+        console.error('setProperty(): unsupported property type: ' + Type(value))
       }
     }
-    return false;
+    return false
   }
 
   /**
@@ -64,8 +64,8 @@ class PropertyModel extends Model {
    *
    * @return an array of key names, i.e. an array of strings
    */
-  getPropertyKeys() {
-    return Object.keys(this.props).sort();
+  getPropertyKeys () {
+    return Object.keys(this.props).sort()
   }
 
   /**
@@ -74,13 +74,13 @@ class PropertyModel extends Model {
    *
    * @return a data object
    */
-  save() {
-    const data = super.save();
-    data.props = {};
+  save () {
+    const data = super.save()
+    data.props = {}
     this.getPropertyKeys().forEach(function (key) {
-      data.props[key] = this.getProperty(key);
-    }, this);
-    return data;
+      data.props[key] = this.getProperty(key)
+    }, this)
+    return data
   }
 
   /**
@@ -89,22 +89,22 @@ class PropertyModel extends Model {
    * @param data
    * @return true on success, false otherwise
    */
-  restore(data) {
+  restore (data) {
     if (!super.restore(data)) {
-      return false;
+      return false
     }
     Object.keys(data.props).forEach(function (key) {
-      const val = data.props[key];
-      this.setProperty(key, val);
-    }, this);
-    return true;
+      const val = data.props[key]
+      this.setProperty(key, val)
+    }, this)
+    return true
   }
 }
 
 PropertyModel.prototype.EVENTS = {
-  'update': true
-};
+  update: true
+}
 
-PropertyModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
-PropertyModel.prototype.SAVEFORMAT.props = Object;
-export default PropertyModel;
+PropertyModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT)
+PropertyModel.prototype.SAVEFORMAT.props = Object
+export default PropertyModel

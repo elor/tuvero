@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import TransposeSumMatrix from '../math/transposesummatrix.js';
+import RankingDataListener from './rankingdatalistener.js'
+import TransposeSumMatrix from '../math/transposesummatrix.js'
 
 /**
  * Constructor
@@ -8,12 +8,12 @@ import TransposeSumMatrix from '../math/transposesummatrix.js';
  *          a RankingModel instance
  */
 class RankingGameMatrixListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new TransposeSumMatrix(ranking.winsmatrix));
+  constructor (ranking) {
+    super(ranking, new TransposeSumMatrix(ranking.winsmatrix))
   }
 
-  static NAME = 'gamematrix';
-  static DEPENDENCIES = ['winsmatrix'];
+  static NAME = 'gamematrix'
+  static DEPENDENCIES = ['winsmatrix']
 }
 
-export default RankingGameMatrixListener;
+export default RankingGameMatrixListener

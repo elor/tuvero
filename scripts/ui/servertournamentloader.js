@@ -6,23 +6,23 @@
  * @license MIT License
  * @see LICENSE
  */
-import StateSaver from './statesaver.js';
-import State from './state.js';
-import PlayerModel from './playermodel.js';
-import TeamModel from './teammodel.js';
+import StateSaver from './statesaver.js'
+import State from './state.js'
+import PlayerModel from './playermodel.js'
+import TeamModel from './teammodel.js'
 
 /**
  * Constructor
  */
 class ServerTournamentLoader {
-  loadTournament(tournament) {
+  loadTournament (tournament) {
     // create new root RefLog with proper name
-    StateSaver.createNewEmptyTree(tournament.name);
+    StateSaver.createNewEmptyTree(tournament.name)
     // load state
-    State.restore(tournament.statejson);
+    State.restore(tournament.statejson)
     // for good measure, set the serverlink again
-    State.serverlink.set(tournament.id);
+    State.serverlink.set(tournament.id)
   }
 }
 
-export default ServerTournamentLoader;
+export default ServerTournamentLoader

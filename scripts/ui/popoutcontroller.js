@@ -6,16 +6,16 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
-import Toast from './toast.js';
-import Strings from './strings.js';
-import ClassView from '../core/classview.js';
-import State from './state.js';
-import Listener from '../core/listener.js';
-import TimeMachine from '../timemachine/timemachine.js';
-import FontSizeView from './fontsizeview.js';
-let mainPopout, $fontsizeview, fontsizeview;
+import $ from 'jquery'
+import Controller from '../core/controller.js'
+import Toast from './toast.js'
+import Strings from './strings.js'
+import ClassView from '../core/classview.js'
+import State from './state.js'
+import Listener from '../core/listener.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import FontSizeView from './fontsizeview.js'
+let mainPopout, $fontsizeview, fontsizeview
 
 // TODO close a popout when its parent is removed from the DOM
 
@@ -25,101 +25,101 @@ let mainPopout, $fontsizeview, fontsizeview;
 
 // TODO destroy all popout views on mainPopout close
 
-mainPopout = undefined;
-function isMainPopoutOpen() {
-  return mainPopout && mainPopout.document;
+mainPopout = undefined
+function isMainPopoutOpen () {
+  return mainPopout && mainPopout.document
 }
-function closeMainPopout() {
+function closeMainPopout () {
   if (isMainPopoutOpen()) {
-    fontsizeview.destroy();
+    fontsizeview.destroy()
     // TODO destroy all popout views!
-    mainPopout.close();
+    mainPopout.close()
   }
-  mainPopout = undefined;
+  mainPopout = undefined
 }
-Listener.bind(TimeMachine, 'unload', closeMainPopout);
+Listener.bind(TimeMachine, 'unload', closeMainPopout)
 
 /**
  * close all popout on page leave
  */
 $(function ($) {
-  $(window).on('beforeunload', closeMainPopout);
-});
+  $(window).on('beforeunload', closeMainPopout)
+})
 
 /**
  * Constructor
  */
 class PopoutController extends Controller {
-  constructor(view, cloneFunction) {
-    super(view);
-    this.cloneFunction = cloneFunction;
+  constructor (view, cloneFunction) {
+    super(view)
+    this.cloneFunction = cloneFunction
     if (this.view.$popout) {
-      this.view.$popout.click(this.popout.bind(this));
+      this.view.$popout.click(this.popout.bind(this))
     }
     if (this.view.$close) {
-      this.view.$close.click(this.close.bind(this));
+      this.view.$close.click(this.close.bind(this))
     }
     if (this.view.$pageBreak) {
-      this.view.$pageBreak.click(this.togglePageBreak.bind(this));
+      this.view.$pageBreak.click(this.togglePageBreak.bind(this))
     }
   }
 
-  popout(e) {
-    let $popoutView, stylepath, $style, $title, $body;
-    $popoutView = this.view.$popoutTemplate.clone();
+  popout (e) {
+    let $popoutView, stylepath, $style, $title, $body
+    $popoutView = this.view.$popoutTemplate.clone()
     if (!isMainPopoutOpen()) {
-      console.log('opening new popout');
-      mainPopout = window.open('', '', 'location=0');
-      $(mainPopout).on('beforeunload', closeMainPopout);
-      $style = $('style');
+      console.log('opening new popout')
+      mainPopout = window.open('', '', 'location=0')
+      $(mainPopout).on('beforeunload', closeMainPopout)
+      $style = $('style')
       if ($style.length === 0) {
-        stylepath = window.location.href.replace(/index.html[?#].*/, 'style/main.css');
-        $style = $('<link rel="stylesheet" href="' + stylepath + '">');
+        stylepath = window.location.href.replace(/index.html[?#].*/, 'style/main.css')
+        $style = $('<link rel="stylesheet" href="' + stylepath + '">')
       } else {
-        $style = $style.clone();
+        $style = $style.clone()
       }
-      $title = $('title').clone();
-      $(mainPopout.document.head).append($style).append($title);
-      $body = $(mainPopout.document.body);
-      $body.attr('id', 'app').addClass('popoutContainer');
+      $title = $('title').clone()
+      $(mainPopout.document.head).append($style).append($title)
+      $body = $(mainPopout.document.body)
+      $body.attr('id', 'app').addClass('popoutContainer')
       $body.data({
         maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body, 'maxwidth', 'nomaxwidth'),
         hideNamesView: new ClassView(State.tabOptions.showNames, $body, undefined, 'hidenames'),
         hideTeamNameView: new ClassView(State.tabOptions.showTeamName, $body, undefined, 'hideteamname'),
         showtableClassView: new ClassView(State.tabOptions.showMatchTables, $body, 'showmatchtable', 'showtable'),
         hidefinishedClassView: new ClassView(State.tabOptions.hideFinishedGroups, $body, 'hidefinished')
-      });
+      })
       if (!$fontsizeview) {
-        $fontsizeview = $('.fontsizeview').eq(1);
+        $fontsizeview = $('.fontsizeview').eq(1)
       }
-      fontsizeview = new FontSizeView($fontsizeview, $body);
+      fontsizeview = new FontSizeView($fontsizeview, $body)
     } else {
-      console.log('main popout already exists and is open');
+      console.log('main popout already exists and is open')
     }
-    $popoutView.addClass('primaryPopout');
-    $(mainPopout.document.body).append($popoutView);
-    this.cloneFunction.call(mainPopout, $popoutView);
+    $popoutView.addClass('primaryPopout')
+    $(mainPopout.document.body).append($popoutView)
+    this.cloneFunction.call(mainPopout, $popoutView)
     window.setTimeout(function () {
       if (!isMainPopoutOpen()) {
-        Toast.once(Strings.popout_adblocked);
+        Toast.once(Strings.popout_adblocked)
       }
-    }, 500);
-    e.preventDefault(true);
-    return false;
+    }, 500)
+    e.preventDefault(true)
+    return false
   }
 
-  close(e) {
-    console.log('close');
-    this.view.destroy();
-    e.preventDefault(true);
-    return false;
+  close (e) {
+    console.log('close')
+    this.view.destroy()
+    e.preventDefault(true)
+    return false
   }
 
-  togglePageBreak(e) {
-    this.view.pageBreakModel.set(!this.view.pageBreakModel.get());
-    e.preventDefault(true);
-    return false;
+  togglePageBreak (e) {
+    this.view.pageBreakModel.set(!this.view.pageBreakModel.get())
+    e.preventDefault(true)
+    return false
   }
 }
 
-export default PopoutController;
+export default PopoutController

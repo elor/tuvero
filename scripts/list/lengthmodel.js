@@ -1,4 +1,4 @@
-import ValueModel from '../core/valuemodel.js';
+import ValueModel from '../core/valuemodel.js'
 
 /**
  * Constructor
@@ -7,9 +7,9 @@ import ValueModel from '../core/valuemodel.js';
  *          a ListModel instance
  */
 class LengthModel extends ValueModel {
-  constructor(list) {
-    super(list.length);
-    list.registerListener(this);
+  constructor (list) {
+    super(list.length)
+    list.registerListener(this)
   }
 
   /**
@@ -18,13 +18,13 @@ class LengthModel extends ValueModel {
    * @param list
    *          the emitter, i.e. the ListModel instance
    */
-  onresize(list) {
-    super.set(list.length);
+  onresize (list) {
+    super.set(list.length)
   }
 }
 
 /**
  * disable the set() function. This is a passive ValueModel
  */
-LengthModel.prototype.set = undefined;
-export default LengthModel;
+LengthModel.prototype.set = undefined
+export default LengthModel

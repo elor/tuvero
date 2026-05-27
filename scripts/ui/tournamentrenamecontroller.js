@@ -1,24 +1,24 @@
-import RenameController from './renamecontroller.js';
+import RenameController from './renamecontroller.js'
 
 /**
  * Constructor
  */
 class TournamentRenameController extends RenameController {
-  constructor(view) {
-    super(view, false);
+  constructor (view) {
+    super(view, false)
   }
 
-  setName(name) {
+  setName (name) {
     if (name) {
-      this.model.getName().set(name);
-      return true;
+      this.model.getName().set(name)
+      return true
     }
-    return false;
+    return false
   }
 
-  getName() {
-    return this.model.getName().get();
+  getName () {
+    return this.model.getName().get()
   }
 }
 
-export default TournamentRenameController;
+export default TournamentRenameController

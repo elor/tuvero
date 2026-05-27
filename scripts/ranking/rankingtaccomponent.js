@@ -1,4 +1,4 @@
-import RankingComponent from './rankingcomponent.js';
+import RankingComponent from './rankingcomponent.js'
 
 /**
  * Constructor
@@ -9,8 +9,8 @@ import RankingComponent from './rankingcomponent.js';
  *          the next component in the chain
  */
 class RankingTacComponent extends RankingComponent {
-  constructor(ranking, nextcomponent) {
-    super(ranking, nextcomponent);
+  constructor (ranking, nextcomponent) {
+    super(ranking, nextcomponent)
   }
 
   /**
@@ -18,11 +18,11 @@ class RankingTacComponent extends RankingComponent {
   *          a team index
   * @return the point difference, aka. tac points
   */
-  value(i) {
-    return this.ranking.tac.get(i);
+  value (i) {
+    return this.ranking.tac.get(i)
   }
 
-  static NAME = 'tac';
+  static NAME = 'tac'
 }
 
-export default RankingTacComponent;
+export default RankingTacComponent

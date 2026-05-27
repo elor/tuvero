@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,16 +8,16 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingSaldoListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
-  onrecalc() {
-    this.saldo.sum(this.points, this.lostpoints);
+  onrecalc () {
+    this.saldo.sum(this.points, this.lostpoints)
   }
 
-  static NAME = 'saldo';
-  static DEPENDENCIES = ['points', 'lostpoints'];
+  static NAME = 'saldo'
+  static DEPENDENCIES = ['points', 'lostpoints']
 }
 
-export default RankingSaldoListener;
+export default RankingSaldoListener

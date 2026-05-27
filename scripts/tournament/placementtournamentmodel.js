@@ -1,14 +1,14 @@
-import TournamentModel from './tournamentmodel.js';
-import MatchModel from '../core/matchmodel.js';
-import ByeResult from '../core/byeresult.js';
-import Options from 'options';
+import TournamentModel from './tournamentmodel.js'
+import MatchModel from '../core/matchmodel.js'
+import ByeResult from '../core/byeresult.js'
+import Options from 'options'
 
 /**
    * Constructor
    */
 class PlacementTournamentModel extends TournamentModel {
-  constructor() {
-    super(['placement', 'wins']);
+  constructor () {
+    super(['placement', 'wins'])
   }
 
   /**
@@ -16,40 +16,40 @@ class PlacementTournamentModel extends TournamentModel {
      *
      * @return true on success, false otherwise
      */
-  initialMatches() {
-    let indices, teams, match, matchID;
+  initialMatches () {
+    let indices, teams, match, matchID
     indices = this.teams.map(function (teamid, index) {
-      return index;
-    });
-    matchID = 0;
+      return index
+    })
+    matchID = 0
     while (indices.length > 0) {
-      teams = indices.splice(0, 2);
+      teams = indices.splice(0, 2)
       if (teams[1] === undefined) {
-        match = new ByeResult(teams[0], [Options.byepointswon, Options.byepointslost], matchID, 0);
-        this.history.push(match);
+        match = new ByeResult(teams[0], [Options.byepointswon, Options.byepointslost], matchID, 0)
+        this.history.push(match)
       } else {
-        match = new MatchModel(teams, matchID, 0);
-        this.matches.push(match);
+        match = new MatchModel(teams, matchID, 0)
+        this.matches.push(match)
       }
-      matchID += 1;
+      matchID += 1
     }
-    return true;
+    return true
   }
 
   /**
      * should never be called since KO tournaments can't be idle, only finished
      */
-  idleMatches() {
-    throw new Error('KO Tournaments cannot be in idle state.' + ' This function can never be called by the TournamentModel.');
+  idleMatches () {
+    throw new Error('KO Tournaments cannot be in idle state.' + ' This function can never be called by the TournamentModel.')
   }
 
-  postprocessMatch(matchresult) {
+  postprocessMatch (matchresult) {
     if (this.matches.length === 0) {
-      this.state.set('finished');
+      this.state.set('finished')
     }
   }
 }
 
-PlacementTournamentModel.prototype.SYSTEM = 'placement';
+PlacementTournamentModel.prototype.SYSTEM = 'placement'
 
-export default PlacementTournamentModel;
+export default PlacementTournamentModel

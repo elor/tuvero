@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-import RankingComponentIndex from '../../scripts/ranking/rankingcomponentindex.js';
+import RankingComponentIndex from '../../scripts/ranking/rankingcomponentindex.js'
 
-var Presets;
+let Presets
 
 Presets = {
   target: 'test',
@@ -44,6 +44,6 @@ Presets = {
   ui: {
     rankingpoints: true
   }
-};
+}
 
-export default Presets;
+export default Presets

@@ -1,4 +1,4 @@
-import Listener from '../core/listener.js';
+import Listener from '../core/listener.js'
 
 /**
  * Constructor.
@@ -11,37 +11,37 @@ import Listener from '../core/listener.js';
  *          the object for the field this class is calculating
  */
 class RankingDataListener extends Listener {
-  constructor(ranking, fieldobject) {
-    let Const;
-    super();
+  constructor (ranking, fieldobject) {
+    let Const
+    super()
 
     /**
      * This.constructor, on inherited classes, is NOT RankingDataListener, but
      * the constructor that was invoked by 'new'
      */
-    Const = this.constructor;
-    this.ranking = ranking;
+    Const = this.constructor
+    this.ranking = ranking
 
     // resize and map the ranking field
     if (fieldobject.length !== ranking.length) {
-      fieldobject.resize(ranking.length);
+      fieldobject.resize(ranking.length)
     }
     if (ranking[Const.NAME] !== undefined) {
-      throw new Error('ranking field already exists: ' + Const.NAME);
+      throw new Error('ranking field already exists: ' + Const.NAME)
     }
-    ranking[Const.NAME] = fieldobject;
-    this[Const.NAME] = fieldobject;
+    ranking[Const.NAME] = fieldobject
+    this[Const.NAME] = fieldobject
 
     // create dependency links
     if (Const.DEPENDENCIES) {
       Const.DEPENDENCIES.forEach(function (DEPNAME) {
-        this[DEPNAME] = ranking[DEPNAME];
+        this[DEPNAME] = ranking[DEPNAME]
         if (this[DEPNAME] === undefined) {
-          console.warn('ranking dependency not found: ' + DEPNAME);
+          console.warn('ranking dependency not found: ' + DEPNAME)
         }
-      }, this);
+      }, this)
     }
-    ranking.registerListener(this);
+    ranking.registerListener(this)
   }
 
   /**
@@ -50,13 +50,13 @@ class RankingDataListener extends Listener {
    *
    * @return true if this listener contains primary data, false otherwise
    */
-  isPrimary() {
-    return this.onbye !== RankingDataListener.prototype.onbye || this.onresult !== RankingDataListener.prototype.onresult;
+  isPrimary () {
+    return this.onbye !== RankingDataListener.prototype.onbye || this.onresult !== RankingDataListener.prototype.onresult
   }
 
-  destroy() {
-    super.destroy();
-    delete this.ranking[this.constructor.NAME];
+  destroy () {
+    super.destroy()
+    delete this.ranking[this.constructor.NAME]
   }
 
   /**
@@ -69,7 +69,7 @@ class RankingDataListener extends Listener {
    * @param game
    *          a game result
    */
-  onresult(r, e, game) {
+  onresult (r, e, game) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   }
 
@@ -83,7 +83,7 @@ class RankingDataListener extends Listener {
    * @param data
    *          object with team and round info: {teams:[0, 1], round: 0}
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   }
 
@@ -98,29 +98,29 @@ class RankingDataListener extends Listener {
    * @param correction
    *          a game correction (CorrectionModel instance)
    */
-  oncorrect(r, e, correction) {
+  oncorrect (r, e, correction) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   }
 
   /**
    * calculate the field
    */
-  onrecalc() {
+  onrecalc () {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   }
 
-  zero() {
-    const data = this[this.constructor.NAME];
+  zero () {
+    const data = this[this.constructor.NAME]
     if (data.fill) {
-      data.fill(0);
+      data.fill(0)
     }
   }
 
   /**
    * reset the field
    */
-  onreset() {
-    this.zero();
+  onreset () {
+    this.zero()
   }
 
   /**
@@ -128,22 +128,22 @@ class RankingDataListener extends Listener {
    *
    * @param ranking
    */
-  onresize(ranking) {
-    const dataobject = this[this.constructor.NAME];
+  onresize (ranking) {
+    const dataobject = this[this.constructor.NAME]
     if (dataobject && dataobject.resize) {
-      this[this.constructor.NAME].resize(ranking.length);
+      this[this.constructor.NAME].resize(ranking.length)
     }
   }
 
   /**
    * the name of the field, which is handled by this class, e.g. 'wins'
    */
-  static NAME = 'undefined';
+  static NAME = 'undefined'
 
   /**
    * an array of dependencies, e.g. [ 'buchholz', 'games'] for finebuchholz
    */
-  static DEPENDENCIES = [];
+  static DEPENDENCIES = []
 }
 
-export default RankingDataListener;
+export default RankingDataListener

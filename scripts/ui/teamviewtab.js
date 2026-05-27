@@ -3,87 +3,87 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from '../core/view.js';
-import ListView from './listview.js';
-import State from './state.js';
-import TeamModel from './teammodel.js';
-import ClassView from '../core/classview.js';
-import TeamSettingsView from './teamsettingsview.js';
-import PlayerSettingsView from './playersettingsview.js';
-import ListModel from '../list/listmodel.js';
-import TabsHandle from './tabshandle.js';
-import NoRegModel from './noregmodel.js';
-import NewTeamView from './newteamview.js';
+import $ from 'jquery'
+import View from '../core/view.js'
+import ListView from './listview.js'
+import State from './state.js'
+import TeamModel from './teammodel.js'
+import ClassView from '../core/classview.js'
+import TeamSettingsView from './teamsettingsview.js'
+import PlayerSettingsView from './playersettingsview.js'
+import ListModel from '../list/listmodel.js'
+import TabsHandle from './tabshandle.js'
+import NoRegModel from './noregmodel.js'
+import NewTeamView from './newteamview.js'
 
 class TeamViewTab extends View {
-  constructor($tab) {
-    super(undefined, $tab);
-    this.players = new ListModel();
-    this.init();
-    State.focusedteam.registerListener(this);
+  constructor ($tab) {
+    super(undefined, $tab)
+    this.players = new ListModel()
+    this.init()
+    State.focusedteam.registerListener(this)
   }
 
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 
-  init() {
-    let $container, $template;
-    $container = this.$view.find('.hasteam');
-    this.hasnoteam = new ClassView(State.focusedteam, $container, undefined, 'hidden');
-    $container = this.$view.find('.hasnoteam');
-    this.hasnoteam = new ClassView(State.focusedteam, $container, 'hidden', undefined);
+  init () {
+    let $container, $template
+    $container = this.$view.find('.hasteam')
+    this.hasnoteam = new ClassView(State.focusedteam, $container, undefined, 'hidden')
+    $container = this.$view.find('.hasnoteam')
+    this.hasnoteam = new ClassView(State.focusedteam, $container, 'hidden', undefined)
 
     // registration / next team
-    $container = this.$view.find('.newteamview');
-    this.newTeamView = new NewTeamView(State.teams, $container, State.teamsize);
+    $container = this.$view.find('.newteamview')
+    this.newTeamView = new NewTeamView(State.teams, $container, State.teamsize)
     // hide when registration is closed
-    this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments), $container, 'hidden');
-    $container = this.$view.find('.playersettings');
-    $template = $container.find('.template');
-    this.playerlistview = new ListView(this.players, $container, $template, PlayerSettingsView, this);
-    this.update();
+    this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments), $container, 'hidden')
+    $container = this.$view.find('.playersettings')
+    $template = $container.find('.template')
+    this.playerlistview = new ListView(this.players, $container, $template, PlayerSettingsView, this)
+    this.update()
   }
 
-  update() {
-    this.reset();
+  update () {
+    this.reset()
     if (State.focusedteam.get()) {
-      TabsHandle.secret('team');
-      this.team = State.focusedteam.get();
-      this.team.registerListener(this);
+      TabsHandle.secret('team')
+      this.team = State.focusedteam.get()
+      this.team.registerListener(this)
       this.team.players.forEach(function (player) {
-        this.players.push(player);
-      }, this);
-      this.teamSettingsView = new TeamSettingsView(this.team, this.$view.find('.teamsettings'));
-      this.updateTeamNo();
+        this.players.push(player)
+      }, this)
+      this.teamSettingsView = new TeamSettingsView(this.team, this.$view.find('.teamsettings'))
+      this.updateTeamNo()
     } else {
-      TabsHandle.hide('team');
+      TabsHandle.hide('team')
     }
   }
 
-  reset() {
-    this.players.clear();
+  reset () {
+    this.players.clear()
     if (this.team) {
-      this.team.unregisterListener(this);
+      this.team.unregisterListener(this)
     }
-    this.team = new TeamModel();
+    this.team = new TeamModel()
     if (this.teamSettingsView) {
-      this.teamSettingsView.destroy();
-      this.teamSettingsView = undefined;
+      this.teamSettingsView.destroy()
+      this.teamSettingsView = undefined
     }
   }
 
-  updateTeamNo() {
-    this.$view.find('.teamno').text(this.team.getNumber());
+  updateTeamNo () {
+    this.$view.find('.teamno').text(this.team.getNumber())
   }
 }
 
 $(function ($) {
-  let $tab;
-  $tab = $('#tabs > [data-tab="team"]');
+  let $tab
+  $tab = $('#tabs > [data-tab="team"]')
   if ($tab.length && $('#testmain').length === 0) {
-    return new TeamViewTab($tab);
+    return new TeamViewTab($tab)
   }
-});
-export default TeamViewTab;
+})
+export default TeamViewTab

@@ -2,11 +2,11 @@
 
 'use strict'
 
-var path = require('path')
-var fs = require('fs')
+const path = require('path')
+const fs = require('fs')
 
-var libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..')
-var tuvero = require(path.join([libdir, 'state.js']))
+const libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..')
+const tuvero = require(path.join([libdir, 'state.js']))
 
 function printandexit () {
   console.error('Syntax: tuvero.js <input.json> <command>')
@@ -20,15 +20,15 @@ if (process.argv.length < 2) {
 }
 
 const [filename, command] = process.argv
-var callback = tuvero.commands[command]
+const callback = tuvero.commands[command]
 
 if (!command || !callback) printandexit()
 
-var output = (state) => {
+const output = (state) => {
   console.log(JSON.stringify(callback(state), null, '  '))
 }
 
-var errput = (err) => {
+const errput = (err) => {
   console.error(err)
   process.exit(1)
 }

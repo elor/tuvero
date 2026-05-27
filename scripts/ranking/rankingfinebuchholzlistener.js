@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,16 +8,16 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingBuchholzListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
-  onrecalc() {
-    this.gamematrix.multVector(this.finebuchholz, this.buchholz);
+  onrecalc () {
+    this.gamematrix.multVector(this.finebuchholz, this.buchholz)
   }
 
-  static NAME = 'finebuchholz';
-  static DEPENDENCIES = ['gamematrix', 'buchholz'];
+  static NAME = 'finebuchholz'
+  static DEPENDENCIES = ['gamematrix', 'buchholz']
 }
 
-export default RankingBuchholzListener;
+export default RankingBuchholzListener

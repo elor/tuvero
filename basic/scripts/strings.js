@@ -20,4 +20,4 @@ export default {
   ranking_medium_points: 'Punkte',
   ranking_medium_lostpoints: 'Gegnerpunkte',
   ranking_medium_saldo: 'Differenz'
-};
+}

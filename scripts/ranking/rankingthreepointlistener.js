@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,9 +8,9 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingThreePointListener extends RankingDataListener {
-  constructor(ranking) {
+  constructor (ranking) {
     super(ranking, // autoformat
-    new VectorModel());
+      new VectorModel())
   }
 
   /**
@@ -23,18 +23,18 @@ class RankingThreePointListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
-    let winner, maxpoints;
-    winner = result.getWinner();
+  onresult (r, e, result) {
+    let winner, maxpoints
+    winner = result.getWinner()
     if (winner !== undefined) {
-      this.threepoint.add(winner, 3);
+      this.threepoint.add(winner, 3)
     } else {
-      maxpoints = Math.max.apply(Math, result.score);
+      maxpoints = Math.max.apply(Math, result.score)
       result.teams.forEach(function (teamid, index) {
         if (result.score[index] === maxpoints) {
-          this.threepoint.add(teamid, 1);
+          this.threepoint.add(teamid, 1)
         }
-      }, this);
+      }, this)
     }
   }
 
@@ -48,10 +48,10 @@ class RankingThreePointListener extends RankingDataListener {
    * @param teams
    *          an array of team ids
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     data.teams.forEach(function (teamid) {
-      this.threepoint.add(teamid, 3);
-    }, this);
+      this.threepoint.add(teamid, 3)
+    }, this)
   }
 
   /**
@@ -65,24 +65,24 @@ class RankingThreePointListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
-    let winner, maxpoints;
-    winner = correction.before.getWinner();
+  oncorrect (r, e, correction) {
+    let winner, maxpoints
+    winner = correction.before.getWinner()
     if (winner !== undefined) {
-      this.threepoint.set(winner, this.threepoint.get(winner) - 3);
+      this.threepoint.set(winner, this.threepoint.get(winner) - 3)
     } else {
-      maxpoints = Math.max.apply(Math, correction.before.score);
+      maxpoints = Math.max.apply(Math, correction.before.score)
       correction.before.teams.forEach(function (teamid, index) {
         if (correction.before.score[index] === maxpoints) {
-          this.threepoint.set(teamid, this.threepoint.get(teamid) - 1);
+          this.threepoint.set(teamid, this.threepoint.get(teamid) - 1)
         }
-      }, this);
+      }, this)
     }
-    this.onresult(r, e, correction.after);
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'threepoint';
-  static DEPENDENCIES = undefined;
+  static NAME = 'threepoint'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingThreePointListener;
+export default RankingThreePointListener

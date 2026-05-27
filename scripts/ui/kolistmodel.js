@@ -1,4 +1,4 @@
-import BinningReferenceListModel from '../list/binningreferencelistmodel.js';
+import BinningReferenceListModel from '../list/binningreferencelistmodel.js'
 
 /**
  * Constructor
@@ -7,8 +7,8 @@ import BinningReferenceListModel from '../list/binningreferencelistmodel.js';
  *          a KOTournamentModel instance
  */
 class KOListModel extends BinningReferenceListModel {
-  constructor(tournament) {
-    super(tournament.getCombinedHistory(), KOListModel.binningFunction);
+  constructor (tournament) {
+    super(tournament.getCombinedHistory(), KOListModel.binningFunction)
   }
 
   /**
@@ -17,7 +17,7 @@ class KOListModel extends BinningReferenceListModel {
    * @return which KO Tree Group this match belongs to. The match for third
    *         place is shown in the tree for first place, and so on.
    */
-  static binningFunction(match) {
+  static binningFunction (match) {
     /*
      * Just strip the '1' bit from the match group, if it's set
      *
@@ -25,8 +25,8 @@ class KOListModel extends BinningReferenceListModel {
      * have a look at the following url for clarification:
      * http://stackoverflow.com/questions/3920307/how-can-i-remove-a-flag-in-c
      */
-    return match.getGroup(0) & ~0x1;
+    return match.getGroup(0) & ~0x1
   }
 }
 
-export default KOListModel;
+export default KOListModel

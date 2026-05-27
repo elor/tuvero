@@ -1,14 +1,14 @@
-import View from '../core/view.js';
-import RankingView from './rankingview.js';
-import ListView from './listview.js';
-import PopoutBoxView from './popoutboxview.js';
-import CorrectionView from './correctionview.js';
-import TeamTableView from './teamtableview.js';
-import ValueModel from '../core/valuemodel.js';
-import Listener from '../core/listener.js';
-import TournamentRenameController from './tournamentrenamecontroller.js';
-import LengthModel from '../list/lengthmodel.js';
-import ClassView from '../core/classview.js';
+import View from '../core/view.js'
+import RankingView from './rankingview.js'
+import ListView from './listview.js'
+import PopoutBoxView from './popoutboxview.js'
+import CorrectionView from './correctionview.js'
+import TeamTableView from './teamtableview.js'
+import ValueModel from '../core/valuemodel.js'
+import Listener from '../core/listener.js'
+import TournamentRenameController from './tournamentrenamecontroller.js'
+import LengthModel from '../list/lengthmodel.js'
+import ClassView from '../core/classview.js'
 
 /**
  * Constructor
@@ -22,38 +22,38 @@ import ClassView from '../core/classview.js';
  *          TournamentModel.getRanking()
  */
 class TournamentRankingView extends View {
-  constructor(model, $view, teams, abbreviate) {
-    const $popout = $view.clone();
-    super(model, $view);
-    this.renameController = new TournamentRenameController(new View(model, this.$view.find('.tournamentname.rename')));
+  constructor (model, $view, teams, abbreviate) {
+    const $popout = $view.clone()
+    super(model, $view)
+    this.renameController = new TournamentRenameController(new View(model, this.$view.find('.tournamentname.rename')))
     this.boxview = new PopoutBoxView(this.$view, $popout, function ($view) {
-      return new TournamentRankingView(model, $view, teams, abbreviate);
-    });
-    this.$ranking = this.$view.find('.rankingview');
-    this.rankingview = new RankingView(this.model.getRanking(), this.$ranking, teams, abbreviate);
-    this.$corrections = this.$view.find('.correctiontable');
-    this.correctionsVisibility = new ClassView(new LengthModel(this.model.getCorrections()), this.$corrections, undefined, 'hidden');
-    this.$correctionrow = this.$corrections.find('.correctionrow.template').detach();
-    this.corrections = new ListView(this.model.getCorrections(), this.$corrections, this.$correctionrow, CorrectionView);
-    this.correctionTeamHideListener = new TeamTableView(this.corrections, new ValueModel(3));
-    this.$names = this.$view.find('.tournamentname');
-    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
-    Listener.bind(this.model.getState(), 'update', this.updateVisibility.bind(this));
-    this.updateNames();
-    this.updateVisibility();
+      return new TournamentRankingView(model, $view, teams, abbreviate)
+    })
+    this.$ranking = this.$view.find('.rankingview')
+    this.rankingview = new RankingView(this.model.getRanking(), this.$ranking, teams, abbreviate)
+    this.$corrections = this.$view.find('.correctiontable')
+    this.correctionsVisibility = new ClassView(new LengthModel(this.model.getCorrections()), this.$corrections, undefined, 'hidden')
+    this.$correctionrow = this.$corrections.find('.correctionrow.template').detach()
+    this.corrections = new ListView(this.model.getCorrections(), this.$corrections, this.$correctionrow, CorrectionView)
+    this.correctionTeamHideListener = new TeamTableView(this.corrections, new ValueModel(3))
+    this.$names = this.$view.find('.tournamentname')
+    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this))
+    Listener.bind(this.model.getState(), 'update', this.updateVisibility.bind(this))
+    this.updateNames()
+    this.updateVisibility()
   }
 
-  updateNames() {
-    this.$names.text(this.model.getName().get());
+  updateNames () {
+    this.$names.text(this.model.getName().get())
   }
 
-  updateVisibility() {
+  updateVisibility () {
     if (this.model.getState().get() === 'initial') {
-      this.$view.addClass('hidden');
+      this.$view.addClass('hidden')
     } else {
-      this.$view.removeClass('hidden');
+      this.$view.removeClass('hidden')
     }
   }
 }
 
-export default TournamentRankingView;
+export default TournamentRankingView

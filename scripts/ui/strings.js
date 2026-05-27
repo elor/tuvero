@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-import LocalStrings from 'strings';
-let Strings;
+import LocalStrings from 'strings'
+let Strings
 Strings = {
   autosaveoff: 'Automatisches  Speichern aus',
   autosaveon: 'Automatisches Speichern an',
@@ -195,8 +195,8 @@ Strings = {
   grouptext_poules: 'Poule',
   matchplace: 'Ort',
   matchplaces: 'Orte'
-};
+}
 Object.keys(LocalStrings).forEach(function (key) {
-  Strings[key] = LocalStrings[key];
-});
-export default Strings;
+  Strings[key] = LocalStrings[key]
+})
+export default Strings

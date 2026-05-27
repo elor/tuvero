@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import MatrixModel from '../math/matrixmodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import MatrixModel from '../math/matrixmodel.js'
 
 /**
  * Constructor
@@ -8,8 +8,8 @@ import MatrixModel from '../math/matrixmodel.js';
  *          a RankingModel instance
  */
 class RankingWinsMatrixListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new MatrixModel());
+  constructor (ranking) {
+    super(ranking, new MatrixModel())
   }
 
   /**
@@ -29,39 +29,39 @@ class RankingWinsMatrixListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
-    let maxpoints, draw, score;
+  onresult (r, e, result) {
+    let maxpoints, draw, score
 
     // get the max points, remember if there's a draw
-    maxpoints = undefined;
-    draw = false;
+    maxpoints = undefined
+    draw = false
     result.score.forEach(function (points) {
       if (points > maxpoints || maxpoints === undefined) {
-        maxpoints = points;
-        draw = false;
+        maxpoints = points
+        draw = false
       } else if (points === maxpoints) {
-        draw = true;
+        draw = true
       }
-    }, this);
+    }, this)
 
     // only give half the score for a draw
-    score = draw ? 0.5 : 1;
+    score = draw ? 0.5 : 1
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
     result.score.forEach(function (points, index) {
-      let teamid;
+      let teamid
       if (points === maxpoints) {
-        teamid = result.teams[index];
+        teamid = result.teams[index]
         result.teams.forEach(function (opponent) {
-          let value;
+          let value
           if (teamid !== opponent) {
-            value = this.winsmatrix.get(teamid, opponent) + score;
-            this.winsmatrix.set(teamid, opponent, value);
+            value = this.winsmatrix.get(teamid, opponent) + score
+            this.winsmatrix.set(teamid, opponent, value)
           }
-        }, this);
+        }, this)
       }
-    }, this);
+    }, this)
   }
 
   /**
@@ -75,45 +75,45 @@ class RankingWinsMatrixListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
+  oncorrect (r, e, correction) {
     // TODO DRY - Don't Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
-    let maxpoints, draw, score;
+    let maxpoints, draw, score
 
     // get the max points, remember if there's a draw
-    maxpoints = undefined;
-    draw = false;
+    maxpoints = undefined
+    draw = false
     correction.before.score.forEach(function (points) {
       if (points > maxpoints || maxpoints === undefined) {
-        maxpoints = points;
-        draw = false;
+        maxpoints = points
+        draw = false
       } else if (points === maxpoints) {
-        draw = true;
+        draw = true
       }
-    }, this);
+    }, this)
 
     // only give half the score for a draw
-    score = draw ? 0.5 : 1;
+    score = draw ? 0.5 : 1
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
     correction.before.score.forEach(function (points, index) {
-      let teamid;
+      let teamid
       if (points === maxpoints) {
-        teamid = correction.before.teams[index];
+        teamid = correction.before.teams[index]
         correction.before.teams.forEach(function (opponent) {
-          let value;
+          let value
           if (teamid !== opponent) {
-            value = this.winsmatrix.get(teamid, opponent) - score;
-            this.winsmatrix.set(teamid, opponent, value);
+            value = this.winsmatrix.get(teamid, opponent) - score
+            this.winsmatrix.set(teamid, opponent, value)
           }
-        }, this);
+        }, this)
       }
-    }, this);
-    this.onresult(r, e, correction.after);
+    }, this)
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'winsmatrix';
+  static NAME = 'winsmatrix'
 }
 
-export default RankingWinsMatrixListener;
+export default RankingWinsMatrixListener

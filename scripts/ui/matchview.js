@@ -1,18 +1,18 @@
-import $ from 'jquery';
-import View from '../core/view.js';
-import TeamView from './teamview.js';
-import MatchController from './matchcontroller.js';
-import PlayerModel from './playermodel.js';
-import TeamModel from './teammodel.js';
-import Strings from './strings.js';
-import Type from '../core/type.js';
-let emptyPlayer, byePlayer;
+import $ from 'jquery'
+import View from '../core/view.js'
+import TeamView from './teamview.js'
+import MatchController from './matchcontroller.js'
+import PlayerModel from './playermodel.js'
+import TeamModel from './teammodel.js'
+import Strings from './strings.js'
+import Type from '../core/type.js'
+let emptyPlayer, byePlayer
 
 // player name for bye votes
-byePlayer = new PlayerModel(Strings.byename);
-emptyPlayer = new PlayerModel('');
-emptyPlayer.alias = ''; // avoid 'NONAME'
-emptyPlayer.setName = function () {};
+byePlayer = new PlayerModel(Strings.byename)
+emptyPlayer = new PlayerModel('')
+emptyPlayer.alias = '' // avoid 'NONAME'
+emptyPlayer.setName = function () {}
 
 /**
  * create a team with exactly the wanted number of bye players.
@@ -20,46 +20,46 @@ emptyPlayer.setName = function () {};
  * @return a TeamModel instance which is not part of the teams list, has only
  *         bye players and a (textual) team id which represents a bye vote
  */
-function createByeTeam(length) {
-  let players, team;
-  players = [];
+function createByeTeam (length) {
+  let players, team
+  players = []
   while (players.length < length) {
-    players.push(byePlayer);
+    players.push(byePlayer)
   }
-  team = new TeamModel(players);
-  team.setID(Strings.byeid);
-  return team;
+  team = new TeamModel(players)
+  team.setID(Strings.byeid)
+  return team
 }
-function createEmptyTeam(length) {
-  let players, team;
-  players = [];
+function createEmptyTeam (length) {
+  let players, team
+  players = []
   while (players.length < length) {
-    players.push(emptyPlayer);
+    players.push(emptyPlayer)
   }
-  team = new TeamModel(players);
-  team.setID('');
-  return team;
+  team = new TeamModel(players)
+  team.setID('')
+  return team
 }
-function $createTeamsLists($elements) {
-  let team, teams, i, $element;
-  team = undefined;
-  teams = [];
+function $createTeamsLists ($elements) {
+  let team, teams, i, $element
+  team = undefined
+  teams = []
   for (i = 0; i <= $elements.length; i += 1) {
-    $element = $elements.eq(i);
+    $element = $elements.eq(i)
     if (i === $elements.length || $element.hasClass('teamno')) {
       if (team) {
-        teams.push($(team));
+        teams.push($(team))
       }
-      team = undefined;
+      team = undefined
     }
     if ($element) {
       if (!team) {
-        team = [];
+        team = []
       }
-      team.push($element[0]);
+      team.push($element[0])
     }
   }
-  return teams;
+  return teams
 }
 
 /**
@@ -74,90 +74,90 @@ function $createTeamsLists($elements) {
  *          read for visualization. See MatchView.bindTeamList(), too.
  */
 class MatchView extends View {
-  constructor(model, $view, teamlist) {
-    super(model, $view);
-    this.teamviews = [];
+  constructor (model, $view, teamlist) {
+    super(model, $view)
+    this.teamviews = []
     if (teamlist) {
-      this.teamlist = teamlist;
+      this.teamlist = teamlist
     } else if (!this.teamlist) {
-      this.teamlist = undefined;
+      this.teamlist = undefined
     }
-    this.$finishform = this.$view.find('.finish');
-    this.$place = this.$view.find('.place');
+    this.$finishform = this.$view.find('.finish')
+    this.$place = this.$view.find('.place')
     if (this.model.isRunningMatch()) {
-      this.controller = new MatchController(this, this.$finishform);
+      this.controller = new MatchController(this, this.$finishform)
     } else {
-      this.$finishform.remove();
-      this.$finishform = undefined;
+      this.$finishform.remove()
+      this.$finishform = undefined
     }
-    this.update();
-    this.updatePlace();
+    this.update()
+    this.updatePlace()
   }
 
   /**
    * destroy all team views before creating new ones on the existing items. This
    * is a bit too much, but it shouldn't be called too often, right?
    */
-  destroyTeamViews() {
+  destroyTeamViews () {
     // destroy all teamviews in order to create new ones
     this.teamviews.forEach(function (teamview) {
-      teamview.destroy();
-    });
-    this.teamviews.splice(0);
+      teamview.destroy()
+    })
+    this.teamviews.splice(0)
   }
 
   /**
    * update all the values
    */
-  update() {
-    let $teams, i, $team, teamid, isBye, team, teamsize;
-    $teams = this.$view.find('.team');
+  update () {
+    let $teams, i, $team, teamid, isBye, team, teamsize
+    $teams = this.$view.find('.team')
     if ($teams.length === 0) {
-      $teams = $createTeamsLists(this.$view.find('>.teamno , >.name , >.teamname'));
+      $teams = $createTeamsLists(this.$view.find('>.teamno , >.name , >.teamname'))
     }
     if ($teams.length === 0) {
-      $teams = $createTeamsLists(this.$view.filter('.teamno , .name , .teamname'));
+      $teams = $createTeamsLists(this.$view.filter('.teamno , .name , .teamname'))
     }
-    teamsize = undefined;
-    this.destroyTeamViews();
-    isBye = this.model.isBye && this.model.isBye();
+    teamsize = undefined
+    this.destroyTeamViews()
+    isBye = this.model.isBye && this.model.isBye()
 
     // should support a varying number of teams
     for (i = 0; i < $teams.length; i += 1) {
-      $team = $($teams[i]);
-      teamid = this.model.getTeamID(i % this.model.length);
+      $team = $($teams[i])
+      teamid = this.model.getTeamID(i % this.model.length)
       if (this.teamlist) {
         if (teamid !== undefined) {
-          team = this.teamlist.get(teamid);
-          teamsize = team.length;
+          team = this.teamlist.get(teamid)
+          teamsize = team.length
           if (isBye && i % this.model.length !== 0) {
-            team = createByeTeam(team.length);
+            team = createByeTeam(team.length)
           }
         } else {
           if (teamsize === undefined) {
             // dirty hack: just look for size of the the first team.
-            teamsize = this.teamlist.get(0) && this.teamlist.get(0).length;
+            teamsize = this.teamlist.get(0) && this.teamlist.get(0).length
           }
-          team = createEmptyTeam(teamsize);
+          team = createEmptyTeam(teamsize)
         }
-        this.teamviews.push(new TeamView(team, $team));
+        this.teamviews.push(new TeamView(team, $team))
       } else {
         if (isBye) {
-          team = Strings.byename;
+          team = Strings.byename
         } else if (Type.isNumber(teamid)) {
-          team = teamid + 1;
+          team = teamid + 1
         } else if (teamid === undefined) {
-          team = '';
+          team = ''
         } else {
-          team = teamid;
+          team = teamid
         }
-        $team.text(team);
+        $team.text(team)
       }
     }
   }
 
-  updatePlace() {
-    this.$place.text(this.model.place || '');
+  updatePlace () {
+    this.$place.text(this.model.place || '')
   }
 
   /**
@@ -171,8 +171,8 @@ class MatchView extends View {
    * @param data
    *          should be undefined
    */
-  onupdate(emitter, event, data) {
-    this.updatePlace();
+  onupdate (emitter, event, data) {
+    this.updatePlace()
   }
 
   /**
@@ -182,16 +182,16 @@ class MatchView extends View {
    *          a ListModel of TeamModel instances
    * @return a new MatchView constructor, which has this.teamList set
    */
-  static bindTeamList(teamlist) {
+  static bindTeamList (teamlist) {
     class MyMatchView extends MatchView {
-      constructor() {
-        MyMatchView.superconstructor.apply(this, arguments);
+      constructor () {
+        MyMatchView.superconstructor.apply(this, arguments)
       }
     }
 
-    MyMatchView.prototype.teamlist = teamlist;
-    return MyMatchView;
+    MyMatchView.prototype.teamlist = teamlist
+    return MyMatchView
   }
 }
 
-export default MatchView;
+export default MatchView

@@ -8,22 +8,22 @@
 /*
  * Random Test
  */
-import { test, expect } from 'vitest';
+import { test, expect } from 'vitest'
 
-import Random from '../random.js';
+import Random from '../random.js'
 test('Random', () => {
-  let min, max, r, x, i;
-  r = new Random();
-  max = min = r.nextInt(64);
+  let min, max, r, x, i
+  r = new Random()
+  max = min = r.nextInt(64)
   for (i = 0; i < 10000; i += 1) {
-    x = r.nextInt(64);
+    x = r.nextInt(64)
     if (x < min) {
-      min = x;
+      min = x
     }
     if (x > max) {
-      max = x;
+      max = x
     }
   }
-  expect(min, 'int min').toBe(0);
-  expect(max, 'int max').toBe(63);
-});
+  expect(min, 'int min').toBe(0)
+  expect(max, 'int max').toBe(63)
+})

@@ -1,6 +1,6 @@
-import $ from 'jquery';
-import GenericTournamentView from './generictournamentview.js';
-import Listener from '../core/listener.js';
+import $ from 'jquery'
+import GenericTournamentView from './generictournamentview.js'
+import Listener from '../core/listener.js'
 
 /**
  * Constructor
@@ -9,37 +9,37 @@ import Listener from '../core/listener.js';
  *          a list of DOM elements which are templates
  */
 class TournamentViewPopulator {
-  constructor($templatesArray, tournaments) {
-    const $templates = {};
+  constructor ($templatesArray, tournaments) {
+    const $templates = {}
     $templatesArray.each(function () {
-      let $template, type;
-      $template = $(this);
-      type = $template.attr('data-system');
-      $templates[type] = $template;
-    });
-    this.$templates = $templates;
-    this.tournaments = tournaments;
-    this.teamReservation = [];
-    this.viewCache = [];
+      let $template, type
+      $template = $(this)
+      type = $template.attr('data-system')
+      $templates[type] = $template
+    })
+    this.$templates = $templates
+    this.tournaments = tournaments
+    this.teamReservation = []
+    this.viewCache = []
     Listener.bind(tournaments, 'insert', function (emitter, event, data) {
-      const index = data.id;
-      const tournament = data.object;
-      const $view = $('<td>').addClass('system');
-      this.populate(tournament, $view);
-      const view = new GenericTournamentView(tournament, $view, this.tournaments);
+      const index = data.id
+      const tournament = data.object
+      const $view = $('<td>').addClass('system')
+      this.populate(tournament, $view)
+      const view = new GenericTournamentView(tournament, $view, this.tournaments)
       if (index === this.viewCache.length) {
-        this.viewCache.push(view);
+        this.viewCache.push(view)
       } else {
-        this.viewCache.splice(index, 0, view);
+        this.viewCache.splice(index, 0, view)
       }
-    }, this);
+    }, this)
     Listener.bind(tournaments, 'remove', function (emitter, event, data) {
-      const index = data.id;
-      const view = this.viewCache[index];
-      this.viewCache.splice(index, 1);
-      this.teamReservation.splice(index, 1);
-      view.destroy();
-    }, this);
+      const index = data.id
+      const view = this.viewCache[index]
+      this.viewCache.splice(index, 1)
+      this.teamReservation.splice(index, 1)
+      view.destroy()
+    }, this)
   }
 
   /**
@@ -53,24 +53,24 @@ class TournamentViewPopulator {
    * @param $view
    *          an empty container for the actual view
    */
-  populate(tournament, $view) {
-    let type;
-    type = tournament && tournament.SYSTEM;
+  populate (tournament, $view) {
+    let type
+    type = tournament && tournament.SYSTEM
     if (this.$templates[type] === undefined) {
-      console.error('system template has not been loaded: ' + type);
+      console.error('system template has not been loaded: ' + type)
     } else {
-      $view.append(this.$templates[type].children().clone());
+      $view.append(this.$templates[type].children().clone())
     }
   }
 
-  getCachedView(tournamentID, teamID) {
-    this.teamReservation[tournamentID] = teamID;
-    return this.viewCache[tournamentID];
+  getCachedView (tournamentID, teamID) {
+    this.teamReservation[tournamentID] = teamID
+    return this.viewCache[tournamentID]
   }
 
-  getViewTeamID(tournamentID) {
-    return this.teamReservation[tournamentID];
+  getViewTeamID (tournamentID) {
+    return this.teamReservation[tournamentID]
   }
 }
 
-export default TournamentViewPopulator;
+export default TournamentViewPopulator

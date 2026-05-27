@@ -9,10 +9,10 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Strings from '../ui/strings.js';
-import Update from '../ui/update.js';
-let Online;
+import $ from 'jquery'
+import Strings from '../ui/strings.js'
+import Update from '../ui/update.js'
+let Online
 
 /**
  * Check for an internet connection. Does not check for an active connection
@@ -21,19 +21,19 @@ let Online;
  * @return true if there's an active internet connection, false otherwise.
  */
 Online = function () {
-  return navigator.onLine;
-};
+  return navigator.onLine
+}
 
 // if offline, send a nag message on exit!
 
 $(function ($) {
   $(window).on('beforeunload', function (e) {
-    const message = Strings.offlineconfirmexit;
+    const message = Strings.offlineconfirmexit
     if (!Online() && !Update.isCached && document.location.protocol !== 'file:') {
       if (e) {
-        e.returnValue = message;
+        e.returnValue = message
       }
-      return message;
+      return message
     }
 
     // uncomment to show dev reload notifications again
@@ -50,7 +50,7 @@ $(function ($) {
     //
 
     // let it reload
-    return undefined;
-  });
-});
-export default Online;
+    return undefined
+  })
+})
+export default Online

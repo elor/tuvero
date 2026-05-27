@@ -1,6 +1,6 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
-import Options from 'options';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
+import Options from 'options'
 
 /**
  * Constructor
@@ -9,8 +9,8 @@ import Options from 'options';
  *          a RankingModel instance
  */
 class RankingPointsListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
   /**
@@ -23,10 +23,10 @@ class RankingPointsListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
+  onresult (r, e, result) {
     result.teams.forEach(function (teamid, index) {
-      this.points.add(teamid, result.score[index]);
-    }, this);
+      this.points.add(teamid, result.score[index])
+    }, this)
   }
 
   /**
@@ -39,10 +39,10 @@ class RankingPointsListener extends RankingDataListener {
    * @param teams
    *          an array of team ids
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     data.teams.forEach(function (teamid) {
-      this.points.add(teamid, Options.byepointswon);
-    }, this);
+      this.points.add(teamid, Options.byepointswon)
+    }, this)
   }
 
   /**
@@ -56,15 +56,15 @@ class RankingPointsListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
+  oncorrect (r, e, correction) {
     correction.before.teams.forEach(function (teamid, index) {
-      this.points.add(teamid, -correction.before.score[index]);
-    }, this);
-    this.onresult(r, e, correction.after);
+      this.points.add(teamid, -correction.before.score[index])
+    }, this)
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'points';
-  static DEPENDENCIES = undefined;
+  static NAME = 'points'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingPointsListener;
+export default RankingPointsListener

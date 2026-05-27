@@ -5,16 +5,16 @@
  * @license MIT License
  * @see LICENSE
  */
-import BoxView from '../ui/boxview.js';
-import $ from 'jquery';
-let InitViews;
+import BoxView from '../ui/boxview.js'
+import $ from 'jquery'
+let InitViews
 $(function ($) {
   $('.boxview:not(.template)').each(function () {
-    let $box;
-    $box = $(this);
+    let $box
+    $box = $(this)
     if ($box.parents('.template').length === 0) {
-      return new BoxView($box);
+      return new BoxView($box)
     }
-  });
-});
-export default InitViews;
+  })
+})
+export default InitViews

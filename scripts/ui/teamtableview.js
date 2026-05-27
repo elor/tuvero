@@ -16,8 +16,8 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from '../core/view.js';
+import $ from 'jquery'
+import View from '../core/view.js'
 
 /**
  * Constructor
@@ -28,43 +28,43 @@ import View from '../core/view.js';
  *          a ValueModel instance of the team size
  */
 class TeamTableView extends View {
-  constructor(teamview, teamsize) {
-    super(teamsize, teamview.$view);
-    this.teamlist = teamview.model;
-    this.teamlist.registerListener(this);
-    this.$names = this.$view.find('tr>th');
-    this.updatePlayerColumns();
+  constructor (teamview, teamsize) {
+    super(teamsize, teamview.$view)
+    this.teamlist = teamview.model
+    this.teamlist.registerListener(this)
+    this.$names = this.$view.find('tr>th')
+    this.updatePlayerColumns()
   }
 
   /**
    * show one column for each player in a team (teamsize)
    */
-  updatePlayerColumns() {
-    let teamsize, teamindex;
-    teamsize = this.model.get();
-    teamindex = 0;
+  updatePlayerColumns () {
+    let teamsize, teamindex
+    teamsize = this.model.get()
+    teamindex = 0
     this.$names.each(function (index, elem) {
-      let $elem;
-      $elem = $(elem);
+      let $elem
+      $elem = $(elem)
       if ($elem.hasClass('playercol')) {
         if (teamindex < teamsize) {
-          $elem.removeClass('hidden');
+          $elem.removeClass('hidden')
         } else {
-          $elem.addClass('hidden');
+          $elem.addClass('hidden')
         }
-        teamindex += 1;
+        teamindex += 1
       } else {
-        teamindex = 0;
+        teamindex = 0
       }
-    });
+    })
   }
 
   /**
    * the team size changed. check player column visibility
    */
-  onupdate() {
-    this.updatePlayerColumns();
+  onupdate () {
+    this.updatePlayerColumns()
   }
 }
 
-export default TeamTableView;
+export default TeamTableView

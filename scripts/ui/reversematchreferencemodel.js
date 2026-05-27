@@ -1,12 +1,12 @@
-import MatchReferenceModel from '../core/matchreferencemodel.js';
+import MatchReferenceModel from '../core/matchreferencemodel.js'
 
 /**
  * Constructor
  */
 class ReverseMatchReferenceModel extends MatchReferenceModel {
-  constructor(match, teamlist) {
-    super(match, teamlist);
-    this.teams.reverse();
+  constructor (match, teamlist) {
+    super(match, teamlist)
+    this.teams.reverse()
   }
 
   /**
@@ -16,10 +16,10 @@ class ReverseMatchReferenceModel extends MatchReferenceModel {
    *          an array of score numbers
    * @return true on success, undefined otherwise
    */
-  finish(score) {
-    score = score.slice();
-    score.reverse();
-    return super.finish(score);
+  finish (score) {
+    score = score.slice()
+    score.reverse()
+    return super.finish(score)
   }
 }
 
@@ -27,6 +27,6 @@ class ReverseMatchReferenceModel extends MatchReferenceModel {
  * used by TournamentModel.correct() to determine whether the teams are
  * reversed
  */
-ReverseMatchReferenceModel.prototype.hasReversedTeams = true;
+ReverseMatchReferenceModel.prototype.hasReversedTeams = true
 
-export default ReverseMatchReferenceModel;
+export default ReverseMatchReferenceModel

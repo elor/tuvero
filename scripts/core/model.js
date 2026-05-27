@@ -1,7 +1,7 @@
-import Emitter from './emitter.js';
-import Type from './type.js';
-function getClassName(instance) {
-  return instance.constructor.toString().replace(/^function (\S+)\((.+|\s+)*$/g, '$1');
+import Emitter from './emitter.js'
+import Type from './type.js'
+function getClassName (instance) {
+  return instance.constructor.toString().replace(/^function (\S+)\((.+|\s+)*$/g, '$1')
 }
 
 /**
@@ -12,27 +12,27 @@ function getClassName(instance) {
  * @param referenceType
  * @return true if the types match, false otherwise
  */
-function verifyType(data, referenceType) {
+function verifyType (data, referenceType) {
   if (Type.isArray(referenceType)) {
     if (Type.isArray(data)) {
       if (referenceType.length === 1) {
         return data.every(function (dataElement) {
           if (verifyType(dataElement, referenceType[0])) {
-            return true;
+            return true
           }
-          console.error('restore(): Array element does not match type');
-          return false;
-        });
+          console.error('restore(): Array element does not match type')
+          return false
+        })
       }
-      console.error('SAVEFORMAT array does not contain exactly 1 Type!');
+      console.error('SAVEFORMAT array does not contain exactly 1 Type!')
     }
-    return false;
+    return false
   }
   if (Type.is(data, referenceType)) {
-    return true;
+    return true
   }
-  console.error(getClassName(this) + '.restore(): missing Key of type ' + referenceType);
-  return false;
+  console.error(getClassName(this) + '.restore(): missing Key of type ' + referenceType)
+  return false
 }
 
 /**
@@ -42,20 +42,20 @@ function verifyType(data, referenceType) {
  * Use this.emit() to signal state changes to registered views
  */
 class Model extends Emitter {
-  constructor() {
-    super();
+  constructor () {
+    super()
   }
 
-  clone() {
-    const clone = new this.constructor();
+  clone () {
+    const clone = new this.constructor()
     if (!clone.restore(this.save())) {
-      throw new Error('Cannot clone object ' + this);
+      throw new Error('Cannot clone object ' + this)
     }
-    return clone;
+    return clone
   }
 
-  clone(source) {
-    this.restore(source.save());
+  clone (source) {
+    this.restore(source.save())
   }
 
   /**
@@ -65,9 +65,9 @@ class Model extends Emitter {
    *
    * @return a data object
    */
-  save() {
+  save () {
     // TODO auto-verify the format
-    return {};
+    return {}
   }
 
   /**
@@ -78,27 +78,27 @@ class Model extends Emitter {
    *          a data object as written by save()
    * @return true on success, false or undefined otherwise
    */
-  restore(data) {
+  restore (data) {
     // TODO warn about additional keys
     // TODO allow for the verification of sub-Models
     if (!Type.isObject(data)) {
-      console.error('restore(): data is not an object');
-      return false;
+      console.error('restore(): data is not an object')
+      return false
     }
     if (!Type.isObject(this.SAVEFORMAT)) {
-      console.error('restore(): SAVEFORMAT is not an object');
-      return false;
+      console.error('restore(): SAVEFORMAT is not an object')
+      return false
     }
     return Object.keys(this.SAVEFORMAT).every(function (key) {
       if (verifyType.call(this, data[key], this.SAVEFORMAT[key])) {
-        return true;
+        return true
       }
-      console.error('Missing key or wrong format: ' + key);
-      console.log(data);
-      return false;
-    }, this);
+      console.error('Missing key or wrong format: ' + key)
+      console.log(data)
+      return false
+    }, this)
   }
 }
 
-Model.prototype.SAVEFORMAT = {};
-export default Model;
+Model.prototype.SAVEFORMAT = {}
+export default Model

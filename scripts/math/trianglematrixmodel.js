@@ -1,4 +1,4 @@
-import MatrixModel from './matrixmodel.js';
+import MatrixModel from './matrixmodel.js'
 
 /**
  * Constructor
@@ -7,8 +7,8 @@ import MatrixModel from './matrixmodel.js';
  *          size of the matrix. defaults to 0
  */
 class TriangleMatrixModel extends MatrixModel {
-  constructor(size) {
-    super(size);
+  constructor (size) {
+    super(size)
   }
 
   /**
@@ -20,11 +20,11 @@ class TriangleMatrixModel extends MatrixModel {
    *          column
    * @return 0 if reading a super-diagonal element, the stored value otherwise
    */
-  get(row, col) {
+  get (row, col) {
     if (row < col) {
-      return 0;
+      return 0
     }
-    return super.get(row, col);
+    return super.get(row, col)
   }
 
   /**
@@ -38,12 +38,12 @@ class TriangleMatrixModel extends MatrixModel {
    *          value
    * @return this on success, undefined otherwise
    */
-  set(row, col, value) {
+  set (row, col, value) {
     if (row < col) {
-      return undefined;
+      return undefined
     }
-    return super.set(row, col, value);
+    return super.set(row, col, value)
   }
 }
 
-export default TriangleMatrixModel;
+export default TriangleMatrixModel

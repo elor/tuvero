@@ -1,12 +1,12 @@
-import DelegateMatrix from './delegatematrix.js';
+import DelegateMatrix from './delegatematrix.js'
 
 /**
  * Constructor
  * @param matrix the matrix to bind itself to
  */
 class PositiveMatrix extends DelegateMatrix {
-  constructor(matrix) {
-    super(matrix);
+  constructor (matrix) {
+    super(matrix)
   }
 
   /**
@@ -19,13 +19,13 @@ class PositiveMatrix extends DelegateMatrix {
    * @return 0 if the actual value is negative, the value otherwise. undefined
    *          on error
    */
-  get(row, col) {
-    const value = this.superget(row, col);
+  get (row, col) {
+    const value = this.superget(row, col)
     if (value < 0) {
-      return 0;
+      return 0
     }
-    return value;
+    return value
   }
 }
 
-export default PositiveMatrix;
+export default PositiveMatrix

@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,9 +8,9 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingTwoPointListener extends RankingDataListener {
-  constructor(ranking) {
+  constructor (ranking) {
     super(ranking, // autoformat
-    new VectorModel());
+      new VectorModel())
   }
 
   /**
@@ -23,18 +23,18 @@ class RankingTwoPointListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
-    let winner, maxpoints;
-    winner = result.getWinner();
+  onresult (r, e, result) {
+    let winner, maxpoints
+    winner = result.getWinner()
     if (winner !== undefined) {
-      this.twopoint.add(winner, 2);
+      this.twopoint.add(winner, 2)
     } else {
-      maxpoints = Math.max.apply(Math, result.score);
+      maxpoints = Math.max.apply(Math, result.score)
       result.teams.forEach(function (teamid, index) {
         if (result.score[index] === maxpoints) {
-          this.twopoint.add(teamid, 1);
+          this.twopoint.add(teamid, 1)
         }
-      }, this);
+      }, this)
     }
   }
 
@@ -48,10 +48,10 @@ class RankingTwoPointListener extends RankingDataListener {
    * @param teams
    *          an array of team ids
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     data.teams.forEach(function (teamid) {
-      this.twopoint.add(teamid, 2);
-    }, this);
+      this.twopoint.add(teamid, 2)
+    }, this)
   }
 
   /**
@@ -65,24 +65,24 @@ class RankingTwoPointListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
-    let winner, maxpoints;
-    winner = correction.before.getWinner();
+  oncorrect (r, e, correction) {
+    let winner, maxpoints
+    winner = correction.before.getWinner()
     if (winner !== undefined) {
-      this.twopoint.set(winner, this.twopoint.get(winner) - 2);
+      this.twopoint.set(winner, this.twopoint.get(winner) - 2)
     } else {
-      maxpoints = Math.max.apply(Math, correction.before.score);
+      maxpoints = Math.max.apply(Math, correction.before.score)
       correction.before.teams.forEach(function (teamid, index) {
         if (correction.before.score[index] === maxpoints) {
-          this.twopoint.set(teamid, this.twopoint.get(teamid) - 1);
+          this.twopoint.set(teamid, this.twopoint.get(teamid) - 1)
         }
-      }, this);
+      }, this)
     }
-    this.onresult(r, e, correction.after);
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'twopoint';
-  static DEPENDENCIES = undefined;
+  static NAME = 'twopoint'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingTwoPointListener;
+export default RankingTwoPointListener

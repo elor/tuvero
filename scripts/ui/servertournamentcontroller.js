@@ -1,18 +1,18 @@
-import Controller from '../core/controller.js';
-import Listener from '../core/listener.js';
-import ServerTournamentLoader from './servertournamentloader.js';
+import Controller from '../core/controller.js'
+import Listener from '../core/listener.js'
+import ServerTournamentLoader from './servertournamentloader.js'
 
 /**
  * Constructor
  */
 class ServerTournamentController extends Controller {
-  constructor(view) {
-    super(view);
-    this.view.$view.find('button.play').click(this.model.downloadState.bind(this.model));
+  constructor (view) {
+    super(view)
+    this.view.$view.find('button.play').click(this.model.downloadState.bind(this.model))
     Listener.bind(this.model, 'ready', function () {
-      ServerTournamentLoader.loadTournament(this.model);
-    }, this);
+      ServerTournamentLoader.loadTournament(this.model)
+    }, this)
   }
 }
 
-export default ServerTournamentController;
+export default ServerTournamentController

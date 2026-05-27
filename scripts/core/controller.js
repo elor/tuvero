@@ -17,12 +17,12 @@
  *          An associated instance of View
  */
 class Controller {
-  constructor(view) {
-    this.model = view.model;
-    this.view = view;
+  constructor (view) {
+    this.model = view.model
+    this.view = view
   }
 
-  destroy() {}
+  destroy () {}
 }
 
-export default Controller;
+export default Controller

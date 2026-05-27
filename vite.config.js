@@ -19,10 +19,10 @@ let devServer
 const variantAliasPlugin = {
   name: 'variant-alias',
   enforce: 'pre',
-  configureServer(server) {
+  configureServer (server) {
     devServer = server
   },
-  resolveId(id, importer) {
+  resolveId (id, importer) {
     if (!variantAliases.includes(id) || !importer) return null
 
     // Direct hit: importer lives inside a variant directory
@@ -60,11 +60,13 @@ const variantAliasPlugin = {
 
 export default defineConfig({
   plugins: [variantAliasPlugin],
-  build: variant ? {
-    outDir: `build/${variant}`,
-    emptyOutDir: true,
-    rollupOptions: {
-      input: { app: here(`${variant}/index.html`) }
-    }
-  } : {}
+  build: variant
+    ? {
+        outDir: `build/${variant}`,
+        emptyOutDir: true,
+        rollupOptions: {
+          input: { app: here(`${variant}/index.html`) }
+        }
+      }
+    : {}
 })

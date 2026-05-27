@@ -1,4 +1,4 @@
-import AttributeValueView from './attributevalueview.js';
+import AttributeValueView from './attributevalueview.js'
 
 /**
  * Constructor
@@ -9,9 +9,9 @@ import AttributeValueView from './attributevalueview.js';
  *          the associated DOM element
  */
 class ImageView extends AttributeValueView {
-  constructor(model, $view) {
-    super(model, $view, 'src');
+  constructor (model, $view) {
+    super(model, $view, 'src')
   }
 }
 
-export default ImageView;
+export default ImageView

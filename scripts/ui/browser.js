@@ -7,9 +7,9 @@
  * @license MIT License
  * @see LICENSE
  */
-import Online from '../background/online.js';
-import Update from './update.js';
-let Browser;
+import Online from '../background/online.js'
+import Update from './update.js'
+let Browser
 Browser = {
   name: undefined,
   version: undefined,
@@ -19,7 +19,7 @@ Browser = {
   secure: undefined,
   legit: undefined,
   inithash: window.location.hash.replace(/^#/, '')
-};
+}
 Browser.update = function () {
   /**
    * original code copied from:
@@ -27,45 +27,45 @@ Browser.update = function () {
    *
    * @return browser information: "Browsername 13.0.0.1" or similar
    */
-  const sayswho = function () {
-    let ua, tem, M, regex;
-    ua = navigator.userAgent;
-    regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i;
-    M = ua.match(regex) || [];
+  const sayswho = (function () {
+    let ua, tem, M, regex
+    ua = navigator.userAgent
+    regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i
+    M = ua.match(regex) || []
     if (/trident/i.test(M[1])) {
-      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-      return 'IE ' + (tem[1] || '');
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || []
+      return 'IE ' + (tem[1] || '')
     }
     if (M[1] === 'Chrome') {
-      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      tem = ua.match(/\b(OPR|Edge)\/(\d+)/)
       if (tem !== null) {
-        return tem.slice(1).join(' ').replace('OPR', 'Opera');
+        return tem.slice(1).join(' ').replace('OPR', 'Opera')
       }
     }
     M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,
     //
-    '-?'];
+      '-?']
     if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
-      M.splice(1, 1, tem[1]);
+      M.splice(1, 1, tem[1])
     }
-    return M.join(' ');
-  }();
-  Browser.name = sayswho.match(/^\S+/)[0];
+    return M.join(' ')
+  }())
+  Browser.name = sayswho.match(/^\S+/)[0]
   if (Browser.name === 'undefined') {
-    Browser.name = undefined;
+    Browser.name = undefined
   }
-  Browser.version = sayswho.match(/\S+$/)[0];
+  Browser.version = sayswho.match(/\S+$/)[0]
   if (Browser.version === 'undefined') {
-    Browser.version = undefined;
+    Browser.version = undefined
   } else {
-    Browser.version = Number(Browser.version);
+    Browser.version = Number(Browser.version)
   }
-  Browser.online = Online();
-  Browser.cached = Update.isCached;
-  Browser.local = document.location.protocol === 'file:';
-  Browser.secure = document.location.protocol === 'https:';
-  Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host);
-  return Browser;
-};
-Browser.update();
-export default Browser;
+  Browser.online = Online()
+  Browser.cached = Update.isCached
+  Browser.local = document.location.protocol === 'file:'
+  Browser.secure = document.location.protocol === 'https:'
+  Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host)
+  return Browser
+}
+Browser.update()
+export default Browser

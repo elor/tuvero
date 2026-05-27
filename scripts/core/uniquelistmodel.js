@@ -1,4 +1,4 @@
-import ListModel from '../list/listmodel.js';
+import ListModel from '../list/listmodel.js'
 
 /**
  * Constructor
@@ -7,8 +7,8 @@ import ListModel from '../list/listmodel.js';
  *          Optional. An array with elements which to fill the list with
  */
 class UniqueListModel extends ListModel {
-  constructor(array) {
-    super(array);
+  constructor (array) {
+    super(array)
   }
 
   /**
@@ -19,11 +19,11 @@ class UniqueListModel extends ListModel {
    *          an object which will be appended to the list
    * @return the new length of the array. undefined on failure
    */
-  push(object) {
+  push (object) {
     if (this.indexOf(object) !== -1) {
-      return undefined;
+      return undefined
     }
-    return super.push(object);
+    return super.push(object)
   }
 
   /**
@@ -35,11 +35,11 @@ class UniqueListModel extends ListModel {
    *          the object, which will take the specified index after insertion
    * @return undefined on failure, true othwerise
    */
-  insert(index, object) {
+  insert (index, object) {
     if (this.indexOf(object) !== -1) {
-      return undefined;
+      return undefined
     }
-    return super.insert(index, object);
+    return super.insert(index, object)
   }
 
   /**
@@ -53,12 +53,12 @@ class UniqueListModel extends ListModel {
    *          the object with which to overwrite the index
    * @return the inserted object, of undefined on failure
    */
-  set(index, object) {
+  set (index, object) {
     if (this.indexOf(object) !== -1) {
-      return undefined;
+      return undefined
     }
-    return super.set(index, object);
+    return super.set(index, object)
   }
 }
 
-export default UniqueListModel;
+export default UniqueListModel

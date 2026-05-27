@@ -1,4 +1,4 @@
-import View from '../core/view.js';
+import View from '../core/view.js'
 
 /**
  * Constructor
@@ -9,20 +9,20 @@ import View from '../core/view.js';
  *          the view
  */
 class ProgressRoundView extends View {
-  constructor(round, $view) {
-    super(undefined, $view);
-    this.round = round;
-    this.$round = this.$view.find('.round');
-    this.updateRound();
+  constructor (round, $view) {
+    super(undefined, $view)
+    this.round = round
+    this.$round = this.$view.find('.round')
+    this.updateRound()
   }
 
-  updateRound() {
-    this.$round.text(this.round + 1);
+  updateRound () {
+    this.$round.text(this.round + 1)
   }
 
-  onstate() {
-    this.updateRound();
+  onstate () {
+    this.updateRound()
   }
 }
 
-export default ProgressRoundView;
+export default ProgressRoundView

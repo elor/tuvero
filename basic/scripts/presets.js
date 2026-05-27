@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-var Presets;
+let Presets
 Presets = {
   target: 'basic',
   systems: {
@@ -42,5 +42,5 @@ Presets = {
   ui: {
     rankingpoints: false
   }
-};
-export default Presets;
+}
+export default Presets

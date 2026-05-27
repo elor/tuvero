@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,8 +8,8 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingNumGamesListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
   /**
@@ -22,10 +22,10 @@ class RankingNumGamesListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
+  onresult (r, e, result) {
     result.teams.forEach(function (teamid) {
-      this.numgames.add(teamid, 1);
-    }, this);
+      this.numgames.add(teamid, 1)
+    }, this)
   }
 
   /**
@@ -36,10 +36,10 @@ class RankingNumGamesListener extends RankingDataListener {
    * @param teams
    *          an array of team ids
    */
-  onbye(r, e, data) {
+  onbye (r, e, data) {
     data.teams.forEach(function (teamid) {
-      this.numgames.add(teamid, 1);
-    }, this);
+      this.numgames.add(teamid, 1)
+    }, this)
   }
 
   /**
@@ -53,15 +53,15 @@ class RankingNumGamesListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
+  oncorrect (r, e, correction) {
     correction.before.teams.forEach(function (teamid) {
-      this.numgames.set(teamid, this.numgames.get(teamid) - 1);
-    }, this);
-    this.onresult(r, e, correction.after);
+      this.numgames.set(teamid, this.numgames.get(teamid) - 1)
+    }, this)
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'numgames';
-  static DEPENDENCIES = undefined;
+  static NAME = 'numgames'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingNumGamesListener;
+export default RankingNumGamesListener

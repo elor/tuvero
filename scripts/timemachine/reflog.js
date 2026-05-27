@@ -1,24 +1,24 @@
-import Model from '../core/model.js';
-import Presets from 'presets';
-import Query from './query.js';
-import ListModel from '../list/listmodel.js';
-import Listener from '../core/listener.js';
-import KeyModel from './keymodel.js';
-let RefLog;
+import Model from '../core/model.js'
+import Presets from 'presets'
+import Query from './query.js'
+import ListModel from '../list/listmodel.js'
+import Listener from '../core/listener.js'
+import KeyModel from './keymodel.js'
+let RefLog
 
 /**
  * Constructor of the singleton. Don't expose.
  */
 class RefLogModel extends Model {
-  constructor() {
-    super();
-    this.source = undefined;
-    this.data = {};
-    this.storageKey = this.formatTargetKey(Presets.target);
+  constructor () {
+    super()
+    this.source = undefined
+    this.data = {}
+    this.storageKey = this.formatTargetKey(Presets.target)
     Listener.bind(this, 'error', function (event, emitter, message) {
-      console.error(message);
-    });
-    this.refresh();
+      console.error(message)
+    })
+    this.refresh()
   }
 
   /**
@@ -26,35 +26,35 @@ class RefLogModel extends Model {
    *
    * @return true on success, false otherwise
    */
-  refresh() {
-    let newSource, newData;
+  refresh () {
+    let newSource, newData
     if (window.localStorage) {
-      newSource = window.localStorage[this.storageKey];
+      newSource = window.localStorage[this.storageKey]
     } else {
-      newSource = this.source;
+      newSource = this.source
     }
     if (!newSource) {
-      console.log('creating new reflog');
-      newSource = '{}';
+      console.log('creating new reflog')
+      newSource = '{}'
     } else if (this.source === newSource || newSource === 'undefined') {
-      return true;
+      return true
     }
     try {
-      newData = JSON.parse(newSource);
+      newData = JSON.parse(newSource)
     } catch (e) {
-      console.error(e.stack);
-      this.emit('error', 'cannot JSON-parse reflog from localStorage.');
-      return false;
+      console.error(e.stack)
+      this.emit('error', 'cannot JSON-parse reflog from localStorage.')
+      return false
     }
     if (!newData) {
-      this.emit('error', 'RefLog from localStorage contains no data.');
-      return false;
+      this.emit('error', 'RefLog from localStorage contains no data.')
+      return false
     }
-    this.data = newData;
-    this.source = newSource;
-    this.store();
-    this.emit('refresh');
-    return true;
+    this.data = newData
+    this.source = newSource
+    this.store()
+    this.emit('refresh')
+    return true
   }
 
   /**
@@ -63,30 +63,30 @@ class RefLogModel extends Model {
    * FIXME REALLY enable multiple parallel tournaments by just changing the
    * currently opened tournament, not others.
    */
-  store() {
-    let dataString;
+  store () {
+    let dataString
     if (!this.isValid()) {
-      this.emit('error', 'RefLogModel: this.data is not valid!');
-      return false;
+      this.emit('error', 'RefLogModel: this.data is not valid!')
+      return false
     }
-    dataString = JSON.stringify(this.data);
+    dataString = JSON.stringify(this.data)
     if (window.localStorage) {
-      window.localStorage[this.storageKey] = dataString;
-      return window.localStorage[this.storageKey] === dataString;
+      window.localStorage[this.storageKey] = dataString
+      return window.localStorage[this.storageKey] === dataString
     }
-    return false;
+    return false
   }
 
   /**
    * @return true if the reflog data is valid, false otherwise
    */
-  isValid() {
+  isValid () {
     if (!this.data) {
-      return false;
+      return false
     }
 
     // TODO check format!
-    return true;
+    return true
   }
 
   /**
@@ -96,34 +96,34 @@ class RefLogModel extends Model {
    *          the parent key
    * @return the new key. Returns undefined on error.
    */
-  newSaveKey(parentKey) {
-    let newKey, startDate, refDate, saveDate;
+  newSaveKey (parentKey) {
+    let newKey, startDate, refDate, saveDate
     if (!parentKey) {
-      this.emit('error', 'newSaveKey: no parent key given');
-      return undefined;
+      this.emit('error', 'newSaveKey: no parent key given')
+      return undefined
     }
-    newKey = KeyModel.createChild(parentKey);
+    newKey = KeyModel.createChild(parentKey)
     if (!parentKey.isRelated(newKey)) {
-      this.emit('error', 'unexpected error: newKey is unrelated to parentKey');
-      return undefined;
+      this.emit('error', 'unexpected error: newKey is unrelated to parentKey')
+      return undefined
     }
-    startDate = parentKey.startDate;
-    refDate = parentKey.saveDate;
-    saveDate = newKey.saveDate;
+    startDate = parentKey.startDate
+    refDate = parentKey.saveDate
+    saveDate = newKey.saveDate
     if (!this.contains(parentKey)) {
-      this.emit('error', 'newSaveKey(): parentKey is not in reflog!');
-      return undefined;
+      this.emit('error', 'newSaveKey(): parentKey is not in reflog!')
+      return undefined
     }
-    this.data[startDate][saveDate] = refDate;
-    this.store();
-    return newKey;
+    this.data[startDate][saveDate] = refDate
+    this.store()
+    return newKey
   }
 
   /**
    * @return a new root key which hasn't been in the reflog before
    */
-  newInitKey(name) {
-    let newKey;
+  newInitKey (name) {
+    let newKey
 
     /*
      * Creating keys within milliseconds of another can cause rootkey collision
@@ -131,13 +131,13 @@ class RefLogModel extends Model {
      * Reading the reflog takes care of that.
      */
     do {
-      newKey = KeyModel.createRoot();
-    } while (this.contains(newKey));
+      newKey = KeyModel.createRoot()
+    } while (this.contains(newKey))
     this.data[newKey.startDate] = {
-      name: name
-    };
-    this.store();
-    return newKey;
+      name
+    }
+    this.store()
+    return newKey
   }
 
   /**
@@ -145,34 +145,34 @@ class RefLogModel extends Model {
    *          a reference key
    * @return true if refKey is contained in the reflog, false otherwise
    */
-  contains(refKey) {
-    this.refresh();
+  contains (refKey) {
+    this.refresh()
     if (!this.data) {
-      this.emit('error', 'reflog contains no data!');
-      return false;
+      this.emit('error', 'reflog contains no data!')
+      return false
     }
     if (!this.data[refKey.startDate]) {
-      return false;
+      return false
     }
     if (refKey.isRoot()) {
-      return true;
+      return true
     }
     if (!this.data[refKey.startDate][refKey.saveDate]) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   /**
    * @return a list of start dates. returns an empty array if the reflog is
    *         empty
    */
-  listStartDates() {
-    this.refresh();
+  listStartDates () {
+    this.refresh()
     if (!this.data) {
-      return [];
+      return []
     }
-    return Object.keys(this.data).filter(KeyModel.isValidDate);
+    return Object.keys(this.data).filter(KeyModel.isValidDate)
   }
 
   /**
@@ -182,13 +182,13 @@ class RefLogModel extends Model {
    * @return a list of save dates under the start date. Excludes the start date
    *         itself.
    */
-  listSaveDates(startDate) {
-    this.refresh();
+  listSaveDates (startDate) {
+    this.refresh()
     if (!this.data || !this.data[startDate]) {
-      this.emit('error', 'reflog does not contain start Date ' + startDate);
-      return [];
+      this.emit('error', 'reflog does not contain start Date ' + startDate)
+      return []
     }
-    return Object.keys(this.data[startDate]).filter(KeyModel.isValidDate);
+    return Object.keys(this.data[startDate]).filter(KeyModel.isValidDate)
   }
 
   /**
@@ -198,15 +198,15 @@ class RefLogModel extends Model {
    *          a KeyModel instance
    * @return the name of the root element of the tree
    */
-  getName(key) {
+  getName (key) {
     if (!this.contains(key)) {
-      key = new KeyModel(key.startDate, key.startDate);
+      key = new KeyModel(key.startDate, key.startDate)
       if (!this.contains(key)) {
-        this.emit('error', 'reflog does not contain key for name query');
-        return '';
+        this.emit('error', 'reflog does not contain key for name query')
+        return ''
       }
     }
-    return this.data[key.startDate].name || '';
+    return this.data[key.startDate].name || ''
   }
 
   /**
@@ -216,24 +216,24 @@ class RefLogModel extends Model {
    *          the new name
    * @return true if the tree now carries the new name, false otherwise
    */
-  setName(key, name) {
+  setName (key, name) {
     if (!this.contains(key)) {
-      key = new KeyModel(key.startDate, key.startDate);
+      key = new KeyModel(key.startDate, key.startDate)
       if (!this.contains(key)) {
-        this.emit('error', 'RefLog does not contain key for name setting');
-        return false;
+        this.emit('error', 'RefLog does not contain key for name setting')
+        return false
       }
     }
     if (name === this.getName(key)) {
-      return true;
+      return true
     }
-    this.data[key.startDate].name = name;
+    this.data[key.startDate].name = name
     if (!this.store()) {
-      this.emit('error', 'RefLog: store() error during name change');
-      return false;
+      this.emit('error', 'RefLog: store() error during name change')
+      return false
     }
-    this.emit('rename', key);
-    return true;
+    this.emit('rename', key)
+    return true
   }
 
   /**
@@ -242,15 +242,15 @@ class RefLogModel extends Model {
    * @return a KeyModel instance of the parent key. Returns undefined if the key
    *         is a root key (has no parent)
    */
-  getParent(refKey) {
+  getParent (refKey) {
     if (!this.contains(refKey)) {
-      this.emit('error', 'reflog does not contain key for parent search!');
-      return undefined;
+      this.emit('error', 'reflog does not contain key for parent search!')
+      return undefined
     }
     if (refKey.isRoot()) {
-      return undefined;
+      return undefined
     }
-    return new KeyModel(refKey.startDate, this.data[refKey.startDate][refKey.saveDate]);
+    return new KeyModel(refKey.startDate, this.data[refKey.startDate][refKey.saveDate])
   }
 
   /**
@@ -259,57 +259,57 @@ class RefLogModel extends Model {
    * @return an array of children. Returns an empty array if the parent key is
    *         not in the reflog
    */
-  getChildren(refKey) {
+  getChildren (refKey) {
     if (!this.contains(refKey)) {
-      this.emit('error', 'reflog does not contain key for children search');
-      return [];
+      this.emit('error', 'reflog does not contain key for children search')
+      return []
     }
     return this.listSaveDates(refKey.startDate).filter(function (saveDate) {
-      const parentDate = this.data[refKey.startDate][saveDate];
-      return parentDate === refKey.saveDate;
+      const parentDate = this.data[refKey.startDate][saveDate]
+      return parentDate === refKey.saveDate
     }, this).map(function (saveDate) {
-      return new KeyModel(refKey.startDate, saveDate);
-    });
+      return new KeyModel(refKey.startDate, saveDate)
+    })
   }
 
   /**
    * @return an array of all keys in the reflog.
    */
-  getAllKeys() {
-    let keys;
-    keys = this.getInitKeys();
+  getAllKeys () {
+    let keys
+    keys = this.getInitKeys()
     this.listStartDates().forEach(function (startDate) {
       this.listSaveDates(startDate).forEach(function (saveDate) {
-        keys.push(new KeyModel(startDate, saveDate));
-      });
-    }, this);
-    return keys.sort();
+        keys.push(new KeyModel(startDate, saveDate))
+      })
+    }, this)
+    return keys.sort()
   }
 
   /**
    * @return an array of all root keys in the reflog
    */
-  getInitKeys() {
+  getInitKeys () {
     return this.listStartDates().sort().map(function (startDate) {
-      return new KeyModel(startDate, startDate);
-    });
+      return new KeyModel(startDate, startDate)
+    })
   }
 
   /**
    * @return the youngest key in the whole reflog. Should be the key of the
    *         latest save state
    */
-  getLatestGlobalKey() {
-    let latestKey;
+  getLatestGlobalKey () {
+    let latestKey
     latestKey = this.listStartDates().map(function (startDate) {
-      const saveDate = this.listSaveDates(startDate).sort().pop() || startDate;
-      return new KeyModel(startDate, saveDate);
-    }, this).sort(KeyModel.sortFunction).pop();
+      const saveDate = this.listSaveDates(startDate).sort().pop() || startDate
+      return new KeyModel(startDate, saveDate)
+    }, this).sort(KeyModel.sortFunction).pop()
     if (!latestKey) {
       // this.emit('error', 'no latest key found');
-      return undefined;
+      return undefined
     }
-    return latestKey;
+    return latestKey
   }
 
   /**
@@ -317,41 +317,41 @@ class RefLogModel extends Model {
    *          a key in a tree
    * @return the youngest key in the whole tree
    */
-  getLatestRelatedKey(refKey) {
-    let startDate, saveDate, rootKey;
+  getLatestRelatedKey (refKey) {
+    let startDate, saveDate, rootKey
     if (!KeyModel.isValidKey(refKey)) {
-      this.emit('error', 'getLatestRelatedKey(): refKey is invalid');
-      return undefined;
+      this.emit('error', 'getLatestRelatedKey(): refKey is invalid')
+      return undefined
     }
-    startDate = refKey.startDate;
+    startDate = refKey.startDate
     if (!this.contains(refKey)) {
-      rootKey = new KeyModel(startDate, startDate);
+      rootKey = new KeyModel(startDate, startDate)
       if (!this.contains(rootKey)) {
-        this.emit('error', 'root key is missing in reflog');
-        return undefined;
+        this.emit('error', 'root key is missing in reflog')
+        return undefined
       }
     }
-    saveDate = this.listSaveDates(startDate).sort().pop() || startDate;
-    return new KeyModel(startDate, saveDate);
+    saveDate = this.listSaveDates(startDate).sort().pop() || startDate
+    return new KeyModel(startDate, saveDate)
   }
 
   /**
    * if the reflog is not empty, it's reset to an empty object. Emits 'remove'
    */
-  reset() {
-    this.refresh();
+  reset () {
+    this.refresh()
     if (!this.data) {
-      this.emit('error', 'RefLog.reset(): data is undefined');
-      this.data = {};
-      return;
+      this.emit('error', 'RefLog.reset(): data is undefined')
+      this.data = {}
+      return
     }
     if (this.listStartDates().length === 0) {
       // data is already empty. Nothing to do here. (Don't overwrite storage!)
-      return;
+      return
     }
-    this.data = {};
-    this.emit('reset');
-    this.store();
+    this.data = {}
+    this.emit('reset')
+    this.store()
   }
 
   /**
@@ -360,15 +360,15 @@ class RefLogModel extends Model {
    * @param refKey
    *          any key in the tree, not necessarily the root key
    */
-  deleteTree(refKey) {
+  deleteTree (refKey) {
     if (!this.contains(refKey)) {
       if (!this.contains(new KeyModel(refKey.startDate, refKey.startDate))) {
         // Nothing to do here. It's already deleted
-        return;
+        return
       }
     }
-    delete this.data[refKey.startDate];
-    this.store();
+    delete this.data[refKey.startDate]
+    this.store()
   }
 
   /**
@@ -377,31 +377,31 @@ class RefLogModel extends Model {
    * @param refKey
    *          save key. root keys cannot be deleted.
    */
-  deleteKey(refKey) {
-    let parentKey, children;
+  deleteKey (refKey) {
+    let parentKey, children
     if (refKey.isRoot()) {
-      this.emit('error', 'cannot delete a single init key. ' + 'use deleteTree() instead');
-      return;
+      this.emit('error', 'cannot delete a single init key. ' + 'use deleteTree() instead')
+      return
     }
     if (!this.contains(refKey)) {
       // this.emit('error', 'deleteKey(): refKey is not in reflog!');
-      return;
+      return
     }
-    parentKey = this.getParent(refKey);
+    parentKey = this.getParent(refKey)
     if (!parentKey) {
-      this.emit('error', 'deleteKey(): parent key is not in reflog!');
-      return;
+      this.emit('error', 'deleteKey(): parent key is not in reflog!')
+      return
     }
-    children = this.getChildren(refKey);
+    children = this.getChildren(refKey)
     if (children === undefined) {
-      this.emit('error', 'deleteKey(): Children cannot be extracted!');
-      return;
+      this.emit('error', 'deleteKey(): Children cannot be extracted!')
+      return
     }
     children.forEach(function (child) {
-      this.data[refKey.startDate][child.saveDate] = parentKey.saveDate;
-    }, this);
-    delete this.data[refKey.startDate][refKey.saveDate];
-    this.store();
+      this.data[refKey.startDate][child.saveDate] = parentKey.saveDate
+    }, this)
+    delete this.data[refKey.startDate][refKey.saveDate]
+    this.store()
   }
 
   /**
@@ -409,8 +409,8 @@ class RefLogModel extends Model {
    *
    * @return a serialized representation of the RefLog
    */
-  toString() {
-    return JSON.stringify(this.data);
+  toString () {
+    return JSON.stringify(this.data)
   }
 
   /**
@@ -418,21 +418,21 @@ class RefLogModel extends Model {
    *          a target name, e.g 'basic' or 'tac'
    * @return the key of the target's reflog in the localStorage
    */
-  formatTargetKey(target) {
-    return target + '-reflog';
+  formatTargetKey (target) {
+    return target + '-reflog'
   }
 }
 
 RefLogModel.prototype.EVENTS = {
-  'error': true,
-  'rename': true,
-  'refresh': true,
-  'reset': true
-};
+  error: true,
+  rename: true,
+  refresh: true,
+  reset: true
+}
 
 /*
  * RefLog is a singleton. Since we're dealing with localStorage, it wouldn't
  * make sense to use multiple of them, anyway
  */
-RefLog = new RefLogModel();
-export default RefLog;
+RefLog = new RefLogModel()
+export default RefLog

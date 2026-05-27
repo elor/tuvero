@@ -1,28 +1,28 @@
-import PropertyModel from '../core/propertymodel.js';
-import ListModel from '../list/listmodel.js';
-import UniqueListModel from '../core/uniquelistmodel.js';
-import RankingMapper from '../ranking/rankingmapper.js';
-import StateValueModel from '../core/statevaluemodel.js';
-import MatchModel from '../core/matchmodel.js';
-import MatchResult from '../core/matchresult.js';
-import ListCollectorModel from '../ui/listcollectormodel.js';
-import Listener from '../core/listener.js';
-import RankingModel from '../ranking/rankingmodel.js';
-import ReferenceListModel from '../list/referencelistmodel.js';
-import MapListModel from '../list/maplistmodel.js';
-import ValueModel from '../core/valuemodel.js';
-import ReadonlyListModel from '../list/readonlylistmodel.js';
-import Options from 'options';
-import IndexedModel from '../list/indexedmodel.js';
-import CorrectionModel from '../core/correctionmodel.js';
-import MatchReferenceModel from '../core/matchreferencemodel.js';
-import ResultReferenceModel from '../core/resultreferencemodel.js';
-import Type from '../core/type.js';
-import CorrectionReferenceModel from '../core/correctionreferencemodel.js';
-import SortedReferenceListModel from '../list/sortedreferencelistmodel.js';
-import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js';
-import ByeResult from '../core/byeresult.js';
-let STATETRANSITIONS, INITIALSTATE;
+import PropertyModel from '../core/propertymodel.js'
+import ListModel from '../list/listmodel.js'
+import UniqueListModel from '../core/uniquelistmodel.js'
+import RankingMapper from '../ranking/rankingmapper.js'
+import StateValueModel from '../core/statevaluemodel.js'
+import MatchModel from '../core/matchmodel.js'
+import MatchResult from '../core/matchresult.js'
+import ListCollectorModel from '../ui/listcollectormodel.js'
+import Listener from '../core/listener.js'
+import RankingModel from '../ranking/rankingmodel.js'
+import ReferenceListModel from '../list/referencelistmodel.js'
+import MapListModel from '../list/maplistmodel.js'
+import ValueModel from '../core/valuemodel.js'
+import ReadonlyListModel from '../list/readonlylistmodel.js'
+import Options from 'options'
+import IndexedModel from '../list/indexedmodel.js'
+import CorrectionModel from '../core/correctionmodel.js'
+import MatchReferenceModel from '../core/matchreferencemodel.js'
+import ResultReferenceModel from '../core/resultreferencemodel.js'
+import Type from '../core/type.js'
+import CorrectionReferenceModel from '../core/correctionreferencemodel.js'
+import SortedReferenceListModel from '../list/sortedreferencelistmodel.js'
+import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js'
+import ByeResult from '../core/byeresult.js'
+let STATETRANSITIONS, INITIALSTATE
 
 /*
  * STATES lists the possible states.The following states are possible:
@@ -44,12 +44,12 @@ let STATETRANSITIONS, INITIALSTATE;
  *
  */
 STATETRANSITIONS = {
-  'initial': ['running'],
-  'running': ['idle', 'finished'],
-  'idle': ['running', 'finished'],
-  'finished': []
-};
-INITIALSTATE = 'initial';
+  initial: ['running'],
+  running: ['idle', 'finished'],
+  idle: ['running', 'finished'],
+  finished: []
+}
+INITIALSTATE = 'initial'
 
 /**
  * Constructor
@@ -58,58 +58,58 @@ INITIALSTATE = 'initial';
  *          an array of ranking orders, e.g. ['wins', 'buchholz']
  */
 class TournamentModel extends PropertyModel {
-  constructor(rankingorder) {
-    let collector;
-    super();
-    IndexedModel.prototype.setID.call(this, undefined);
+  constructor (rankingorder) {
+    let collector
+    super()
+    IndexedModel.prototype.setID.call(this, undefined)
 
     // TODO initialize with properties
 
     // rankingorder default: sort by entry order
-    rankingorder = rankingorder || ['id'];
-    this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
-    this.teams = new UniqueListModel();
-    this.matches = new ListModel();
-    this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
-    this.votes = TournamentModel.initVoteLists(this.VOTES);
-    this.totalvotes = TournamentModel.initVoteLists(this.VOTES);
-    this.history = new ListModel();
-    this.corrections = new ListModel();
-    this.name = new ValueModel(this.SYSTEM);
+    rankingorder = rankingorder || ['id']
+    this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS)
+    this.teams = new UniqueListModel()
+    this.matches = new ListModel()
+    this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES)
+    this.votes = TournamentModel.initVoteLists(this.VOTES)
+    this.totalvotes = TournamentModel.initVoteLists(this.VOTES)
+    this.history = new ListModel()
+    this.corrections = new ListModel()
+    this.name = new ValueModel(this.SYSTEM)
 
     // singletons for the getters(), in order to not bloat the listener
     // arrays
-    this.singletons = {};
+    this.singletons = {}
 
     // initial properties
-    this.setProperty('addteamrunning', false);
-    this.setProperty('addteamidle', false);
+    this.setProperty('addteamrunning', false)
+    this.setProperty('addteamidle', false)
 
     // listen to the matches
-    collector = new ListCollectorModel(this.matches, MatchModel);
-    collector.registerListener(this);
+    collector = new ListCollectorModel(this.matches, MatchModel)
+    collector.registerListener(this)
 
     // print error messages to the output
     Listener.bind(this, 'error', function (emitter, event, message) {
-      console.error(message);
-    });
+      console.error(message)
+    })
   }
 
   /**
    * automatically check if the tournament is supposed to be in an idle state
    * and transition to the idle state if necessary
    */
-  checkIdleState() {
+  checkIdleState () {
     if (this.state.get() === 'running' && this.matches.length === 0) {
       // TODO add votes to history
 
       // clear votes
       Object.keys(this.votes).forEach(function (key) {
-        this.votes[key].clear();
-      }, this);
+        this.votes[key].clear()
+      }, this)
 
       // apply idle state
-      this.state.set('idle');
+      this.state.set('idle')
     }
   }
 
@@ -122,29 +122,29 @@ class TournamentModel extends PropertyModel {
    *          an array of ranking order component names
    * @return true on success, false otherwise
    */
-  setRankingOrder(rankingorder) {
+  setRankingOrder (rankingorder) {
     if (rankingorder === undefined || rankingorder.length === 0) {
-      return false;
+      return false
     }
-    this.ranking.reset();
+    this.ranking.reset()
     if (this.ranking.init(rankingorder, this.teams.length, this.RANKINGDEPENDENCIES)) {
-      this.recalculateRanking();
-      return true;
+      this.recalculateRanking()
+      return true
     } else {
-      return false;
+      return false
     }
   }
 
-  verifyRanking() {
-    let rankingcopy;
-    rankingcopy = new RankingModel();
-    rankingcopy.clone(this.ranking);
-    rankingcopy.recalculate(this.history, this.totalvotes);
-    return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get());
+  verifyRanking () {
+    let rankingcopy
+    rankingcopy = new RankingModel()
+    rankingcopy.clone(this.ranking)
+    rankingcopy.recalculate(this.history, this.totalvotes)
+    return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get())
   }
 
-  recalculateRanking() {
-    this.ranking.recalculate(this.history, this.totalvotes);
+  recalculateRanking () {
+    this.ranking.recalculate(this.history, this.totalvotes)
   }
 
   /**
@@ -157,120 +157,120 @@ class TournamentModel extends PropertyModel {
    * @return true on success, false if the team already exists. undefined if the
    *         team cannot be added in the current state
    */
-  addTeam(teamid) {
+  addTeam (teamid) {
     switch (this.state.get()) {
       case 'initial':
-        break;
+        break
       case 'running':
         if (!this.getProperty('addteamrunning')) {
-          return undefined;
+          return undefined
         }
-        break;
+        break
       case 'idle':
         if (!this.getProperty('addteamidle')) {
-          return undefined;
+          return undefined
         }
-        break;
+        break
       case 'finished':
-        this.emit('error', 'cannot enter add a team to a finished tournament');
-        return undefined;
+        this.emit('error', 'cannot enter add a team to a finished tournament')
+        return undefined
     }
     if (this.teams.push(teamid) !== undefined) {
-      this.ranking.resize(this.teams.length);
-      return true;
+      this.ranking.resize(this.teams.length)
+      return true
     }
-    return false;
+    return false
   }
 
-  removeTeam(externalTeamID) {
-    let mapID, toRemove;
-    mapID = this.teams.indexOf(externalTeamID);
+  removeTeam (externalTeamID) {
+    let mapID, toRemove
+    mapID = this.teams.indexOf(externalTeamID)
     if (mapID === -1) {
-      return;
+      return
     }
 
     // remove from matches (replace with bye)
     toRemove = this.matches.map(function (match, index) {
       if (match.teams.indexOf(mapID) === -1) {
-        return undefined;
+        return undefined
       }
-      return [index, match];
+      return [index, match]
     }).filter(function (val) {
-      return val;
-    });
+      return val
+    })
     toRemove.reverse().forEach(function (values) {
-      let index, match, matchID, groupID, opponent;
-      index = values[0];
-      match = values[1];
-      groupID = match.getGroup();
-      matchID = match.getID();
-      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0];
-      this.matches.remove(index);
+      let index, match, matchID, groupID, opponent
+      index = values[0]
+      match = values[1]
+      groupID = match.getGroup()
+      matchID = match.getID()
+      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
+      this.matches.remove(index)
       if (opponent !== mapID) {
-        this.addBye(opponent, matchID, groupID);
+        this.addBye(opponent, matchID, groupID)
       }
-    }, this);
+    }, this)
 
     // remove from history
     toRemove = this.history.map(function (match, index) {
       if (match.teams.indexOf(mapID) === -1) {
-        return undefined;
+        return undefined
       }
-      return [index, match];
+      return [index, match]
     }).filter(function (val) {
-      return val;
-    });
+      return val
+    })
     toRemove.reverse().forEach(function (values) {
-      let index, match, matchID, groupID, opponent;
-      index = values[0];
-      match = values[1];
-      groupID = match.getGroup();
-      matchID = match.getID();
-      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0];
-      this.history.remove(index);
+      let index, match, matchID, groupID, opponent
+      index = values[0]
+      match = values[1]
+      groupID = match.getGroup()
+      matchID = match.getID()
+      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
+      this.history.remove(index)
       if (opponent !== mapID) {
-        this.addBye(opponent, matchID, groupID);
+        this.addBye(opponent, matchID, groupID)
       }
-    }, this);
+    }, this)
 
     // remove from byes (current and total)
     if (this.totalvotes.bye) {
       this.totalvotes.bye = this.totalvotes.bye.filter(function (teamID) {
-        return teamID !== mapID;
-      });
+        return teamID !== mapID
+      })
     }
     if (this.votes.bye) {
       this.votes.bye = this.votes.bye.filter(function (teamID) {
-        return teamID !== mapID;
-      });
+        return teamID !== mapID
+      })
     }
 
     // remap teamids in matches
     this.matches.forEach(function (match) {
       match.teams = match.teams.map(function (teamID) {
         if (teamID > mapID) {
-          return teamID - 1;
+          return teamID - 1
         }
-        return teamID;
-      });
-    });
+        return teamID
+      })
+    })
 
     // remap teamids in history
     this.history.forEach(function (match) {
       match.teams = match.teams.map(function (teamID) {
         if (teamID > mapID) {
-          return teamID - 1;
+          return teamID - 1
         }
-        return teamID;
-      });
-    });
+        return teamID
+      })
+    })
 
     // remove from teams
-    this.teams.remove(mapID);
+    this.teams.remove(mapID)
 
     // recalculate ranking
-    this.ranking.resize(this.teams.length);
-    this.recalculateRanking();
+    this.ranking.resize(this.teams.length)
+    this.recalculateRanking()
 
     // fix state
   }
@@ -282,69 +282,69 @@ class TournamentModel extends PropertyModel {
    * @return a readonly ValueModel instance of the state. use the get() function
    *         to retrieve the current value of the state
    */
-  getState() {
+  getState () {
     if (this.singletons.state === undefined) {
-      this.singletons.state = new ValueModel(this.state.get());
-      this.singletons.state.bind(this.state);
+      this.singletons.state = new ValueModel(this.state.get())
+      this.singletons.state.bind(this.state)
     }
-    return this.singletons.state;
+    return this.singletons.state
   }
 
   /**
    * @return a ListModel of the registered teams.
    */
-  getTeams() {
+  getTeams () {
     if (this.singletons.teams === undefined) {
-      this.singletons.teams = new ReadonlyListModel(this.teams);
+      this.singletons.teams = new ReadonlyListModel(this.teams)
     }
-    return this.singletons.teams;
+    return this.singletons.teams
   }
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  getMatches() {
+  getMatches () {
     if (this.singletons.matches === undefined) {
-      this.singletons.matches = new ReferenceListModel(new SortedReferenceListModel(this.matches, TournamentModel.matchCompare), this.teams, MatchReferenceModel);
+      this.singletons.matches = new ReferenceListModel(new SortedReferenceListModel(this.matches, TournamentModel.matchCompare), this.teams, MatchReferenceModel)
     }
-    return this.singletons.matches;
+    return this.singletons.matches
   }
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  getHistory() {
+  getHistory () {
     if (this.singletons.history === undefined) {
-      this.singletons.history = new ReferenceListModel(new SortedReferenceListModel(this.history, TournamentModel.matchCompare), this.teams, ResultReferenceModel);
+      this.singletons.history = new ReferenceListModel(new SortedReferenceListModel(this.history, TournamentModel.matchCompare), this.teams, ResultReferenceModel)
     }
-    return this.singletons.history;
+    return this.singletons.history
   }
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  getCombinedHistory() {
+  getCombinedHistory () {
     // prepare this.singletons.sortedRawHistory
 
     if (this.singletons.combinedHistory === undefined) {
       // combine matches and history into a single list
-      this.singletons.combinedRawHistory = new CombinedReferenceListModel(this.matches, this.history);
+      this.singletons.combinedRawHistory = new CombinedReferenceListModel(this.matches, this.history)
       // sort the combined list
-      this.singletons.sortedCombinedRawHistory = new SortedReferenceListModel(this.singletons.combinedRawHistory, TournamentModel.matchCompare);
+      this.singletons.sortedCombinedRawHistory = new SortedReferenceListModel(this.singletons.combinedRawHistory, TournamentModel.matchCompare)
       // reference the combined list and map the teams
-      this.singletons.combinedHistory = new ReferenceListModel(this.singletons.sortedCombinedRawHistory, this.teams, ResultReferenceModel);
+      this.singletons.combinedHistory = new ReferenceListModel(this.singletons.sortedCombinedRawHistory, this.teams, ResultReferenceModel)
     }
-    return this.singletons.combinedHistory;
+    return this.singletons.combinedHistory
   }
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  getCorrections() {
+  getCorrections () {
     if (this.singletons.corrections === undefined) {
-      this.singletons.corrections = new ReferenceListModel(this.corrections, this.teams, CorrectionReferenceModel);
+      this.singletons.corrections = new ReferenceListModel(this.corrections, this.teams, CorrectionReferenceModel)
     }
-    return this.singletons.corrections;
+    return this.singletons.corrections
   }
 
   /**
@@ -355,27 +355,27 @@ class TournamentModel extends PropertyModel {
    * @return a readonly listmodel of team ids which received the specified, or
    *         undefined if the vote type doesn't exist
    */
-  getVotes(type) {
+  getVotes (type) {
     if (!type || this.votes[type] === undefined) {
-      this.emit('error', 'vote type "' + type + '" does not exist for this tournament type');
-      return undefined;
+      this.emit('error', 'vote type "' + type + '" does not exist for this tournament type')
+      return undefined
     }
     if (this.singletons.votes === undefined) {
-      this.singletons.votes = {};
+      this.singletons.votes = {}
     }
     if (this.singletons.votes[type] === undefined) {
-      this.singletons.votes[type] = new MapListModel(this.votes[type], this.teams);
+      this.singletons.votes[type] = new MapListModel(this.votes[type], this.teams)
     }
-    return this.singletons.votes[type];
+    return this.singletons.votes[type]
   }
 
-  getName() {
+  getName () {
     if (this.singletons.name === undefined) {
-      this.singletons.name = new ValueModel();
-      this.singletons.name.bind(this.name);
-      this.name.bind(this.singletons.name);
+      this.singletons.name = new ValueModel()
+      this.singletons.name.bind(this.name)
+      this.name.bind(this.singletons.name)
     }
-    return this.singletons.name;
+    return this.singletons.name
   }
 
   /**
@@ -384,11 +384,11 @@ class TournamentModel extends PropertyModel {
    *
    * @return a RankingMapper instance, which emits 'update' and provides get()
    */
-  getRanking() {
+  getRanking () {
     if (this.singletons.ranking === undefined) {
-      this.singletons.ranking = new RankingMapper(this.ranking, this.teams);
+      this.singletons.ranking = new RankingMapper(this.ranking, this.teams)
     }
-    return this.singletons.ranking;
+    return this.singletons.ranking
   }
 
   /**
@@ -397,43 +397,43 @@ class TournamentModel extends PropertyModel {
    *
    * @return true on success, undefined otherwise
    */
-  run() {
+  run () {
     switch (this.state.get()) {
       case 'initial':
         if (this.initialMatches()) {
-          break;
+          break
         }
-        this.emit('error', 'initialMatches() failed');
-        return undefined;
+        this.emit('error', 'initialMatches() failed')
+        return undefined
       case 'idle':
         if (this.idleMatches()) {
-          break;
+          break
         }
-        this.emit('error', 'idleMatches() failed');
-        return undefined;
+        this.emit('error', 'idleMatches() failed')
+        return undefined
       case 'running':
         if (!this.runningMatches) {
-          this.emit('error', 'tournament is already running');
+          this.emit('error', 'tournament is already running')
         } else if (!this.runningMatches()) {
-          this.emit('error', 'Starting matches during running tournament failed');
+          this.emit('error', 'Starting matches during running tournament failed')
         }
-        this.emit('update');
-        return undefined;
+        this.emit('update')
+        return undefined
       case 'finished':
-        this.emit('error', 'tournament is already finished');
-        return undefined;
+        this.emit('error', 'tournament is already finished')
+        return undefined
     }
     this.VOTES.forEach(function (votetype) {
       this.votes[votetype].forEach(function (teamID) {
-        this.totalvotes[votetype].push(teamID);
-      }, this);
-    }, this);
+        this.totalvotes[votetype].push(teamID)
+      }, this)
+    }, this)
     if (this.matches.length > 0) {
-      this.state.set('running');
+      this.state.set('running')
     } else {
-      throw new Error('tournament is running, but no games have been created');
+      throw new Error('tournament is running, but no games have been created')
     }
-    return true;
+    return true
   }
 
   /**
@@ -441,21 +441,21 @@ class TournamentModel extends PropertyModel {
    *
    * @return true on success, false otherwise
    */
-  finish() {
+  finish () {
     switch (this.state.get()) {
       case 'idle':
-        this.state.set('finished');
-        return true;
+        this.state.set('finished')
+        return true
       case 'finished':
-        return true;
+        return true
       case 'initial':
-        this.state.set('finished');
-        return true;
+        this.state.set('finished')
+        return true
       case 'running':
-        this.emit('error', 'cannot finish a running tournament');
-        break;
+        this.emit('error', 'cannot finish a running tournament')
+        break
     }
-    return false;
+    return false
   }
 
   /**
@@ -470,22 +470,22 @@ class TournamentModel extends PropertyModel {
    *          attribute, which is a reference to the original MatchModel
    *          instance
    */
-  onfinish(emitter, event, matchresult) {
-    let match;
-    match = matchresult.source;
+  onfinish (emitter, event, matchresult) {
+    let match
+    match = matchresult.source
     if (this.matches.indexOf(match) === -1) {
-      this.emit('error', 'onfinish: match is not open anymore or does not exist');
-      return;
+      this.emit('error', 'onfinish: match is not open anymore or does not exist')
+      return
     }
     if (!this.validateMatchResult(matchresult)) {
-      this.emit('error', 'onfinish: match result fails validation test');
-      return;
+      this.emit('error', 'onfinish: match result fails validation test')
+      return
     }
-    this.matches.erase(match);
-    this.history.push(matchresult);
-    this.ranking.result(matchresult);
-    this.postprocessMatch(matchresult);
-    this.checkIdleState();
+    this.matches.erase(match)
+    this.history.push(matchresult)
+    this.ranking.result(matchresult)
+    this.postprocessMatch(matchresult)
+    this.checkIdleState()
   }
 
   /*****************************************************************************
@@ -500,12 +500,12 @@ class TournamentModel extends PropertyModel {
    *          a MatchResult instance
    * @return true if the result is valid, false otherwise
    */
-  validateMatchResult(matchresult) {
-    let valid;
+  validateMatchResult (matchresult) {
+    let valid
     valid = matchresult.score.every(function (score) {
-      return score >= Options.minpoints && score <= Options.maxpoints;
-    });
-    return valid;
+      return score >= Options.minpoints && score <= Options.maxpoints
+    })
+    return valid
   }
 
   /**
@@ -516,8 +516,8 @@ class TournamentModel extends PropertyModel {
    *          a CorrectionModel instance
    * @return true on success, false otherwise
    */
-  validateCorrection(correction) {
-    return true;
+  validateCorrection (correction) {
+    return true
   }
 
   /**
@@ -528,7 +528,7 @@ class TournamentModel extends PropertyModel {
    * @param matchresult
    *          a valid and accepted match result
    */
-  postprocessMatch(matchresult) {
+  postprocessMatch (matchresult) {
     // Default: Do nothing.
   }
 
@@ -541,7 +541,7 @@ class TournamentModel extends PropertyModel {
    * @param correction
    *          the applied correction
    */
-  postprocessCorrection(correction) {
+  postprocessCorrection (correction) {
     // Default: Do nothing.
   }
 
@@ -551,15 +551,15 @@ class TournamentModel extends PropertyModel {
    * @return true on success (i.e. valid matches have been created), false or
    *         undefined otherwise
    */
-  initialMatches() {
+  initialMatches () {
     // create matches here
 
     if (this.teams.length < 3) {
-      return false;
+      return false
     }
-    this.matches.push(new MatchModel([0, 1], 1, 0));
-    this.votes.bye.push(2);
-    return true;
+    this.matches.push(new MatchModel([0, 1], 1, 0))
+    this.votes.bye.push(2)
+    return true
   }
 
   /**
@@ -568,12 +568,12 @@ class TournamentModel extends PropertyModel {
    * @return true on success (i.e. valid matches have been created), false or
    *         undefined otherwise
    */
-  idleMatches() {
+  idleMatches () {
     // create matches here
 
-    this.matches.push(new MatchModel([1, 2], 1, 0));
-    this.votes.bye.push(0);
-    return true;
+    this.matches.push(new MatchModel([1, 2], 1, 0))
+    this.votes.bye.push(0)
+    return true
   }
 
   /**
@@ -584,26 +584,26 @@ class TournamentModel extends PropertyModel {
    * @param matchID
    * @param round
    */
-  addBye(
+  addBye (
     byeResultOrTeamID,
     matchID,
     //
     round
   ) {
-    let teamID, byeResult;
+    let teamID, byeResult
     if (arguments.length === 1 && Type instanceof ByeResult) {
-      byeResult = byeResultOrTeamID;
+      byeResult = byeResultOrTeamID
     } else if (arguments.length === 3 && Type.isNumber(byeResultOrTeamID) && Type.isNumber(matchID) && Type.isNumber(round)) {
-      teamID = byeResultOrTeamID;
-      byeResult = new ByeResult(teamID, [Options.byepointswon, Options.byepointslost], matchID, round);
+      teamID = byeResultOrTeamID
+      byeResult = new ByeResult(teamID, [Options.byepointswon, Options.byepointslost], matchID, round)
     } else {
-      console.error(arguments);
-      throw new Error("addBye isn't provided the correct arguments");
+      console.error(arguments)
+      throw new Error("addBye isn't provided the correct arguments")
     }
-    this.votes.bye.push(teamID);
-    this.ranking.bye(teamID, round);
-    this.history.push(byeResult);
-    return byeResult;
+    this.votes.bye.push(teamID)
+    this.ranking.bye(teamID, round)
+    this.history.push(byeResult)
+    return byeResult
   }
 
   /**
@@ -618,35 +618,35 @@ class TournamentModel extends PropertyModel {
    *
    * @return true on success, false otherwise
    */
-  correct(result, newScore) {
-    let index, correction, newResult, baseResult;
-    baseResult = result;
+  correct (result, newScore) {
+    let index, correction, newResult, baseResult
+    baseResult = result
     while (baseResult.result !== undefined) {
       if (baseResult.hasReversedTeams) {
-        newScore.reverse();
+        newScore.reverse()
       }
-      baseResult = baseResult.result;
+      baseResult = baseResult.result
     }
-    index = this.history.indexOf(baseResult);
+    index = this.history.indexOf(baseResult)
     if (index === -1) {
-      this.emit('error', 'correct(): result does not exist in history');
-      return false;
+      this.emit('error', 'correct(): result does not exist in history')
+      return false
     }
-    newResult = new MatchResult(baseResult, newScore);
+    newResult = new MatchResult(baseResult, newScore)
     if (!this.validateMatchResult(newResult)) {
-      this.emit('error', 'correction has invalid score');
-      return false;
+      this.emit('error', 'correction has invalid score')
+      return false
     }
-    correction = new CorrectionModel(baseResult, newResult);
+    correction = new CorrectionModel(baseResult, newResult)
     if (!this.validateCorrection(correction)) {
-      this.emit('error', 'correction is invalid, although the score is fine');
-      return false;
+      this.emit('error', 'correction is invalid, although the score is fine')
+      return false
     }
-    this.ranking.correct(correction);
-    this.corrections.push(correction);
-    this.history.set(index, correction.after);
-    this.postprocessCorrection(correction);
-    return true;
+    this.ranking.correct(correction)
+    this.corrections.push(correction)
+    this.history.set(index, correction.after)
+    this.postprocessCorrection(correction)
+    return true
   }
 
   /**
@@ -655,24 +655,24 @@ class TournamentModel extends PropertyModel {
    *
    * @return a serializable data object, which can be used for restoring
    */
-  save() {
-    const data = super.save();
-    data.sys = this.SYSTEM;
-    data.id = this.id;
-    data.name = this.name.get();
-    data.state = this.state.get();
-    data.teams = this.teams.asArray();
-    data.matches = this.matches.save();
-    data.history = this.history.save();
-    data.corrections = this.corrections.save();
-    data.ranking = this.ranking.save();
-    data.votes = {};
-    data.totalvotes = {};
+  save () {
+    const data = super.save()
+    data.sys = this.SYSTEM
+    data.id = this.id
+    data.name = this.name.get()
+    data.state = this.state.get()
+    data.teams = this.teams.asArray()
+    data.matches = this.matches.save()
+    data.history = this.history.save()
+    data.corrections = this.corrections.save()
+    data.ranking = this.ranking.save()
+    data.votes = {}
+    data.totalvotes = {}
     this.VOTES.forEach(function (votetype) {
-      data.votes[votetype] = this.votes[votetype].save();
-      data.totalvotes[votetype] = this.totalvotes[votetype].save();
-    }, this);
-    return data;
+      data.votes[votetype] = this.votes[votetype].save()
+      data.totalvotes[votetype] = this.totalvotes[votetype].save()
+    }, this)
+    return data
   }
 
   /**
@@ -682,66 +682,66 @@ class TournamentModel extends PropertyModel {
    *          a data object, that was previously written by save()
    * @return true on success, false otherwise
    */
-  restore(data) {
+  restore (data) {
     if (this.SYSTEM !== data.sys) {
-      this.emit('error', 'TournamentModel.restore() error: System mismatch');
-      return false;
+      this.emit('error', 'TournamentModel.restore() error: System mismatch')
+      return false
     }
     if (!super.restore(data)) {
-      return false;
+      return false
     }
-    this.id = data.id;
-    this.name.set(data.name || this.SYSTEM);
+    this.id = data.id
+    this.name.set(data.name || this.SYSTEM)
     if (!this.state.forceState(data.state)) {
       this.emit('error',
       //
-      'TournamentModel.restore(): invalid tournament state');
-      return false;
+        'TournamentModel.restore(): invalid tournament state')
+      return false
     }
     if (!this.teams.restore(data.teams)) {
       this.emit('error',
       //
-      'TournamentModel.restore(): cannot restore teams');
-      return false;
+        'TournamentModel.restore(): cannot restore teams')
+      return false
     }
     if (!this.matches.restore(data.matches, MatchModel)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore matches');
-      return false;
+      this.emit('error', 'TournamentModel.restore(): cannot restore matches')
+      return false
     }
     if (!this.history.restore(data.history, MatchResult)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore history');
-      return false;
+      this.emit('error', 'TournamentModel.restore(): cannot restore history')
+      return false
     }
     if (!this.corrections.restore(data.corrections, CorrectionModel)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore corrections');
-      return false;
+      this.emit('error', 'TournamentModel.restore(): cannot restore corrections')
+      return false
     }
     if (!this.ranking.restore(data.ranking)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore ranking');
-      return false;
+      this.emit('error', 'TournamentModel.restore(): cannot restore ranking')
+      return false
     }
     if (!this.VOTES.every(function (votetype) {
-      this.votes[votetype].clear();
+      this.votes[votetype].clear()
       if (data.votes[votetype]) {
-        this.votes[votetype].restore(data.votes[votetype]);
+        this.votes[votetype].restore(data.votes[votetype])
       }
-      return true;
+      return true
     }, this)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore votes');
-      return false;
+      this.emit('error', 'TournamentModel.restore(): cannot restore votes')
+      return false
     }
     if (!this.VOTES.every(function (votetype) {
-      this.totalvotes[votetype].clear();
+      this.totalvotes[votetype].clear()
       if (data.totalvotes[votetype]) {
-        this.totalvotes[votetype].restore(data.totalvotes[votetype]);
+        this.totalvotes[votetype].restore(data.totalvotes[votetype])
       }
-      return true;
+      return true
     }, this)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore totalvotes');
-      return false;
+      this.emit('error', 'TournamentModel.restore(): cannot restore totalvotes')
+      return false
     }
-    this.checkIdleState();
-    return true;
+    this.checkIdleState()
+    return true
   }
 
   /**
@@ -749,13 +749,13 @@ class TournamentModel extends PropertyModel {
    *          an array of vote types
    * @return a dictionary of vote lists
    */
-  static initVoteLists(types) {
-    let votes;
-    votes = {};
+  static initVoteLists (types) {
+    let votes
+    votes = {}
     types.forEach(function (type) {
-      votes[type] = new ListModel();
-    });
-    return votes;
+      votes[type] = new ListModel()
+    })
+    return votes
   }
 
   /**
@@ -767,53 +767,53 @@ class TournamentModel extends PropertyModel {
    *          the second match
    * @return the order relation: 0, >0 or <0
    */
-  static matchCompare(a, b) {
-    return a.getGroup() - b.getGroup() || a.getID() - b.getID();
+  static matchCompare (a, b) {
+    return a.getGroup() - b.getGroup() || a.getID() - b.getID()
   }
 }
 
 /**
  * a unique name for the tournament mode, e.g. 'ko' or 'tacteam'
  */
-TournamentModel.prototype.SYSTEM = 'undefined';
+TournamentModel.prototype.SYSTEM = 'undefined'
 
 /**
  * send event on state change
  */
 TournamentModel.prototype.EVENTS = {
-  'state': true,
-  'error': true,
-  'update': true
-};
+  state: true,
+  error: true,
+  update: true
+}
 
 /**
  * Array of additional ranking dependencies, e.g. ['matchmatrix']
  */
-TournamentModel.prototype.RANKINGDEPENDENCIES = [];
+TournamentModel.prototype.RANKINGDEPENDENCIES = []
 
 /**
  * an array of required vote lists
  */
-TournamentModel.prototype.VOTES = ['bye'];
+TournamentModel.prototype.VOTES = ['bye']
 
 /**
  * mimic an IndexedModel
  */
-TournamentModel.prototype.getID = IndexedModel.prototype.getID;
-TournamentModel.prototype.setID = IndexedModel.prototype.setID;
+TournamentModel.prototype.getID = IndexedModel.prototype.getID
+TournamentModel.prototype.setID = IndexedModel.prototype.setID
 
 // TODO use constructor references (MatchModel.SAVEFORMAT) instead of
 // "Object"
-TournamentModel.prototype.SAVEFORMAT = Object.create(PropertyModel.prototype.SAVEFORMAT);
-TournamentModel.prototype.SAVEFORMAT.sys = String;
-TournamentModel.prototype.SAVEFORMAT.id = Number;
-TournamentModel.prototype.SAVEFORMAT.name = String;
-TournamentModel.prototype.SAVEFORMAT.state = String;
-TournamentModel.prototype.SAVEFORMAT.teams = [Number];
-TournamentModel.prototype.SAVEFORMAT.matches = [Object];
-TournamentModel.prototype.SAVEFORMAT.history = [Object];
-TournamentModel.prototype.SAVEFORMAT.corrections = [Object];
-TournamentModel.prototype.SAVEFORMAT.ranking = Object;
-TournamentModel.prototype.SAVEFORMAT.votes = Object;
-TournamentModel.prototype.SAVEFORMAT.totalvotes = Object;
-export default TournamentModel;
+TournamentModel.prototype.SAVEFORMAT = Object.create(PropertyModel.prototype.SAVEFORMAT)
+TournamentModel.prototype.SAVEFORMAT.sys = String
+TournamentModel.prototype.SAVEFORMAT.id = Number
+TournamentModel.prototype.SAVEFORMAT.name = String
+TournamentModel.prototype.SAVEFORMAT.state = String
+TournamentModel.prototype.SAVEFORMAT.teams = [Number]
+TournamentModel.prototype.SAVEFORMAT.matches = [Object]
+TournamentModel.prototype.SAVEFORMAT.history = [Object]
+TournamentModel.prototype.SAVEFORMAT.corrections = [Object]
+TournamentModel.prototype.SAVEFORMAT.ranking = Object
+TournamentModel.prototype.SAVEFORMAT.votes = Object
+TournamentModel.prototype.SAVEFORMAT.totalvotes = Object
+export default TournamentModel

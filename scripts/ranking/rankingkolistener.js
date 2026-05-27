@@ -1,22 +1,22 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 // Set by kotournamentmodel.js after initialization to break the circular import cycle
-let _KOTournamentModel = null;
-export function _registerKOTournamentModel(cls) {
-  _KOTournamentModel = cls;
+let _KOTournamentModel = null
+export function _registerKOTournamentModel (cls) {
+  _KOTournamentModel = cls
 }
 
-function getWinnerPoints(result) {
-  return -2 * result.getGroup();
+function getWinnerPoints (result) {
+  return -2 * result.getGroup()
 }
-function getLoserPoints(result) {
-  const group = result.getGroup();
-  const matchID = result.getID();
+function getLoserPoints (result) {
+  const group = result.getGroup()
+  const matchID = result.getID()
   if (matchID <= 1) {
-    return -2 * group - 1;
+    return -2 * group - 1
   } else {
-    return -2 * _KOTournamentModel.loserGroupID(group, matchID);
+    return -2 * _KOTournamentModel.loserGroupID(group, matchID)
   }
 }
 
@@ -27,9 +27,9 @@ function getLoserPoints(result) {
  *          a RankingModel instance
  */
 class RankingKOListener extends RankingDataListener {
-  constructor(ranking) {
+  constructor (ranking) {
     super(ranking, // autoformat
-    new VectorModel());
+      new VectorModel())
   }
 
   /**
@@ -42,9 +42,9 @@ class RankingKOListener extends RankingDataListener {
    * @param result
    *          a game result
    */
-  onresult(r, e, result) {
-    this.ko.set(result.getLoser(), getLoserPoints(result));
-    this.ko.set(result.getWinner(), getWinnerPoints(result));
+  onresult (r, e, result) {
+    this.ko.set(result.getLoser(), getLoserPoints(result))
+    this.ko.set(result.getWinner(), getWinnerPoints(result))
   }
 
   /**
@@ -58,20 +58,20 @@ class RankingKOListener extends RankingDataListener {
    * @param correction
    *          a game correction
    */
-  oncorrect(r, e, correction) {
-    let winner, loser, winnerPoints, loserPoints;
-    winner = correction.before.getWinner();
-    loser = correction.before.getWinner();
-    winnerPoints = getWinnerPoints(correction.before);
-    loserPoints = getLoserPoints(correction.before);
+  oncorrect (r, e, correction) {
+    let winner, loser, winnerPoints, loserPoints
+    winner = correction.before.getWinner()
+    loser = correction.before.getWinner()
+    winnerPoints = getWinnerPoints(correction.before)
+    loserPoints = getLoserPoints(correction.before)
     if (this.ko.get(winner) !== winnerPoints || this.ko.get(loser) !== loserPoints) {
-      return;
+      return
     }
-    this.onresult(r, e, correction.after);
+    this.onresult(r, e, correction.after)
   }
 
-  static NAME = 'ko';
-  static DEPENDENCIES = undefined;
+  static NAME = 'ko'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingKOListener;
+export default RankingKOListener

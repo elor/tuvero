@@ -16,4 +16,4 @@ export default {
   ranking_medium_saldo: 'Diff.',
   matchplace: 'Tisch',
   matchplaces: 'Tische'
-};
+}

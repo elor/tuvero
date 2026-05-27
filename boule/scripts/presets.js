@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-var Presets;
+let Presets
 Presets = {
   target: 'boule',
   systems: {
@@ -43,5 +43,5 @@ Presets = {
   ui: {
     rankingpoints: true
   }
-};
-export default Presets;
+}
+export default Presets

@@ -6,48 +6,48 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Browser from './browser.js';
-let Splash;
+import $ from 'jquery'
+import Browser from './browser.js'
+let Splash
 Splash = {
   hide: function () {
-    console.error('Splash.hide() called before pageload');
+    console.error('Splash.hide() called before pageload')
   },
   loading: function () {
-    console.error('Splash.loading() called before pageload');
+    console.error('Splash.loading() called before pageload')
   }
-};
+}
 $(function ($) {
-  let $splash;
-  function setState(state) {
-    $splash.removeClass();
-    $splash.addClass(state);
+  let $splash
+  function setState (state) {
+    $splash.removeClass()
+    $splash.addClass(state)
   }
-  $splash = $('#splash');
+  $splash = $('#splash')
 
   // TODO move to another function
   if (Browser.name === 'MSIE' && Browser.version < 9) {
-    setState('oldinternetexplorer');
-    return;
+    setState('oldinternetexplorer')
+    return
   }
-  setState('starting');
-  Splash.valid = true;
+  setState('starting')
+  Splash.valid = true
   Splash.loading = function () {
-    setState('restoring');
-  };
+    setState('restoring')
+  }
   Splash.update = function () {
-    setState('update');
-    $('#tabs').show();
-  };
+    setState('update')
+    $('#tabs').show()
+  }
   Splash.hide = function () {
-    setState('ready');
-    $('body').removeClass('splash');
+    setState('ready')
+    $('body').removeClass('splash')
     setTimeout(function () {
-      $splash.addClass('hidden');
-    }, 1000);
-  };
+      $splash.addClass('hidden')
+    }, 1000)
+  }
   Splash.error = function () {
-    setState('error');
-  };
-});
-export default Splash;
+    setState('error')
+  }
+})
+export default Splash

@@ -1,4 +1,4 @@
-import ListView from './listview.js';
+import ListView from './listview.js'
 
 /**
  * Constructor
@@ -18,11 +18,11 @@ import ListView from './listview.js';
  *          SubView constructor
  */
 class InlineListView extends ListView {
-  static insertBeforeView = true;
+  static insertBeforeView = true
 
-  constructor(model, $view, $template, SubView, ...rest) {
-    super(model, $view, $template, SubView, ...rest);
+  constructor (model, $view, $template, SubView, ...rest) {
+    super(model, $view, $template, SubView, ...rest)
   }
 }
 
-export default InlineListView;
+export default InlineListView

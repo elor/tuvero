@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-let Print;
+import $ from 'jquery'
+let Print
 $(function ($) {
   $('#tabs').on('click', 'button.print', function () {
-    window.print();
-  });
-});
-export default Print;
+    window.print()
+  })
+})
+export default Print

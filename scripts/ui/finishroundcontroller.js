@@ -1,54 +1,54 @@
-import Controller from '../core/controller.js';
-import View from '../core/view.js';
-import State from './state.js';
-import Options from 'options';
-import Random from '../core/random.js';
-const rng = new Random();
+import Controller from '../core/controller.js'
+import View from '../core/view.js'
+import State from './state.js'
+import Options from 'options'
+import Random from '../core/random.js'
+const rng = new Random()
 
 /**
  * Constructor
  */
 class FinishRoundController extends Controller {
-  constructor($button, random) {
-    super(new View(undefined, $button));
-    this.random = random;
-    this.view.$view.click(this.finishRound.bind(this));
+  constructor ($button, random) {
+    super(new View(undefined, $button))
+    this.random = random
+    this.view.$view.click(this.finishRound.bind(this))
   }
 
   /**
    *
    */
-  finishRound() {
+  finishRound () {
     State.tournaments.map(function (tournament) {
-      let matches, finished;
-      matches = tournament.getMatches();
+      let matches, finished
+      matches = tournament.getMatches()
       do {
-        finished = true;
+        finished = true
         matches.map(function (match) {
           if (match.isRunningMatch()) {
-            match.finish(this.getScore(match.length));
-            finished = false;
+            match.finish(this.getScore(match.length))
+            finished = false
           }
-        }, this);
-      } while (!finished);
-    }, this);
+        }, this)
+      } while (!finished)
+    }, this)
   }
 
-  getScore(numTeams) {
-    let score, min, max;
-    min = Options.minpoints;
-    max = Options.maxpoints;
-    score = [];
+  getScore (numTeams) {
+    let score, min, max
+    min = Options.minpoints
+    max = Options.maxpoints
+    score = []
     while (score.length < numTeams) {
-      score.push(this.random ? rng.nextInt(min, max) : min);
+      score.push(this.random ? rng.nextInt(min, max) : min)
     }
     if (this.random) {
-      score[rng.nextInt(score.length)] = max;
+      score[rng.nextInt(score.length)] = max
     } else {
-      score[0] = max;
+      score[0] = max
     }
-    return score;
+    return score
   }
 }
 
-export default FinishRoundController;
+export default FinishRoundController

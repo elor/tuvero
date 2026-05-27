@@ -1,4 +1,4 @@
-import View from '../core/view.js';
+import View from '../core/view.js'
 
 /**
  * Constructor
@@ -9,25 +9,25 @@ import View from '../core/view.js';
  *          the associated DOM element
  */
 class LengthView extends View {
-  constructor(model, $view, offset) {
-    super(model, $view);
-    this.offset = offset || 0;
-    this.update();
+  constructor (model, $view, offset) {
+    super(model, $view)
+    this.offset = offset || 0
+    this.update()
   }
 
   /**
    * write the playernames and teamnumber to the DOM
    */
-  update() {
-    this.$view.text(this.model.length + this.offset);
+  update () {
+    this.$view.text(this.model.length + this.offset)
   }
 
   /**
    * Callback listener
    */
-  onresize() {
-    this.update();
+  onresize () {
+    this.update()
   }
 }
 
-export default LengthView;
+export default LengthView

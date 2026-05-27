@@ -1,4 +1,4 @@
-import RankingComponent from './rankingcomponent.js';
+import RankingComponent from './rankingcomponent.js'
 
 /**
  * Constructor
@@ -9,8 +9,8 @@ import RankingComponent from './rankingcomponent.js';
  *          the next component in the chain
  */
 class RankingVotesComponent extends RankingComponent {
-  constructor(ranking, nextcomponent) {
-    super(ranking, nextcomponent);
+  constructor (ranking, nextcomponent) {
+    super(ranking, nextcomponent)
   }
 
   /**
@@ -18,8 +18,8 @@ class RankingVotesComponent extends RankingComponent {
   *          a team index
   * @return a string representation of the votes
   */
-  value(i) {
-    return this.ranking.votes.get(i);
+  value (i) {
+    return this.ranking.votes.get(i)
   }
 
   /**
@@ -28,11 +28,11 @@ class RankingVotesComponent extends RankingComponent {
   *
   * @return the result of the next component's ranking
   */
-  compare(i, k) {
-    return this.nextcomponent.compare(i, k);
+  compare (i, k) {
+    return this.nextcomponent.compare(i, k)
   }
 
-  static NAME = 'votes';
+  static NAME = 'votes'
 }
 
-export default RankingVotesComponent;
+export default RankingVotesComponent

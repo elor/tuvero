@@ -1,5 +1,5 @@
-import MatchResult from './matchresult.js';
-import MatchModel from './matchmodel.js';
+import MatchResult from './matchresult.js'
+import MatchModel from './matchmodel.js'
 
 /**
  * Constructor for auto-creation of a bye instance, which contains all
@@ -24,9 +24,9 @@ import MatchModel from './matchmodel.js';
  *
  */
 class ByeResult extends MatchResult {
-  constructor(teamid, score, id, group) {
-    super(new MatchModel([teamid, teamid], id, group), score);
+  constructor (teamid, score, id, group) {
+    super(new MatchModel([teamid, teamid], id, group), score)
   }
 }
 
-export default ByeResult;
+export default ByeResult

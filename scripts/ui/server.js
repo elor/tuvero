@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-import ServerModel from './servermodel.js';
-import Storage from './storage.js';
-import Presets from 'presets';
-let Server;
-Server = Storage.register(Presets.names.apitoken, ServerModel);
-export default Server;
+import ServerModel from './servermodel.js'
+import Storage from './storage.js'
+import Presets from 'presets'
+let Server
+Server = Storage.register(Presets.names.apitoken, ServerModel)
+export default Server

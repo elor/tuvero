@@ -1,5 +1,5 @@
-import Listener from './listener.js';
-import Model from './model.js';
+import Listener from './listener.js'
+import Model from './model.js'
 
 /**
  * Displays a model and updates on changes to it.
@@ -10,31 +10,31 @@ import Model from './model.js';
  *          A jQuery object which is represented by this view
  */
 class View extends Listener {
-  constructor(model, $view) {
-    model = model || new Model();
-    super(model);
+  constructor (model, $view) {
+    model = model || new Model()
+    super(model)
     if ($view === undefined || $view.length === 0) {
-      console.error('View: $view is empty or undefined:');
-      console.error($view);
+      console.error('View: $view is empty or undefined:')
+      console.error($view)
       if ($view && $view.selector) {
-        console.error($view ? 'selector: ' + $view.selector : '');
+        console.error($view ? 'selector: ' + $view.selector : '')
       }
     }
-    this.model = model;
-    this.$view = $view;
+    this.model = model
+    this.$view = $view
   }
 
   /**
    * resets the whole view
    */
-  reset() {
+  reset () {
     //
   }
 
   /**
    * update the whole view
    */
-  update() {
+  update () {
     //
   }
 
@@ -52,10 +52,10 @@ class View extends Listener {
    * permanently removed and replaced with new elements.
    *
    */
-  destroy() {
-    super.destroy();
-    this.$view.remove();
+  destroy () {
+    super.destroy()
+    this.$view.remove()
   }
 }
 
-export default View;
+export default View

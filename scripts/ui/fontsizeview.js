@@ -11,12 +11,12 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from '../core/view.js';
-import FontSizeController from './fontsizecontroller.js';
-import FontSizeModel from './fontsizemodel.js';
-let classprefix;
-classprefix = 'fontsize';
+import $ from 'jquery'
+import View from '../core/view.js'
+import FontSizeController from './fontsizecontroller.js'
+import FontSizeModel from './fontsizemodel.js'
+let classprefix
+classprefix = 'fontsize'
 
 /**
  * Constructor, which also calls update() for the first time
@@ -28,38 +28,38 @@ classprefix = 'fontsize';
  *          to <body>
  */
 class FontSizeView extends View {
-  constructor($view, $container) {
-    $container = $container || $('body');
-    super(FontSizeView.getModelOfContainer($container), $view);
-    this.$container = $container;
-    this.update();
-    this.controller = new FontSizeController(this);
+  constructor ($view, $container) {
+    $container = $container || $('body')
+    super(FontSizeView.getModelOfContainer($container), $view)
+    this.$container = $container
+    this.update()
+    this.controller = new FontSizeController(this)
   }
 
   /**
    * removes all font size information
    */
-  reset() {
+  reset () {
     FontSizeModel.SIZES.map(function (size) {
-      this.$container.removeClass(classprefix + size);
-      this.$view.removeClass(classprefix + size);
-    }, this);
+      this.$container.removeClass(classprefix + size)
+      this.$view.removeClass(classprefix + size)
+    }, this)
   }
 
   /**
    * sets the current font size, as defined by the model
    */
-  update() {
-    this.reset();
-    this.$container.addClass(classprefix + this.model.getFontSize());
-    this.$view.addClass(classprefix + this.model.getFontSize());
+  update () {
+    this.reset()
+    this.$container.addClass(classprefix + this.model.getFontSize())
+    this.$view.addClass(classprefix + this.model.getFontSize())
   }
 
   /**
    * model.emit() callback function
    */
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 
   /**
@@ -70,12 +70,12 @@ class FontSizeView extends View {
    *          the container
    * @return the model for the given container
    */
-  static getModelOfContainer($container) {
+  static getModelOfContainer ($container) {
     if (!$container.data('FontSizeModel')) {
-      $container.data('FontSizeModel', new FontSizeModel());
+      $container.data('FontSizeModel', new FontSizeModel())
     }
-    return $container.data('FontSizeModel');
+    return $container.data('FontSizeModel')
   }
 }
 
-export default FontSizeView;
+export default FontSizeView

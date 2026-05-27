@@ -7,29 +7,29 @@
  * @license MIT License
  * @see LICENSE
  */
-import CommitModel from '../timemachine/commitmodel.js';
-import Presets from 'presets';
-const keyRegex = new RegExp('^' + Presets.target + 's?tournament$');
+import CommitModel from '../timemachine/commitmodel.js'
+import Presets from 'presets'
+const keyRegex = new RegExp('^' + Presets.target + 's?tournament$')
 
 /**
  * Constructor. Does nothing.
  */
 class LegacyStorageKeyConverter {
-  constructor() {}
+  constructor () {}
 
   /**
    * Find all legacy keys in the local storage for the current target and
    * convert them.
    */
-  convertAll() {
-    let allKeys, legacyKeys;
+  convertAll () {
+    let allKeys, legacyKeys
     if (window.localStorage) {
-      allKeys = Object.keys(window.localStorage);
+      allKeys = Object.keys(window.localStorage)
     } else {
-      allKeys = [];
+      allKeys = []
     }
-    legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex));
-    legacyKeys.forEach(this.convert.bind(this));
+    legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex))
+    legacyKeys.forEach(this.convert.bind(this))
   }
 
   /**
@@ -40,26 +40,26 @@ class LegacyStorageKeyConverter {
    *          e.g. 'boulestournament' or 'tactournament'
    * @return true on success, false otherwise
    */
-  convert(legacyKey) {
-    let storedString, commit;
+  convert (legacyKey) {
+    let storedString, commit
     if (!legacyKey) {
-      return true;
+      return true
     }
     if (!window.localStorage) {
-      return false;
+      return false
     }
-    storedString = window.localStorage[legacyKey];
+    storedString = window.localStorage[legacyKey]
     if (!storedString) {
-      window.localStorage.removeItem(legacyKey);
-      return true;
+      window.localStorage.removeItem(legacyKey)
+      return true
     }
-    commit = CommitModel.createRoot(storedString, 'imported_' + legacyKey);
+    commit = CommitModel.createRoot(storedString, 'imported_' + legacyKey)
     if (commit && commit.isValid()) {
-      window.localStorage.removeItem(legacyKey);
-      return true;
+      window.localStorage.removeItem(legacyKey)
+      return true
     }
-    return false;
+    return false
   }
 }
 
-export default LegacyStorageKeyConverter;
+export default LegacyStorageKeyConverter

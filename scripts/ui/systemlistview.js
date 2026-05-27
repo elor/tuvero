@@ -1,8 +1,8 @@
-import ListView from './listview.js';
-import TeamTableView from './teamtableview.js';
-import OrderListModel from '../list/orderlistmodel.js';
-import Listener from '../core/listener.js';
-import SystemTableRowView from './systemtablerowview.js';
+import ListView from './listview.js'
+import TeamTableView from './teamtableview.js'
+import OrderListModel from '../list/orderlistmodel.js'
+import Listener from '../core/listener.js'
+import SystemTableRowView from './systemtablerowview.js'
 
 /**
  * Constructor
@@ -20,9 +20,9 @@ import SystemTableRowView from './systemtablerowview.js';
  *
  */
 class SystemListView extends ListView {
-  constructor(teams, $view, tournaments, teamsize, tournamentViewFactory) {
-    let orderList, updateTimeout;
-    orderList = new OrderListModel();
+  constructor (teams, $view, tournaments, teamsize, tournamentViewFactory) {
+    let orderList, updateTimeout
+    orderList = new OrderListModel()
     super(
       orderList,
       $view,
@@ -31,44 +31,44 @@ class SystemListView extends ListView {
       teams,
       tournaments,
       tournamentViewFactory
-    );
-    this.teams = teams;
-    this.tournaments = tournaments;
-    updateTimeout = undefined;
+    )
+    this.teams = teams
+    this.tournaments = tournaments
+    updateTimeout = undefined
     Listener.bind(tournaments, 'update', function (model, event, data) {
-      const list = this;
+      const list = this
       if (updateTimeout === undefined) {
         window.setTimeout(function () {
-          list.updateOrder();
-          updateTimeout = undefined;
-        }, 1);
+          list.updateOrder()
+          updateTimeout = undefined
+        }, 1)
       }
-    }, this);
+    }, this)
     Listener.bind(teams, 'insert,remove', function (model, event, data) {
-      const list = this;
+      const list = this
       if (event === 'remove') {
-        list.removeAfter(data.id);
+        list.removeAfter(data.id)
       }
       if (updateTimeout === undefined) {
         window.setTimeout(function () {
-          list.updateOrder();
-          updateTimeout = undefined;
-        }, 1);
+          list.updateOrder()
+          updateTimeout = undefined
+        }, 1)
       }
-    }, this);
-    this.updateOrder();
-    this.teamTableView = new TeamTableView(this, teamsize);
+    }, this)
+    this.updateOrder()
+    this.teamTableView = new TeamTableView(this, teamsize)
   }
 
   /**
    * Update the row order to match the global ranking displayOrder
    */
-  updateOrder() {
-    let ranking, order;
+  updateOrder () {
+    let ranking, order
     if (this.teams.length > 0) {
-      ranking = this.tournaments.getGlobalRanking(this.teams.length);
-      order = ranking.displayOrder;
-      this.model.enforceOrder(order);
+      ranking = this.tournaments.getGlobalRanking(this.teams.length)
+      order = ranking.displayOrder
+      this.model.enforceOrder(order)
     }
   }
 
@@ -79,14 +79,14 @@ class SystemListView extends ListView {
    * @param firstID
    *          the first ID to remove
    */
-  removeAfter(firstID) {
+  removeAfter (firstID) {
     const order = this.model.map(function (teamID) {
-      return teamID;
+      return teamID
     }).filter(function (id) {
-      return id < firstID;
-    });
-    this.model.enforceOrder(order);
+      return id < firstID
+    })
+    this.model.enforceOrder(order)
   }
 }
 
-export default SystemListView;
+export default SystemListView

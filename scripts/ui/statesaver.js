@@ -6,34 +6,34 @@
  * @license MIT License
  * @see LICENSE
  */
-import State from './state.js';
-import TimeMachine from '../timemachine/timemachine.js';
-import StateLoader from './stateloader.js';
-let StateSaver;
+import State from './state.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import StateLoader from './stateloader.js'
+let StateSaver
 
 /**
  * Constructor of the singleton StateSaver
  */
 class StateSaverModel {
-  constructor() {
-    this.createTree = undefined;
+  constructor () {
+    this.createTree = undefined
   }
 
-  newTree(name) {
-    this.createTree = name || '';
+  newTree (name) {
+    this.createTree = name || ''
   }
 
-  createNewEmptyTree(name) {
-    this.newTree(name);
-    StateLoader.unload();
-    return this.saveState();
+  createNewEmptyTree (name) {
+    this.newTree(name)
+    StateLoader.unload()
+    return this.saveState()
   }
 
   /**
    * @return true if a state can be saved, false otherwise
    */
-  canSave() {
-    return this.createTree !== undefined || TimeMachine.isInitialized();
+  canSave () {
+    return this.createTree !== undefined || TimeMachine.isInitialized()
   }
 
   /**
@@ -41,9 +41,9 @@ class StateSaverModel {
    *
    * @return true on success, false otherwise
    */
-  saveState() {
-    const data = State.save();
-    return this.saveData(data);
+  saveState () {
+    const data = State.save()
+    return this.saveData(data)
   }
 
   /**
@@ -53,13 +53,13 @@ class StateSaverModel {
    *          a data object to save
    * @return true on success, false otherwise
    */
-  saveData(data) {
-    let string;
+  saveData (data) {
+    let string
     if (!data) {
-      return false;
+      return false
     }
-    string = JSON.stringify(data);
-    return this.saveString(string);
+    string = JSON.stringify(data)
+    return this.saveString(string)
   }
 
   /**
@@ -69,41 +69,41 @@ class StateSaverModel {
    *          the string to store
    * @return true on success, false otherwise
    */
-  saveString(string) {
-    let commit, success;
+  saveString (string) {
+    let commit, success
     if (!string) {
-      return false;
+      return false
     }
     if (this.createTree === undefined) {
-      commit = TimeMachine.save(string);
+      commit = TimeMachine.save(string)
     } else {
-      commit = TimeMachine.init(string, this.createTree);
+      commit = TimeMachine.init(string, this.createTree)
     }
     if (!commit) {
-      return false;
+      return false
     }
-    success = commit.isValid();
+    success = commit.isValid()
     if (success) {
-      this.createTree = undefined;
-      TimeMachine.cleanup(commit, 3);
-      console.log('state saved');
+      this.createTree = undefined
+      TimeMachine.cleanup(commit, 3)
+      console.log('state saved')
     }
-    return success;
+    return success
   }
 
-  removeEverything() {
-    StateLoader.unload();
+  removeEverything () {
+    StateLoader.unload()
     while (TimeMachine.roots.length > 0) {
-      TimeMachine.roots.get(0).eraseTree();
+      TimeMachine.roots.get(0).eraseTree()
     }
     TimeMachine.getOrphans().forEach(function (orphan) {
-      orphan.remove();
-    });
+      orphan.remove()
+    })
   }
 }
 
 /*
  * StateSaver is a singleton
  */
-StateSaver = new StateSaverModel();
-export default StateSaver;
+StateSaver = new StateSaverModel()
+export default StateSaver

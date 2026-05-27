@@ -13,29 +13,29 @@
  * @license MIT License
  * @see LICENSE
  */
-import RankingLostPointsListener from './rankinglostpointslistener.js';
-import RankingPointsListener from './rankingpointslistener.js';
-import RankingSaldoListener from './rankingsaldolistener.js';
-import RankingUpvotesListener from './rankingupvoteslistener.js';
-import RankingDownvotesListener from './rankingdownvoteslistener.js';
-import RankingVotesListener from './rankingvoteslistener.js';
-import RankingByeListener from './rankingbyelistener.js';
-import RankingWinsListener from './rankingwinslistener.js';
-import RankingGameMatrixListener from './rankinggamematrixlistener.js';
-import RankingBuchholzListener from './rankingbuchholzlistener.js';
-import RankingFineBuchholzListener from './rankingfinebuchholzlistener.js';
-import RankingWinsMatrixListener from './rankingwinsmatrixlistener.js';
-import RankingTacListener from './rankingtaclistener.js';
-import RankingFormuleXListener from './rankingformulexlistener.js';
-import RankingSonnebornListener from './rankingsonnebornlistener.js';
-import RankingHeadToHeadListener from './rankingheadtoheadlistener.js';
-import RankingNumGamesListener from './rankingnumgameslistener.js';
-import RankingKOListener from './rankingkolistener.js';
-import RankingThreePointListener from './rankingthreepointlistener.js';
-import RankingTwoPointListener from './rankingtwopointlistener.js';
-import RankingPlacementListener from './rankingplacementlistener.js';
-import RankingPouleIDListener from './rankingpouleidlistener.js';
-import RankingPouleRankListener from './rankingpouleranklistener.js';
+import RankingLostPointsListener from './rankinglostpointslistener.js'
+import RankingPointsListener from './rankingpointslistener.js'
+import RankingSaldoListener from './rankingsaldolistener.js'
+import RankingUpvotesListener from './rankingupvoteslistener.js'
+import RankingDownvotesListener from './rankingdownvoteslistener.js'
+import RankingVotesListener from './rankingvoteslistener.js'
+import RankingByeListener from './rankingbyelistener.js'
+import RankingWinsListener from './rankingwinslistener.js'
+import RankingGameMatrixListener from './rankinggamematrixlistener.js'
+import RankingBuchholzListener from './rankingbuchholzlistener.js'
+import RankingFineBuchholzListener from './rankingfinebuchholzlistener.js'
+import RankingWinsMatrixListener from './rankingwinsmatrixlistener.js'
+import RankingTacListener from './rankingtaclistener.js'
+import RankingFormuleXListener from './rankingformulexlistener.js'
+import RankingSonnebornListener from './rankingsonnebornlistener.js'
+import RankingHeadToHeadListener from './rankingheadtoheadlistener.js'
+import RankingNumGamesListener from './rankingnumgameslistener.js'
+import RankingKOListener from './rankingkolistener.js'
+import RankingThreePointListener from './rankingthreepointlistener.js'
+import RankingTwoPointListener from './rankingtwopointlistener.js'
+import RankingPlacementListener from './rankingplacementlistener.js'
+import RankingPouleIDListener from './rankingpouleidlistener.js'
+import RankingPouleRankListener from './rankingpouleranklistener.js'
 
 const allListeners = [
   RankingLostPointsListener,
@@ -61,22 +61,22 @@ const allListeners = [
   RankingPlacementListener,
   RankingPouleIDListener,
   RankingPouleRankListener
-];
+]
 
-let RankingDataListenerIndex;
+let RankingDataListenerIndex
 
 /**
  * build the index from the RankingXXXListener.NAME fields
  */
 RankingDataListenerIndex = (function (DataListeners) {
-  let RDLI, index, DataListener;
-  RDLI = {};
+  let RDLI, index, DataListener
+  RDLI = {}
   for (index = 0; index < DataListeners.length; index += 1) {
-    DataListener = DataListeners[index];
-    RDLI[DataListener.NAME.toLowerCase()] = DataListener;
+    DataListener = DataListeners[index]
+    RDLI[DataListener.NAME.toLowerCase()] = DataListener
   }
-  return RDLI;
-}(allListeners));
+  return RDLI
+}(allListeners))
 
 /**
    * return the DataListener as referenced by its name
@@ -85,8 +85,8 @@ RankingDataListenerIndex = (function (DataListeners) {
    *          the registered name of the DataListener
    * @return a DataListener subclass (constructor)
    */
-function getDataListener(name) {
-  return RankingDataListenerIndex[name];
+function getDataListener (name) {
+  return RankingDataListenerIndex[name]
 }
 
 /**
@@ -97,13 +97,13 @@ function getDataListener(name) {
    * @return an array of dependency names, or undefined if there are no
    *         dependencies
    */
-function getDataDependencies(name) {
-  const DataListener = getDataListener(name);
+function getDataDependencies (name) {
+  const DataListener = getDataListener(name)
   if (!DataListener) {
-    console.warn('DataListener is undefined: ' + name);
-    return undefined;
+    console.warn('DataListener is undefined: ' + name)
+    return undefined
   }
-  return getDataListener(name).DEPENDENCIES;
+  return getDataListener(name).DEPENDENCIES
 }
 
 /**
@@ -117,16 +117,16 @@ function getDataDependencies(name) {
    *
    * @return true when the dependencies are fulfilled, false otherwise
    */
-function dependenciesFulfilled(required, provided) {
+function dependenciesFulfilled (required, provided) {
   if (!required) {
-    return true;
+    return true
   }
   if (!provided) {
-    return false;
+    return false
   }
   return required.every(function (dependency) {
-    return provided.indexOf(dependency) !== -1;
-  });
+    return provided.indexOf(dependency) !== -1
+  })
 }
 
 /**
@@ -137,16 +137,16 @@ function dependenciesFulfilled(required, provided) {
    *          Where new dependencies are added to and the dependencies are read
    *          from
    */
-function addMissingDependencies(dependencies) {
-  let index, dataDependencies;
+function addMissingDependencies (dependencies) {
+  let index, dataDependencies
   for (index = 0; index < dependencies.length; index += 1) {
-    dataDependencies = getDataDependencies(dependencies[index]);
+    dataDependencies = getDataDependencies(dependencies[index])
     if (dataDependencies) {
       dataDependencies.forEach(function (DEP) {
         if (dependencies.indexOf(DEP) === -1) {
-          dependencies.push(DEP);
+          dependencies.push(DEP)
         }
-      });
+      })
     }
   }
 }
@@ -157,11 +157,11 @@ function addMissingDependencies(dependencies) {
    * @param dependencies
    *          an array of dependency names
    */
-function removeMultipleDependencies(dependencies) {
-  let index;
+function removeMultipleDependencies (dependencies) {
+  let index
   for (index = dependencies.length - 1; index >= 0; index -= 1) {
     if (dependencies.indexOf(dependencies[index]) < index) {
-      dependencies.splice(index, 1);
+      dependencies.splice(index, 1)
     }
   }
 }
@@ -176,24 +176,24 @@ function removeMultipleDependencies(dependencies) {
    *          are in
    * @return true of an element has been moved, false otherwise
    */
-function orderDependenciesOnce(input, output) {
-  let added;
-  added = []; // array of indices
+function orderDependenciesOnce (input, output) {
+  let added
+  added = [] // array of indices
 
   // transfer every name whose dependencies have been fulfilled
   input.forEach(function (name, index) {
     if (dependenciesFulfilled(getDataDependencies(name), output)) {
-      added.push(index);
-      output.push(name);
+      added.push(index)
+      output.push(name)
     }
-  });
+  })
 
   // remove the items beginning with the last one to not corrupt the array
-  added.reverse();
+  added.reverse()
   added.forEach(function (inputIndex) {
-    input.splice(inputIndex, 1);
-  });
-  return added.length > 0;
+    input.splice(inputIndex, 1)
+  })
+  return added.length > 0
 }
 
 /**
@@ -205,11 +205,11 @@ function orderDependenciesOnce(input, output) {
    *          output array.
    * @return false on failure, true on success
    */
-function orderDependencies(names) {
-  let input;
-  input = names.splice(0).reverse();
-  addMissingDependencies(input);
-  removeMultipleDependencies(input);
+function orderDependencies (names) {
+  let input
+  input = names.splice(0).reverse()
+  addMissingDependencies(input)
+  removeMultipleDependencies(input)
 
   // keep adding names until there's none left
   while (orderDependenciesOnce(input, names)) {
@@ -218,11 +218,11 @@ function orderDependencies(names) {
 
   // check for unresolvable dependencies
   if (input.length > 0) {
-    console.error('dependencies could not be resolved: [' + input.join(',') + ']');
-    names.splice(0);
-    return false;
+    console.error('dependencies could not be resolved: [' + input.join(',') + ']')
+    names.splice(0)
+    return false
   }
-  return true;
+  return true
 }
 
 /**
@@ -231,11 +231,11 @@ function orderDependencies(names) {
    * @param names
    *          an array of dependency names
    */
-function extractUndefinedNames(names) {
-  let index;
+function extractUndefinedNames (names) {
+  let index
   for (index = names.length - 1; index >= 0; index -= 1) {
     if (getDataListener(names[index]) !== undefined) {
-      names.splice(index, 1);
+      names.splice(index, 1)
     }
   }
 }
@@ -254,23 +254,23 @@ function extractUndefinedNames(names) {
    *         otherwise
    */
 RankingDataListenerIndex.registerDataListeners = function (ranking, names) {
-  let DataListeners;
+  let DataListeners
   if (!names) {
-    return undefined;
+    return undefined
   }
   if (!orderDependencies(names)) {
-    return undefined;
+    return undefined
   }
   DataListeners = names.map(function (name) {
-    return getDataListener(name);
-  });
+    return getDataListener(name)
+  })
   if (DataListeners.indexOf(undefined) >= 0) {
-    extractUndefinedNames(names);
-    console.error('data listener is undefined: ' + names.join(', '));
-    return undefined;
+    extractUndefinedNames(names)
+    console.error('data listener is undefined: ' + names.join(', '))
+    return undefined
   }
   return DataListeners.map(function (DataListener) {
-    return new DataListener(ranking);
-  });
-};
-export default RankingDataListenerIndex;
+    return new DataListener(ranking)
+  })
+}
+export default RankingDataListenerIndex

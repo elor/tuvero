@@ -9,4 +9,4 @@
 export default {
   teamsicon: 'teams2',
   variant: 'Test'
-};
+}

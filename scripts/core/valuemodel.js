@@ -1,4 +1,4 @@
-import Model from './model.js';
+import Model from './model.js'
 
 /**
  * Constructor
@@ -7,14 +7,14 @@ import Model from './model.js';
  *          the initial value
  */
 class ValueModel extends Model {
-  constructor(value) {
-    super();
+  constructor (value) {
+    super()
     if (this.onupdate !== ValueModel.prototype.onupdate && this.bind === ValueModel.prototype.bind) {
-      this.bind = undefined;
+      this.bind = undefined
     }
 
     // don't call this.set, because set() can be overridden by a subclass
-    ValueModel.prototype.set.call(this, value);
+    ValueModel.prototype.set.call(this, value)
   }
 
   /**
@@ -23,10 +23,10 @@ class ValueModel extends Model {
    * @param value
    *          the new value
    */
-  set(value) {
+  set (value) {
     if (this.value !== value) {
-      this.value = value;
-      this.emit('update', value);
+      this.value = value
+      this.emit('update', value)
     }
   }
 
@@ -35,8 +35,8 @@ class ValueModel extends Model {
    *
    * @return the stored value
    */
-  get() {
-    return this.value;
+  get () {
+    return this.value
   }
 
   /**
@@ -51,9 +51,9 @@ class ValueModel extends Model {
    * @param valueModel
    *          the other value model
    */
-  bind(valueModel) {
-    valueModel.registerListener(this);
-    this.onupdate(valueModel);
+  bind (valueModel) {
+    valueModel.registerListener(this)
+    this.onupdate(valueModel)
   }
 
   /**
@@ -63,9 +63,9 @@ class ValueModel extends Model {
    *
    * @param emitter
    */
-  onupdate(emitter) {
+  onupdate (emitter) {
     if (this.set) {
-      this.set(emitter.get());
+      this.set(emitter.get())
     }
   }
 }
@@ -77,4 +77,4 @@ class ValueModel extends Model {
  *
  * Please use a SuperModel instead, e.g. StateModel or PropertyModel.
  */
-export default ValueModel;
+export default ValueModel

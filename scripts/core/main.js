@@ -6,19 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import './common.js';
-import Splash from '../ui/splash.js';
-import Toast from '../ui/toast.js';
-import Strings from '../ui/strings.js';
-import StateLoader from '../ui/stateloader.js';
-import TeamToastsListener from '../ui/teamtoastslistener.js';
+import $ from 'jquery'
+import './common.js'
+import Splash from '../ui/splash.js'
+import Toast from '../ui/toast.js'
+import Strings from '../ui/strings.js'
+import StateLoader from '../ui/stateloader.js'
+import TeamToastsListener from '../ui/teamtoastslistener.js'
 
 function notifyAboutLoadError (err) {
   console.log(err)
 
   $(function () {
-    let $splash;
+    let $splash
 
     // Splash.setState(), but without splash being loaded
     $('body').addClass('splash')
@@ -39,7 +39,7 @@ $(function () {
 
   // using a timeout to let the browser update the splashtext
   setTimeout(function () {
-    let loaded;
+    let loaded
 
     try {
       try {

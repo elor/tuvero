@@ -1,4 +1,4 @@
-import View from './view.js';
+import View from './view.js'
 
 /**
  * Constructor
@@ -12,25 +12,25 @@ import View from './view.js';
  *          the associated view
  */
 class TabImageView extends View {
-  constructor(tabname, model, $view) {
-    super(model, $view);
-    this.tabname = tabname;
-    this.update();
+  constructor (tabname, model, $view) {
+    super(model, $view)
+    this.tabname = tabname
+    this.update()
   }
 
   /**
    * update the image to the given parameters
    */
-  update() {
-    this.$view.attr('data-img', this.tabname + this.model.get());
+  update () {
+    this.$view.attr('data-img', this.tabname + this.model.get())
   }
 
   /**
    * Callback function for the associated ValueModel
    */
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 }
 
-export default TabImageView;
+export default TabImageView

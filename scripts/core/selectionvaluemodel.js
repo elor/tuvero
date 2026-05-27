@@ -1,4 +1,4 @@
-import ValueModel from './valuemodel.js';
+import ValueModel from './valuemodel.js'
 
 /**
  * Constructor
@@ -9,11 +9,11 @@ import ValueModel from './valuemodel.js';
  *          a ListModel instance of allowed values
  */
 class SelectionValueModel extends ValueModel {
-  constructor(defaultValue, allowedValues) {
-    super(defaultValue);
-    this.allowedValues = allowedValues;
-    this.setDefault(defaultValue);
-    this.allowedValues.registerListener(this);
+  constructor (defaultValue, allowedValues) {
+    super(defaultValue)
+    this.allowedValues = allowedValues
+    this.setDefault(defaultValue)
+    this.allowedValues.registerListener(this)
   }
 
   /**
@@ -22,8 +22,8 @@ class SelectionValueModel extends ValueModel {
    * @param value
    * @return true if the value would be valid, false otherwise
    */
-  isValid(value) {
-    return this.allowedValues.indexOf(value) !== -1;
+  isValid (value) {
+    return this.allowedValues.indexOf(value) !== -1
   }
 
   /**
@@ -34,12 +34,12 @@ class SelectionValueModel extends ValueModel {
    *          the value
    * @return true on success, false otherwise
    */
-  set(value) {
+  set (value) {
     if (this.isValid(value)) {
-      super.set(value);
-      return true;
+      super.set(value)
+      return true
     }
-    return false;
+    return false
   }
 
   /**
@@ -48,27 +48,27 @@ class SelectionValueModel extends ValueModel {
    * @param defaultValue
    *          the default value
    */
-  setDefault(defaultValue) {
-    this.defaultValue = defaultValue;
-    this.validate();
+  setDefault (defaultValue) {
+    this.defaultValue = defaultValue
+    this.validate()
   }
 
   /**
    * check whether the current value is still valid and set the default value
    * otherwise. Ignores the allowed values for the default value.
    */
-  validate() {
+  validate () {
     if (!this.isValid(this.get())) {
-      super.set(this.defaultValue);
+      super.set(this.defaultValue)
     }
   }
 
   /**
    * Event callback for removing a value from the underlying list
    */
-  onremove() {
-    this.validate();
+  onremove () {
+    this.validate()
   }
 }
 
-export default SelectionValueModel;
+export default SelectionValueModel

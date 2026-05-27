@@ -1,22 +1,22 @@
-import Listener from './listener.js';
-let depth;
-depth = 0;
-function getClassName(instance) {
-  return instance.constructor.toString().split('\n')[0].replace(/function (\S+)\(.*/, '$1');
+import Listener from './listener.js'
+let depth
+depth = 0
+function getClassName (instance) {
+  return instance.constructor.toString().split('\n')[0].replace(/function (\S+)\(.*/, '$1')
 }
 
 /**
  * Constructor
  */
 class Emitter extends Listener {
-  constructor() {
-    super(undefined);
+  constructor () {
+    super(undefined)
     if (this.listeners === undefined) {
-      this.listeners = [];
+      this.listeners = []
     }
     if (Emitter.debug && this.EVENTS.update) {
-      console.warn(getClassName(this) + ": The use of the 'update' event is discouraged.");
-      console.warn("   Cause: The meaning of 'update' is ambiguous");
+      console.warn(getClassName(this) + ": The use of the 'update' event is discouraged.")
+      console.warn("   Cause: The meaning of 'update' is ambiguous")
     }
   }
 
@@ -37,12 +37,12 @@ class Emitter extends Listener {
    *          arbitrary additional data. Please keep it simple!
    * @return true if the some listener received the event, false otherwise
    */
-  emit(event, data) {
-    let success, indentation;
-    success = false;
+  emit (event, data) {
+    let success, indentation
+    success = false
     if (!this.validEvent(event)) {
-      console.error('Emitter: unspecified event type: ' + event);
-      return false;
+      console.error('Emitter: unspecified event type: ' + event)
+      return false
     }
 
     /*
@@ -50,33 +50,33 @@ class Emitter extends Listener {
      * so that unregisterListener()-calls don't cause other listeners to be
      * skipped. Have a look at the corresponding unit test.
      */
-    depth += 1;
+    depth += 1
     if (Emitter.debug) {
-      indentation = '>';
+      indentation = '>'
       while (indentation.length <= depth) {
-        indentation += ' ';
+        indentation += ' '
       }
-      console.log(indentation + getClassName(this) + '.emit(' + event + ') with ' + this.listeners.length + ' listeners');
+      console.log(indentation + getClassName(this) + '.emit(' + event + ') with ' + this.listeners.length + ' listeners')
     }
     this.listeners.slice().forEach(function (listener) {
       if (listener['on' + event]) {
         try {
-          listener['on' + event](this, event, data);
-          success = true;
+          listener['on' + event](this, event, data)
+          success = true
         } catch (e) {
-          console.error(e);
+          console.error(e)
           if (e instanceof Error) {
-            console.error(e.name);
-            console.error(e.message);
+            console.error(e.name)
+            console.error(e.message)
             if (e.stack) {
-              console.error(e.stack);
+              console.error(e.stack)
             }
           }
         }
       }
-    }, this);
-    depth -= 1;
-    return success;
+    }, this)
+    depth -= 1
+    return success
   }
 
   /**
@@ -86,8 +86,8 @@ class Emitter extends Listener {
    *          an event string, e.g. 'update'
    * @return true if the event type is defined, false otherwise
    */
-  validEvent(event) {
-    return this.EVENTS && !!this.EVENTS[event];
+  validEvent (event) {
+    return this.EVENTS && !!this.EVENTS[event]
   }
 
   /**
@@ -98,11 +98,11 @@ class Emitter extends Listener {
    *          callback functions
    * @return this
    */
-  registerListener(listener) {
-    this.unregisterListener(listener);
-    this.listeners.push(listener);
-    listener.emitters.push(this);
-    return this;
+  registerListener (listener) {
+    this.unregisterListener(listener)
+    this.listeners.push(listener)
+    listener.emitters.push(this)
+    return this
   }
 
   /**
@@ -113,40 +113,40 @@ class Emitter extends Listener {
    *          registered
    * @return this
    */
-  unregisterListener(listener) {
-    let index;
-    index = this.listeners.indexOf(listener);
+  unregisterListener (listener) {
+    let index
+    index = this.listeners.indexOf(listener)
     if (index !== -1) {
-      this.listeners.splice(index, 1);
+      this.listeners.splice(index, 1)
     }
     if (listener.emitters) {
-      index = listener.emitters.indexOf(this);
+      index = listener.emitters.indexOf(this)
       if (index !== -1) {
-        listener.emitters.splice(index, 1);
+        listener.emitters.splice(index, 1)
       }
     }
-    return this;
+    return this
   }
 
   /**
    * unregister all related listeners
    */
-  destroy() {
-    super.destroy();
+  destroy () {
+    super.destroy()
     while (this.listeners.length > 0) {
-      this.unregisterListener(this.listeners[0]);
+      this.unregisterListener(this.listeners[0])
     }
   }
 
   /**
    * enable/disable debugging log
    */
-  static debug = false;
+  static debug = false
 }
 
 Emitter.prototype.EVENTS = {
-  'update': true,
-  'reset': true
-}; // Default Events
+  update: true,
+  reset: true
+} // Default Events
 
-export default Emitter;
+export default Emitter

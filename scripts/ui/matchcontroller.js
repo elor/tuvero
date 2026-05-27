@@ -7,9 +7,9 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
-import Options from 'options';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
+import Options from 'options'
 
 /**
  * Constructor
@@ -18,122 +18,122 @@ import Options from 'options';
  *          the associated MatchView
  */
 class MatchController extends Controller {
-  constructor(view, $form) {
-    super(view);
-    this.$form = $form;
-    this.$acceptbutton = this.$form.find('button.accept');
-    this.$cancelbutton = this.$form.find('button.cancel');
-    this.$scores = this.$form.find('.score');
-    this.$scores.val(Options.defaultscore || 0);
-    this.$acceptbutton.click(this.accept.bind(this));
-    this.$cancelbutton.click(this.cancel.bind(this));
-    this.initKeyListeners();
-    this.initNumberValidation();
-    this.updateButtonStatus();
+  constructor (view, $form) {
+    super(view)
+    this.$form = $form
+    this.$acceptbutton = this.$form.find('button.accept')
+    this.$cancelbutton = this.$form.find('button.cancel')
+    this.$scores = this.$form.find('.score')
+    this.$scores.val(Options.defaultscore || 0)
+    this.$acceptbutton.click(this.accept.bind(this))
+    this.$cancelbutton.click(this.cancel.bind(this))
+    this.initKeyListeners()
+    this.initNumberValidation()
+    this.updateButtonStatus()
   }
 
-  initKeyListeners() {
-    let controller, $lastinput;
-    controller = this;
+  initKeyListeners () {
+    let controller, $lastinput
+    controller = this
     this.$form.keydown(function (e) {
       switch (e.which) {
         case 27:
           // escape
-          controller.cancel();
-          break;
+          controller.cancel()
+          break
         case 13:
           // enter
-          controller.accept();
-          break;
+          controller.accept()
+          break
         case 9:
           // tab
           if (e.shiftKey) {
-            return;
+            return
           }
           if (controller.$acceptbutton.filter(':not(.hidden)').length !== 0) {
-            return;
+            return
           }
-          $lastinput = controller.$scores.eq(controller.$scores.length - 1);
+          $lastinput = controller.$scores.eq(controller.$scores.length - 1)
           if ($lastinput.data() !== $(e.target).data()) {
-            return;
+            return
           }
           if (controller.accept()) {
-            break;
+            break
           }
-          return;
+          return
         default:
-          return;
+          return
       }
-      e.preventDefault();
-      return false;
-    });
+      e.preventDefault()
+      return false
+    })
   }
 
-  initNumberValidation() {
-    const controller = this;
+  initNumberValidation () {
+    const controller = this
 
     // select the whole input field on focus. make id DAU-safe.
     this.$scores.click(function () {
-      $(this).select();
-    });
+      $(this).select()
+    })
 
     // We're using keyup to check the values as the user types, not only
     // when
     // the focus is lost or the value is changed incrementally
     this.$scores.on('change keyup', function () {
-      let $this, value, valid;
-      valid = true;
-      $this = $(this);
-      value = $this.val();
+      let $this, value, valid
+      valid = true
+      $this = $(this)
+      value = $this.val()
       if (value.length === 0) {
-        valid = false;
+        valid = false
       } else {
-        value = Number(value);
+        value = Number(value)
         if (isNaN(value)) {
-          valid = false;
+          valid = false
         } else if (value < Options.minpoints) {
-          valid = false;
+          valid = false
         } else if (value > Options.maxpoints) {
-          valid = false;
+          valid = false
         }
       }
       if (valid) {
-        $this.removeClass('invalid');
+        $this.removeClass('invalid')
       } else {
-        $this.addClass('invalid');
+        $this.addClass('invalid')
       }
-      controller.updateButtonStatus();
-    }).attr('min', Options.minpoints).attr('max', Options.maxpoints);
+      controller.updateButtonStatus()
+    }).attr('min', Options.minpoints).attr('max', Options.maxpoints)
   }
 
-  updateButtonStatus() {
-    this.$acceptbutton.prop('disabled', !this.validateScore());
+  updateButtonStatus () {
+    this.$acceptbutton.prop('disabled', !this.validateScore())
   }
 
-  validateScore() {
-    let valid, tie, firstpoints, maxpoints;
-    valid = this.$scores.filter('.invalid').length === 0;
+  validateScore () {
+    let valid, tie, firstpoints, maxpoints
+    valid = this.$scores.filter('.invalid').length === 0
     if (valid && (Options.tiesforbidden || Options.maxpointtiesforbidden)) {
-      tie = true;
-      firstpoints = undefined;
+      tie = true
+      firstpoints = undefined
       this.$scores.each(function () {
-        const points = Number($(this).val());
+        const points = Number($(this).val())
         if (firstpoints === undefined) {
-          firstpoints = points;
+          firstpoints = points
         }
         if (points !== firstpoints) {
-          tie = false;
+          tie = false
         }
-      });
+      })
       if (tie && Options.tiesforbidden) {
-        valid = false;
+        valid = false
       }
-      maxpoints = Number(this.$scores.eq(0).val()) === Options.maxpoints;
+      maxpoints = Number(this.$scores.eq(0).val()) === Options.maxpoints
       if (tie && maxpoints && Options.maxpointtiesforbidden) {
-        valid = false;
+        valid = false
       }
     }
-    return valid;
+    return valid
   }
 
   /**
@@ -141,26 +141,26 @@ class MatchController extends Controller {
    *
    * @return true on success, false otherwise
    */
-  accept() {
-    let points;
+  accept () {
+    let points
     if (!this.validateScore()) {
-      return false;
+      return false
     }
-    points = [];
+    points = []
     this.$scores.each(function (i) {
-      points[i] = Number($(this).val());
-    });
-    this.model.finish(points);
-    return true;
+      points[i] = Number($(this).val())
+    })
+    this.model.finish(points)
+    return true
   }
 
   /**
    * cancel the input. Please overload where necessary
    */
-  cancel() {
+  cancel () {
     // inherit if necessary. Usual result submissions cannot be canceled
     // We could reset the points, however
   }
 }
 
-export default MatchController;
+export default MatchController

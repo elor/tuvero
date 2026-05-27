@@ -1,16 +1,16 @@
-import ResultReferenceModel from '../core/resultreferencemodel.js';
+import ResultReferenceModel from '../core/resultreferencemodel.js'
 
 /**
  * Constructor
  */
 class ReverseResultReferenceModel extends ResultReferenceModel {
-  constructor(result, teamlist) {
-    super(result, teamlist);
+  constructor (result, teamlist) {
+    super(result, teamlist)
     if (this.isBye()) {
-      return;
+      return
     }
-    this.teams.reverse();
-    this.score.reverse();
+    this.teams.reverse()
+    this.score.reverse()
   }
 }
 
@@ -18,5 +18,5 @@ class ReverseResultReferenceModel extends ResultReferenceModel {
  * used by TournamentModel.correct() to determine whether the teams are
  * reversed
  */
-ReverseResultReferenceModel.prototype.hasReversedTeams = true;
-export default ReverseResultReferenceModel;
+ReverseResultReferenceModel.prototype.hasReversedTeams = true
+export default ReverseResultReferenceModel

@@ -1,8 +1,8 @@
-import Model from '../core/model.js';
-import RefLog from './reflog.js';
-import Type from '../core/type.js';
-import KeyModel from './keymodel.js';
-import Query from './query.js';
+import Model from '../core/model.js'
+import RefLog from './reflog.js'
+import Type from '../core/type.js'
+import KeyModel from './keymodel.js'
+import Query from './query.js'
 
 /**
  * Constructor. Constructs a CommitModel from a KeyModel, regardless of the
@@ -12,42 +12,42 @@ import Query from './query.js';
  *          a KeyModel instance
  */
 class CommitModel extends Model {
-  constructor(key) {
-    super();
+  constructor (key) {
+    super()
     if (Type.isString(key)) {
-      key = KeyModel.fromString(key);
+      key = KeyModel.fromString(key)
     }
-    RefLog.registerListener(this);
-    this.key = key;
+    RefLog.registerListener(this)
+    this.key = key
   }
 
   /**
    * @return true if the key is valid, is in the RefLog and is in the
    *         localStorage, false otherwise
    */
-  isValid() {
-    return !!this.key && KeyModel.isValidKey(this.key) && RefLog.contains(this.key) && (!window.localStorage || !!window.localStorage[this.key]);
+  isValid () {
+    return !!this.key && KeyModel.isValidKey(this.key) && RefLog.contains(this.key) && (!window.localStorage || !!window.localStorage[this.key])
   }
 
   /**
    * @return true if the key is a root key (has no parent and dates match),
    *         false otherwise
    */
-  isRoot() {
-    return this.key.isRoot();
+  isRoot () {
+    return this.key.isRoot()
   }
 
   /**
    * @return an array of CommitModels of children of this commit. If there's no
    *         child, the array is empty.
    */
-  getChildren() {
+  getChildren () {
     if (!RefLog.contains(this.key)) {
-      return [];
+      return []
     }
     return RefLog.getChildren(this.key).map(function (key) {
-      return new CommitModel(key);
-    }).sort(CommitModel.sortFunction);
+      return new CommitModel(key)
+    }).sort(CommitModel.sortFunction)
   }
 
   /**
@@ -55,53 +55,53 @@ class CommitModel extends Model {
    *
    * @return the youngest ancestor of this commit
    */
-  getYoungestDescendant() {
-    let children, youngestChild;
-    children = this.getChildren();
+  getYoungestDescendant () {
+    let children, youngestChild
+    children = this.getChildren()
     if (children.length === 0) {
-      return undefined;
+      return undefined
     }
-    youngestChild = children[children.length - 1];
+    youngestChild = children[children.length - 1]
     children.forEach(function (child) {
-      const youngestGrandChild = child.getYoungestDescendant();
+      const youngestGrandChild = child.getYoungestDescendant()
       if (!youngestGrandChild) {
-        return;
+        return
       }
       if (CommitModel.sortFunction(youngestGrandChild, youngestChild) === 1) {
-        youngestChild = youngestGrandChild;
+        youngestChild = youngestGrandChild
       }
-    });
-    return youngestChild;
+    })
+    return youngestChild
   }
 
   /**
    * @return the parent if this commit. If this is a root commit, undefined is
    *         returned
    */
-  getParent() {
+  getParent () {
     if (this.isRoot()) {
-      return undefined;
+      return undefined
     }
-    return new CommitModel(RefLog.getParent(this.key));
+    return new CommitModel(RefLog.getParent(this.key))
   }
 
   /**
    * @return a new CommitModel instance of the root of this tree
    */
-  getRoot() {
-    let rootKey;
+  getRoot () {
+    let rootKey
     if (this.isRoot()) {
-      return this;
+      return this
     }
-    rootKey = new KeyModel(this.key.startDate, this.key.startDate);
-    return new CommitModel(rootKey);
+    rootKey = new KeyModel(this.key.startDate, this.key.startDate)
+    return new CommitModel(rootKey)
   }
 
   /**
    * @return the name of this tree
    */
-  getTreeName() {
-    return RefLog.getName(this.key);
+  getTreeName () {
+    return RefLog.getName(this.key)
   }
 
   /**
@@ -109,8 +109,8 @@ class CommitModel extends Model {
    *          the new name of the whole tree
    * @return true on success, false otherwise
    */
-  setTreeName(name) {
-    return RefLog.setName(this.key, name);
+  setTreeName (name) {
+    return RefLog.setName(this.key, name)
   }
 
   /**
@@ -118,8 +118,8 @@ class CommitModel extends Model {
    *          a CommitModel instance
    * @return true if the keys are equal, false otherwise
    */
-  isEqual(commit) {
-    return !!commit && this.key.isEqual(commit.key);
+  isEqual (commit) {
+    return !!commit && this.key.isEqual(commit.key)
   }
 
   /**
@@ -128,20 +128,20 @@ class CommitModel extends Model {
    * @return true if 'this' is in the parent chain of descendant, false
    *         otherwise
    */
-  isAncestorOf(descendant) {
-    let parent;
+  isAncestorOf (descendant) {
+    let parent
     if (!descendant || this.isRoot()) {
-      return false;
+      return false
     }
     if (this.key.isRelated(descendant.key)) {
-      return false;
+      return false
     }
     for (parent = descendant.getParent(); parent; parent = parent.getParent()) {
       if (this.isEqual(parent)) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   }
 
   /**
@@ -150,24 +150,24 @@ class CommitModel extends Model {
    * If eraseTree is called on a root commit, orphans with the same startDate
    * are cleaned up, too.
    */
-  eraseTree() {
-    let query;
+  eraseTree () {
+    let query
 
     // first: properly delete all children to send the proper events
     this.getChildren().forEach(function (child) {
-      child.eraseTree();
-    });
+      child.eraseTree()
+    })
     if (this.isRoot()) {
       // delete eventual orphans (Won't send remove events)
-      query = new Query(this.key);
+      query = new Query(this.key)
       if (window.localStorage) {
-        query.filter().forEach(window.localStorage.removeItem.bind(window.localStorage));
+        query.filter().forEach(window.localStorage.removeItem.bind(window.localStorage))
       }
-      RefLog.deleteTree(this.key);
-      this.emit('remove');
+      RefLog.deleteTree(this.key)
+      this.emit('remove')
     } else {
       // only delete everything that's depending on this commit
-      this.remove();
+      this.remove()
     }
   }
 
@@ -176,17 +176,17 @@ class CommitModel extends Model {
    *
    * If a root commit is removed, the whole tree is removed. See eraseTree()
    */
-  remove() {
+  remove () {
     if (this.isRoot()) {
       // removing the root commit necessarily removes everything else, too,
       // since every tree needs a root in the reflog
-      this.eraseTree();
+      this.eraseTree()
     } else {
       if (window.localStorage) {
-        window.localStorage.removeItem(this.key.toString());
+        window.localStorage.removeItem(this.key.toString())
       }
-      RefLog.deleteKey(this.key);
-      this.emit('remove');
+      RefLog.deleteKey(this.key)
+      this.emit('remove')
     }
   }
 
@@ -195,13 +195,13 @@ class CommitModel extends Model {
    *
    * @return the locally stored data of this commit
    */
-  load() {
+  load () {
     if (this.isValid()) {
       if (window.localStorage) {
-        return window.localStorage[this.key];
+        return window.localStorage[this.key]
       }
     }
-    return undefined;
+    return undefined
   }
 
   /**
@@ -212,17 +212,17 @@ class CommitModel extends Model {
    *          the data to store locally under a new key
    * @return the newly created child commit
    */
-  createChild(data) {
-    const newKey = RefLog.newSaveKey(this.key);
+  createChild (data) {
+    const newKey = RefLog.newSaveKey(this.key)
     if (window.localStorage) {
-      window.localStorage[newKey] = data;
+      window.localStorage[newKey] = data
     }
-    return new CommitModel(newKey);
+    return new CommitModel(newKey)
   }
 
-  onrename(event, emitter, treeKey) {
+  onrename (event, emitter, treeKey) {
     if (this.key.isRelated(treeKey)) {
-      this.emit('rename');
+      this.emit('rename')
     }
   }
 
@@ -234,12 +234,12 @@ class CommitModel extends Model {
    *          the data do store locally under a new key
    * @return the newly created root commit
    */
-  static createRoot(data, name) {
-    const newKey = RefLog.newInitKey(name);
+  static createRoot (data, name) {
+    const newKey = RefLog.newInitKey(name)
     if (window.localStorage) {
-      window.localStorage[newKey] = data;
+      window.localStorage[newKey] = data
     }
-    return new CommitModel(newKey);
+    return new CommitModel(newKey)
   }
 
   /**
@@ -249,14 +249,14 @@ class CommitModel extends Model {
    * @param commitB
    * @return -1, 0, or 1, depending on the sort relation between the two
    */
-  static sortFunction(commitA, commitB) {
-    return KeyModel.sortFunction(commitA.key, commitB.key);
+  static sortFunction (commitA, commitB) {
+    return KeyModel.sortFunction(commitA.key, commitB.key)
   }
 }
 
 CommitModel.prototype.EVENTS = {
-  'remove': true,
-  'rename': true
-};
+  remove: true,
+  rename: true
+}
 
-export default CommitModel;
+export default CommitModel

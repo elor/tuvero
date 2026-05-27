@@ -1,46 +1,46 @@
-import Model from '../core/model.js';
-import RefLog from './reflog.js';
-import KeyModel from './keymodel.js';
-import CommitModel from './commitmodel.js';
-import ListModel from '../list/listmodel.js';
-import Query from './query.js';
-import SortedReferenceListModel from '../list/sortedreferencelistmodel.js';
-import ListCollectorModel from '../ui/listcollectormodel.js';
-import Presets from 'presets';
-import ValueModel from '../core/valuemodel.js';
-let TimeMachine;
+import Model from '../core/model.js'
+import RefLog from './reflog.js'
+import KeyModel from './keymodel.js'
+import CommitModel from './commitmodel.js'
+import ListModel from '../list/listmodel.js'
+import Query from './query.js'
+import SortedReferenceListModel from '../list/sortedreferencelistmodel.js'
+import ListCollectorModel from '../ui/listcollectormodel.js'
+import Presets from 'presets'
+import ValueModel from '../core/valuemodel.js'
+let TimeMachine
 
 /**
  * Constructor
  */
 class TimeMachineModel extends Model {
-  constructor() {
-    let latestKey;
-    super();
-    latestKey = RefLog.getLatestGlobalKey();
+  constructor () {
+    let latestKey
+    super()
+    latestKey = RefLog.getLatestGlobalKey()
 
     /*
      * unsortedRoots: base list
      */
-    this.unsortedRoots = new ListModel();
+    this.unsortedRoots = new ListModel()
 
     /*
      * roots: reference list. Use this one :-)
      */
-    this.roots = new SortedReferenceListModel(this.unsortedRoots, CommitModel.sortFunction);
-    this.rootsCollector = new ListCollectorModel(this.unsortedRoots, CommitModel);
-    this.rootsCollector.registerListener(this);
-    RefLog.registerListener(this);
-    this.updateRoots();
+    this.roots = new SortedReferenceListModel(this.unsortedRoots, CommitModel.sortFunction)
+    this.rootsCollector = new ListCollectorModel(this.unsortedRoots, CommitModel)
+    this.rootsCollector.registerListener(this)
+    RefLog.registerListener(this)
+    this.updateRoots()
 
     /*
      * commit is the current commit.
      */
-    this.commit = new ValueModel(undefined);
+    this.commit = new ValueModel(undefined)
     if (latestKey) {
-      this.commit.set(new CommitModel(latestKey));
+      this.commit.set(new CommitModel(latestKey))
     } else {
-      console.info('No saved tournament found.');
+      console.info('No saved tournament found.')
     }
   }
 
@@ -48,23 +48,23 @@ class TimeMachineModel extends Model {
    * re-read the roots from the reflog and update this.unsortedRoots, which
    * reflects on this.roots
    */
-  updateRoots() {
-    let rootCommits, rootKeyStrings, index, keyString;
+  updateRoots () {
+    let rootCommits, rootKeyStrings, index, keyString
     rootCommits = RefLog.getInitKeys().map(function (key) {
-      return new CommitModel(key);
-    });
+      return new CommitModel(key)
+    })
     rootKeyStrings = rootCommits.map(function (commit) {
-      return commit.key.toString();
-    });
+      return commit.key.toString()
+    })
 
     /*
      * remove old commits
      */
     for (index = this.unsortedRoots.length - 1; index >= 0; index -= 1) {
-      keyString = this.unsortedRoots.get(index).key.toString();
+      keyString = this.unsortedRoots.get(index).key.toString()
       if (rootKeyStrings.indexOf(keyString) === -1) {
-        this.unsortedRoots.get(index).destroy();
-        this.unsortedRoots.remove(index);
+        this.unsortedRoots.get(index).destroy()
+        this.unsortedRoots.remove(index)
       }
     }
 
@@ -72,14 +72,14 @@ class TimeMachineModel extends Model {
      * add new commits
      */
     rootKeyStrings = this.unsortedRoots.map(function (commit) {
-      return commit.key.toString();
-    });
+      return commit.key.toString()
+    })
     rootCommits.forEach(function (commit) {
-      keyString = commit.key.toString();
+      keyString = commit.key.toString()
       if (rootKeyStrings.indexOf(keyString) === -1) {
-        this.unsortedRoots.push(commit);
+        this.unsortedRoots.push(commit)
       }
-    }, this);
+    }, this)
   }
 
   /**
@@ -89,11 +89,11 @@ class TimeMachineModel extends Model {
    *          the string to save
    * @return the associated root commit
    */
-  init(state, name) {
-    this.commit.set(CommitModel.createRoot(state, name || Presets.target));
-    this.emit('init', this.commit.get());
-    this.updateRoots();
-    return this.commit.get();
+  init (state, name) {
+    this.commit.set(CommitModel.createRoot(state, name || Presets.target))
+    this.emit('init', this.commit.get())
+    this.updateRoots()
+    return this.commit.get()
   }
 
   /**
@@ -107,18 +107,18 @@ class TimeMachineModel extends Model {
    *
    * @return the generated key
    */
-  save(state) {
+  save (state) {
     if (this.commit.get() && this.commit.get().isValid()) {
       if (state === this.commit.get().load()) {
-        return this.commit.get(); // no change in data. Nothing to save here.
+        return this.commit.get() // no change in data. Nothing to save here.
       }
-      this.commit.set(this.commit.get().createChild(state));
+      this.commit.set(this.commit.get().createChild(state))
     } else {
-      this.commit.set(undefined);
-      return undefined;
+      this.commit.set(undefined)
+      return undefined
     }
-    this.emit('save', this.commit.get());
-    return this.commit.get();
+    this.emit('save', this.commit.get())
+    return this.commit.get()
   }
 
   /**
@@ -129,65 +129,65 @@ class TimeMachineModel extends Model {
    * @return undefined on load error, the localStorage content otherwise
    *         (serialized save state)
    */
-  load(commit) {
-    let data;
+  load (commit) {
+    let data
     if (commit === undefined && this.isInitialized()) {
-      return this.commit.get().load();
+      return this.commit.get().load()
     }
-    this.unload();
+    this.unload()
     if (!(commit instanceof CommitModel) || !commit.isValid()) {
-      return undefined;
+      return undefined
     }
-    data = commit.load();
+    data = commit.load()
     if (data) {
-      this.commit.set(commit);
-      this.emit('load', data);
+      this.commit.set(commit)
+      this.emit('load', data)
     }
-    return data;
+    return data
   }
 
   /**
    * resets the currently active commit.
    */
-  unload() {
-    this.commit.set(undefined);
-    this.emit('unload');
+  unload () {
+    this.commit.set(undefined)
+    this.emit('unload')
   }
 
-  getOrphans() {
-    let query, orphanedCommits;
+  getOrphans () {
+    let query, orphanedCommits
 
     /*
      * check all localStorage keys
      */
-    query = new Query(Query.ALLKEYS);
+    query = new Query(Query.ALLKEYS)
     orphanedCommits = query.filter().map(function (keyString) {
-      return new CommitModel(keyString);
+      return new CommitModel(keyString)
     }).filter(function (commit) {
-      return !commit.isValid();
-    });
+      return !commit.isValid()
+    })
 
     /*
      * check all reflog entries
      */
     orphanedCommits = orphanedCommits.concat(RefLog.getAllKeys().map(function (key) {
-      return new CommitModel(key);
+      return new CommitModel(key)
     }).filter(function (commit) {
-      return !commit.isValid();
-    }));
-    return orphanedCommits.sort(CommitModel.sortFunction);
+      return !commit.isValid()
+    }))
+    return orphanedCommits.sort(CommitModel.sortFunction)
   }
 
-  isInitialized() {
-    return !!this.commit.get();
+  isInitialized () {
+    return !!this.commit.get()
   }
 
-  isActive(commit) {
-    return !!this.commit.get() && !!commit && this.commit.get().key.isEqual(commit.key);
+  isActive (commit) {
+    return !!this.commit.get() && !!commit && this.commit.get().key.isEqual(commit.key)
   }
 
-  isRelatedToActive(commit) {
-    return !!this.commit.get() && !!commit && this.commit.get().key.isRelated(commit.key);
+  isRelatedToActive (commit) {
+    return !!this.commit.get() && !!commit && this.commit.get().key.isRelated(commit.key)
   }
 
   /**
@@ -198,20 +198,20 @@ class TimeMachineModel extends Model {
    *          any commit of the tree to investigate
    * @return the size in the localStorage, in unicode symbols.
    */
-  usedRelatedStorage(commit) {
-    let total, query;
-    total = 0;
-    query = new Query(commit.key);
+  usedRelatedStorage (commit) {
+    let total, query
+    total = 0
+    query = new Query(commit.key)
     query.filter().forEach(function (key) {
-      let data;
+      let data
       if (window.localStorage) {
-        data = window.localStorage[key] || '';
+        data = window.localStorage[key] || ''
       } else {
-        data = '';
+        data = ''
       }
-      total += data.length;
-    });
-    return total;
+      total += data.length
+    })
+    return total
   }
 
   /**
@@ -220,29 +220,29 @@ class TimeMachineModel extends Model {
    * @return an object, where object[target] == size for each of the currently
    *         stored targets, and where object.total is the total of all targets
    */
-  usedStorage() {
-    let tuveroQuery, targetSizes, total;
-    targetSizes = {};
-    tuveroQuery = new Query(Query.ALLTUVEROKEYS);
+  usedStorage () {
+    let tuveroQuery, targetSizes, total
+    targetSizes = {}
+    tuveroQuery = new Query(Query.ALLTUVEROKEYS)
     tuveroQuery.filter().forEach(function (key) {
-      let target, data;
-      target = key.split('_')[0];
+      let target, data
+      target = key.split('_')[0]
       if (window.localStorage) {
-        data = window.localStorage[key] || '';
+        data = window.localStorage[key] || ''
       } else {
-        data = '';
+        data = ''
       }
-      targetSizes[target] = (targetSizes[target] || 0) + data.length;
-    });
-    total = 0;
+      targetSizes[target] = (targetSizes[target] || 0) + data.length
+    })
+    total = 0
     if (window.localStorage) {
       Object.keys(targetSizes).forEach(function (target) {
-        targetSizes[target] += (window.localStorage[RefLog.formatTargetKey(target)] || '').length;
-        total += targetSizes[target];
-      });
+        targetSizes[target] += (window.localStorage[RefLog.formatTargetKey(target)] || '').length
+        total += targetSizes[target]
+      })
     }
-    targetSizes.total = total;
-    return targetSizes;
+    targetSizes.total = total
+    return targetSizes
   }
 
   /**
@@ -257,20 +257,20 @@ class TimeMachineModel extends Model {
    * @param keepNum
    *          the number of commits to keep, excluding root and latest
    */
-  cleanup(relatedCommit, keepNum) {
-    let query, relatedKeys;
+  cleanup (relatedCommit, keepNum) {
+    let query, relatedKeys
     if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
-      return;
+      return
     }
-    query = new Query(relatedCommit.key);
-    relatedKeys = query.filter();
-    relatedKeys.shift(); // don't delete the root key
-    relatedKeys.pop(); // don't delete the latest key
+    query = new Query(relatedCommit.key)
+    relatedKeys = query.filter()
+    relatedKeys.shift() // don't delete the root key
+    relatedKeys.pop() // don't delete the latest key
 
     while (relatedKeys.length > keepNum) {
-      new CommitModel(relatedKeys.shift()).remove();
+      new CommitModel(relatedKeys.shift()).remove()
     }
-    this.emit('cleanup', relatedCommit);
+    this.emit('cleanup', relatedCommit)
   }
 
   /**
@@ -284,26 +284,26 @@ class TimeMachineModel extends Model {
    * @param data
    *          {source: removed_commit}
    */
-  onremove(event, emitter, data) {
+  onremove (event, emitter, data) {
     if (data.source.isRoot()) {
-      const index = this.unsortedRoots.indexOf(data.source);
-      this.unsortedRoots.get(index).destroy();
-      this.unsortedRoots.remove(index);
+      const index = this.unsortedRoots.indexOf(data.source)
+      this.unsortedRoots.get(index).destroy()
+      this.unsortedRoots.remove(index)
     }
   }
 
-  onrefresh(event, emitter, data) {
-    this.updateRoots();
+  onrefresh (event, emitter, data) {
+    this.updateRoots()
   }
 }
 
 TimeMachineModel.prototype.EVENTS = {
-  'init': true,
-  'save': true,
-  'cleanup': true,
-  'load': true,
-  'unload': true
-};
+  init: true,
+  save: true,
+  cleanup: true,
+  load: true,
+  unload: true
+}
 
-TimeMachine = new TimeMachineModel();
-export default TimeMachine;
+TimeMachine = new TimeMachineModel()
+export default TimeMachine

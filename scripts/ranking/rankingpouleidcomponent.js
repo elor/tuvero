@@ -1,20 +1,20 @@
-import RankingComponent from './rankingcomponent.js';
+import RankingComponent from './rankingcomponent.js'
 
 class RankingPouleIDComponent extends RankingComponent {
-  constructor(ranking, nextcomponent) {
-    super(ranking, nextcomponent);
+  constructor (ranking, nextcomponent) {
+    super(ranking, nextcomponent)
   }
 
-  value(i) {
-    return Number(this.ranking.pouleid.get(i)) + 1;
+  value (i) {
+    return Number(this.ranking.pouleid.get(i)) + 1
   }
 
-  compare(i, k) {
-    return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k);
+  compare (i, k) {
+    return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k)
   }
 
-  static NAME = 'pouleid';
-  static DEPENDENCIES = undefined;
+  static NAME = 'pouleid'
+  static DEPENDENCIES = undefined
 }
 
-export default RankingPouleIDComponent;
+export default RankingPouleIDComponent

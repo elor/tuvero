@@ -1,5 +1,5 @@
-import Model from '../core/model.js';
-import Listener from '../core/listener.js';
+import Model from '../core/model.js'
+import Listener from '../core/listener.js'
 
 /**
  * Constructor
@@ -10,12 +10,12 @@ import Listener from '../core/listener.js';
  *          the constructor of all contained elements
  */
 class ListCollectorModel extends Model {
-  constructor(list, ContentModel) {
-    super();
-    this.list = list;
-    this.createListListener();
-    this.createEventCallbacks(ContentModel);
-    this.registerExistingElements();
+  constructor (list, ContentModel) {
+    super()
+    this.list = list
+    this.createListListener()
+    this.createEventCallbacks(ContentModel)
+    this.registerExistingElements()
   }
 
   /**
@@ -24,17 +24,17 @@ class ListCollectorModel extends Model {
    * whenever list elements are added or removed, the collector is registered or
    * unregistered from their emitters
    */
-  createListListener() {
-    this.listener = new Listener(this.list);
-    this.listener.collector = this;
-    this.listener.list = this.list;
+  createListListener () {
+    this.listener = new Listener(this.list)
+    this.listener.collector = this
+    this.listener.list = this.list
 
     /**
      * register to inserted emitters
      */
     this.listener.oninsert = function (emitter, event, data) {
-      data.object.registerListener(this.collector);
-    };
+      data.object.registerListener(this.collector)
+    }
 
     /**
      * unregister from removed emitters
@@ -42,9 +42,9 @@ class ListCollectorModel extends Model {
     this.listener.onremove = function (emitter, event, data) {
       // avoid the unregistration of multiply inserted emitters
       if (this.list.indexOf(data.object) === -1) {
-        data.object.unregisterListener(this.collector);
+        data.object.unregisterListener(this.collector)
       }
-    };
+    }
   }
 
   /**
@@ -56,13 +56,13 @@ class ListCollectorModel extends Model {
    * @param ContentModel
    *          the class of which the list elements are instances
    */
-  createEventCallbacks(ContentModel) {
-    let event;
-    this.EVENTS = {};
+  createEventCallbacks (ContentModel) {
+    let event
+    this.EVENTS = {}
     for (event in ContentModel.prototype.EVENTS) {
       if (ContentModel.prototype.EVENTS[event]) {
-        this.EVENTS[event] = true;
-        this['on' + event] = ListCollectorModel.PROXYCALLBACK;
+        this.EVENTS[event] = true
+        this['on' + event] = ListCollectorModel.PROXYCALLBACK
       }
     }
   }
@@ -71,10 +71,10 @@ class ListCollectorModel extends Model {
    * For every element, register a listener. Should only be used during the
    * constructor call
    */
-  registerExistingElements() {
+  registerExistingElements () {
     this.list.map(function (emitter) {
-      emitter.registerListener(this);
-    }, this);
+      emitter.registerListener(this)
+    }, this)
   }
 
   /**
@@ -92,16 +92,16 @@ class ListCollectorModel extends Model {
    * @param data
    *          an optional data object
    */
-  static PROXYCALLBACK(emitter, event, data) {
+  static PROXYCALLBACK (emitter, event, data) {
     if (!data || typeof data !== 'object') {
-      data = {};
+      data = {}
     }
     // TODO get rid of "source" field
     if (!data.source) {
-      data.source = emitter;
+      data.source = emitter
     }
-    this.emit(event, data);
+    this.emit(event, data)
   }
 }
 
-export default ListCollectorModel;
+export default ListCollectorModel

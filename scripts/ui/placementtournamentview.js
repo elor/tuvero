@@ -1,9 +1,9 @@
-import TournamentView from './tournamentview.js';
+import TournamentView from './tournamentview.js'
 
 class PlacementTournamentView extends TournamentView {
-  constructor(model, $view, tournaments) {
-    super(model, $view, tournaments);
+  constructor (model, $view, tournaments) {
+    super(model, $view, tournaments)
   }
 }
 
-export default PlacementTournamentView;
+export default PlacementTournamentView

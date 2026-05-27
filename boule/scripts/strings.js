@@ -11,4 +11,4 @@ export default {
   variant: 'Boule',
   matchplace: 'Bahn',
   matchplaces: 'Bahnen'
-};
+}

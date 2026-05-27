@@ -9,53 +9,53 @@
  * @license MIT License
  * @see LICENSE
  */
-import TabMenuView from '../core/tabmenuview.js';
-import $ from 'jquery';
-let tabmenu, TabsHandle;
+import TabMenuView from '../core/tabmenuview.js'
+import $ from 'jquery'
+let tabmenu, TabsHandle
 tabmenu = {
   getTabModel: function () {
-    return undefined;
+    return undefined
   }
-};
+}
 $(function () {
   if ($('#tabs').length === 1 && $('#testmain').length === 0) {
-    tabmenu = new TabMenuView($('#tabs'));
+    tabmenu = new TabMenuView($('#tabs'))
   }
-});
+})
 TabsHandle = {
   hide: function (tabname) {
-    const tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname)
     if (!tab) {
-      return;
+      return
     }
-    tab.visibility.set(false);
-    tab.accessibility.set(false);
+    tab.visibility.set(false)
+    tab.accessibility.set(false)
   },
   show: function (tabname) {
-    const tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname)
     if (!tab) {
-      return;
+      return
     }
-    tab.visibility.set(true);
-    tab.accessibility.set(true);
+    tab.visibility.set(true)
+    tab.accessibility.set(true)
   },
   secret: function (tabname) {
-    const tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname)
     if (!tab) {
-      return;
+      return
     }
-    tab.visibility.set(false);
-    tab.accessibility.set(true);
+    tab.visibility.set(false)
+    tab.accessibility.set(true)
   },
   focus: function (tabname) {
-    tabmenu.focus(tabname);
+    tabmenu.focus(tabname)
   },
   bindTabOpts: function (tabname, valueModel) {
-    const tab = tabmenu.getTabModel(tabname);
+    const tab = tabmenu.getTabModel(tabname)
     if (!tab) {
-      return undefined;
+      return undefined
     }
-    tab.imgParam.bind(valueModel);
+    tab.imgParam.bind(valueModel)
   }
-};
-export default TabsHandle;
+}
+export default TabsHandle

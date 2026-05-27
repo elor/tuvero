@@ -10,8 +10,8 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
 
 /**
  * Constructor
@@ -20,23 +20,23 @@ import Controller from '../core/controller.js';
  *          a valid RankingOrderView instance
  */
 class RankingOrderController extends Controller {
-  constructor(view) {
-    super(view);
-    const tournament = this.model;
-    const allComponents = this.view.allComponents;
+  constructor (view) {
+    super(view)
+    const tournament = this.model
+    const allComponents = this.view.allComponents
     this.view.$selectedList.on('click', '.component', function () {
-      const components = tournament.ranking.componentnames;
-      components.splice($(this).index(), 1);
-      tournament.setRankingOrder(components);
-      view.updateFromScratch();
-    });
+      const components = tournament.ranking.componentnames
+      components.splice($(this).index(), 1)
+      tournament.setRankingOrder(components)
+      view.updateFromScratch()
+    })
     this.view.$availableList.on('click', '.component', function () {
-      const components = tournament.ranking.componentnames;
-      components.push(allComponents.get($(this).index()));
-      tournament.setRankingOrder(components);
-      view.updateFromScratch();
-    });
+      const components = tournament.ranking.componentnames
+      components.push(allComponents.get($(this).index()))
+      tournament.setRankingOrder(components)
+      view.updateFromScratch()
+    })
   }
 }
 
-export default RankingOrderController;
+export default RankingOrderController

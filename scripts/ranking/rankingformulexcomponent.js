@@ -1,4 +1,4 @@
-import RankingComponent from './rankingcomponent.js';
+import RankingComponent from './rankingcomponent.js'
 
 /**
  * Constructor
@@ -9,8 +9,8 @@ import RankingComponent from './rankingcomponent.js';
  *          the next component in the chain
  */
 class RankingFormuleXComponent extends RankingComponent {
-  constructor(ranking, nextcomponent) {
-    super(ranking, nextcomponent);
+  constructor (ranking, nextcomponent) {
+    super(ranking, nextcomponent)
   }
 
   /**
@@ -18,11 +18,11 @@ class RankingFormuleXComponent extends RankingComponent {
   *          a team index
   * @return the point difference, aka. formulex points
   */
-  value(i) {
-    return this.ranking.formulex.get(i);
+  value (i) {
+    return this.ranking.formulex.get(i)
   }
 
-  static NAME = 'formulex';
+  static NAME = 'formulex'
 }
 
-export default RankingFormuleXComponent;
+export default RankingFormuleXComponent

@@ -1,4 +1,4 @@
-import RankingComponent from './rankingcomponent.js';
+import RankingComponent from './rankingcomponent.js'
 
 /**
  * Constructor
@@ -9,8 +9,8 @@ import RankingComponent from './rankingcomponent.js';
  *          the next component in the component chain
  */
 class RankingHeadToHeadComponent extends RankingComponent {
-  constructor(ranking, nextcomponent) {
-    super(ranking, nextcomponent);
+  constructor (ranking, nextcomponent) {
+    super(ranking, nextcomponent)
   }
 
   /**
@@ -19,11 +19,11 @@ class RankingHeadToHeadComponent extends RankingComponent {
   * @return the headtohead value, i.e. how often the team has won against
   *         another with the same number of wins
   */
-  value(i) {
-    return this.ranking.headtohead.get(i) || '';
+  value (i) {
+    return this.ranking.headtohead.get(i) || ''
   }
 
-  static NAME = 'headtohead';
+  static NAME = 'headtohead'
 }
 
-export default RankingHeadToHeadComponent;
+export default RankingHeadToHeadComponent

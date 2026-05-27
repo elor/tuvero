@@ -1,4 +1,4 @@
-import ListModel from './listmodel.js';
+import ListModel from './listmodel.js'
 
 /**
  * Constructor
@@ -12,16 +12,16 @@ import ListModel from './listmodel.js';
  *          the constructor arguments, and creates a reference to the model
  */
 class ReferenceListModel extends ListModel {
-  constructor(matchlist, teamlist, ReferenceModel) {
-    super();
-    this.makeReadonly();
-    this.matches = matchlist;
-    this.teams = teamlist;
-    this.ReferenceModel = ReferenceModel;
+  constructor (matchlist, teamlist, ReferenceModel) {
+    super()
+    this.makeReadonly()
+    this.matches = matchlist
+    this.teams = teamlist
+    this.ReferenceModel = ReferenceModel
     this.matches.map(function (match, id) {
-      ReferenceListModel.insertMatch(this, id);
-    }, this);
-    this.matches.registerListener(this);
+      ReferenceListModel.insertMatch(this, id)
+    }, this)
+    this.matches.registerListener(this)
   }
 
   /**
@@ -31,9 +31,9 @@ class ReferenceListModel extends ListModel {
    * @param event
    * @param data
    */
-  oninsert(emitter, event, data) {
+  oninsert (emitter, event, data) {
     if (emitter === this.matches) {
-      ReferenceListModel.insertMatch(this, data.id);
+      ReferenceListModel.insertMatch(this, data.id)
     }
   }
 
@@ -44,9 +44,9 @@ class ReferenceListModel extends ListModel {
    * @param event
    * @param data
    */
-  onremove(emitter, event, data) {
+  onremove (emitter, event, data) {
     if (emitter === this.matches) {
-      ReferenceListModel.removeMatch(this, data.id);
+      ReferenceListModel.removeMatch(this, data.id)
     }
   }
 
@@ -57,9 +57,9 @@ class ReferenceListModel extends ListModel {
    * @param event
    * @param data
    */
-  onreset(emitter, event, data) {
+  onreset (emitter, event, data) {
     if (emitter === this.matches) {
-      this.emit(event, data);
+      this.emit(event, data)
     }
   }
 
@@ -71,10 +71,10 @@ class ReferenceListModel extends ListModel {
    * @param id
    *          the id to insert at
    */
-  static insertMatch(referenceList, id) {
-    let ref;
-    ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams);
-    ListModel.prototype.insert.call(referenceList, id, ref);
+  static insertMatch (referenceList, id) {
+    let ref
+    ref = new referenceList.ReferenceModel(referenceList.matches.get(id), referenceList.teams)
+    ListModel.prototype.insert.call(referenceList, id, ref)
   }
 
   /**
@@ -85,8 +85,8 @@ class ReferenceListModel extends ListModel {
    * @param id
    *          the id to remove
    */
-  static removeMatch(list, id) {
-    ListModel.prototype.remove.call(list, id);
+  static removeMatch (list, id) {
+    ListModel.prototype.remove.call(list, id)
   }
 }
 
@@ -96,4 +96,4 @@ class ReferenceListModel extends ListModel {
  * There's no need to intercept onresize, because the remove and insert
  * functions automatically emit resize events.
  */
-export default ReferenceListModel;
+export default ReferenceListModel

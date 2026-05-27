@@ -1,63 +1,63 @@
-import RenameController from './renamecontroller.js';
-import Toast from './toast.js';
-import Strings from './strings.js';
-import State from './state.js';
-import TabsHandle from './tabshandle.js';
+import RenameController from './renamecontroller.js'
+import Toast from './toast.js'
+import Strings from './strings.js'
+import State from './state.js'
+import TabsHandle from './tabshandle.js'
 
 class TeamController extends RenameController {
-  constructor(view, $input) {
-    super(view);
-    this.view.$view.find('.teamno').click(this.openModal.bind(this));
+  constructor (view, $input) {
+    super(view)
+    this.view.$view.find('.teamno').click(this.openModal.bind(this))
   }
 
-  getPlayer($name) {
-    let index, $names;
-    $names = this.view.$view.find('.name');
+  getPlayer ($name) {
+    let index, $names
+    $names = this.view.$view.find('.name')
     if ($names.length === 0) {
-      $names = this.view.$view.filter('.name');
+      $names = this.view.$view.filter('.name')
     }
-    index = $names.index($name);
-    return this.model.getPlayer(index);
+    index = $names.index($name)
+    return this.model.getPlayer(index)
   }
 
-  getNameModel($anchor) {
+  getNameModel ($anchor) {
     if (this.$anchor.hasClass('teamname')) {
-      return this.model;
+      return this.model
     } else {
-      return this.getPlayer(this.$anchor);
+      return this.getPlayer(this.$anchor)
     }
   }
 
-  getName() {
-    let nameModel;
+  getName () {
+    let nameModel
     if (!this.$anchor) {
-      return '';
+      return ''
     }
-    nameModel = this.getNameModel(this.$anchor);
-    return nameModel.getName();
+    nameModel = this.getNameModel(this.$anchor)
+    return nameModel.getName()
   }
 
-  setName(name) {
-    let nameModel;
+  setName (name) {
+    let nameModel
     if (!this.$anchor) {
-      return false;
+      return false
     }
-    nameModel = this.getNameModel(this.$anchor);
-    nameModel.setName(name);
-    return true;
+    nameModel = this.getNameModel(this.$anchor)
+    nameModel.setName(name)
+    return true
   }
 
-  openModal() {
-    State.focusedteam.set(this.model);
-    TabsHandle.focus('team');
+  openModal () {
+    State.focusedteam.set(this.model)
+    TabsHandle.focus('team')
   }
 
-  destroy() {
+  destroy () {
     if (State.focusedteam.get() === this.model) {
-      State.focusedteam.set(undefined);
+      State.focusedteam.set(undefined)
     }
-    super.destroy();
+    super.destroy()
   }
 }
 
-export default TeamController;
+export default TeamController

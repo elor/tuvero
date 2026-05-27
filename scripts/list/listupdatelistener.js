@@ -1,4 +1,4 @@
-import Listener from '../core/listener.js';
+import Listener from '../core/listener.js'
 
 /**
  * Constructor
@@ -9,9 +9,9 @@ import Listener from '../core/listener.js';
  *          the callback function of format function(data) { }
  */
 class ListUpdateListener extends Listener {
-  constructor(list, callback) {
-    super(list);
-    this.callback = callback;
+  constructor (list, callback) {
+    super(list)
+    this.callback = callback
   }
 
   /**
@@ -24,8 +24,8 @@ class ListUpdateListener extends Listener {
    * @param data
    *          a data object
    */
-  update(emitter, event, data) {
-    this.callback.call(emitter, data);
+  update (emitter, event, data) {
+    this.callback.call(emitter, data)
   }
 
   /**
@@ -37,15 +37,15 @@ class ListUpdateListener extends Listener {
    *          a callback function of the format function(data)
    * @return a valid ListUpdateListener instance on success
    */
-  static bind(list, callback) {
-    return new ListUpdateListener(list, callback);
+  static bind (list, callback) {
+    return new ListUpdateListener(list, callback)
   }
 }
 
 /**
  * collect different event types
  */
-ListUpdateListener.prototype.onremove = ListUpdateListener.prototype.update;
-ListUpdateListener.prototype.onreset = ListUpdateListener.prototype.update;
-ListUpdateListener.prototype.oninsert = ListUpdateListener.prototype.update;
-export default ListUpdateListener;
+ListUpdateListener.prototype.onremove = ListUpdateListener.prototype.update
+ListUpdateListener.prototype.onreset = ListUpdateListener.prototype.update
+ListUpdateListener.prototype.oninsert = ListUpdateListener.prototype.update
+export default ListUpdateListener

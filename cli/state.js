@@ -38,17 +38,17 @@ function parseState (savedState) {
     requirejs.config({
       baseUrl: '../scripts',
       paths: {
-        'options': baseDir + 'options',
-        'presets': baseDir + 'presets',
-        'strings': baseDir + 'strings'
+        options: baseDir + 'options',
+        presets: baseDir + 'presets',
+        strings: baseDir + 'strings'
       }
     })
 
     requirejs(['core/config'], function (config) {
-      let StateModel = requirejs('ui/statemodel')
-      let Listener = requirejs('core/listener')
+      const StateModel = requirejs('ui/statemodel')
+      const Listener = requirejs('core/listener')
 
-      let State = new StateModel()
+      const State = new StateModel()
 
       Listener.bind(State, 'error', function (emitter, event, data) {
         reject(data)

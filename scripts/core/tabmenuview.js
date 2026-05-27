@@ -19,15 +19,15 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from './view.js';
-import TabMenuController from './tabmenucontroller.js';
-import ListModel from '../list/listmodel.js';
-import SelectionValueModel from './selectionvaluemodel.js';
-import TabModel from './tabmodel.js';
-import ClassView from './classview.js';
-import TabImageView from './tabimageview.js';
-import ListExclusionListener from '../list/listexclusionlistener.js';
+import $ from 'jquery'
+import View from './view.js'
+import TabMenuController from './tabmenucontroller.js'
+import ListModel from '../list/listmodel.js'
+import SelectionValueModel from './selectionvaluemodel.js'
+import TabModel from './tabmodel.js'
+import ClassView from './classview.js'
+import TabImageView from './tabimageview.js'
+import ListExclusionListener from '../list/listexclusionlistener.js'
 
 /**
  * Constructor
@@ -36,68 +36,68 @@ import ListExclusionListener from '../list/listexclusionlistener.js';
  *          associated DOM element
  */
 class TabMenuView extends View {
-  constructor($view) {
-    const tabnames = new ListModel();
-    super(new SelectionValueModel(undefined, tabnames), $view);
-    this.tabnames = tabnames;
-    this.keys = {};
-    this.$tabs = {};
-    this.$tabicons = {};
-    this.tabmodels = {};
-    this.$menu = undefined;
-    this.tabmodels = {};
-    this.initTabs();
-    this.controller = new TabMenuController(this);
+  constructor ($view) {
+    const tabnames = new ListModel()
+    super(new SelectionValueModel(undefined, tabnames), $view)
+    this.tabnames = tabnames
+    this.keys = {}
+    this.$tabs = {}
+    this.$tabicons = {}
+    this.tabmodels = {}
+    this.$menu = undefined
+    this.tabmodels = {}
+    this.initTabs()
+    this.controller = new TabMenuController(this)
   }
 
   /**
    * Perform all initializations
    */
-  initTabs() {
-    this.extractTabNames();
-    this.createTabMenu();
-    this.createTabModels();
-    this.readDefaultTab();
+  initTabs () {
+    this.extractTabNames()
+    this.createTabMenu()
+    this.createTabModels()
+    this.readDefaultTab()
   }
 
   /**
    * read the data-tab of the tabs, remove them and store them in tabnames
    */
-  extractTabNames() {
-    let tabnames, $tabs, keys;
-    tabnames = this.tabnames;
-    $tabs = this.$tabs;
-    keys = this.keys;
+  extractTabNames () {
+    let tabnames, $tabs, keys
+    tabnames = this.tabnames
+    $tabs = this.$tabs
+    keys = this.keys
     this.$view.find('> div').each(function (index) {
-      let $this, tabname;
-      $this = $(this);
-      tabname = $this.attr('data-tab');
-      keys[tabname] = $this.attr('accesskey');
-      $this.removeAttr('accesskey');
-      $tabs[tabname] = $this;
-      tabnames.push(tabname);
-    });
+      let $this, tabname
+      $this = $(this)
+      tabname = $this.attr('data-tab')
+      keys[tabname] = $this.attr('accesskey')
+      $this.removeAttr('accesskey')
+      $tabs[tabname] = $this
+      tabnames.push(tabname)
+    })
   }
 
   /**
    * For every extracted tabname, create and bind a TabModel which controls the
    * visibility, accessibility and image parameter
    */
-  createTabModels() {
+  createTabModels () {
     this.tabnames.map(function (tabname) {
       /*
        * Using a throwaway tmp variable to avoid unjustified Lint warnings, but
        * keep them active for other parts of the code. This is bad coding, but I
        * don't want another reference outside of emitters and listeners.
        */
-      let tmp, model;
-      model = new TabModel();
-      this.tabmodels[tabname] = model;
-      tmp = new ClassView(model.visibility, this.$tabicons[tabname], undefined, 'hidden');
-      tmp = new TabImageView(tabname, model.imgParam, this.$tabicons[tabname]);
-      tmp = new ListExclusionListener(model.accessibility, this.tabnames, tabname);
-      return tmp;
-    }, this);
+      let tmp, model
+      model = new TabModel()
+      this.tabmodels[tabname] = model
+      tmp = new ClassView(model.visibility, this.$tabicons[tabname], undefined, 'hidden')
+      tmp = new TabImageView(tabname, model.imgParam, this.$tabicons[tabname])
+      tmp = new ListExclusionListener(model.accessibility, this.tabnames, tabname)
+      return tmp
+    }, this)
   }
 
   /**
@@ -111,9 +111,9 @@ class TabMenuView extends View {
    * If you do, I urge you to adjust the code somehow. Hook into the events of
    * this.tabnames or this.model to get a new default tab.
    */
-  readDefaultTab() {
+  readDefaultTab () {
     // This implicitly calls onupdate()
-    this.model.setDefault(this.tabnames.get(0));
+    this.model.setDefault(this.tabnames.get(0))
   }
 
   /**
@@ -123,46 +123,46 @@ class TabMenuView extends View {
    *          the tab name
    * @return undefined on failure, the associated tab model otherwise
    */
-  getTabModel(tabname) {
-    return this.tabmodels[tabname];
+  getTabModel (tabname) {
+    return this.tabmodels[tabname]
   }
 
   /**
    * create and add the menu to the DOM
    */
-  createTabMenu() {
-    this.$menu = $('<span>').addClass('tabmenu');
+  createTabMenu () {
+    this.$menu = $('<span>').addClass('tabmenu')
     this.tabnames.map(function (tabname) {
-      const $tab = $('<a>').attr('tabindex', -1);
-      $tab.attr('href', '#' + tabname);
+      const $tab = $('<a>').attr('tabindex', -1)
+      $tab.attr('href', '#' + tabname)
       if (this.keys[tabname]) {
-        $tab.attr('accesskey', this.keys[tabname]);
+        $tab.attr('accesskey', this.keys[tabname])
       }
-      this.$tabicons[tabname] = $tab;
-      this.$menu.append($tab);
-    }, this);
-    this.$view.before(this.$menu);
+      this.$tabicons[tabname] = $tab
+      this.$menu.append($tab)
+    }, this)
+    this.$view.before(this.$menu)
   }
 
   /**
    * shows the currently active tab
    */
-  update() {
-    let tabname;
+  update () {
+    let tabname
 
     // guaranteed to be a valid index, because of SelectionValueModel
-    tabname = this.model.get();
-    this.$view.find('>.open').removeClass('open');
-    this.$menu.find('>.open').removeClass('open');
-    this.$tabs[tabname].addClass('open');
-    this.$tabicons[tabname].addClass('open');
+    tabname = this.model.get()
+    this.$view.find('>.open').removeClass('open')
+    this.$menu.find('>.open').removeClass('open')
+    this.$tabs[tabname].addClass('open')
+    this.$tabicons[tabname].addClass('open')
   }
 
   /**
    * Callback Listener for SelectionValueModel changes
    */
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 
   /**
@@ -171,9 +171,9 @@ class TabMenuView extends View {
    * @param tabname
    *          the tab to focus
    */
-  focus(tabname) {
-    this.controller.focus(tabname);
+  focus (tabname) {
+    this.controller.focus(tabname)
   }
 }
 
-export default TabMenuView;
+export default TabMenuView

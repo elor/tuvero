@@ -7,13 +7,13 @@
  * @license MIT License
  * @see LICENSE
  */
-import Type from '../core/type.js';
-import RoundTournamentModel from './roundtournamentmodel.js';
-import SwissTournamentModel from './swisstournamentmodel.js';
-import KOTournamentModel from './kotournamentmodel.js';
-import PlacementTournamentModel from './placementtournamentmodel.js';
-import PoulesTournamentModel from './poulestournamentmodel.js';
-import FormuleXTournamentModel from './formulextournamentmodel.js';
+import Type from '../core/type.js'
+import RoundTournamentModel from './roundtournamentmodel.js'
+import SwissTournamentModel from './swisstournamentmodel.js'
+import KOTournamentModel from './kotournamentmodel.js'
+import PlacementTournamentModel from './placementtournamentmodel.js'
+import PoulesTournamentModel from './poulestournamentmodel.js'
+import FormuleXTournamentModel from './formulextournamentmodel.js'
 
 const allTournamentModels = [
   RoundTournamentModel,
@@ -22,16 +22,16 @@ const allTournamentModels = [
   PlacementTournamentModel,
   PoulesTournamentModel,
   FormuleXTournamentModel
-];
+]
 
-let TournamentIndex, tournamentSystems, i, sys;
-tournamentSystems = {};
+let TournamentIndex, tournamentSystems, i, sys
+tournamentSystems = {}
 for (i = 0; i < allTournamentModels.length; i += 1) {
-  sys = allTournamentModels[i].prototype.SYSTEM;
+  sys = allTournamentModels[i].prototype.SYSTEM
   if (tournamentSystems[sys]) {
-    console.error('ERROR: duplicate tournament sys: ' + sys);
+    console.error('ERROR: duplicate tournament sys: ' + sys)
   }
-  tournamentSystems[sys] = allTournamentModels[i];
+  tournamentSystems[sys] = allTournamentModels[i]
 }
 TournamentIndex = {
   /**
@@ -48,15 +48,15 @@ TournamentIndex = {
     if (Type.isString(system)) {
       // default instantiation by name
       if (tournamentSystems[system]) {
-        return new tournamentSystems[system](rankingorder);
+        return new tournamentSystems[system](rankingorder)
       }
     } else if (Type.isObject(system)) {
       // "restore"-instantiation from savedata
-      return TournamentIndex.createTournament(system.sys);
+      return TournamentIndex.createTournament(system.sys)
     }
-    console.error('TournamentIndex: system not found: ' + system);
-    return undefined;
+    console.error('TournamentIndex: system not found: ' + system)
+    return undefined
   },
   systems: Object.keys(tournamentSystems).sort()
-};
-export default TournamentIndex;
+}
+export default TournamentIndex

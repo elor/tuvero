@@ -1,236 +1,236 @@
-import Model from '../core/model.js';
-import State from './state.js';
-import TeamModel from './teammodel.js';
-import PlayerModel from './playermodel.js';
-import Options from 'options';
-import Presets from 'presets';
-import TournamentIndex from '../tournament/tournamentindex.js';
-import MatchModel from '../core/matchmodel.js';
-import MatchResult from '../core/matchresult.js';
-import ByeResult from '../core/byeresult.js';
-import CorrectionModel from '../core/correctionmodel.js';
-import Toast from './toast.js';
-import RLE from '../core/rle.js';
+import Model from '../core/model.js'
+import State from './state.js'
+import TeamModel from './teammodel.js'
+import PlayerModel from './playermodel.js'
+import Options from 'options'
+import Presets from 'presets'
+import TournamentIndex from '../tournament/tournamentindex.js'
+import MatchModel from '../core/matchmodel.js'
+import MatchResult from '../core/matchresult.js'
+import ByeResult from '../core/byeresult.js'
+import CorrectionModel from '../core/correctionmodel.js'
+import Toast from './toast.js'
+import RLE from '../core/rle.js'
 
 /**
  * Constructor
  */
 class LegacyLoaderModel extends Model {
-  constructor() {
-    super();
+  constructor () {
+    super()
   }
 
-  load(glob) {
-    let tournamentDataArray, tournamentRankingArray;
-    State.clear();
-    console.log('starting conversion');
-    tournamentDataArray = [];
-    tournamentRankingArray = [];
+  load (glob) {
+    let tournamentDataArray, tournamentRankingArray
+    State.clear()
+    console.log('starting conversion')
+    tournamentDataArray = []
+    tournamentRankingArray = []
 
     /*
      * Options
      */
-    this.loadOptions(glob.options);
+    this.loadOptions(glob.options)
 
     /*
      * Teams
      */
-    this.loadTeams(glob.team);
+    this.loadTeams(glob.team)
 
     /*
      * Tournaments
      */
-    this.loadTournaments(glob.tournaments, tournamentDataArray, tournamentRankingArray);
+    this.loadTournaments(glob.tournaments, tournamentDataArray, tournamentRankingArray)
 
     /*
      * History
      */
-    this.loadHistory(glob.history, tournamentDataArray);
+    this.loadHistory(glob.history, tournamentDataArray)
 
     /*
      * Votes
      */
-    this.loadVotes(tournamentDataArray, tournamentRankingArray);
+    this.loadVotes(tournamentDataArray, tournamentRankingArray)
 
     /*
      * additional missing objects, e.g. placeholder matches
      */
-    this.createMissingObjects();
-    console.log('conversion to format 1.5.0 successful');
-    return true;
+    this.createMissingObjects()
+    console.log('conversion to format 1.5.0 successful')
+    return true
   }
 
-  loadTeams(blob) {
-    let teams;
-    console.log('converting teams');
-    teams = JSON.parse(blob);
+  loadTeams (blob) {
+    let teams
+    console.log('converting teams')
+    teams = JSON.parse(blob)
     teams.forEach(function (teamData) {
-      let players, team;
+      let players, team
       players = teamData.names.map(function (playername) {
-        return new PlayerModel(playername);
-      });
-      team = new TeamModel(players);
-      State.teams.push(team);
-      console.log('converting team ' + team.getID() + ': ' + teamData.names.join(', '));
-    });
-    console.log('conversion finished: ' + State.teams.length + ' teams converted');
+        return new PlayerModel(playername)
+      })
+      team = new TeamModel(players)
+      State.teams.push(team)
+      console.log('converting team ' + team.getID() + ': ' + teamData.names.join(', '))
+    })
+    console.log('conversion finished: ' + State.teams.length + ' teams converted')
   }
 
-  loadOptions(blob) {
-    let optionsData;
-    optionsData = JSON.parse(blob);
+  loadOptions (blob) {
+    let optionsData
+    optionsData = JSON.parse(blob)
     if (optionsData.savefile === undefined) {
       if (Presets.target !== 'boule') {
-        Toast.once('cannot load pre-1.4 saves with this target: ' + Presets.target, Toast.LONG);
-        throw new Error('cannot load pre-1.4 saves with this target: ' + Presets.target);
+        Toast.once('cannot load pre-1.4 saves with this target: ' + Presets.target, Toast.LONG)
+        throw new Error('cannot load pre-1.4 saves with this target: ' + Presets.target)
       }
     } else {
       if (optionsData.savefile !== Presets.target + '.json') {
-        Toast.once('cannot convert ' + optionsData.savefile.replace(/.json$/, '') + ' to ' + Presets.target, Toast.LONG);
-        throw new Error('cannot convert ' + optionsData.savefile.replace(/.json$/, '') + ' to ' + Presets.target);
+        Toast.once('cannot convert ' + optionsData.savefile.replace(/.json$/, '') + ' to ' + Presets.target, Toast.LONG)
+        throw new Error('cannot convert ' + optionsData.savefile.replace(/.json$/, '') + ' to ' + Presets.target)
       }
     }
-    console.log('converting options');
-    Options.fromBlob(blob);
-    console.log('converting teamsize');
-    State.teamsize.set(Options.teamsize || 1);
-    console.log('conversion finished: options');
+    console.log('converting options')
+    Options.fromBlob(blob)
+    console.log('converting teamsize')
+    State.teamsize.set(Options.teamsize || 1)
+    console.log('conversion finished: options')
   }
 
-  loadTournaments(blob, tournamentDataArray, tournamentRankingArray) {
-    let tournaments, subtournamentOffsets;
-    console.log('converting tournaments');
-    tournaments = JSON.parse(blob);
-    subtournamentOffsets = [];
+  loadTournaments (blob, tournamentDataArray, tournamentRankingArray) {
+    let tournaments, subtournamentOffsets
+    console.log('converting tournaments')
+    tournaments = JSON.parse(blob)
+    subtournamentOffsets = []
     tournaments.forEach(function (data, tournamentID) {
       let tournament,
-          system,
-          name,
-          blob,
-          teams,
-          ranking,
-          parent,
-          //
-          rankingorder,
-          tournamentData,
-          startIndex;
-      system = data[0];
-      name = data[1];
-      blob = data[2];
-      teams = data[3];
-      ranking = data[4];
-      parent = data[5];
-      console.log('converting tournament ' + tournamentID + ': ' + name);
+        system,
+        name,
+        blob,
+        teams,
+        ranking,
+        parent,
+        //
+        rankingorder,
+        tournamentData,
+        startIndex
+      system = data[0]
+      name = data[1]
+      blob = data[2]
+      teams = data[3]
+      ranking = data[4]
+      parent = data[5]
+      console.log('converting tournament ' + tournamentID + ': ' + name)
       if (blob) {
-        tournamentData = JSON.parse(blob);
+        tournamentData = JSON.parse(blob)
       } else {
-        tournamentData = undefined;
+        tournamentData = undefined
       }
-      tournamentDataArray[tournamentID] = tournamentData;
-      tournamentRankingArray[tournamentID] = ranking;
+      tournamentDataArray[tournamentID] = tournamentData
+      tournamentRankingArray[tournamentID] = ranking
       rankingorder = {
         swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo', 'votes'],
         ko: ['ko']
-      }[system];
+      }[system]
 
       // create tournament
-      tournament = TournamentIndex.createTournament(system, rankingorder);
+      tournament = TournamentIndex.createTournament(system, rankingorder)
       if (!tournament) {
-        console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system);
-        return;
+        console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system)
+        return
       }
 
       // name and teams
-      tournament.getName().set(name);
-      teams.forEach(tournament.addTeam.bind(tournament));
+      tournament.getName().set(name)
+      teams.forEach(tournament.addTeam.bind(tournament))
       if (tournamentData) {
         // set state
         if (tournamentData.games && tournamentData.games.length > 0) {
-          tournament.state.forceState('running');
+          tournament.state.forceState('running')
         } else {
-          tournament.state.forceState('initial');
+          tournament.state.forceState('initial')
         }
 
         // set round
         if (system === 'swiss') {
-          tournament.round = tournamentData.round - 1;
+          tournament.round = tournamentData.round - 1
         } else {
           // no tournament round..
         }
-        console.log('converting tournament matches');
+        console.log('converting tournament matches')
 
         // add matches
         tournamentData.games.forEach(function (data) {
-          let teams, match, id, group;
-          teams = [data.teams[0][0], data.teams[1][0]];
-          id = data.id;
+          let teams, match, id, group
+          teams = [data.teams[0][0], data.teams[1][0]]
+          id = data.id
           if (system === 'swiss') {
-            group = tournament.round;
+            group = tournament.round
           } else {
-            group = tournamentData.roundids[teams[0]];
-            id += 1;
+            group = tournamentData.roundids[teams[0]]
+            id += 1
           }
-          match = new MatchModel(teams, id, group);
-          console.log('converting match ' + group + ':' + id + ': ' + teams.join(' vs. '));
-          tournament.matches.push(match);
-        });
+          match = new MatchModel(teams, id, group)
+          console.log('converting match ' + group + ':' + id + ': ' + teams.join(' vs. '))
+          tournament.matches.push(match)
+        })
       } else {
-        tournament.state.forceState('finished');
+        tournament.state.forceState('finished')
       }
-      console.log('converted tournament state: ' + tournament.state.get());
+      console.log('converted tournament state: ' + tournament.state.get())
 
       // convert the parent properties to startIndex
       if (parent === undefined || parent === null) {
-        startIndex = 0;
+        startIndex = 0
       } else {
-        console.log("converted tournament's parent: " + parent);
-        startIndex = subtournamentOffsets[parent];
-        subtournamentOffsets[parent] += tournament.getTeams().length;
+        console.log("converted tournament's parent: " + parent)
+        startIndex = subtournamentOffsets[parent]
+        subtournamentOffsets[parent] += tournament.getTeams().length
       }
-      subtournamentOffsets[tournamentID] = startIndex;
-      console.log('converted tournament range: ' + startIndex + '-' + (startIndex + tournament.getTeams().length));
+      subtournamentOffsets[tournamentID] = startIndex
+      console.log('converted tournament range: ' + startIndex + '-' + (startIndex + tournament.getTeams().length))
 
       // push tournaments. Also sets the ID. Arrays are dense (not sparse)
-      State.tournaments.push(tournament, startIndex);
+      State.tournaments.push(tournament, startIndex)
 
       // close tournament if necessary
       if (!blob) {
-        console.log('closing tournament ' + tournamentID);
-        State.tournaments.closeTournament(tournamentID);
+        console.log('closing tournament ' + tournamentID)
+        State.tournaments.closeTournament(tournamentID)
       }
-    });
-    console.log('conversion finished: tournaments');
+    })
+    console.log('conversion finished: tournaments')
   }
 
-  loadHistory(
+  loadHistory (
     blob,
     //
     tournamentDataArray
   ) {
-    const history = JSON.parse(blob);
-    console.log('converting history');
+    const history = JSON.parse(blob)
+    console.log('converting history')
     history.forEach(function (tournamenthistory, tournamentID) {
-      let tournament, round, system;
-      console.log('converting history for tournament ' + tournamentID);
-      tournament = State.tournaments.get(tournamentID);
-      round = tournament.round;
-      system = tournament.SYSTEM;
-      function restoreMatchResult(match) {
-        let result, teams, score, id, group;
-        teams = [match[0], match[1]];
-        score = [match[2], match[3]];
-        group = match[4];
-        id = match[5];
+      let tournament, round, system
+      console.log('converting history for tournament ' + tournamentID)
+      tournament = State.tournaments.get(tournamentID)
+      round = tournament.round
+      system = tournament.SYSTEM
+      function restoreMatchResult (match) {
+        let result, teams, score, id, group
+        teams = [match[0], match[1]]
+        score = [match[2], match[3]]
+        group = match[4]
+        id = match[5]
         if (group > round) {
-          round = group;
+          round = group
         }
         if (system === 'ko') {
-          id += 1;
+          id += 1
         }
-        teams = teams.map(tournament.teams.indexOf.bind(tournament.teams));
-        match = new MatchModel(teams, id, group);
-        result = new MatchResult(match, score);
-        return result;
+        teams = teams.map(tournament.teams.indexOf.bind(tournament.teams))
+        match = new MatchModel(teams, id, group)
+        result = new MatchResult(match, score)
+        return result
       }
 
       /*
@@ -238,22 +238,22 @@ class LegacyLoaderModel extends Model {
        */
       if (tournamenthistory.games && tournamenthistory.games.length > 0) {
         if (tournament.state.get() === 'initial') {
-          tournament.state.forceState('idle');
+          tournament.state.forceState('idle')
         }
         tournamenthistory.games.forEach(function (match) {
-          const result = restoreMatchResult(match);
-          console.log('converting match result ' + result.getID() + ': ' + result.teams.join(' vs. ') + ':  ' + result.score.join(':'));
-          tournament.history.push(result);
-          tournament.ranking.result(result);
-        });
-        console.log('conversion: ' + tournament.history.length + ' results converted');
+          const result = restoreMatchResult(match)
+          console.log('converting match result ' + result.getID() + ': ' + result.teams.join(' vs. ') + ':  ' + result.score.join(':'))
+          tournament.history.push(result)
+          tournament.ranking.result(result)
+        })
+        console.log('conversion: ' + tournament.history.length + ' results converted')
 
         // TODO restore half-filled KO matches
 
         // TODO fill in placeholder matches
 
         if (tournament.SYSTEM === 'swiss' && round > tournament.round) {
-          tournament.round = round;
+          tournament.round = round
         }
       }
 
@@ -262,116 +262,116 @@ class LegacyLoaderModel extends Model {
        */
       if (tournamenthistory.corrections) {
         tournamenthistory.corrections.forEach(function (correctionData, id) {
-          let before, after, correction;
-          before = restoreMatchResult(correctionData[0]);
-          after = restoreMatchResult(correctionData[1]);
-          correction = new CorrectionModel(before, after);
-          console.log('converting correction ' + id + ': ' + before.teams.join(' vs. ') + ': ');
-          tournament.corrections.push(correction);
-        });
+          let before, after, correction
+          before = restoreMatchResult(correctionData[0])
+          after = restoreMatchResult(correctionData[1])
+          correction = new CorrectionModel(before, after)
+          console.log('converting correction ' + id + ': ' + before.teams.join(' vs. ') + ': ')
+          tournament.corrections.push(correction)
+        })
       }
-      console.log('conversion finished: ' + tournament.corrections.length + ' corrections converted');
+      console.log('conversion finished: ' + tournament.corrections.length + ' corrections converted')
 
       /*
        * Votes
        */
       tournamenthistory.votes.forEach(function (data) {
-        let type, teamid, round, vote, id;
-        type = data[0];
-        teamid = data[1];
-        round = data[2];
-        id = tournament.getTeams().length >> 1;
+        let type, teamid, round, vote, id
+        type = data[0]
+        teamid = data[1]
+        round = data[2]
+        id = tournament.getTeams().length >> 1
         if (type === 0) {
           // bye
-          vote = new ByeResult(teamid, [Options.byepointswon, Options.byepointslost], id, round);
-          console.log('converting bye for team ' + teamid);
-          tournament.history.push(vote);
+          vote = new ByeResult(teamid, [Options.byepointswon, Options.byepointslost], id, round)
+          console.log('converting bye for team ' + teamid)
+          tournament.history.push(vote)
           if (tournament.SYSTEM === 'swiss' &&
           //
           round === tournament.getRound()) {
-            tournament.votes.bye.push(teamid);
+            tournament.votes.bye.push(teamid)
           }
-          tournament.ranking.bye(teamid);
+          tournament.ranking.bye(teamid)
         }
-      });
-    });
-    console.log('conversion finished: history');
+      })
+    })
+    console.log('conversion finished: history')
   }
 
-  createMissingObjects() {
-    console.log('conversion: creating missing tournament objects');
+  createMissingObjects () {
+    console.log('conversion: creating missing tournament objects')
     State.tournaments.map(function (tournament) {
-      this['createMissingObjects' + tournament.SYSTEM](tournament);
-    }, this);
-    console.log('conversion finished: missing tournament objects');
+      this['createMissingObjects' + tournament.SYSTEM](tournament)
+    }, this)
+    console.log('conversion finished: missing tournament objects')
   }
 
-  createMissingObjectsko(tournament) {
-    console.log('conversion: creating missing objects for tournament ' + tournament.getID() + ' (' + tournament.getName().get() + ')');
-    console.log('conversion: finding dangling teams');
-    tournament.createWaitingMatches();
-    console.log('conversion: creating missing ko placeholder matches');
-    tournament.createPlaceholderMatches();
+  createMissingObjectsko (tournament) {
+    console.log('conversion: creating missing objects for tournament ' + tournament.getID() + ' (' + tournament.getName().get() + ')')
+    console.log('conversion: finding dangling teams')
+    tournament.createWaitingMatches()
+    console.log('conversion: creating missing ko placeholder matches')
+    tournament.createPlaceholderMatches()
   }
 
-  createMissingObjectsswiss(tournament) {
-    console.log('conversion: no need missing objects for swiss tournament ' + tournament.getID() + ' (' + tournament.getName().get() + ')');
+  createMissingObjectsswiss (tournament) {
+    console.log('conversion: no need missing objects for swiss tournament ' + tournament.getID() + ' (' + tournament.getName().get() + ')')
   }
 
-  loadVotes(tournamentDataArray, tournamentRankingArray) {
-    console.log('converting votes');
+  loadVotes (tournamentDataArray, tournamentRankingArray) {
+    console.log('converting votes')
     tournamentDataArray.forEach(function (tournamentData, tournamentID) {
-      let tournament, system, ranking, upvoteArray, downvoteArray, displayOrder;
-      console.log('converting votes of tournament ' + tournamentID);
-      tournament = State.tournaments.get(tournamentID);
-      ranking = tournamentRankingArray[tournamentID];
-      displayOrder = tournament.getRanking().get().displayOrder;
-      system = tournament.SYSTEM;
+      let tournament, system, ranking, upvoteArray, downvoteArray, displayOrder
+      console.log('converting votes of tournament ' + tournamentID)
+      tournament = State.tournaments.get(tournamentID)
+      ranking = tournamentRankingArray[tournamentID]
+      displayOrder = tournament.getRanking().get().displayOrder
+      system = tournament.SYSTEM
       if (tournamentData) {
-        console.log('converting votes from tournament data');
+        console.log('converting votes from tournament data')
         if (tournamentData.upvote) {
-          upvoteArray = RLE.decode(tournamentData.upvote);
+          upvoteArray = RLE.decode(tournamentData.upvote)
         }
         if (tournamentData.downvote) {
-          upvoteArray = RLE.decode(tournamentData.downvote);
+          upvoteArray = RLE.decode(tournamentData.downvote)
         }
       } else if (ranking) {
-        console.log('converting votes from ranking cache');
-        upvoteArray = ranking.upvote;
-        downvoteArray = ranking.downvote;
+        console.log('converting votes from ranking cache')
+        upvoteArray = ranking.upvote
+        downvoteArray = ranking.downvote
       } else {
-        Toast.once('tournament ' + tournamentID + ' contains neither tournament nor ranking blob', Toast.LONG);
-        throw new Error('tournament ' + tournamentID + ' contains neither tournament nor ranking blob');
+        Toast.once('tournament ' + tournamentID + ' contains neither tournament nor ranking blob', Toast.LONG)
+        throw new Error('tournament ' + tournamentID + ' contains neither tournament nor ranking blob')
       }
       if (system === 'swiss') {
         if (tournament.ranking.upvotes && upvoteArray) {
           upvoteArray.forEach(function (upvotes, displayID) {
-            const teamID = displayOrder[displayID];
+            const teamID = displayOrder[displayID]
             if (upvotes > 0) {
-              console.log('converting ' + upvotes + ' upvotes for team ' + teamID);
-              tournament.ranking.upvotes.set(teamID, tournament.ranking.upvotes.get(teamID) + upvotes);
+              console.log('converting ' + upvotes + ' upvotes for team ' + teamID)
+              tournament.ranking.upvotes.set(teamID, tournament.ranking.upvotes.get(teamID) + upvotes)
             }
-          });
+          })
         }
         if (tournament.ranking.downvotes && downvoteArray) {
           downvoteArray.forEach(function (downvotes, displayID) {
-            const teamID = displayOrder[displayID];
+            const teamID = displayOrder[displayID]
             if (downvotes > 0) {
-              console.log('converting ' + downvotes + ' downvotes for team ' + teamID);
-              tournament.ranking.downvotes.set(teamID, tournament.ranking.downvotes.get(teamID) + downvotes);
+              console.log('converting ' + downvotes + ' downvotes for team ' + teamID)
+              tournament.ranking.downvotes.set(teamID, tournament.ranking.downvotes.get(teamID) + downvotes)
             }
-          });
+          })
         }
       }
-      console.log('conversion finished: votes of tournament ' + tournamentID);
-      console.log('updating the ranking. You know... for safety and stuff.');
-      console.log('');
-      console.log('ok, I admit it. It is for the upvotes and downvotes.');
-      tournament.ranking.emit('recalc');
-      tournament.ranking.invalidate();
-    });
-    console.log('conversion finished: votes');
+      console.log('conversion finished: votes of tournament ' + tournamentID)
+      console.log('updating the ranking. You know... for safety and stuff.')
+      console.log('')
+      console.log('ok, I admit it. It is for the upvotes and downvotes.')
+      tournament.ranking.emit('recalc')
+      tournament.ranking.invalidate()
+    })
+    console.log('conversion finished: votes')
   }
 }
 
-export default LegacyLoaderModel;
+export default LegacyLoaderModel

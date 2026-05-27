@@ -1,4 +1,4 @@
-import Listener from '../core/listener.js';
+import Listener from '../core/listener.js'
 
 /**
  * Constructor
@@ -11,44 +11,44 @@ import Listener from '../core/listener.js';
  *          the value to add/remove
  */
 class ListExclusionListener extends Listener {
-  constructor(trigger, list, value) {
-    super(trigger);
-    this.trigger = trigger;
-    this.list = list;
-    this.value = value;
+  constructor (trigger, list, value) {
+    super(trigger)
+    this.trigger = trigger
+    this.list = list
+    this.value = value
   }
 
   /**
    * push the value, if it's not in the list already
    */
-  add() {
-    let index;
-    index = this.list.indexOf(this.value);
+  add () {
+    let index
+    index = this.list.indexOf(this.value)
     if (index === -1) {
-      this.list.push(this.value);
+      this.list.push(this.value)
     }
   }
 
   /**
    * remove all appearances of the value from the list
    */
-  remove() {
-    let index;
+  remove () {
+    let index
     while ((index = this.list.indexOf(this.value)) !== -1) {
-      this.list.remove(index);
+      this.list.remove(index)
     }
   }
 
   /**
    * Callback listener for the trigger. Call add()/remove() accordingly
    */
-  onupdate() {
+  onupdate () {
     if (this.trigger.get()) {
-      this.add();
+      this.add()
     } else {
-      this.remove();
+      this.remove()
     }
   }
 }
 
-export default ListExclusionListener;
+export default ListExclusionListener

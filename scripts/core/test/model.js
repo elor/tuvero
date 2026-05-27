@@ -6,20 +6,20 @@
  * @license MIT License
  * @see LICENSE
  */
-import { test, expect } from 'vitest';
+import { test, expect } from 'vitest'
 
-import Model from '../model.js';
-import Emitter from '../emitter.js';
+import Model from '../model.js'
+import Emitter from '../emitter.js'
 test('Model', () => {
-  let model, success;
-  expect(Model.prototype instanceof Emitter, 'Model is an Emitter subclass').toBeTruthy();
-  model = new Model();
-  expect(model.save(), 'Model.save() returns empty object').toEqual({});
+  let model, success
+  expect(Model.prototype instanceof Emitter, 'Model is an Emitter subclass').toBeTruthy()
+  model = new Model()
+  expect(model.save(), 'Model.save() returns empty object').toEqual({})
   try {
-    expect(model.restore({}), 'Model.restore() returns true on success').toBe(true);
-    success = true;
+    expect(model.restore({}), 'Model.restore() returns true on success').toBe(true)
+    success = true
   } catch (e) {
-    success = false;
+    success = false
   }
-  expect(success, 'model.restore() exists and is a function').toBeTruthy();
-});
+  expect(success, 'model.restore() exists and is a function').toBeTruthy()
+})

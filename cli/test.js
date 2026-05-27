@@ -2,10 +2,10 @@
 
 'use strict'
 
-var requirejs = require('requirejs')
-var QUnit = require('qunit')
+const requirejs = require('requirejs')
+const QUnit = require('qunit')
 
-var tests = ['core/test/byeresult',
+const tests = ['core/test/byeresult',
   'core/test/byeresult',
   'core/test/correctionmodel',
   'core/test/correctionreferencemodel',
@@ -79,13 +79,13 @@ requirejs.config({
 })
 
 requirejs(['core/config'], function (config) {
-  var myBase = '../test/scripts/'
+  const myBase = '../test/scripts/'
 
   requirejs.config({
     paths: {
-      'options': myBase + 'options',
-      'presets': myBase + 'presets',
-      'strings': myBase + 'strings'
+      options: myBase + 'options',
+      presets: myBase + 'presets',
+      strings: myBase + 'strings'
     }
   })
 

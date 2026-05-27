@@ -1,4 +1,4 @@
-import View from '../core/view.js';
+import View from '../core/view.js'
 
 /**
  * @param model
@@ -9,10 +9,10 @@ import View from '../core/view.js';
  *          the template
  */
 class TemplateView extends View {
-  constructor(model, $view, $template) {
-    super(model, $view);
-    this.$template = $template.detach().removeClass('template');
+  constructor (model, $view, $template) {
+    super(model, $view)
+    this.$template = $template.detach().removeClass('template')
   }
 }
 
-export default TemplateView;
+export default TemplateView

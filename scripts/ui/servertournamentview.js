@@ -1,20 +1,20 @@
-import View from '../core/view.js';
-import ServerTournamentController from './servertournamentcontroller.js';
+import View from '../core/view.js'
+import ServerTournamentController from './servertournamentcontroller.js'
 
 /**
  * Constructor
  */
 class ServerTournamentView extends View {
-  constructor(model, $view) {
-    super(model, $view);
-    this.$view.find('.name').text(model.name);
-    this.$view.find('.place').text(model.place);
-    this.$view.find('.creator').text(model.creator);
-    this.$view.find('.teamsize').text(model.teamsize);
-    this.$view.find('.url').text(model.url_www);
-    this.$view.find('a.url_href').attr('href', model.url_www);
-    this.controller = new ServerTournamentController(this);
+  constructor (model, $view) {
+    super(model, $view)
+    this.$view.find('.name').text(model.name)
+    this.$view.find('.place').text(model.place)
+    this.$view.find('.creator').text(model.creator)
+    this.$view.find('.teamsize').text(model.teamsize)
+    this.$view.find('.url').text(model.url_www)
+    this.$view.find('a.url_href').attr('href', model.url_www)
+    this.controller = new ServerTournamentController(this)
   }
 }
 
-export default ServerTournamentView;
+export default ServerTournamentView

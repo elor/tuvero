@@ -5,84 +5,84 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import Controller from '../core/controller.js';
-import PlayerModel from './playermodel.js';
-import TeamModel from './teammodel.js';
-import State from './state.js';
-import TabsHandle from './tabshandle.js';
+import $ from 'jquery'
+import Controller from '../core/controller.js'
+import PlayerModel from './playermodel.js'
+import TeamModel from './teammodel.js'
+import State from './state.js'
+import TabsHandle from './tabshandle.js'
 
 class NewTeamController extends Controller {
-  constructor(view) {
-    super(view);
-    this.$players = this.view.$players;
-    this.$teamname = this.view.$teamname;
-    this.$rankingpoints = this.view.$rankingpoints;
-    this.view.$view.find('input').keydown(this.filterEnterKeyDown.bind(this));
-    this.view.$button.click(this.createNewTeam.bind(this));
-    this.view.$advanced.click(this.createAdvanced.bind(this));
+  constructor (view) {
+    super(view)
+    this.$players = this.view.$players
+    this.$teamname = this.view.$teamname
+    this.$rankingpoints = this.view.$rankingpoints
+    this.view.$view.find('input').keydown(this.filterEnterKeyDown.bind(this))
+    this.view.$button.click(this.createNewTeam.bind(this))
+    this.view.$advanced.click(this.createAdvanced.bind(this))
   }
 
-  readPlayerNames() {
-    let names;
+  readPlayerNames () {
+    let names
     names = this.$players.map(function (id, player) {
-      let $player;
-      $player = $(player);
+      let $player
+      $player = $(player)
       if ($player.prop('disabled')) {
-        return undefined;
+        return undefined
       }
-      return $player.val();
-    }).get();
+      return $player.val()
+    }).get()
     while (names.length > 0 && names[names.length - 1] === undefined) {
-      names.pop();
+      names.pop()
     }
-    return names;
+    return names
   }
 
-  filterEnterKeyDown(e) {
+  filterEnterKeyDown (e) {
     if (e.which === 13) {
-      this.createNewTeam();
-      e.preventDefault();
-      return false;
+      this.createNewTeam()
+      e.preventDefault()
+      return false
     }
   }
 
-  createPlayers() {
-    let names;
-    names = this.readPlayerNames();
+  createPlayers () {
+    let names
+    names = this.readPlayerNames()
     if (names.length === 0) {
-      console.error('NewTeamController: all input fields disabled?');
-      return;
+      console.error('NewTeamController: all input fields disabled?')
+      return
     }
     return names.map(function (name) {
-      return new PlayerModel(name);
-    });
+      return new PlayerModel(name)
+    })
   }
 
-  createNewTeam() {
-    let team, players;
-    players = this.createPlayers();
+  createNewTeam () {
+    let team, players
+    players = this.createPlayers()
     if (players.every(function (player) {
-      return player.getName() !== PlayerModel.NONAME;
+      return player.getName() !== PlayerModel.NONAME
     })) {
-      team = new TeamModel(players);
-      team.setName(this.$teamname.val());
-      team.rankingpoints = Number(this.$rankingpoints.val());
-      this.model.push(team);
-      this.view.resetFields();
+      team = new TeamModel(players)
+      team.setName(this.$teamname.val())
+      team.rankingpoints = Number(this.$rankingpoints.val())
+      this.model.push(team)
+      this.view.resetFields()
     }
-    this.view.focusEmpty();
+    this.view.focusEmpty()
   }
 
-  createAdvanced() {
-    let players, team;
-    players = this.createPlayers();
-    team = new TeamModel(players);
-    this.model.push(team);
-    this.view.resetFields();
-    State.focusedteam.set(team);
-    TabsHandle.focus('team');
+  createAdvanced () {
+    let players, team
+    players = this.createPlayers()
+    team = new TeamModel(players)
+    this.model.push(team)
+    this.view.resetFields()
+    State.focusedteam.set(team)
+    TabsHandle.focus('team')
   }
 }
 
-export default NewTeamController;
+export default NewTeamController

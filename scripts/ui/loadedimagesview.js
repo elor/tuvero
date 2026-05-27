@@ -1,13 +1,13 @@
-import View from '../core/view.js';
-import $ from 'jquery';
+import View from '../core/view.js'
+import $ from 'jquery'
 
 /**
  * Constructor
  */
 class LoadedImagesView extends View {
-  constructor($view) {
-    super(undefined, $view);
-    this.appendImages($(document.body));
+  constructor ($view) {
+    super(undefined, $view)
+    this.appendImages($(document.body))
   }
 
   /**
@@ -15,13 +15,13 @@ class LoadedImagesView extends View {
    *
    * @param $container
    */
-  appendImages($container) {
-    let images;
-    images = LoadedImagesView.imageList($container);
+  appendImages ($container) {
+    let images
+    images = LoadedImagesView.imageList($container)
     images.forEach(function (image) {
-      const $image = $('<div>').attr('data-img', image);
-      this.$view.append($image);
-    }, this);
+      const $image = $('<div>').attr('data-img', image)
+      this.$view.append($image)
+    }, this)
   }
 
   /**
@@ -32,18 +32,18 @@ class LoadedImagesView extends View {
    * @return an array of image names, e.g. 'new', 'boule'. For use with the
    *         data-img attribute
    */
-  static imageList($container) {
-    let $images, images;
-    $images = $container.find('[data-img]');
-    images = {};
+  static imageList ($container) {
+    let $images, images
+    $images = $container.find('[data-img]')
+    images = {}
     $images.each(function () {
-      images[$(this).attr('data-img')] = true;
-    });
+      images[$(this).attr('data-img')] = true
+    })
 
     // don't use the sprite itself
-    delete images.sprite;
-    return Object.keys(images).sort();
+    delete images.sprite
+    return Object.keys(images).sort()
   }
 }
 
-export default LoadedImagesView;
+export default LoadedImagesView

@@ -1,4 +1,4 @@
-import MatrixModel from './matrixmodel.js';
+import MatrixModel from './matrixmodel.js'
 
 /**
  * Constructor
@@ -7,8 +7,8 @@ import MatrixModel from './matrixmodel.js';
  *          size of the matrix. defaults to 0
  */
 class AntisymmetricMatrixModel extends MatrixModel {
-  constructor(size) {
-    super(size);
+  constructor (size) {
+    super(size)
   }
 
   /**
@@ -21,11 +21,11 @@ class AntisymmetricMatrixModel extends MatrixModel {
    *          column
    * @return the stored value
    */
-  get(row, col) {
+  get (row, col) {
     if (row < col) {
-      return -super.get(col, row);
+      return -super.get(col, row)
     }
-    return super.get(row, col);
+    return super.get(row, col)
   }
 
   /**
@@ -40,12 +40,12 @@ class AntisymmetricMatrixModel extends MatrixModel {
    *          value
    * @return this on success, undefined otherwise
    */
-  set(row, col, value) {
+  set (row, col, value) {
     if (row < col) {
-      return super.set(col, row, -value);
+      return super.set(col, row, -value)
     }
-    return super.set(row, col, value);
+    return super.set(row, col, value)
   }
 }
 
-export default AntisymmetricMatrixModel;
+export default AntisymmetricMatrixModel

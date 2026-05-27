@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-import OptionsTemplate from '../../scripts/ui/optionstemplate.js';
-var Default;
+import OptionsTemplate from '../../scripts/ui/optionstemplate.js'
+let Default
 Default = {
   // must stay the same across this save, hence OptionsTemplate, not Presets
   minpoints: -999,
@@ -21,7 +21,7 @@ Default = {
   maxpointtiesforbidden: true,
   formulexbyescore: [13, 7],
   formulexpoints: 100
-};
-OptionsTemplate.setDefault(Default);
-OptionsTemplate.reset();
-export default OptionsTemplate;
+}
+OptionsTemplate.setDefault(Default)
+OptionsTemplate.reset()
+export default OptionsTemplate

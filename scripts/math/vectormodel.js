@@ -1,6 +1,6 @@
-import ListModel from '../list/listmodel.js';
-import Type from '../core/type.js';
-import RLE from '../core/rle.js';
+import ListModel from '../list/listmodel.js'
+import Type from '../core/type.js'
+import RLE from '../core/rle.js'
 
 /**
  * Constructor
@@ -9,9 +9,9 @@ import RLE from '../core/rle.js';
  *          Optional. The initial size of the vector
  */
 class VectorModel extends ListModel {
-  constructor(size) {
-    super();
-    this.resize(size);
+  constructor (size) {
+    super()
+    this.resize(size)
   }
 
   /**
@@ -19,15 +19,15 @@ class VectorModel extends ListModel {
    *
    * @param size
    */
-  resize(size) {
+  resize (size) {
     if (size === undefined || size < 0) {
-      size = 0;
+      size = 0
     }
     while (this.length > size) {
-      this.pop();
+      this.pop()
     }
     while (this.length < size) {
-      this.push(0);
+      this.push(0)
     }
   }
 
@@ -37,11 +37,11 @@ class VectorModel extends ListModel {
    * @param value
    *          Optional. The value. Defaults to 0.
    */
-  fill(value) {
-    let index;
-    value = value || 0;
+  fill (value) {
+    let index
+    value = value || 0
     for (index = 0; index < this.length; index += 1) {
-      this.set(index, value);
+      this.set(index, value)
     }
   }
 
@@ -54,30 +54,30 @@ class VectorModel extends ListModel {
    *          Optional. Vector B. defaults to this.
    * @return this
    */
-  mult(vecA, vecB) {
-    let index;
+  mult (vecA, vecB) {
+    let index
     if (Type.isNumber(vecB)) {
-      throw new Error('VectorModel.prototype.mult: ' + 'second argument must be undefined or a VectorModel instance: ' + vecB);
+      throw new Error('VectorModel.prototype.mult: ' + 'second argument must be undefined or a VectorModel instance: ' + vecB)
     }
-    vecB = vecB || this;
+    vecB = vecB || this
     if (Type.isNumber(vecA)) {
       // numerical multiplication
-      this.resize(vecB.length);
+      this.resize(vecB.length)
       for (index = 0; index < this.length; index += 1) {
-        this.set(index, vecB.get(index) * vecA);
+        this.set(index, vecB.get(index) * vecA)
       }
     } else {
       // element-wise multiplication
       if (vecA.length !== vecB.length) {
-        console.error('VectorModel.setProduct: different input lengths: ' + vecA.length + '<>' + vecB.length);
-        return undefined;
+        console.error('VectorModel.setProduct: different input lengths: ' + vecA.length + '<>' + vecB.length)
+        return undefined
       }
-      this.resize(vecB.length);
+      this.resize(vecB.length)
       for (index = 0; index < this.length; index += 1) {
-        this.set(index, vecA.get(index) * vecB.get(index));
+        this.set(index, vecA.get(index) * vecB.get(index))
       }
     }
-    return this;
+    return this
   }
 
   /**
@@ -87,17 +87,17 @@ class VectorModel extends ListModel {
    *          the other vector
    * @return the dot product, (this . vec)
    */
-  dot(vec) {
-    let index, sum;
+  dot (vec) {
+    let index, sum
     if (this.length !== vec.length) {
-      console.error('VectorModel.dot: different input lengths: ' + this.length + '<>' + vec.length);
-      return undefined;
+      console.error('VectorModel.dot: different input lengths: ' + this.length + '<>' + vec.length)
+      return undefined
     }
-    sum = 0;
+    sum = 0
     for (index = 0; index < this.length; index += 1) {
-      sum += this.get(index) * vec.get(index);
+      sum += this.get(index) * vec.get(index)
     }
-    return sum;
+    return sum
   }
 
   /**
@@ -110,22 +110,22 @@ class VectorModel extends ListModel {
    *          Optional. vector 2. Defaults to this.
    * @return this on success, undefined otherwise
    */
-  sum(vec1, vec2) {
-    let index;
-    vec2 = vec2 || this;
+  sum (vec1, vec2) {
+    let index
+    vec2 = vec2 || this
     if (vec1.length !== vec2.length) {
-      console.error('VectorModel.prototype.sum: different input lengths: ' + vec1.length + '<>' + vec2.length);
-      return undefined;
+      console.error('VectorModel.prototype.sum: different input lengths: ' + vec1.length + '<>' + vec2.length)
+      return undefined
     }
-    this.resize(vec1.length);
+    this.resize(vec1.length)
     for (index = 0; index < this.length; index += 1) {
-      this.set(index, vec1.get(index) + vec2.get(index));
+      this.set(index, vec1.get(index) + vec2.get(index))
     }
-    return this;
+    return this
   }
 
-  add(index, summand) {
-    this.set(index, this.get(index) + summand);
+  add (index, summand) {
+    this.set(index, this.get(index) + summand)
   }
 
   /**
@@ -133,10 +133,10 @@ class VectorModel extends ListModel {
    *
    * @return a data object
    */
-  save() {
-    let data = super.save();
-    data = RLE.encode(data);
-    return data;
+  save () {
+    let data = super.save()
+    data = RLE.encode(data)
+    return data
   }
 
   /**
@@ -146,24 +146,24 @@ class VectorModel extends ListModel {
    *          the data object
    * @return true on success, false otherwise
    */
-  restore(data) {
-    let index;
+  restore (data) {
+    let index
     try {
-      data = RLE.decode(data);
+      data = RLE.decode(data)
     } catch (e) {
-      console.error(e);
-      return false;
+      console.error(e)
+      return false
     }
     if (!super.restore(data)) {
-      return false;
+      return false
     }
     while ((index = this.indexOf(undefined)) !== -1) {
-      this.set(index, 0);
+      this.set(index, 0)
     }
-    return true;
+    return true
   }
 }
 
-VectorModel.prototype.SAVEFORMAT = Object.create(ListModel.prototype.SAVEFORMAT);
-VectorModel.prototype.SAVEFORMAT.v = [Number];
-export default VectorModel;
+VectorModel.prototype.SAVEFORMAT = Object.create(ListModel.prototype.SAVEFORMAT)
+VectorModel.prototype.SAVEFORMAT.v = [Number]
+export default VectorModel

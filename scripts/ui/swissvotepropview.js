@@ -1,5 +1,5 @@
-import ClassView from '../core/classview.js';
-import SwissVotePropController from './swissvotepropcontroller.js';
+import ClassView from '../core/classview.js'
+import SwissVotePropController from './swissvotepropcontroller.js'
 
 /**
  * Constructor
@@ -10,10 +10,10 @@ import SwissVotePropController from './swissvotepropcontroller.js';
  *          a '.swissvotes .prop' DOM element
  */
 class SwissVotePropView extends ClassView {
-  constructor(model, $view) {
-    super(model, $view, undefined, 'forbidden');
-    this.controller = new SwissVotePropController(this);
+  constructor (model, $view) {
+    super(model, $view, undefined, 'forbidden')
+    this.controller = new SwissVotePropController(this)
   }
 }
 
-export default SwissVotePropView;
+export default SwissVotePropView

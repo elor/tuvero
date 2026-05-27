@@ -1,5 +1,5 @@
-import Model from '../core/model.js';
-import RLE from '../core/rle.js';
+import Model from '../core/model.js'
+import RLE from '../core/rle.js'
 
 /**
  * Constructor
@@ -8,11 +8,11 @@ import RLE from '../core/rle.js';
  *          size of the matrix. defaults to 0
  */
 class MatrixModel extends Model {
-  constructor(size) {
-    super();
-    this.data = [];
-    this.length = Math.max(0, size || 0);
-    return this;
+  constructor (size) {
+    super()
+    this.data = []
+    this.length = Math.max(0, size || 0)
+    return this
   }
 
   /**
@@ -22,17 +22,17 @@ class MatrixModel extends Model {
    *          {Integer} index
    * @return {MatrixModel} this
    */
-  remove(index) {
+  remove (index) {
     if (index >= this.length || index < 0) {
-      return this;
+      return this
     }
-    this.data.splice(index, 1);
+    this.data.splice(index, 1)
     this.data.forEach(function (b) {
-      b.splice(index, 1);
-    });
-    this.length -= 1;
-    this.emit('resize');
-    return this;
+      b.splice(index, 1)
+    })
+    this.length -= 1
+    this.emit('resize')
+    return this
   }
 
   /**
@@ -42,22 +42,22 @@ class MatrixModel extends Model {
    *          the new size
    * @return this on success, undefined otherwise
    */
-  resize(size) {
+  resize (size) {
     if (size === undefined) {
-      return undefined;
+      return undefined
     }
     if (size < 0) {
-      size = 0;
+      size = 0
     }
     if (this.length > size) {
-      this.data.splice(size);
+      this.data.splice(size)
       this.data.forEach(function (row) {
-        row.splice(size);
-      });
+        row.splice(size)
+      })
     }
-    this.length = size;
-    this.emit('resize');
-    return this;
+    this.length = size
+    this.emit('resize')
+    return this
   }
 
   /**
@@ -69,15 +69,15 @@ class MatrixModel extends Model {
    *          horizontal position
    * @return value at (row, col). Defaults to 0
    */
-  get(row, col) {
+  get (row, col) {
     if (Math.min(row, col) < 0 || Math.max(row, col) >= this.length) {
-      console.warn('MatrixModel.get(): out of bounds');
-      return undefined;
+      console.warn('MatrixModel.get(): out of bounds')
+      return undefined
     }
     if (!this.data[row]) {
-      return 0;
+      return 0
     }
-    return this.data[row][col] || 0;
+    return this.data[row][col] || 0
   }
 
   /**
@@ -92,22 +92,22 @@ class MatrixModel extends Model {
    *          integer value to store in position (row, col)
    * @return {MatrixModel} this
    */
-  set(row, col, value) {
-    let rowref;
+  set (row, col, value) {
+    let rowref
     if (Math.min(row, col) < 0 || Math.max(row, col) >= this.length) {
-      console.warn('MatrixModel.set(): out of bounds');
-      return undefined;
+      console.warn('MatrixModel.set(): out of bounds')
+      return undefined
     }
-    rowref = this.data[row];
+    rowref = this.data[row]
     if (value) {
       if (!rowref) {
-        rowref = this.data[row] = [];
+        rowref = this.data[row] = []
       }
-      rowref[col] = value;
+      rowref[col] = value
     } else if (rowref) {
-      delete rowref[col];
+      delete rowref[col]
     }
-    return this;
+    return this
   }
 
   /**
@@ -117,13 +117,13 @@ class MatrixModel extends Model {
    *          a VectorModel instance to write the results to
    * @return vector on success, undefined otherwise
    */
-  diagonal(vector) {
-    let index;
-    vector.resize(this.length);
+  diagonal (vector) {
+    let index
+    vector.resize(this.length)
     for (index = 0; index < vector.length; index += 1) {
-      vector.set(index, this.get(index, index));
+      vector.set(index, this.get(index, index))
     }
-    return vector;
+    return vector
   }
 
   /**
@@ -136,21 +136,21 @@ class MatrixModel extends Model {
    *          the input vector
    * @return outVec on success, containing this*vec. undefined otherwise.
    */
-  multVector(outVec, vec) {
-    let row, col, sum;
+  multVector (outVec, vec) {
+    let row, col, sum
     if (vec.length !== this.length) {
-      console.warn('MatrixModel.multVector: different input lengths: ' + this.length + '<>' + vec.length);
-      return undefined;
+      console.warn('MatrixModel.multVector: different input lengths: ' + this.length + '<>' + vec.length)
+      return undefined
     }
-    outVec.resize(vec.length);
+    outVec.resize(vec.length)
     for (row = 0; row < outVec.length; row += 1) {
-      sum = 0;
+      sum = 0
       for (col = 0; col < outVec.length; col += 1) {
-        sum += this.get(row, col) * vec.get(col);
+        sum += this.get(row, col) * vec.get(col)
       }
-      outVec.set(row, sum);
+      outVec.set(row, sum)
     }
-    return outVec;
+    return outVec
   }
 
   /**
@@ -163,21 +163,21 @@ class MatrixModel extends Model {
    *          the input vector
    * @return outVec on success, containing this*vec. undefined otherwise.
    */
-  vectorMult(outVec, vec) {
-    let row, col, sum;
+  vectorMult (outVec, vec) {
+    let row, col, sum
     if (vec.length !== this.length) {
-      console.warn('MatrixModel.multVector: different input lengths: ' + this.length + '<>' + vec.length);
-      return undefined;
+      console.warn('MatrixModel.multVector: different input lengths: ' + this.length + '<>' + vec.length)
+      return undefined
     }
-    outVec.resize(vec.length);
+    outVec.resize(vec.length)
     for (col = 0; col < outVec.length; col += 1) {
-      sum = 0;
+      sum = 0
       for (row = 0; row < outVec.length; row += 1) {
-        sum += this.get(row, col) * vec.get(row);
+        sum += this.get(row, col) * vec.get(row)
       }
-      outVec.set(col, sum);
+      outVec.set(col, sum)
     }
-    return outVec;
+    return outVec
   }
 
   /**
@@ -189,12 +189,12 @@ class MatrixModel extends Model {
    * @param value
    *          Optional. The value. Defaults to 0.
    */
-  fill(value) {
-    let row, col;
-    value = value || 0;
+  fill (value) {
+    let row, col
+    value = value || 0
     if (value === 0) {
       // discard all data, since get() defaults to 0.
-      this.data.splice(0);
+      this.data.splice(0)
     } else {
       /*
        * Since we don't know about the data mapping, we cannot simply copy data
@@ -202,7 +202,7 @@ class MatrixModel extends Model {
        */
       for (row = 0; row < this.length; row += 1) {
         for (col = 0; col < this.length; col += 1) {
-          this.set(row, col, value);
+          this.set(row, col, value)
         }
       }
     }
@@ -214,39 +214,39 @@ class MatrixModel extends Model {
    *
    * @return a serializable data object
    */
-  save() {
-    let data, mat;
-    data = super.save();
+  save () {
+    let data, mat
+    data = super.save()
     mat = this.data.map(function (row) {
       return row.map(function (cell) {
-        return cell || 0;
-      });
-    }, this);
-    data.mat = RLE.encode(mat);
-    data.len = this.length;
-    return data;
+        return cell || 0
+      })
+    }, this)
+    data.mat = RLE.encode(mat)
+    data.len = this.length
+    return data
   }
 
-  restore(data) {
-    let mat;
+  restore (data) {
+    let mat
     if (!super.restore(data)) {
-      return false;
+      return false
     }
-    this.resize(0);
-    mat = RLE.decode(data.mat);
+    this.resize(0)
+    mat = RLE.decode(data.mat)
     mat.forEach(function (row, rowindex) {
-      this.data[rowindex] = row.slice();
-    }, this);
-    this.resize(data.len);
-    return true;
+      this.data[rowindex] = row.slice()
+    }, this)
+    this.resize(data.len)
+    return true
   }
 }
 
 MatrixModel.prototype.EVENTS = {
-  'resize': true
-};
+  resize: true
+}
 
-MatrixModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT);
-MatrixModel.prototype.SAVEFORMAT.mat = String;
-MatrixModel.prototype.SAVEFORMAT.len = Number;
-export default MatrixModel;
+MatrixModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT)
+MatrixModel.prototype.SAVEFORMAT.mat = String
+MatrixModel.prototype.SAVEFORMAT.len = Number
+export default MatrixModel

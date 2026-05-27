@@ -1,19 +1,19 @@
-import BinningReferenceListModel from '../list/binningreferencelistmodel.js';
-import SortedReferenceListModel from '../list/sortedreferencelistmodel.js';
-import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js';
-import ReferenceListModel from '../list/referencelistmodel.js';
-import ReverseMatchReferenceModel from './reversematchreferencemodel.js';
-import ReverseResultReferenceModel from './reverseresultreferencemodel.js';
+import BinningReferenceListModel from '../list/binningreferencelistmodel.js'
+import SortedReferenceListModel from '../list/sortedreferencelistmodel.js'
+import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js'
+import ReferenceListModel from '../list/referencelistmodel.js'
+import ReverseMatchReferenceModel from './reversematchreferencemodel.js'
+import ReverseResultReferenceModel from './reverseresultreferencemodel.js'
 
 /**
  * Constructor
  */
 class ProgressListModel extends BinningReferenceListModel {
-  constructor(tournament) {
+  constructor (tournament) {
     super(
       ProgressListModel.createSortedList(tournament),
       ProgressListModel.binningFunction
-    );
+    )
   }
 
   /**
@@ -21,13 +21,13 @@ class ProgressListModel extends BinningReferenceListModel {
    *          a TournamentModel instance
    * @return a ListModel containing all matches and their reversed counterparts
    */
-  static createCombinedList(tournament) {
-    let matches, reverseMatches, history, reverseHistory;
-    matches = tournament.getMatches();
-    reverseMatches = new ReferenceListModel(matches, undefined, ReverseMatchReferenceModel);
-    history = tournament.getHistory();
-    reverseHistory = new ReferenceListModel(history, undefined, ReverseResultReferenceModel);
-    return new CombinedReferenceListModel(matches, reverseMatches, history, reverseHistory);
+  static createCombinedList (tournament) {
+    let matches, reverseMatches, history, reverseHistory
+    matches = tournament.getMatches()
+    reverseMatches = new ReferenceListModel(matches, undefined, ReverseMatchReferenceModel)
+    history = tournament.getHistory()
+    reverseHistory = new ReferenceListModel(history, undefined, ReverseResultReferenceModel)
+    return new CombinedReferenceListModel(matches, reverseMatches, history, reverseHistory)
   }
 
   /**
@@ -36,12 +36,12 @@ class ProgressListModel extends BinningReferenceListModel {
    * @return a sorted ListModel containing all matches and their reversed
    *         counterparts, where the matches are unique (e.g. no duplicate byes)
    */
-  static createSortedList(tournament) {
+  static createSortedList (tournament) {
     return new SortedReferenceListModel(
       ProgressListModel.createCombinedList(tournament),
       ProgressListModel.sortFunction,
       true
-    );
+    )
   }
 
   /**
@@ -51,8 +51,8 @@ class ProgressListModel extends BinningReferenceListModel {
    *          another MatchModel instance
    * @return the order relation between the two
    */
-  static sortFunction(a, b) {
-    return a.getTeamID(0) - b.getTeamID(0) || a.getGroup() - b.getGroup();
+  static sortFunction (a, b) {
+    return a.getTeamID(0) - b.getTeamID(0) || a.getGroup() - b.getGroup()
   }
 
   /**
@@ -60,9 +60,9 @@ class ProgressListModel extends BinningReferenceListModel {
    *          a MatchModel instance
    * @return the first team id of the match, as used in a progress table
    */
-  static binningFunction(match) {
-    return match.getTeamID(0);
+  static binningFunction (match) {
+    return match.getTeamID(0)
   }
 }
 
-export default ProgressListModel;
+export default ProgressListModel

@@ -1,7 +1,7 @@
 function extractTeams (state) {
   return {
     teams: state.teams.map(function (team) {
-      let result = {
+      const result = {
         id: team.getID(),
         number: team.getID() + 1
       }
@@ -17,7 +17,7 @@ function extractTeams (state) {
 }
 
 function extractStages (state) {
-  let result = {
+  const result = {
     tournaments: state.tournaments.map(function (tournament) {
       return {
         id: tournament.getID(),
@@ -36,13 +36,13 @@ function extractStages (state) {
 }
 
 function extractRanking (state) {
-  let teams = extractTeams(state).teams
-  let globalRanking = state.tournaments.getGlobalRanking(teams.length)
+  const teams = extractTeams(state).teams
+  const globalRanking = state.tournaments.getGlobalRanking(teams.length)
 
   return {
     globalranking: globalRanking.displayOrder.map(function (teamid, displayid) {
       return {
-        displayid: displayid,
+        displayid,
         globalrank: globalRanking.globalRanks[teamid],
         team: teams[teamid],
         tournamentid: globalRanking.tournamentIDs[teamid],
@@ -50,15 +50,15 @@ function extractRanking (state) {
       }
     }),
     tournaments: state.tournaments.map(function (tournament, tournamentid) {
-      let ranking = tournament.getRanking().get()
+      const ranking = tournament.getRanking().get()
       return {
         components: ranking.components.slice(),
         globaloffset: globalRanking.tournamentOffsets[tournamentid],
         id: tournament.getID(),
         name: tournament.getName().get(),
         ranking: ranking.displayOrder.map(function (internalid, displayid) {
-          let teamid = ranking.ids[internalid]
-          let points = {}
+          const teamid = ranking.ids[internalid]
+          const points = {}
 
           ranking.components.forEach(function (component) {
             points[component] = ranking[component][internalid]
@@ -67,8 +67,8 @@ function extractRanking (state) {
           return {
             team: teams[teamid],
             rank: ranking.ranks[internalid],
-            displayid: displayid,
-            points: points
+            displayid,
+            points
           }
         }),
         state: tournament.getState().get(),
@@ -80,7 +80,7 @@ function extractRanking (state) {
 }
 
 function extractMatches (state) {
-  let teams = extractTeams(state).teams
+  const teams = extractTeams(state).teams
 
   function insertTeam (team) {
     if (typeof (team) === 'number') { return teams[team] }
@@ -97,7 +97,7 @@ function extractMatches (state) {
   }
 
   function formatResult (match) {
-    let result = formatMatch(match)
+    const result = formatMatch(match)
     result.score = match.score
     return result
   }
@@ -126,9 +126,9 @@ function extractMatches (state) {
 }
 
 function extractAll (state) {
-  var ret = {}
+  const ret = {}
 
-  for (let command in commands) {
+  for (const command in commands) {
     if (command !== 'all') {
       ret[command] = commands[command](state)
     }
@@ -137,7 +137,7 @@ function extractAll (state) {
   return ret
 }
 
-let commands = {
+const commands = {
   all: extractAll,
   matches: extractMatches,
   ranking: extractRanking,

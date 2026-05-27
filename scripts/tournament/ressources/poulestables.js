@@ -1,7 +1,7 @@
-let roundrobinByes, acbdRanking, winner, loser;
-winner = 'winner';
-loser = 'loser';
-roundrobinByes = [[0, 2], [1, 2], [0, 1]];
+let roundrobinByes, acbdRanking, winner, loser
+winner = 'winner'
+loser = 'loser'
+roundrobinByes = [[0, 2], [1, 2], [0, 1]]
 acbdRanking = [{
   winner: 0,
   loser: 2
@@ -14,7 +14,7 @@ acbdRanking = [{
 }, {
   winner: 2,
   loser: 3
-}];
+}]
 export default {
   MATCHES: {
     acbd: {
@@ -107,4 +107,4 @@ export default {
       lastteams: undefined
     }
   }
-};
+}

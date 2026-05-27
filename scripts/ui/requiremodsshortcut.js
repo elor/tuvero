@@ -1,13 +1,13 @@
-import Model from '../core/model.js';
+import Model from '../core/model.js'
 
 class RequireModsShortcut extends Model {
-  constructor() {
-    super();
-    window.setTimeout(this.createModsObject.bind(this), 1);
+  constructor () {
+    super()
+    window.setTimeout(this.createModsObject.bind(this), 1)
   }
 
   // RequireJS module registry no longer exists in ESM; window.mods shortcuts unavailable
-  createModsObject() {}
+  createModsObject () {}
 }
 
-export default RequireModsShortcut;
+export default RequireModsShortcut

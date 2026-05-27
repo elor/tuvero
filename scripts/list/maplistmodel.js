@@ -1,4 +1,4 @@
-import ListModel from './listmodel.js';
+import ListModel from './listmodel.js'
 
 /**
  * Constructor
@@ -10,15 +10,15 @@ import ListModel from './listmodel.js';
  *          indexlist. This class does not listen for changes in the map
  */
 class MapListModel extends ListModel {
-  constructor(indexlist, maplist) {
-    super();
-    this.makeReadonly();
-    this.indices = indexlist;
-    this.map = maplist;
+  constructor (indexlist, maplist) {
+    super()
+    this.makeReadonly()
+    this.indices = indexlist
+    this.map = maplist
     this.indices.map(function (index, pos) {
-      MapListModel.insertID(this, pos);
-    }, this);
-    this.indices.registerListener(this);
+      MapListModel.insertID(this, pos)
+    }, this)
+    this.indices.registerListener(this)
   }
 
   /**
@@ -28,9 +28,9 @@ class MapListModel extends ListModel {
    * @param event
    * @param data
    */
-  oninsert(emitter, event, data) {
+  oninsert (emitter, event, data) {
     if (emitter === this.indices) {
-      MapListModel.insertID(this, data.id);
+      MapListModel.insertID(this, data.id)
     }
   }
 
@@ -41,9 +41,9 @@ class MapListModel extends ListModel {
    * @param event
    * @param data
    */
-  onremove(emitter, event, data) {
+  onremove (emitter, event, data) {
     if (emitter === this.indices) {
-      MapListModel.removeID(this, data.id);
+      MapListModel.removeID(this, data.id)
     }
   }
 
@@ -54,9 +54,9 @@ class MapListModel extends ListModel {
    * @param event
    * @param data
    */
-  onreset(emitter, event, data) {
+  onreset (emitter, event, data) {
     if (emitter === this.indices) {
-      this.emit(event, data);
+      this.emit(event, data)
     }
   }
 
@@ -68,10 +68,10 @@ class MapListModel extends ListModel {
    * @param pos
    *          the id to insert at
    */
-  static insertID(list, pos) {
-    let ref;
-    ref = list.map.get(list.indices.get(pos));
-    ListModel.prototype.insert.call(list, pos, ref);
+  static insertID (list, pos) {
+    let ref
+    ref = list.map.get(list.indices.get(pos))
+    ListModel.prototype.insert.call(list, pos, ref)
   }
 
   /**
@@ -82,8 +82,8 @@ class MapListModel extends ListModel {
    * @param id
    *          the id to remove
    */
-  static removeID(list, id) {
-    ListModel.prototype.remove.call(list, id);
+  static removeID (list, id) {
+    ListModel.prototype.remove.call(list, id)
   }
 }
 
@@ -93,4 +93,4 @@ class MapListModel extends ListModel {
  * There's no need to intercept onresize, because the remove and insert
  * functions automatically emit resize events.
  */
-export default MapListModel;
+export default MapListModel

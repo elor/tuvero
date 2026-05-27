@@ -1,4 +1,4 @@
-import RankingComponent from './rankingcomponent.js';
+import RankingComponent from './rankingcomponent.js'
 
 /**
  * Constructor
@@ -7,8 +7,8 @@ import RankingComponent from './rankingcomponent.js';
  *          a RankingModel instance
  */
 class RankingIDComponent extends RankingComponent {
-  constructor(ranking) {
-    super(ranking, undefined);
+  constructor (ranking) {
+    super(ranking, undefined)
   }
 
   /**
@@ -18,16 +18,16 @@ class RankingIDComponent extends RankingComponent {
   *          a player index
   * @return the player index, for sorting
   */
-  value(i) {
-    return i;
+  value (i) {
+    return i
   }
 
-  compare(i, k) {
-    return -super.compare(i, k);
+  compare (i, k) {
+    return -super.compare(i, k)
   }
 
-  static NAME = 'id';
-  static DEPENDENCIES = [];
+  static NAME = 'id'
+  static DEPENDENCIES = []
 }
 
-export default RankingIDComponent;
+export default RankingIDComponent

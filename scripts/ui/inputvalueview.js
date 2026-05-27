@@ -1,5 +1,5 @@
-import View from '../core/view.js';
-import InputValueController from './inputvaluecontroller.js';
+import View from '../core/view.js'
+import InputValueController from './inputvaluecontroller.js'
 
 /**
  * Constructor
@@ -10,25 +10,25 @@ import InputValueController from './inputvaluecontroller.js';
  *          the associated DOM element
  */
 class InputValueView extends View {
-  constructor(model, $view) {
-    super(model, $view);
-    this.update();
-    this.controller = new InputValueController(this);
+  constructor (model, $view) {
+    super(model, $view)
+    this.update()
+    this.controller = new InputValueController(this)
   }
 
   /**
   * write the contents of get() to the DOM
   */
-  update() {
-    this.$view.val(this.model.get());
+  update () {
+    this.$view.val(this.model.get())
   }
 
   /**
   * Callback listener
   */
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 }
 
-export default InputValueView;
+export default InputValueView

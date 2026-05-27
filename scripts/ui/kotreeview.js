@@ -1,11 +1,11 @@
-import TemplateView from './templateview.js';
-import ListView from './listview.js';
-import InlineListView from './inlinelistview.js';
-import KOMatchResultView from './komatchresultview.js';
-import KOTournamentModel from '../tournament/kotournamentmodel.js';
-import KOTreePosition from './kotreeposition.js';
-import KOLineView from './kolineview.js';
-import BoxView from './boxview.js';
+import TemplateView from './templateview.js'
+import ListView from './listview.js'
+import InlineListView from './inlinelistview.js'
+import KOMatchResultView from './komatchresultview.js'
+import KOTournamentModel from '../tournament/kotournamentmodel.js'
+import KOTreePosition from './kotreeposition.js'
+import KOLineView from './kolineview.js'
+import BoxView from './boxview.js'
 
 /**
  * Constructor
@@ -25,28 +25,28 @@ import BoxView from './boxview.js';
  *          a ValueModel which evaluates to true if names should be shown
  */
 class KOTreeView extends TemplateView {
-  constructor(model, $view, teamlist, tournament, teamsize, fullwidth) {
-    super(model, $view, $view.find('.komatchresult.template'));
-    this.group = this.model.get(0).getGroup() & ~0x1;
-    this.boxView = new BoxView(this.$view);
-    this.fullwidth = fullwidth;
-    this.tournament = tournament;
-    this.$forest = this.$view.find('.forest');
-    this.$kolineanchor = this.$forest.find('.kolineanchor');
-    this.$bestrank = this.$view.find('.bestrank');
-    this.lines = new InlineListView(this.model, this.$kolineanchor, this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length, fullwidth);
-    this.matches = new ListView(this.model, this.$forest, this.$template, KOMatchResultView, teamlist, tournament, fullwidth);
-    this.updateGroupInformation();
-    this.setSize();
-    fullwidth.registerListener(this);
+  constructor (model, $view, teamlist, tournament, teamsize, fullwidth) {
+    super(model, $view, $view.find('.komatchresult.template'))
+    this.group = this.model.get(0).getGroup() & ~0x1
+    this.boxView = new BoxView(this.$view)
+    this.fullwidth = fullwidth
+    this.tournament = tournament
+    this.$forest = this.$view.find('.forest')
+    this.$kolineanchor = this.$forest.find('.kolineanchor')
+    this.$bestrank = this.$view.find('.bestrank')
+    this.lines = new InlineListView(this.model, this.$kolineanchor, this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length, fullwidth)
+    this.matches = new ListView(this.model, this.$forest, this.$template, KOMatchResultView, teamlist, tournament, fullwidth)
+    this.updateGroupInformation()
+    this.setSize()
+    fullwidth.registerListener(this)
   }
 
   /**
    * print the best possible rank for this group
    */
-  updateGroupInformation() {
-    const bestrank = this.group * 2 + 1;
-    this.$bestrank.text(bestrank);
+  updateGroupInformation () {
+    const bestrank = this.group * 2 + 1
+    this.$bestrank.text(bestrank)
   }
 
   /**
@@ -54,25 +54,25 @@ class KOTreeView extends TemplateView {
    * nodes are absolutely positioned, so the div doesn't flow around them
    * automatically.
    */
-  setSize() {
-    let numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID;
-    numTeams = this.tournament.getTeams().length;
-    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams, this.fullwidth.get());
-    lowestID = KOTournamentModel.firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
-    lowestPos = new KOTreePosition(lowestID, this.group, numTeams, this.fullwidth.get());
+  setSize () {
+    let numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID
+    numTeams = this.tournament.getTeams().length
+    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams, this.fullwidth.get())
+    lowestID = KOTournamentModel.firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1
+    lowestPos = new KOTreePosition(lowestID, this.group, numTeams, this.fullwidth.get())
     if (this.group === 0) {
-      numRounds = KOTournamentModel.initialRoundForTeams(numTeams) + 1;
+      numRounds = KOTournamentModel.initialRoundForTeams(numTeams) + 1
     } else {
-      numRounds = KOTournamentModel.roundsInGroup(this.group);
+      numRounds = KOTournamentModel.roundsInGroup(this.group)
     }
-    isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) === numTeams;
-    x = thirdPlacePos.x;
-    y = Math.max(lowestPos.y, thirdPlacePos.y);
-    x += KOTreePosition.getWidth(this.fullwidth.get());
-    y += KOTreePosition.HEIGHT;
-    this.$forest.css('width', x + 'em');
-    this.$forest.css('height', y + 'em');
-    this.$forest.css('margin-top', isTopAligned ? '0em' : '-2.5em');
+    isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) === numTeams
+    x = thirdPlacePos.x
+    y = Math.max(lowestPos.y, thirdPlacePos.y)
+    x += KOTreePosition.getWidth(this.fullwidth.get())
+    y += KOTreePosition.HEIGHT
+    this.$forest.css('width', x + 'em')
+    this.$forest.css('height', y + 'em')
+    this.$forest.css('margin-top', isTopAligned ? '0em' : '-2.5em')
   }
 
   /**
@@ -85,9 +85,9 @@ class KOTreeView extends TemplateView {
    * @param data
    *          a data object
    */
-  onupdate(emitter, event, data) {
-    this.setSize();
+  onupdate (emitter, event, data) {
+    this.setSize()
   }
 }
 
-export default KOTreeView;
+export default KOTreeView

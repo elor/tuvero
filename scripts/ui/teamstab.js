@@ -4,136 +4,136 @@
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery';
-import View from '../core/view.js';
-import State from './state.js';
-import NewTeamView from './newteamview.js';
-import LengthView from './lengthview.js';
-import TeamSizeView from './teamsizeview.js';
-import PreregCloserView from './preregcloserview.js';
-import CheckBoxView from './checkboxview.js';
-import ClassView from '../core/classview.js';
-import TabsHandle from './tabshandle.js';
-import TeamsFileLoadController from './teamsfileloadcontroller.js';
-import Presets from 'presets';
-import NoRegModel from './noregmodel.js';
-import DeleteAllTeamsController from './deleteallteamscontroller.js';
-import TimeMachine from '../timemachine/timemachine.js';
-import ValueModel from '../core/valuemodel.js';
-import Strings from './strings.js';
+import $ from 'jquery'
+import View from '../core/view.js'
+import State from './state.js'
+import NewTeamView from './newteamview.js'
+import LengthView from './lengthview.js'
+import TeamSizeView from './teamsizeview.js'
+import PreregCloserView from './preregcloserview.js'
+import CheckBoxView from './checkboxview.js'
+import ClassView from '../core/classview.js'
+import TabsHandle from './tabshandle.js'
+import TeamsFileLoadController from './teamsfileloadcontroller.js'
+import Presets from 'presets'
+import NoRegModel from './noregmodel.js'
+import DeleteAllTeamsController from './deleteallteamscontroller.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import ValueModel from '../core/valuemodel.js'
+import Strings from './strings.js'
 
 class TeamsTab extends View {
-  constructor($tab) {
-    super(undefined, $tab);
-    this.init();
-    this.update();
-    TimeMachine.commit.registerListener(this);
+  constructor ($tab) {
+    super(undefined, $tab)
+    this.init()
+    this.update()
+    TimeMachine.commit.registerListener(this)
   }
 
-  init() {
-    let $container, $button, value;
+  init () {
+    let $container, $button, value
 
     // teamsize bugfix
     if (State.teamsize.get() < Presets.registration.minteamsize) {
-      State.teamsize.set(Presets.registration.minteamsize);
+      State.teamsize.set(Presets.registration.minteamsize)
     }
     if (State.teamsize.get() > Presets.registration.maxteamsize) {
-      State.teamsize.set(Presets.registration.maxteamsize);
+      State.teamsize.set(Presets.registration.maxteamsize)
     }
 
     // registration
-    $container = this.$view.find('.newteamview');
+    $container = this.$view.find('.newteamview')
     this.newTeamView = new NewTeamView(State.teams, $container,
     //
-    State.teamsize);
+      State.teamsize)
 
     // number of teams
-    $container = this.$view.find('.nextteamnumber');
-    this.lengthView = new LengthView(State.teams, $container, +1);
+    $container = this.$view.find('.nextteamnumber')
+    this.lengthView = new LengthView(State.teams, $container, +1)
 
     // change team size
-    $container = this.$view.find('> .teamsizeview');
+    $container = this.$view.find('> .teamsizeview')
     if ($container.length !== 0) {
-      this.teamSizeView = new TeamSizeView(State.teamsize, $container);
+      this.teamSizeView = new TeamSizeView(State.teamsize, $container)
     }
 
     // hide team size buttons when a team has been registered
-    this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
+    this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view)
 
     // hide registration and removal buttons after the first tournament
-    this.noregmodel = new NoRegModel(State.tournaments);
-    this.regVisibilityView = new ClassView(this.noregmodel, this.$view, 'noreg');
+    this.noregmodel = new NoRegModel(State.tournaments)
+    this.regVisibilityView = new ClassView(this.noregmodel, this.$view, 'noreg')
 
     // name maxwidth checkbox
-    value = State.tabOptions.nameMaxWidth;
-    $container = this.$view.find('>.options input.maxwidth');
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth', 'nomaxwidth');
+    value = State.tabOptions.nameMaxWidth
+    $container = this.$view.find('>.options input.maxwidth')
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container)
+    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth', 'nomaxwidth')
 
     // player names checkbox
-    value = State.tabOptions.showNames;
-    $container = this.$view.find('>.options input.shownames');
-    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
-    this.showNamesClassView = new ClassView(value, this.$view, undefined, 'hidenames');
+    value = State.tabOptions.showNames
+    $container = this.$view.find('>.options input.shownames')
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container)
+    this.showNamesClassView = new ClassView(value, this.$view, undefined, 'hidenames')
 
     // team names checkbox
-    value = State.tabOptions.showTeamName;
-    $container = this.$view.find('>.options input.showteamname');
-    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
-    this.showTeamNameClassView = new ClassView(value, this.$view, undefined, 'hideteamname');
+    value = State.tabOptions.showTeamName
+    $container = this.$view.find('>.options input.showteamname')
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container)
+    this.showTeamNameClassView = new ClassView(value, this.$view, undefined, 'hideteamname')
 
     // rankingpoints checkbox
-    value = new ValueModel(Presets.ui.rankingpoints);
-    $container = this.$view.find('>.options input.rankingpoints');
-    this.rankingpointsCheckBoxView = new CheckBoxView(value, $container);
-    this.rankingpointsClassView = new ClassView(value, this.$view, undefined, 'hiderankingpoints');
+    value = new ValueModel(Presets.ui.rankingpoints)
+    $container = this.$view.find('>.options input.rankingpoints')
+    this.rankingpointsCheckBoxView = new CheckBoxView(value, $container)
+    this.rankingpointsClassView = new ClassView(value, this.$view, undefined, 'hiderankingpoints')
     $button = this.$view.find('button.sortbyrankingpoints').click(function (e) {
       if (window.confirm(Strings.confirm_team_sort_action)) {
-        sortTeamsByRankingPoints();
+        sortTeamsByRankingPoints()
       }
-    });
+    })
 
     // update the tab when the team size changes
     if (Presets.registration.teamsizeicon) {
-      TabsHandle.bindTabOpts('teams', State.teamsize);
+      TabsHandle.bindTabOpts('teams', State.teamsize)
     }
-    $container = this.$view.find('button.deleteall');
-    this.deleteAllTeamsController = new DeleteAllTeamsController(new View(this.noregmodel, $container));
-    $button = this.$view.find('>button.fileloadteams');
-    this.teamsFileLoadController = new TeamsFileLoadController($button);
+    $container = this.$view.find('button.deleteall')
+    this.deleteAllTeamsController = new DeleteAllTeamsController(new View(this.noregmodel, $container))
+    $button = this.$view.find('>button.fileloadteams')
+    this.teamsFileLoadController = new TeamsFileLoadController($button)
   }
 
-  onupdate() {
-    this.update();
+  onupdate () {
+    this.update()
   }
 
-  update() {
+  update () {
     if (TimeMachine.commit.get()) {
-      TabsHandle.show('teams');
+      TabsHandle.show('teams')
     } else {
-      TabsHandle.hide('teams');
+      TabsHandle.hide('teams')
     }
   }
 }
 
-function sortTeamsByRankingPoints() {
-  let teams;
-  teams = State.teams.asArray();
+function sortTeamsByRankingPoints () {
+  let teams
+  teams = State.teams.asArray()
   teams.sort(function (a, b) {
-    return b.rankingpoints - a.rankingpoints || a.getID() - b.getID();
-  });
-  State.teams.clear();
+    return b.rankingpoints - a.rankingpoints || a.getID() - b.getID()
+  })
+  State.teams.clear()
   teams.forEach(function (team) {
-    State.teams.push(team);
-  });
+    State.teams.push(team)
+  })
 }
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  let $tab;
-  $tab = $('#tabs > [data-tab="teams"]');
+  let $tab
+  $tab = $('#tabs > [data-tab="teams"]')
   if ($tab.length && $('#testmain').length === 0) {
-    return new TeamsTab($tab);
+    return new TeamsTab($tab)
   }
-});
-export default TeamsTab;
+})
+export default TeamsTab

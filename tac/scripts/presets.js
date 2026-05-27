@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-var Presets;
+let Presets
 Presets = {
   target: 'tac',
   systems: {
@@ -46,5 +46,5 @@ Presets = {
     rankingpoints: false,
     hiderankingorder: true
   }
-};
-export default Presets;
+}
+export default Presets

@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-import StateModel from './statemodel.js';
-import Listener from '../core/listener.js';
-let State;
-State = new StateModel();
+import StateModel from './statemodel.js'
+import Listener from '../core/listener.js'
+let State
+State = new StateModel()
 Listener.bind(State, 'error', function (emitter, event, message) {
-  console.error(message);
-});
-export default State;
+  console.error(message)
+})
+export default State

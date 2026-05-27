@@ -1,5 +1,5 @@
-import RankingDataListener from './rankingdatalistener.js';
-import VectorModel from '../math/vectormodel.js';
+import RankingDataListener from './rankingdatalistener.js'
+import VectorModel from '../math/vectormodel.js'
 
 /**
  * Constructor
@@ -8,17 +8,17 @@ import VectorModel from '../math/vectormodel.js';
  *          a RankingModel instance
  */
 class RankingSonnebornListener extends RankingDataListener {
-  constructor(ranking) {
-    super(ranking, new VectorModel());
+  constructor (ranking) {
+    super(ranking, new VectorModel())
   }
 
-  onrecalc() {
+  onrecalc () {
     // TODO exclude bye from sonneborn points?
-    this.winsmatrix.multVector(this.sonneborn, this.wins);
+    this.winsmatrix.multVector(this.sonneborn, this.wins)
   }
 
-  static NAME = 'sonneborn';
-  static DEPENDENCIES = ['winsmatrix', 'wins'];
+  static NAME = 'sonneborn'
+  static DEPENDENCIES = ['winsmatrix', 'wins']
 }
 
-export default RankingSonnebornListener;
+export default RankingSonnebornListener

@@ -1,8 +1,8 @@
-import { test, expect } from 'vitest';
-import RankingModel from '../rankingmodel.js';
+import { test, expect } from 'vitest'
+import RankingModel from '../rankingmodel.js'
 test('Poules Ranking', () => {
-  let ranking, ret, ref;
-  ranking = new RankingModel(['pouleid', 'wins', 'saldo', 'points'], 5);
+  let ranking, ret, ref
+  ranking = new RankingModel(['pouleid', 'wins', 'saldo', 'points'], 5)
   ref = {
     components: ['pouleid', 'wins', 'saldo', 'points'],
     ids: [0, 1, 2, 3, 4],
@@ -12,7 +12,7 @@ test('Poules Ranking', () => {
     saldo: [0, 0, 0, 0, 0],
     displayOrder: [0, 1, 2, 3, 4],
     pouleid: [1, 1, 1, 1, 1]
-  };
-  ret = ranking.get();
-  expect(ret, 'empty ranking: correct H2H-score').toEqual(ref);
-});
+  }
+  ret = ranking.get()
+  expect(ret, 'empty ranking: correct H2H-score').toEqual(ref)
+})

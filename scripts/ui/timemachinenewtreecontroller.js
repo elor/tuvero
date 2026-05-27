@@ -1,16 +1,16 @@
-import Controller from '../core/controller.js';
-import StateSaver from './statesaver.js';
+import Controller from '../core/controller.js'
+import StateSaver from './statesaver.js'
 
 /**
  * Constructor
  */
 class TimeMachineNewTreeController extends Controller {
-  constructor(view) {
-    super(view);
-    this.$input = this.view.$view.find('input.treename');
-    this.$button = this.view.$view.find('button.createroot');
-    this.$input.keydown(this.inputKey.bind(this));
-    this.$button.click(this.create.bind(this));
+  constructor (view) {
+    super(view)
+    this.$input = this.view.$view.find('input.treename')
+    this.$button = this.view.$view.find('button.createroot')
+    this.$input.keydown(this.inputKey.bind(this))
+    this.$button.click(this.create.bind(this))
   }
 
   /**
@@ -18,17 +18,17 @@ class TimeMachineNewTreeController extends Controller {
    *
    * @return true. always.
    */
-  create() {
-    let name;
-    name = this.$input.val();
+  create () {
+    let name
+    name = this.$input.val()
     if (!name) {
-      this.$input.focus();
-      return;
+      this.$input.focus()
+      return
     }
     if (StateSaver.createNewEmptyTree(name)) {
-      this.$input.val('');
+      this.$input.val('')
     }
-    return true;
+    return true
   }
 
   /**
@@ -37,15 +37,15 @@ class TimeMachineNewTreeController extends Controller {
    * @param evt
    * @return false if event propagation should be stopped
    */
-  inputKey(evt) {
+  inputKey (evt) {
     if (evt.which === 13) {
       // enter
-      this.$button.click();
-      evt.preventDefault();
-      return false;
+      this.$button.click()
+      evt.preventDefault()
+      return false
     }
-    return true;
+    return true
   }
 }
 
-export default TimeMachineNewTreeController;
+export default TimeMachineNewTreeController

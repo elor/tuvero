@@ -17,17 +17,17 @@ app.use(express.json({ type: 'application/json' }))
 
 function formatError (error) {
   return JSON.stringify({
-    'error': 'Error while processing the request',
-    'message': error ? error.message || error.msg || error : ''
+    error: 'Error while processing the request',
+    message: error ? error.message || error.msg || error : ''
   }, null, '  ')
 }
 
-let router = express.Router()
+const router = express.Router()
 
 const allCommands = Object.keys(tuvero.commands)
 
 const allRoutes = (function (commands) {
-  var routes = {}
+  const routes = {}
   commands.forEach(function (cmd) {
     routes[cmd] = `/${cmd}`
   })
@@ -35,8 +35,8 @@ const allRoutes = (function (commands) {
 })(allCommands)
 
 router.post('/:command', function (request, response, next) {
-  let command = request.params.command || undefined
-  let id = `${request.ip}->{${request.path}`;
+  const command = request.params.command || undefined
+  const id = `${request.ip}->{${request.path}`;
 
   (new Promise((resolve, reject) => {
     if (!command || !tuvero.commands[command]) {
