@@ -9,7 +9,7 @@ class RankingRecalcController extends Controller {
   }
 
   recalculate () {
-    State.tournaments.map(function (tournament) {
+    State.tournaments.forEach(function (tournament) {
       tournament.recalculateRanking()
       console.log('recalculating ranking for tournament ' + tournament.getID())
     }, this)

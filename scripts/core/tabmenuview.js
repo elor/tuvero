@@ -132,7 +132,7 @@ class TabMenuView extends View {
    */
   createTabMenu () {
     this.$menu = $('<span>').addClass('tabmenu')
-    this.tabnames.map(function (tabname) {
+    this.tabnames.forEach(function (tabname) {
       const $tab = $('<a>').attr('tabindex', -1)
       $tab.attr('href', '#' + tabname)
       if (this.keys[tabname]) {

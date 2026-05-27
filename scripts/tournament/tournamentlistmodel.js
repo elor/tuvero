@@ -28,9 +28,9 @@ class TournamentListModel extends IndexedListModel {
    */
   tournamentIDsForEachTeam () {
     const ids = []
-    this.map(function (tournament) {
+    this.forEach(function (tournament) {
       if (tournament.getState().get() !== 'finished') {
-        tournament.getTeams().map(function (team) {
+        tournament.getTeams().forEach(function (team) {
           ids[team] = tournament.getID()
         })
       }
@@ -80,7 +80,7 @@ class TournamentListModel extends IndexedListModel {
     while (closed.length < this.length) {
       closed.push(false)
     }
-    this.closedTournaments.map(function (tournamentID) {
+    this.closedTournaments.forEach(function (tournamentID) {
       closed[tournamentID] = true
     })
     return closed
@@ -127,7 +127,7 @@ class TournamentListModel extends IndexedListModel {
     }
 
     // apply all tournaments in order, just like they were played.
-    this.map(function (tournament) {
+    this.forEach(function (tournament) {
       this.applyTournamentToRanks(tournament, this.rankingCache)
     }, this)
     this.interlaceRanks(this.rankingCache)
@@ -217,7 +217,7 @@ class TournamentListModel extends IndexedListModel {
     tournamentRanking = tournament.getRanking().get()
     startIndex = this.startIndex.get(tournamentID)
     isClosed = this.closedTournaments.indexOf(tournamentID) !== -1
-    tournamentRanking.displayOrder.map(function (tournamentTeamID, displayID) {
+    tournamentRanking.displayOrder.forEach(function (tournamentTeamID, displayID) {
       let globalTeamID, globalDisplayID, tournamentRank, oldDisplayPlace
       globalTeamID = tournamentRanking.ids[tournamentTeamID]
       globalDisplayID = startIndex + displayID
@@ -245,7 +245,7 @@ class TournamentListModel extends IndexedListModel {
     lastTournamentID = undefined
     lastTournamentRank = 0
     rank = undefined
-    ranking.displayOrder.map(function (teamID, displayID) {
+    ranking.displayOrder.forEach(function (teamID, displayID) {
       let tournamentID, tournamentRank
       tournamentID = ranking.lastTournamentIDs[teamID]
       tournamentRank = ranking.tournamentRanks[teamID]

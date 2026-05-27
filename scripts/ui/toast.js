@@ -161,7 +161,7 @@ class Toast {
   }
 
   static closeTemporaryToasts () {
-    Toast.$container.find('.toast.temporary').map(function () {
+    Toast.$container.find('.toast.temporary').forEach(function () {
       const $toast = $(this)
       $toast.next().hide()
       $toast.hide()

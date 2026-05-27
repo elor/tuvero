@@ -24,7 +24,7 @@ class BinningReferenceListModel extends ListModel {
     this.bins = new ListModel()
     this.sortedBins = new SortedReferenceListModel(this.bins, this.binSortFunction, true)
     this.refList = list
-    this.refList.map(function (element, index) {
+    this.refList.forEach(function (element, index) {
       BinningReferenceListModel.insertElement(this, index)
     }, this)
     this.refList.registerListener(this)

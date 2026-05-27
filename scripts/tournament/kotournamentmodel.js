@@ -133,10 +133,10 @@ class KOTournamentModel extends TournamentModel {
     existingMatches = groups.map(function () {
       return []
     })
-    this.matches.map(function (match) {
+    this.matches.forEach(function (match) {
       existingMatches[match.getGroup()][match.getID()] = match
     })
-    this.history.map(function (match) {
+    this.history.forEach(function (match) {
       existingMatches[match.getGroup()][match.getID()] = match
     })
     id = KOTournamentModel.firstMatchIDOfRound(KOTournamentModel.initialRoundForTeams(this.teams.length)) - 1
@@ -159,7 +159,7 @@ class KOTournamentModel extends TournamentModel {
     teamMatches = this.teams.map(function () {
       return undefined
     })
-    this.matches.map(function (match) {
+    this.matches.forEach(function (match) {
       match.teams.forEach(function (teamID) {
         teamMatches[teamID] = match
       })
@@ -168,7 +168,7 @@ class KOTournamentModel extends TournamentModel {
     teamMatches.forEach(function (team, teamid) {
       let lastHistoryResult
       if (team === undefined) {
-        this.history.map(function (result) {
+        this.history.forEach(function (result) {
           if (result.teams.indexOf(teamid) !== -1) {
             if (lastHistoryResult === undefined || lastHistoryResult.getID() < result.getID()) {
               lastHistoryResult = result

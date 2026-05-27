@@ -21,8 +21,8 @@ class CombinedReferenceListModel extends ListModel {
       this.refLists.push(arguments[i])
       this.listOffsets.push(0)
     }
-    this.refLists.map(function (refList, listID) {
-      refList.map(function (element, elementID) {
+    this.refLists.forEach(function (refList, listID) {
+      refList.forEach(function (element, elementID) {
         CombinedReferenceListModel.insertElement(this, listID, elementID)
       }, this)
       refList.registerListener(this)

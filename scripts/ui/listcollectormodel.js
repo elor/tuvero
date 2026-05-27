@@ -72,7 +72,7 @@ class ListCollectorModel extends Model {
    * constructor call
    */
   registerExistingElements () {
-    this.list.map(function (emitter) {
+    this.list.forEach(function (emitter) {
       emitter.registerListener(this)
     }, this)
   }

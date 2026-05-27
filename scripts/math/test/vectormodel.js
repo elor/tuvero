@@ -39,7 +39,7 @@ test('VectorModel', () => {
   vec.push(8)
   retvec = new VectorModel()
   vec2 = new VectorModel(vec.length)
-  vec2.map(function (elem, index) {
+  vec2.forEach(function (elem, index) {
     vec2.set(index, index)
   })
   expect(retvec.mult(vec, vec2), 'mult does not fail').toBe(retvec)

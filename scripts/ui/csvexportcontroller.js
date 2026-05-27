@@ -139,7 +139,7 @@ class CSVExportController extends Controller {
         let teamID, fields
         teamID = ranking.ids[displayID]
         fields = [ranking.ranks[displayID] + 1, teamID + 1]
-        ranking.components.map(function (componentname) {
+        ranking.components.forEach(function (componentname) {
           fields.push(ranking[componentname][displayID])
         })
         return fields.join(',')
@@ -159,7 +159,7 @@ class CSVExportController extends Controller {
     let csvTournaments
     csvTournaments = State.tournaments.map(function (tournament) {
       const lines = [this.escape(tournament.getName().get()), Strings.csvheader_history]
-      tournament.getHistory().map(function (result) {
+      tournament.getHistory().forEach(function (result) {
         let fields, i
         fields = []
         fields.push(result.getGroup() + 1)

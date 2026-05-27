@@ -74,7 +74,7 @@ test('TournamentListModel', () => {
 
   // must start matches, else tournament gets purged on close due to initial state at end of tournamentlist
   tournament.run()
-  tournament.getMatches().map(function (match) {
+  tournament.getMatches().forEach(function (match) {
     match.finish([13, 0])
   })
   tournament = TournamentIndex.createTournament('round', ['id'])
@@ -85,7 +85,7 @@ test('TournamentListModel', () => {
 
   // must start matches, else tournament gets purged on close due to initial state at end of tournamentlist
   tournament.run()
-  tournament.getMatches().map(function (match) {
+  tournament.getMatches().forEach(function (match) {
     match.finish([13, 0])
   })
   list.closeTournament(0)

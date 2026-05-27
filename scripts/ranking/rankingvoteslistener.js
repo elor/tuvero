@@ -13,7 +13,7 @@ class RankingVotesListener extends RankingDataListener {
   }
 
   onrecalc () {
-    this.votes.map(function (oldVote, teamID) {
+    this.votes.forEach(function (oldVote, teamID) {
       let i, string
       string = ''
 

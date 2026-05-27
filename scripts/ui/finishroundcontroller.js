@@ -19,12 +19,12 @@ class FinishRoundController extends Controller {
    *
    */
   finishRound () {
-    State.tournaments.map(function (tournament) {
+    State.tournaments.forEach(function (tournament) {
       let matches, finished
       matches = tournament.getMatches()
       do {
         finished = true
-        matches.map(function (match) {
+        matches.forEach(function (match) {
           if (match.isRunningMatch()) {
             match.finish(this.getScore(match.length))
             finished = false

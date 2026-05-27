@@ -20,7 +20,7 @@ class StartRoundController extends Controller {
       })
       State.tournaments.push(tournament)
     }
-    State.tournaments.map(function (tournament) {
+    State.tournaments.forEach(function (tournament) {
       const state = tournament.getState().get()
       if (state === 'idle' || state === 'initial') {
         tournament.run()

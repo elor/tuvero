@@ -40,7 +40,7 @@ class FontSizeView extends View {
    * removes all font size information
    */
   reset () {
-    FontSizeModel.SIZES.map(function (size) {
+    FontSizeModel.SIZES.forEach(function (size) {
       this.$container.removeClass(classprefix + size)
       this.$view.removeClass(classprefix + size)
     }, this)

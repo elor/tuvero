@@ -54,8 +54,8 @@ test('MatrixModel', () => {
     'get(1,2) after remove() now points to another element; returns 0'
   ).toBe(0)
   a = new MatrixModel(5);
-  [0, 1, 2, 3, 4].map(function (row) {
-    [0, 1, 2, 3, 4].map(function (col) {
+  [0, 1, 2, 3, 4].forEach(function (row) {
+    [0, 1, 2, 3, 4].forEach(function (col) {
       a.set(row, col, row * a.length + col)
     })
   })

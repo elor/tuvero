@@ -18,7 +18,7 @@ class ReferenceListModel extends ListModel {
     this.matches = matchlist
     this.teams = teamlist
     this.ReferenceModel = ReferenceModel
-    this.matches.map(function (match, id) {
+    this.matches.forEach(function (match, id) {
       ReferenceListModel.insertMatch(this, id)
     }, this)
     this.matches.registerListener(this)

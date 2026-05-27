@@ -82,4 +82,5 @@ class ReadonlyListModel extends Model {
 }
 
 ReadonlyListModel.prototype.EVENTS = ListModel.prototype.EVENTS
+ReadonlyListModel.prototype.forEach = ReadonlyListModel.prototype.map
 export default ReadonlyListModel

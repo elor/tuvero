@@ -15,7 +15,7 @@ class MapListModel extends ListModel {
     this.makeReadonly()
     this.indices = indexlist
     this.map = maplist
-    this.indices.map(function (index, pos) {
+    this.indices.forEach(function (index, pos) {
       MapListModel.insertID(this, pos)
     }, this)
     this.indices.registerListener(this)

@@ -24,7 +24,7 @@ class SortedReferenceListModel extends ListModel {
     this.refList = list
     this.sortFunction = sortFunction
     this.unique = unique || false
-    list.map(function (element) {
+    list.forEach(function (element) {
       SortedReferenceListModel.insertElement(this, element)
     }, this)
     list.registerListener(this)

@@ -297,7 +297,7 @@ class LegacyLoaderModel extends Model {
 
   createMissingObjects () {
     console.log('conversion: creating missing tournament objects')
-    State.tournaments.map(function (tournament) {
+    State.tournaments.forEach(function (tournament) {
       this['createMissingObjects' + tournament.SYSTEM](tournament)
     }, this)
     console.log('conversion finished: missing tournament objects')

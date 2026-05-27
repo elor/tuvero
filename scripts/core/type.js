@@ -97,7 +97,7 @@ Type.is = function (obj, typestring) {
  * @param reference
  *          a reference object
  */
-types.map(function (reference) {
+types.forEach(function (reference) {
   const typestring = Type(reference)
   /**
    * Type.isSomething() closure
