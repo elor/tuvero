@@ -44,7 +44,9 @@ test.describe('tournament systems', () => {
     const initialCount = await matches.count()
     await matches.first().locator('.finish input.score').nth(0).fill('13')
     await matches.first().locator('.finish input.score').nth(1).fill('7')
-    await matches.first().locator('.finish button.accept').click()
+    const acceptBtn = matches.first().locator('.finish button.accept')
+    await expect(acceptBtn).toBeEnabled()
+    await acceptBtn.click()
     await expect(matches).toHaveCount(initialCount - 1)
 
     await finishAllMatches(page)
