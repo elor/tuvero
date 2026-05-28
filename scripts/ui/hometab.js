@@ -5,8 +5,6 @@ import Browser from './browser.js'
 import TimeMachineView from './timemachineview.js'
 import StateSaver from './statesaver.js'
 import StateFileLoadController from './statefileloadcontroller.js'
-import ValueModel from '../core/valuemodel.js'
-import ClassView from '../core/classview.js'
 import Server from './server.js'
 import LoginView from './loginview.js'
 import ServerTournamentListModel from './servertournamentlistmodel.js'
@@ -61,8 +59,6 @@ class HomeTab extends View {
      */
     $button = this.$view.find('button.load')
     this.fileLoadController = new StateFileLoadController($button)
-    $container = this.$view.find('.chromerecommendation')
-    this.chromeRecommendationClassView = new ClassView(new ValueModel(Browser.name === 'Chrome'), $container, 'hidden')
 
     /*
      * LoginView, ServerTournamentView
