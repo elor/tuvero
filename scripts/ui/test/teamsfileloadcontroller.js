@@ -6,6 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
+// @vitest-environment jsdom
 import { test, expect } from 'vitest'
 
 import TeamsFileLoadController from '../teamsfileloadcontroller.js'
