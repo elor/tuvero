@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="de">
-  {% include 'head.html' %}
-
-<body class="splash" id="app">
-
-  {% include 'splash.html' %}
-
-  {% include 'tabs.html' %}
-
-  {% include 'resetlink.html' %}
-
-  {% include 'fonthotkeys.html' %}
-
-</body>
-
-</html>
+{# Variant entry point. The page is assembled from templates/index.html by the
+   Nunjucks plugin in vite.config.js; per-variant values come from templatevars.js. #}
+{%- include 'index.html' -%}
