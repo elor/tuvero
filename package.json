@@ -35,7 +35,7 @@
     "test:e2e:watch": "SLOWMO=250 playwright test --headed --workers=1",
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "dev": "vite"
+    "dev": "npm run vite:dev"
   },
   "standard": {
     "ignore": [
