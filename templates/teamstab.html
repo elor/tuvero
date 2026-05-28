@@ -17,7 +17,7 @@
   </div>
   <h2>Anmeldung & Turniersystem</h2>
 
-  {% include 'teamsizeview.html' %}
+  {% if teamsize %}{% include 'teamsizeview.html' %}{% else %}<!-- TeamSizeView is disabled in Tuvero {{ variant }} -->{% endif %}
 
   <br>
 

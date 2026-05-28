@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import nunjucks from 'nunjucks'
+import { templateVars } from './templatevars.js'
 
 const here = (...p) => resolve(fileURLToPath(new URL('.', import.meta.url)), ...p)
 
@@ -58,8 +60,35 @@ const variantAliasPlugin = {
   }
 }
 
+// Assembles each variant's index.html from the Nunjucks partials in templates/
+// at request/build time, injecting per-variant values (teamtext, variant, ...).
+// This replaces the retired Gulp template build and restores a single source of
+// truth instead of three hand-maintained index.html copies.
+const njkEnv = nunjucks.configure(here('templates'), { autoescape: false, noCache: true })
+
+const detectVariant = (...candidates) => {
+  for (const c of candidates) {
+    for (const v of validVariants) {
+      if (c && c.includes(`/${v}/`)) return v
+    }
+  }
+  return variant || null
+}
+
+const nunjucksHtmlPlugin = {
+  name: 'nunjucks-html',
+  transformIndexHtml: {
+    order: 'pre',
+    handler (html, ctx) {
+      const v = detectVariant(ctx.filename, ctx.path)
+      if (!v) return html
+      return njkEnv.renderString(html, templateVars(v))
+    }
+  }
+}
+
 export default defineConfig({
-  plugins: [variantAliasPlugin],
+  plugins: [variantAliasPlugin, nunjucksHtmlPlugin],
   build: variant
     ? {
         outDir: `build/${variant}`,
