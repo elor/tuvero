@@ -22,6 +22,9 @@ class ResultReferenceModel extends MatchResult {
       const tl = teamlist
       const mappedTeams = tl ? result.teams.map(t => tl.get(t)) : result.teams.slice()
       super({ teams: mappedTeams, id: result.id, group: result.group }, undefined)
+      // MatchResult's constructor sets this.score = [] for the score-less case,
+      // but an open match must have no score so isResult() stays false.
+      this.score = undefined
       this.match = result
       this.updateTeams = function () {
         this.teams = tl ? this.match.teams.map(t => tl.get(t)) : this.match.teams.slice()
