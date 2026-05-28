@@ -62,3 +62,28 @@ export async function finishAllMatches (page) {
     await expect(forms).not.toHaveCount(count)
   }
 }
+
+// Enter results in the history tab instead of the games tab. The history tab
+// renders running matches differently per system: the KO bracket hides its
+// accept button (submit via Enter), while the progress table (swiss/round) and
+// the match list (placement) expose a visible accept button. Only running
+// matches carry a .finish form, so the same loop drains them all.
+export async function finishAllMatchesInHistory (page) {
+  await goTab(page, 'history')
+  const forms = page.locator('[data-tab="history"] .finish:visible')
+  while (true) {
+    const count = await forms.count()
+    if (count === 0) break
+    const form = forms.first()
+    await form.locator('input.score').nth(0).fill('1')
+    await form.locator('input.score').nth(1).fill('0')
+    const accept = form.locator('button.accept')
+    if (await accept.isVisible()) {
+      await expect(accept).toBeEnabled()
+      await accept.click()
+    } else {
+      await form.locator('input.score').nth(1).press('Enter')
+    }
+    await expect(forms).not.toHaveCount(count)
+  }
+}
