@@ -2,44 +2,104 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <title>Tuvero</title>
+    <title>Tuvero – Dev</title>
     <style>
+      * { box-sizing: border-box; }
       body {
         font-family: sans-serif;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         min-height: 100vh;
         margin: 0;
-        background: #1a1a2e;
-        color: #eee;
+        background: #a0a0a0;
+        color: #333;
       }
-      h1 { font-size: 2.5rem; margin-bottom: 0.25rem; }
-      p { color: #aaa; margin-bottom: 2rem; }
-      .variants { display: flex; gap: 1.5rem; }
-      a {
-        display: block;
-        padding: 1.25rem 2.5rem;
-        background: #16213e;
-        border: 1px solid #0f3460;
-        border-radius: 8px;
-        color: #e94560;
+      .splash {
+        background: #fff;
+        border-radius: 1em;
+        padding: 2.5em 3em;
+        text-align: center;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      }
+      .logo {
+        height: 5em;
+        margin-bottom: 0.25em;
+      }
+      h1 {
+        font-size: 2rem;
+        margin: 0 0 0.2rem;
+      }
+      .tagline {
+        color: #888;
+        margin: 0 0 2rem;
+        font-size: 0.9rem;
+      }
+      .variants {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+      a.variant {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
+        padding: 1.25rem 1.5rem;
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 0.75em;
+        color: #333;
         text-decoration: none;
-        font-size: 1.25rem;
         font-weight: bold;
-        transition: background 0.2s;
+        transition: background 0.15s, border-color 0.15s;
+        width: 110px;
       }
-      a:hover { background: #0f3460; }
+      a.variant img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
+      a.variant .desc {
+        font-weight: normal;
+        font-size: 0.75rem;
+        color: #888;
+      }
+      a.variant:hover {
+        background: #e8e8e8;
+        border-color: #bbb;
+      }
+      .dev-badge {
+        margin-top: 1.5em;
+        font-size: 0.75rem;
+        color: #bbb;
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
-    <h1>Tuvero</h1>
-    <p>Tournament Management</p>
-    <div class="variants">
-      <a href="/basic/">Basic</a>
-      <a href="/boule/">Boule</a>
-      <a href="/tac/">Tac</a>
+    <div class="splash">
+      <img class="logo" src="/core/images/tuvero.png" alt="Tuvero" />
+      <h1>Tuvero</h1>
+      <p class="tagline">Turnierverwaltung · Einfach. Fair. Individuell.</p>
+      <div class="variants">
+        <a class="variant" href="/basic/">
+          <img src="/basic/images/favicon.png" alt="" />
+          Basic
+          <span class="desc">Allgemeine Sportarten</span>
+        </a>
+        <a class="variant" href="/boule/">
+          <img src="/boule/images/favicon.png" alt="" />
+          Boule
+          <span class="desc">Pétanque</span>
+        </a>
+        <a class="variant" href="/tac/">
+          <img src="/tac/images/favicon.png" alt="" />
+          TAC
+          <span class="desc">Brettspiel</span>
+        </a>
+      </div>
+      <p class="dev-badge">Dev Server</p>
     </div>
   </body>
 </html>
