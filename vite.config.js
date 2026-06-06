@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import nunjucks from 'nunjucks'
@@ -125,14 +126,13 @@ const nunjucksHtmlPlugin = {
 }
 
 export default defineConfig({
-  plugins: [variantAliasPlugin, nunjucksHtmlPlugin],
+  root: variant ? here(variant) : undefined,
+  plugins: [variantAliasPlugin, nunjucksHtmlPlugin, viteSingleFile()],
   build: variant
     ? {
-        outDir: `build/${variant}`,
+        assetsInlineLimit: Infinity,
+        outDir: here(`dist/${variant}`),
         emptyOutDir: true,
-        rollupOptions: {
-          input: { app: here(`${variant}/index.html`) }
-        }
       }
     : {}
 })

@@ -7,7 +7,7 @@ thumbs.db
 .*.swp
 *~
 #*#
-/build/
+/dist/
 build-chromeapp/
 dev/
 sprite_new.png
