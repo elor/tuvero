@@ -54,6 +54,18 @@ class StateLoaderModel {
      * @returns {boolean} true on success, false otherwise
      */
   loadLatest () {
+    const pending = sessionStorage.getItem('tuvero-pending-load')
+    if (pending) {
+      const treeName = sessionStorage.getItem('tuvero-pending-load-name') || 'import'
+      sessionStorage.removeItem('tuvero-pending-load')
+      sessionStorage.removeItem('tuvero-pending-load-name')
+      if (this.loadString(pending)) {
+        const commit = TimeMachine.init(JSON.stringify(State.save()), treeName)
+        if (commit && commit.isValid()) TimeMachine.cleanup(commit, 3)
+        return true
+      }
+      return false
+    }
     let lastCommit
     if (TimeMachine.roots.length === 0) {
       return false

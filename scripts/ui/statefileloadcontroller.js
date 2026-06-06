@@ -19,6 +19,14 @@ class StateFileLoadController extends FileLoadController {
   readFile (fileContents) {
     Toast.closeTemporaryToasts()
     try {
+      let parsed
+      try { parsed = JSON.parse(fileContents) } catch (_) {}
+      if (parsed?.target && !window.location.pathname.startsWith('/' + parsed.target + '/')) {
+        sessionStorage.setItem('tuvero-pending-load', fileContents)
+        sessionStorage.setItem('tuvero-pending-load-name', this.file.name.replace(/(\.(json|txt|csv))+$/, ''))
+        window.location.href = '/' + parsed.target + '/'
+        return
+      }
       // TODO use filename until the tournament name is stored in the file,
       // too
       StateSaver.newTree(this.file.name.replace(/(\.(json|txt|csv))+$/, ''))

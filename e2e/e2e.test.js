@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { collectErrors, goTab, createTournament, registerTeams, startTournament, startNextRound, finishAllMatches, finishAllMatchesInHistory } from './helpers.js'
+import { collectErrors, goTab, createTournament, registerTeams, startTournament, startNextRound, finishAllMatches, finishAllMatchesInHistory, waitForApp } from './helpers.js'
 
 const TEAMS = ['Alice', 'Bob', 'Carol', 'Dave']
 
@@ -8,7 +8,8 @@ test.describe('app loads', () => {
     test(variant, async ({ page }) => {
       const errors = collectErrors(page)
       await page.goto(`/${variant}/`)
-      await page.waitForLoadState('networkidle')
+      await waitForApp(page)
+      await expect(page.locator('[data-tab="home"] h2')).toContainText(variant, { ignoreCase: true })
       expect(errors).toEqual([])
     })
   }
@@ -102,4 +103,17 @@ test.describe('result entry via history tab', () => {
       expect(errors).toEqual([])
     })
   }
+})
+
+test('file load: redirects to correct variant', async ({ page }) => {
+  const errors = collectErrors(page)
+  await page.goto('/boule/')
+  await waitForApp(page)
+  expect(errors).toEqual([])
+  const [fileChooser] = await Promise.all([
+    page.waitForEvent('filechooser'),
+    page.locator('button.fileload').click()
+  ])
+  await fileChooser.setFiles('e2e/fixtures/tac-minimal.json')
+  await page.waitForURL(/\/tac\//)
 })

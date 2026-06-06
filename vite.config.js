@@ -17,23 +17,60 @@ const variantAliases = ['options', 'presets', 'strings']
 // Resolves variant-specific aliases (options/presets/strings) to the correct
 // variant by walking up the module graph to find which variant entry loaded
 // the importing file. Falls back to VITE_VARIANT for single-variant builds.
+//
+// activeVariant tracks the variant of the most recent browser request. In dev
+// mode each module is fetched individually, so the middleware fires before
+// every resolveId call in that module's import chain. When the module graph
+// contains importers from multiple variants (e.g. after a cross-variant
+// redirect), activeVariant breaks the tie in favour of the current variant.
+//
+// On variant switch, only the shared modules that directly import a variant
+// alias are soft-invalidated (no HMR events, just mark stale for next fetch).
+// This is fast and targeted — typically 3–5 files (statemodel, matchresult…).
 let devServer
+let activeVariant = variant || null
+const aliasImporters = new Set() // shared modules that import a variant alias
 const variantAliasPlugin = {
   name: 'variant-alias',
   enforce: 'pre',
   configureServer (server) {
     devServer = server
+    server.middlewares.use((req, _res, next) => {
+      const m = req.url && req.url.match(/^\/(basic|boule|tac)\//)
+      if (m && m[1] !== activeVariant) {
+        activeVariant = m[1]
+        // Soft-invalidate only alias-importing shared modules so Vite re-runs
+        // resolveId for them on next fetch, without flooding with HMR events.
+        for (const id of aliasImporters) {
+          const mod = server.moduleGraph.getModuleById(id)
+          if (mod) server.moduleGraph.invalidateModule(mod, new Set(), Date.now(), false, true)
+        }
+      }
+      next()
+    })
   },
   resolveId (id, importer) {
     if (!variantAliases.includes(id) || !importer) return null
 
     // Direct hit: importer lives inside a variant directory
     for (const v of validVariants) {
-      if (importer.includes(`/${v}/`)) return here(`${v}/scripts/${id}.js`)
+      if (importer.includes(`/${v}/`)) {
+        activeVariant = v
+        return here(`${v}/scripts/${id}.js`)
+      }
     }
 
-    // Shared scripts: walk the dev server's module graph to find the
-    // originating variant entry point
+    // Track which shared modules import aliases so we know what to invalidate
+    aliasImporters.add(importer)
+
+    // activeVariant is set by the middleware for every browser request before
+    // any resolveId calls in that module's fetch chain, so it is always correct
+    // for the current variant — even when tac has never been loaded before and
+    // its entry point is not yet in the module graph.
+    if (activeVariant) return here(`${activeVariant}/scripts/${id}.js`)
+
+    // Fallback for edge cases where the middleware hasn't run yet: walk the
+    // module graph to find the originating variant entry point.
     if (devServer) {
       const visited = new Set()
       const findVariant = (moduleId) => {
