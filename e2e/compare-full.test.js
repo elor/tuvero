@@ -361,30 +361,46 @@ test('Maastricht: boule 29 teams → Swiss 5 rounds + 4×KO', async ({ browser }
     await both(prod, local, p => setTab(p, 'ranking'))
     await compare(prod, local, 'swiss-final-ranking')
 
-    // Successive KO phase — A, B, C, D
-    for (const group of ['A', 'B', 'C', 'D']) {
-      console.log(`\n  ── KO ${group} ──`)
+    // Close Swiss to free all 29 teams for successive KO brackets
+    await both(prod, local, async p => {
+      await setTab(p, 'teams')
+      const btn = p.locator('.system:not(.template):not(.newsystem) .idle button.closetournament').last()
+      await btn.waitFor({ state: 'visible', timeout: 5000 })
+      await btn.click()
+    })
+
+    // Loop 1: create all 4 KO tournaments (set size, wait for rowspan update, click button)
+    for (const [group, size] of [['A', 8], ['B', 8], ['C', 8], ['D', 5]]) {
+      console.log(`\n  ── KO ${group} create (${size} teams) ──`)
       await setTab(prod, 'teams')
       await setTab(local, 'teams')
-      await both(prod, local, p => createSystem(p, 'ko'))
+      await both(prod, local, async p => {
+        const input = p.locator('input.tournamentsize').first()
+        await input.waitFor({ state: 'visible', timeout: 1000 })
+        await input.fill(String(size))
+        await input.blur()
+        await p.locator(`td.newsystem[rowspan="${size}"]`).waitFor({ timeout: 1000 })
+        await p.locator('button[data-system="ko"]').first().click()
+      })
+    }
+
+    // Loop 2: rename the first .initial KO and start it, repeat for each group
+    for (const group of ['A', 'B', 'C', 'D']) {
+      console.log(`\n  ── KO ${group} rename+start ──`)
+      await both(prod, local, async p => {
+        await p.locator('.system.initial:not(.template):not(.newsystem) .tournamentname.rename').first().click()
+        const input = p.locator('.system.initial:not(.template):not(.newsystem) input.rename').first()
+        await input.waitFor({ timeout: 1000 })
+        await input.fill(`${group}-Turnier`)
+        await input.press('Enter')
+      })
       await both(prod, local, p => runSystem(p))
       await compare(prod, local, `ko-${group}-started`)
-
-      for (let r = 0; r < 8; r++) {
-        await setTab(prod, 'games')
-        await setTab(local, 'games')
-        const [pc2, lc2] = await Promise.all([
-          prod.locator('[data-tab="games"] .finish').count(),
-          local.locator('[data-tab="games"] .finish').count()
-        ])
-        if (pc2 === 0 && lc2 === 0) break
-        await both(prod, local, p => fillMatches(p, 'games'))
-        await compare(prod, local, `ko-${group}-r${r + 1}`)
-      }
-
-      await both(prod, local, p => setTab(p, 'history'))
-      await compare(prod, local, `ko-${group}-history`)
     }
+
+    console.log(`\n  ── KO results entry ──`)
+    await both(prod, local, p => fillKOBrackets(p))
+    await compare(prod, local, 'ko-results')
 
     // Final tab sweep
     console.log('\n  ── Final sweep ──')
