@@ -40,11 +40,12 @@ const variantAliasPlugin = {
       const m = req.url && req.url.match(/^\/(basic|boule|tac)\//)
       if (m && m[1] !== activeVariant) {
         activeVariant = m[1]
-        // Soft-invalidate only alias-importing shared modules so Vite re-runs
-        // resolveId for them on next fetch, without flooding with HMR events.
+        // Hard-invalidate alias-importing shared modules (isHmr=false avoids
+        // flooding the browser with HMR events; hard rather than soft so that
+        // Vite re-runs resolveId on the next fetch and picks the new variant).
         for (const id of aliasImporters) {
           const mod = server.moduleGraph.getModuleById(id)
-          if (mod) server.moduleGraph.invalidateModule(mod, new Set(), Date.now(), false, true)
+          if (mod) server.moduleGraph.invalidateModule(mod, new Set(), Date.now(), false)
         }
       }
       next()
