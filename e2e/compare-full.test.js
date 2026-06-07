@@ -327,6 +327,7 @@ test('Maastricht: boule 29 teams → Swiss 5 rounds + 4×KO', async ({ browser }
     await both(prod, local, p => createSystem(p, 'swiss'))
     await both(prod, local, p => changeRankingOrder(p))
     await both(prod, local, p => runSystem(p))
+    await both(prod, local, p => renameTournament(p, 'Vorrunde'))
     await compare(prod, local, 'swiss-started')
 
     let swissRound = 0
@@ -342,7 +343,6 @@ test('Maastricht: boule 29 teams → Swiss 5 rounds + 4×KO', async ({ browser }
         // Change ranking order while still idle (after round 3, before round 4 starts)
         await both(prod, local, p => changeRankingOrder(p))
         await compare(prod, local, 'swiss-ranking-changed')
-        // Start round 4
         await setTab(prod, 'teams')
         await setTab(local, 'teams')
         await both(prod, local, p => startNextRound(p))
