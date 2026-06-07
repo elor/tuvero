@@ -12,17 +12,9 @@ const mcr = new MCR({
   entryFilter: (entry) => {
     const url = entry.url || ''
     if (!url.startsWith('http://localhost:5173/')) return false
-    if (url.includes('/node_modules/')) return false
-    if (url.includes('/@vite/')) return false
-    if (url.includes('/@fs/')) return false
-    return true
-  },
-  sourcePath: (filePath, _source, entry) => {
-    if (entry?.url?.startsWith('http://localhost:5173/')) {
-      const pathname = new URL(entry.url).pathname.split('?')[0]
-      return here(pathname.slice(1))
-    }
-    return filePath
+    const pathname = url.split('?')[0]
+    if (!pathname.endsWith('.js')) return false
+    return /\/(basic\/|boule\/|tac\/)?scripts\//.test(pathname)
   }
 })
 
