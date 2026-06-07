@@ -27,3 +27,4 @@ npm-debug.log
 /CLAUDE.md
 /.claude
 .last-run.json
+/coverage/

@@ -14,6 +14,12 @@ export default defineConfig({
   },
   test: {
     include: ['scripts/**/test/*.js'],
-    environment: 'node'
+    environment: 'node',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'json'],
+      include: ['scripts/**/*.js'],
+      exclude: ['scripts/**/test/*.js', 'scripts/ui/**', 'scripts/background/**']
+    }
   }
 })

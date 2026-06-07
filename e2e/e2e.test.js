@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './coverage.fixture.js'
 import { collectErrors, goTab, createTournament, registerTeams, startTournament, startNextRound, finishAllMatches, finishAllMatchesInHistory, waitForApp } from './helpers.js'
 
 const TEAMS = ['Alice', 'Bob', 'Carol', 'Dave']
