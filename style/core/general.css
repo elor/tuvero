@@ -1,3 +1,7 @@
+html {
+  font-family: sans-serif;
+}
+
 #app {
   background: #a0a0a0;
   padding: 16px 10px;
