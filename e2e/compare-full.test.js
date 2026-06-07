@@ -118,6 +118,29 @@ async function fillMatches(page, tab, correctionIndex = -1) {
   }
 }
 
+// Fill all pending KO bracket match forms in the history tab.
+// KO matches use input.score.mini; submit by pressing Enter on the second input.
+// Future bracket slots exist in the DOM but are hidden — iterate to find visible forms only.
+async function fillKOBrackets(page) {
+  await setTab(page, 'history')
+  while (true) {
+    const forms = page.locator('[data-tab="history"] .koscore .finish')
+    const count = await forms.count()
+    let filled = false
+    for (let i = 0; i < count; i++) {
+      const form = forms.nth(i)
+      if (!await form.isVisible().catch(() => false)) continue
+      await form.locator('input.score').nth(0).fill('1')
+      await form.locator('input.score').nth(1).fill('0')
+      await form.locator('input.score').nth(1).press('Enter')
+      await page.waitForTimeout(50)
+      filled = true
+      break
+    }
+    if (!filled) break
+  }
+}
+
 // Click the first available ranking component button (changes Swiss/Round ordering).
 async function changeRankingOrder(page) {
   // Initial state: ranking order view is directly visible inside .initial
