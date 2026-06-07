@@ -87,7 +87,9 @@ async function renameTournament(page, name) {
 }
 
 async function startNextRound(page) {
-  await page.locator('.system:not(.template):not(.newsystem) .idle button.runtournament').first().click()
+  const btn = page.locator('.system:not(.template):not(.newsystem) .idle button.runtournament').first()
+  await btn.waitFor({ state: 'visible', timeout: 5000 })
+  await btn.click()
   await page.locator('.system:not(.template):not(.newsystem).running').first().waitFor({ timeout: 1000 })
 }
 
@@ -283,6 +285,7 @@ test.describe('all variants — all systems', () => {
 
 // ─── Maastricht scenario ─────────────────────────────────────────────────────
 test('Maastricht: boule 29 teams → Swiss 5 rounds + 4×KO', async ({ browser }) => {
+  test.setTimeout(300000) // 29 teams × 5 Swiss rounds + 4 KO phases needs ~2 min
   const variant = 'boule'
   const pc = await browser.newContext({ viewport: { width: 1280, height: 900 } })
   const lc = await browser.newContext({ viewport: { width: 1280, height: 900 } })
@@ -314,12 +317,13 @@ test('Maastricht: boule 29 teams → Swiss 5 rounds + 4×KO', async ({ browser }
       await compare(prod, local, `swiss-r${swissRound}`)
 
       if (swissRound === 3) {
-        // After round 3: change ranking order before starting round 4
+        // Change ranking order while still idle (after round 3, before round 4 starts)
+        await both(prod, local, p => changeRankingOrder(p))
+        await compare(prod, local, 'swiss-ranking-changed')
+        // Start round 4
         await setTab(prod, 'teams')
         await setTab(local, 'teams')
         await both(prod, local, p => startNextRound(p))
-        await both(prod, local, p => changeRankingOrder(p))
-        await compare(prod, local, 'swiss-ranking-changed')
         await both(prod, local, p => fillMatches(p, 'games'))
         swissRound++
         await compare(prod, local, `swiss-r${swissRound}`)
