@@ -73,8 +73,8 @@ async function createSystem(page, system) {
 
 // Clicks "run tournament" from the initial state to start the first round.
 async function runSystem(page) {
-  await page.locator('.system:not(.template):not(.newsystem) .initial button.runtournament').first().click()
-  await page.locator('.system:not(.template):not(.newsystem).running').first().waitFor({ timeout: 1000 })
+  await page.locator('.system:not(.template):not(.newsystem).initial button.runtournament').first().click()
+  await page.locator('.system:not(.template):not(.newsystem).running').last().waitFor({ timeout: 1000 })
 }
 
 // Click the tournament name span to open the inline rename input, type name, confirm.
@@ -114,7 +114,6 @@ async function fillMatches(page, tab, correctionIndex = -1) {
     const accept = form.locator('button.accept')
     await expect(accept).toBeEnabled({ timeout: 1000 }).catch(() => { })
     await accept.click().catch(() => { })
-    await page.waitForTimeout(150)
     idx++
   }
 }
@@ -125,7 +124,7 @@ async function changeRankingOrder(page) {
   const initAvail = page.locator(
     '.system:not(.template):not(.newsystem) .initial .rankingorderview .available button:not(.hidden)'
   ).first()
-  if (await initAvail.count() > 0) {
+  if (await initAvail.count() > 0 && await initAvail.isVisible().catch(() => false)) {
     await initAvail.click()
     return true
   }
