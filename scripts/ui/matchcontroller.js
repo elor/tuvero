@@ -77,10 +77,7 @@ class MatchController extends Controller {
       $(this).select()
     })
 
-    // We're using keyup to check the values as the user types, not only
-    // when
-    // the focus is lost or the value is changed incrementally
-    this.$scores.on('change keyup', function () {
+    this.$scores.on('change keyup input', function () {
       let value, valid
       valid = true
       const $this = $(this)
