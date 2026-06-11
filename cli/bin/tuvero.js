@@ -1,38 +1,18 @@
 #!/usr/bin/env node
 
-'use strict'
+import { load, commands } from '../state.js'
 
-const path = require('path')
-const fs = require('fs')
-
-const libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..')
-const tuvero = require(path.join([libdir, 'state.js']))
-
-function printandexit () {
-  console.error('Syntax: tuvero.js <input.json> <command>')
+function printAndExit () {
+  console.error('Syntax: tuvero <input.json> <command>')
   console.error('Commands:')
-  console.error('    ' + Object.keys(tuvero.commands).sort().join(', '))
+  console.error('    ' + Object.keys(commands).sort().join(', '))
   process.exit(1)
 }
 
-if (process.argv.length < 2) {
-  printandexit()
-}
+const [filename, command] = process.argv.slice(2)
 
-const [filename, command] = process.argv
-const callback = tuvero.commands[command]
+if (!filename || !command || !commands[command]) printAndExit()
 
-if (!command || !callback) printandexit()
-
-const output = (state) => {
-  console.log(JSON.stringify(callback(state), null, '  '))
-}
-
-const errput = (err) => {
-  console.error(err)
-  process.exit(1)
-}
-
-tuvero.load(filename)
-  .then(output)
-  .catch(errput)
+load(filename, command)
+  .then(result => console.log(JSON.stringify(result, null, '  ')))
+  .catch(err => { console.error(err.message || err); process.exit(1) })

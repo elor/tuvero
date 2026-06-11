@@ -2,6 +2,7 @@
   "name": "tuvero-cli",
   "version": "1.6.0-dev",
   "description": "Tuvero library for tournament management",
+  "type": "module",
   "main": "index.js",
   "bin": "bin/tuvero.js",
   "author": {
@@ -11,12 +12,10 @@
     "node": ">=26"
   },
   "dependencies": {
-    "express": "^5.2.1",
-    "qunit": "^2.25.0",
-    "requirejs": "^2.3.8"
+    "express": "^5.2.1"
   },
   "scripts": {
-    "test": "node test.js",
+    "build": "node build.mjs",
     "start": "node bin/tuvero-server.js"
   }
 }

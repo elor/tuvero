@@ -1,70 +1,47 @@
 #!/usr/bin/env node
 
-'use strict'
-
-const express = require('express')
-const fs = require('fs')
-const path = require('path')
-
-const libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..')
-const tuvero = require(libdir + path.sep + 'state.js')
+import express from 'express'
+import { run, commands } from '../state.js'
 
 const app = express()
-
 const PORT = 8080
 
 app.use(express.json({ type: 'application/json' }))
 
-function formatError (error) {
-  return JSON.stringify({
-    error: 'Error while processing the request',
-    message: error ? error.message || error.msg || error : ''
-  }, null, '  ')
-}
+const allCommands = Object.keys(commands)
+const allRoutes = Object.fromEntries(allCommands.map(cmd => [cmd, `/${cmd}`]))
 
 const router = express.Router()
 
-const allCommands = Object.keys(tuvero.commands)
-
-const allRoutes = (function (commands) {
-  const routes = {}
-  commands.forEach(function (cmd) {
-    routes[cmd] = `/${cmd}`
-  })
-  return routes
-})(allCommands)
-
-router.post('/:command', function (request, response, next) {
-  const command = request.params.command || undefined
-  new Promise((resolve, reject) => {
-    if (!command || !tuvero.commands[command]) {
-      return reject(new Error('Command not recognized. Available commands: ' + allCommands.join(', ')))
+router.post('/:command', async function (request, response) {
+  const command = request.params.command
+  try {
+    if (!commands[command]) {
+      return response.status(400).json({
+        error: 'Command not recognized',
+        message: 'Available commands: ' + allCommands.join(', ')
+      })
     }
     if (!request.is('application/json')) {
-      return reject(new Error('Content-Type must be application/json'))
+      return response.status(400).json({ error: 'Content-Type must be application/json' })
     }
     if (!request.body) {
-      return reject(new Error('No JSON data received'))
+      return response.status(400).json({ error: 'No JSON data received' })
     }
-
-    tuvero.parse(request.body)
-      .then(state => {
-        resolve(JSON.stringify(tuvero.commands[command](state), null, ' '))
-      }).catch(reject)
-  })
-    .then(jsonstring => {
-      response.send(jsonstring)
-    }).catch(error => {
-      response.status(400).send(formatError(error))
+    const result = await run(request.body, command)
+    response.json(result)
+  } catch (error) {
+    response.status(400).json({
+      error: 'Error while processing the request',
+      message: error ? error.message || String(error) : ''
     })
+  }
 })
 
-router.all('/', function (request, response, next) {
-  response.send(JSON.stringify(allRoutes, null, ' '))
+router.get('/', function (_request, response) {
+  response.json(allRoutes)
 })
 
 app.use('/', router)
-
 app.listen(PORT)
-
 console.log('listening on port ' + PORT)

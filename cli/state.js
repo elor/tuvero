@@ -1,68 +1,52 @@
-#!/usr/bin/env node
+import { Worker } from 'worker_threads'
+import { existsSync } from 'fs'
+import { fileURLToPath } from 'url'
+import { readFile } from 'fs/promises'
+import commands from './commands.js'
 
-'use strict'
-
-const fs = require('fs')
-
-function loadState (file) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(file, 'utf-8', (error, fileContents) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(fileContents)
-      }
-    })
-  })
-    .then(parseState)
+// Cache per-target worker URLs after the first lookup.
+const workerURLCache = {}
+function workerURL (target) {
+  if (!workerURLCache[target]) {
+    const bundled = new URL(`./worker-${target}.mjs`, import.meta.url)
+    workerURLCache[target] = existsSync(fileURLToPath(bundled))
+      ? bundled
+      : new URL('./worker.mjs', import.meta.url)
+  }
+  return workerURLCache[target]
 }
 
-function parseState (savedState) {
+function run (savedState, command) {
   return new Promise((resolve, reject) => {
     if (typeof savedState === 'string') {
-      savedState = JSON.parse(savedState)
+      try {
+        savedState = JSON.parse(savedState)
+      } catch (e) {
+        return reject(new Error('Invalid JSON: ' + e.message))
+      }
     }
-    if (typeof savedState !== 'object') {
-      return reject(Error('incompatible data type. Must be JSON string or JSON'))
+    if (typeof savedState !== 'object' || !savedState) {
+      return reject(new Error('incompatible data type. Must be JSON string or JSON object'))
     }
-
     if (!savedState.target) {
-      return reject(Error('No Tuvero target given. Is this even a Tuvero savestate?'))
+      return reject(new Error('No Tuvero target given. Is this even a Tuvero savestate?'))
+    }
+    if (!commands[command]) {
+      return reject(new Error('Command not recognized. Available commands: ' + Object.keys(commands).join(', ')))
     }
 
-    const target = savedState.target
-    const baseDir = `../${target}/scripts/`
-
-    delete require.cache[require.resolve('requirejs')]
-    const requirejs = require('requirejs')
-    requirejs.config({
-      baseUrl: '../scripts',
-      paths: {
-        options: baseDir + 'options',
-        presets: baseDir + 'presets',
-        strings: baseDir + 'strings'
-      }
+    const worker = new Worker(workerURL(savedState.target), { workerData: { target: savedState.target, savedState, command } })
+    worker.once('message', ({ result, error }) => {
+      if (error) reject(new Error(error))
+      else resolve(result)
     })
-
-    requirejs(['core/config'], function (config) {
-      const StateModel = requirejs('ui/statemodel')
-      const Listener = requirejs('core/listener')
-
-      const State = new StateModel()
-
-      Listener.bind(State, 'error', function (emitter, event, data) {
-        reject(data)
-      })
-
-      if (State.restore(savedState)) {
-        resolve(State)
-      } else {
-        reject(Error('cannot restore saved state'))
-      }
-    })
+    worker.once('error', reject)
   })
 }
 
-exports.load = loadState
-exports.parse = parseState
-exports.commands = require('./commands.js')
+async function load (file, command) {
+  const contents = await readFile(file, 'utf-8')
+  return run(contents, command)
+}
+
+export { run, load, commands }

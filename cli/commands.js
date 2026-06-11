@@ -145,4 +145,4 @@ const commands = {
   teams: extractTeams
 }
 
-module.exports = commands
+export default commands

@@ -1,9 +1,1 @@
-#!/usr/bin/env node
-
-'use strict'
-
-const tuvero = require('./state.js')
-
-exports.load = tuvero.load
-exports.parse = tuvero.parse
-exports.commands = tuvero.commands
+export { run, load, commands } from './state.js'
