@@ -60,7 +60,7 @@ class ServerModel extends Model {
     this.registerMessage()
     $.ajax({
       method: 'POST',
-      url: 'https://www.tuvero.de/profile/token/new/json',
+      url: (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '') + '/profile/token/new/json',
       timeout: 5000,
       xhrFields: {
         withCredentials: true
