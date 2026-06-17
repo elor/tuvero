@@ -16,8 +16,18 @@ class ServerTournamentLoader {
   loadTournament (tournament) {
     // create new root RefLog with proper name
     StateSaver.createNewEmptyTree(tournament.name)
-    // load state
-    State.restore(tournament.statejson)
+    if (tournament.isSeed) {
+      // No upload exists yet -- the server returned a seed
+      // envelope with the metadata we already have. Start from a
+      // fresh, empty tree; just pull teamsize across so the local
+      // state matches what the organizer set up online.
+      if (tournament.statejson && tournament.statejson.teamsize) {
+        State.teamsize.set(tournament.statejson.teamsize)
+      }
+    } else if (tournament.statejson) {
+      // Real state download -- restore from the inner body.
+      State.restore(tournament.statejson)
+    }
     // for good measure, set the serverlink again
     State.serverlink.set(tournament.alias)
   }

@@ -26,6 +26,7 @@ class ServerTournamentModel extends Model {
     // as an API endpoint but not as a human-facing one.
     this.url_www = data.url_www
     this.statejson = undefined
+    this.isSeed = false
     this.server = server
     this.server.registerListener(this)
   }
@@ -38,14 +39,20 @@ class ServerTournamentModel extends Model {
       return
     }
     const downloadToast = Toast.once(Strings.state_downloading, Toast.INFINITE)
-    message.onreceive = function (emitter, event, statejson) {
-      if (!statejson.error) {
-        this.statejson = statejson
-        this.emit('ready')
-      } else {
-        Toast.once(statejson.error || Strings.state_download_failed)
+    message.onreceive = function (emitter, event, response) {
+      if (response.error) {
+        Toast.once(response.error || Strings.state_download_failed)
         this.emit('error')
+        return
       }
+      // /state/<id>/<dataset> wraps the actual state JSON in an
+      // envelope (dataset/body/id). Restore wants the raw inner
+      // body; carry the seed flag separately so the loader can
+      // decide whether to invoke State.restore or initialize an
+      // empty tree.
+      this.statejson = response.body
+      this.isSeed = !!response.seed
+      this.emit('ready')
     }.bind(this)
     message.onerror = function () {
       Toast.once(Strings.state_download_failed)
