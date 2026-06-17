@@ -20,10 +20,13 @@ class StateLinkView extends ClassView {
    */
   update () {
     super.update()
-    const tournamentid = this.model.get()
-    if (tournamentid) {
+    const serverlink = this.model.get()
+    if (serverlink) {
+      // /+<alias> is the canonical tournament URL on the web side;
+      // /t/<id> is the int-only legacy fallback (not what the
+      // variant has, since the API exposes tournaments by alias).
       const webOrigin = (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '')
-      this.$view.attr('href', webOrigin + '/t/' + tournamentid + this.propertyPath)
+      this.$view.attr('href', webOrigin + '/+' + serverlink + this.propertyPath)
     }
   }
 
