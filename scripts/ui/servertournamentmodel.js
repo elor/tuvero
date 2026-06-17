@@ -11,7 +11,7 @@ class ServerTournamentModel extends Model {
     // The API exposes tournaments by alias, not numeric id. Old
     // responses (legacy /graph era) shipped data.id; keep it as a
     // fallback so rebuilt-against-old-server combos still work.
-    this.id = data.alias || data.id || undefined
+    this.alias = data.alias || data.id || undefined
     this.name = data.name
     this.place = data.place
     this.creator = data.creator_name
@@ -31,7 +31,7 @@ class ServerTournamentModel extends Model {
   }
 
   downloadState () {
-    const message = this.server.message('t/' + this.id + '/state/latest/state')
+    const message = this.server.message('t/' + this.alias + '/state/latest/state')
     if (!message) {
       Toast.once(Strings.state_download_failed)
       this.emit('error')

@@ -19,7 +19,7 @@ class ServerTournamentLoader {
     // load state
     State.restore(tournament.statejson)
     // for good measure, set the serverlink again
-    State.serverlink.set(tournament.id)
+    State.serverlink.set(tournament.alias)
   }
 }
 
