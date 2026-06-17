@@ -13,7 +13,10 @@ import State from './state.js'
  * Constructor
  */
 class ServerTournamentLoader {
-  loadTournament (tournament) {
+  // Called as a class method: ServerTournamentLoader.loadTournament(...)
+  // -- see servertournamentcontroller.js. Without `static` the call
+  // would resolve to undefined.
+  static loadTournament (tournament) {
     // create new root RefLog with proper name
     StateSaver.createNewEmptyTree(tournament.name)
     if (tournament.isSeed) {
