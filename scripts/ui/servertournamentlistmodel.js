@@ -27,10 +27,11 @@ class ServerTournamentListModel extends ListModel {
   }
 
   update () {
-    const message = this.server.message('t', {
-      publiconly: false,
-      showarchive: true
-    })
+    // /me/tournaments is the variant-shaped list: only tournaments
+    // the caller created. /t is the browseable own + public list,
+    // which the variant doesn't want -- users would see other
+    // peoples' rows they can't actually act on.
+    const message = this.server.message('me/tournaments')
     message.onreceive = function (emitter, event, data) {
       this.parseResult(data)
     }.bind(this)

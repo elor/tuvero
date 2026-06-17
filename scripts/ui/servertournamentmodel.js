@@ -8,7 +8,10 @@ import Strings from './strings.js'
 class ServerTournamentModel extends Model {
   constructor (server, data) {
     super()
-    this.id = data.id || undefined
+    // The API exposes tournaments by alias, not numeric id. Old
+    // responses (legacy /graph era) shipped data.id; keep it as a
+    // fallback so rebuilt-against-old-server combos still work.
+    this.id = data.alias || data.id || undefined
     this.name = data.name
     this.place = data.place
     this.creator = data.creator_name
