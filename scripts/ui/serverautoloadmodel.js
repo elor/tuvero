@@ -22,7 +22,11 @@ class ServerAutoloadModel extends Model {
   readTournamentID () {
     let testresult
     if (Browser.inithash) {
-      testresult = Browser.inithash.match(/^\/?t\/([0-9a-f]+)$/)
+      // Accept anything that looks like an alias or a numeric id.
+      // Aliases use the same [A-Za-z0-9] set the server auto-
+      // generator emits (e.g. "sommer26", "oNHOr"); numeric legacy
+      // ids fall through the same character class.
+      testresult = Browser.inithash.match(/^\/?t\/([A-Za-z0-9]+)$/)
       if (testresult && testresult[0] && testresult[1]) {
         return testresult[1]
       }
