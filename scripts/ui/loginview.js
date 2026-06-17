@@ -87,7 +87,7 @@ class LoginView extends View {
       return false
     }
     const webOrigin = (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '')
-    this.loginWindow = window.open(webOrigin + '/auth/google')
+    this.loginWindow = window.open(webOrigin + '/login')
     if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow()
       this.popupBlocked.set(true)
