@@ -27,8 +27,6 @@ class LoginView extends View {
     this.$loginbutton = this.$view.find('button.login')
     this.$logoutbutton = this.$view.find('button.logout')
     this.$busy = this.$view.find('.busy')
-    this.$domainnotice = this.$view.find('.domainnotice')
-    this.$nodomainnotice = this.$view.find('.nodomainnotice')
     this.$online = this.$view.find('.online')
     this.$offline = this.$view.find('.offline')
     this.userinfovisibility = new ClassView(this.model.tokenvalid, this.$userinfo, undefined, 'hidden')
@@ -43,11 +41,6 @@ class LoginView extends View {
     this.offlineVisibility = new ClassView(this.online,
     //
       this.$offline, 'hidden')
-    if (this.model.communicationStatus().tuvero) {
-      this.$domainnotice.addClass('hidden')
-    } else {
-      this.$nodomainnotice.addClass('hidden')
-    }
     this.usernameView = new ValueView(this.username, this.$username)
     this.avatarView = new ImageView(this.avatar, this.$avatar)
     this.loginWindow = undefined
@@ -57,7 +50,6 @@ class LoginView extends View {
     this.errorView = new ClassView(this.errorModel, this.$view.find('.errornotice'), undefined, 'hidden')
 
     // TODO offlinenotice
-    // TODO domainnotice
 
     $(window).on('beforeunload', function ($) {
       this.closeLoginWindow()
