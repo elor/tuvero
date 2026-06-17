@@ -14,10 +14,14 @@ class ServerTournamentModel extends Model {
     this.creator = data.creator_name
     this.teamsize = data.teamsize
     this.variant = data.target
-    // Prefer url_tournament (resolves against the current API host)
-    // over url_www (hardcoded https://www.tuvero.de) so the variant
-    // doesn't bounce users out of localhost in dev / staging.
-    this.url_www = data.url_tournament || data.url_www
+    // url_www is the canonical, shareable URL the variant exposes in
+    // "Online-Voranmeldungen" so the organizer can hand it to players.
+    // Production sets CANONICAL_WEB_ORIGIN=https://www.tuvero.de;
+    // staging/local dev get an honest fallback to whatever host the
+    // API request used. We do *not* fall through to url_tournament
+    // (which is the API host, e.g. api.tuvero.de) -- that URL works
+    // as an API endpoint but not as a human-facing one.
+    this.url_www = data.url_www
     this.statejson = undefined
     this.server = server
     this.server.registerListener(this)
