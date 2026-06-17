@@ -22,7 +22,8 @@ class StateLinkView extends ClassView {
     super.update()
     const tournamentid = this.model.get()
     if (tournamentid) {
-      this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath)
+      const webOrigin = (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '')
+      this.$view.attr('href', webOrigin + '/t/' + tournamentid + this.propertyPath)
     }
   }
 
