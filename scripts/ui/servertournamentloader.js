@@ -30,6 +30,13 @@ class ServerTournamentLoader {
       if (tournament.statejson && tournament.statejson.teamsize) {
         State.teamsize.set(tournament.statejson.teamsize)
       }
+      // Preselect the showTeamName tab option when the organiser
+      // has opted into collecting team names. The server only ships
+      // ``seed.name`` on each team when this flag is true, so the
+      // tab option is the right place to wire it in.
+      if (tournament.statejson && tournament.statejson.show_team_name) {
+        State.tabOptions.showTeamName.set(true)
+      }
       if (tournament.statejson && tournament.statejson.teams) {
         tournament.statejson.teams.forEach(function (seed) {
           const players = (seed.players || []).map(function (alias) {
