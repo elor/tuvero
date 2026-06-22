@@ -27,10 +27,22 @@ class LoginView extends View {
     this.$loginbutton = this.$view.find('button.login')
     this.$logoutbutton = this.$view.find('button.logout')
     this.$busy = this.$view.find('.busy')
-    this.$domainnotice = this.$view.find('.domainnotice')
-    this.$nodomainnotice = this.$view.find('.nodomainnotice')
     this.$online = this.$view.find('.online')
     this.$offline = this.$view.find('.offline')
+
+    // Rewrite hardcoded https://www.tuvero.de hrefs in the template
+    // to whatever this build is actually talking to. The static HTML
+    // can't read window.* itself; the user-visible "go to tuvero.de
+    // to log in" / "create new preregistration on tuvero.de" links
+    // need to point at the same origin our XHRs hit, otherwise the
+    // local dev experience splits between localhost and prod.
+    const webOrigin = (window.TUVERO_WEB_ORIGIN || '').replace(/\/$/, '')
+    if (webOrigin && webOrigin !== 'https://www.tuvero.de') {
+      this.$view.find('a[href^="https://www.tuvero.de"]').each(function () {
+        const $a = $(this)
+        $a.attr('href', $a.attr('href').replace('https://www.tuvero.de', webOrigin))
+      })
+    }
     this.userinfovisibility = new ClassView(this.model.tokenvalid, this.$userinfo, undefined, 'hidden')
     this.avatarvisibility = new ClassView(this.avatar, this.$avatar, undefined, 'hidden')
     this.usernamevisibility = new ClassView(this.username, this.$username, undefined, 'hidden')
@@ -43,11 +55,6 @@ class LoginView extends View {
     this.offlineVisibility = new ClassView(this.online,
     //
       this.$offline, 'hidden')
-    if (this.model.communicationStatus().tuvero) {
-      this.$domainnotice.addClass('hidden')
-    } else {
-      this.$nodomainnotice.addClass('hidden')
-    }
     this.usernameView = new ValueView(this.username, this.$username)
     this.avatarView = new ImageView(this.avatar, this.$avatar)
     this.loginWindow = undefined
@@ -57,7 +64,6 @@ class LoginView extends View {
     this.errorView = new ClassView(this.errorModel, this.$view.find('.errornotice'), undefined, 'hidden')
 
     // TODO offlinenotice
-    // TODO domainnotice
 
     $(window).on('beforeunload', function ($) {
       this.closeLoginWindow()
@@ -80,7 +86,8 @@ class LoginView extends View {
       }
       return false
     }
-    this.loginWindow = window.open('https://www.tuvero.de/login')
+    const webOrigin = (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '')
+    this.loginWindow = window.open(webOrigin + '/login')
     if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow()
       this.popupBlocked.set(true)
@@ -102,7 +109,6 @@ class LoginView extends View {
   }
 
   closeLoginWindow () {
-    console.log('closeLoginWindow')
     if (!this.isLoginWindowOpen()) {
       return
     }

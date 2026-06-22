@@ -185,6 +185,8 @@ const Strings = {
   state_upload_complete: 'Turnierstand hochgeladen',
   state_upload_failed: 'Hochladen fehlgeschlagen',
   state_uploading: 'Lade Turnierstand hoch...',
+  state_downloading: 'Lade Turnierstand herunter...',
+  state_download_failed: 'Herunterladen fehlgeschlagen',
   state_not_linked: 'Turnier nicht vom Server gestartet',
   not_logged_in: 'Hochladen nicht möglich: Nicht am Server angemeldet',
   team_settings_updated: 'Änderungen gespeichert',

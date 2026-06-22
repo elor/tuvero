@@ -11,7 +11,6 @@ import Model from '../core/model.js'
 import ValueModel from '../core/valuemodel.js'
 import Online from '../background/online.js'
 import MessageModel from './messagemodel.js'
-import Browser from './browser.js'
 
 /**
  * @param  {String} token the API token for the current user
@@ -54,13 +53,10 @@ class ServerModel extends Model {
 
   createToken (token) {
     this.invalidateToken()
-    if (!this.communicationStatus().tuvero) {
-      return this.emit('error')
-    }
     this.registerMessage()
     $.ajax({
       method: 'POST',
-      url: 'https://www.tuvero.de/profile/token/new/json',
+      url: (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '') + '/profile/token/new/json',
       timeout: 5000,
       xhrFields: {
         withCredentials: true
@@ -101,9 +97,6 @@ class ServerModel extends Model {
     if (this.tokenvalid.get() === false || !this.token.get()) {
       return undefined
     }
-    if (!this.communicationStatus().tuvero) {
-      return this.emit('error')
-    }
 
     // tokenvalid can be true or undefined.
     // true: it's deemed valid
@@ -122,8 +115,6 @@ class ServerModel extends Model {
 
   communicationStatus () {
     const causes = {
-      https: Browser.secure,
-      tuvero: Browser.legit,
       online: Online(),
       validtoken: this.token.get() && this.tokenvalid.get()
     }
