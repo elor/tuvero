@@ -17,6 +17,17 @@ class ServerAutoloadModel extends Model {
     this.server = server
     this.tournamentID = this.readTournamentID()
     this.server.registerListener(this)
+
+    // The hash points at a server-side tournament we want to load
+    // -- but onlogin() only fires *after* a valid token exists.
+    // Kick the token mint ourselves so a one-click autoload works
+    // for users who already have a Flask session cookie (silent
+    // mint via /profile/token/new/json) and falls back to the
+    // login popup when they don't. Without this the link looks
+    // broken until the user opens the login popup manually.
+    if (this.tournamentID && !this.server.token.get()) {
+      this.server.createToken()
+    }
   }
 
   readTournamentID () {
