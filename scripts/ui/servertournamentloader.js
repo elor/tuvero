@@ -33,6 +33,11 @@ class ServerTournamentLoader {
     }
     // for good measure, set the serverlink again
     State.serverlink.set(tournament.alias)
+    // Persist the restored State (with serverlink) to TimeMachine.
+    // createNewEmptyTree() committed an empty State *before* restore
+    // ran; without this second save, reload reads the earlier commit
+    // and the serverlink is lost.
+    StateSaver.saveState()
   }
 }
 
