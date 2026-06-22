@@ -8,6 +8,8 @@
  */
 import StateSaver from './statesaver.js'
 import State from './state.js'
+import TeamModel from './teammodel.js'
+import PlayerModel from './playermodel.js'
 
 /**
  * Constructor
@@ -20,12 +22,25 @@ class ServerTournamentLoader {
     // create new root RefLog with proper name
     StateSaver.createNewEmptyTree(tournament.name)
     if (tournament.isSeed) {
-      // No upload exists yet -- the server returned a seed
-      // envelope with the metadata we already have. Start from a
-      // fresh, empty tree; just pull teamsize across so the local
-      // state matches what the organizer set up online.
+      // No upload exists yet -- the server returned a seed envelope
+      // with the metadata we already have plus any preregistered
+      // teams. Pull teamsize across first, then feed the prereg list
+      // into the same TeamModel/PlayerModel constructors the
+      // "register teams" UI uses.
       if (tournament.statejson && tournament.statejson.teamsize) {
         State.teamsize.set(tournament.statejson.teamsize)
+      }
+      if (tournament.statejson && tournament.statejson.teams) {
+        tournament.statejson.teams.forEach(function (seed) {
+          const players = (seed.players || []).map(function (alias) {
+            return new PlayerModel(alias)
+          })
+          const team = new TeamModel(players)
+          if (seed.name) {
+            team.setName(seed.name)
+          }
+          State.teams.push(team)
+        })
       }
     } else if (tournament.statejson) {
       // Real state download -- restore from the inner body.
