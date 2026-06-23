@@ -25,7 +25,14 @@ class ServerAutoloadModel extends Model {
     // mint via /profile/token/new/json) and falls back to the
     // login popup when they don't. Without this the link looks
     // broken until the user opens the login popup manually.
-    if (this.tournamentID && !this.server.token.get()) {
+    //
+    // Always mint when arriving by hash, even if a token is already
+    // in localStorage: dev rotates API_TOKEN_KEY on every Flask
+    // launch (and a prod rotation invalidates every issued token),
+    // so a stale localStorage entry would otherwise pass the
+    // "already have a token" guard and prevent recovery.
+    // createToken() invalidates the old token first.
+    if (this.tournamentID) {
       this.server.createToken()
     }
   }
