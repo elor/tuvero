@@ -52,6 +52,16 @@ class ServerModel extends Model {
   }
 
   createToken (token) {
+    // Re-entrancy guard: ServerAutoloadModel and HomeTab can both
+    // call this synchronously in the same tick (the first call's
+    // invalidateToken() clears the token, so the second caller's
+    // `!server.token.get()` guard then mints again). Without this
+    // flag each mint succeeds, emits 'login', and triggers
+    // onlogin -> loadTournament twice.
+    if (this.minting) {
+      return
+    }
+    this.minting = true
     this.invalidateToken()
     this.registerMessage()
     $.ajax({
@@ -73,6 +83,7 @@ class ServerModel extends Model {
       }.bind(this),
       error: this.emit.bind(this, 'error'),
       complete: function () {
+        this.minting = false
         this.unregisterMessage()
       }.bind(this)
     })
