@@ -25,7 +25,7 @@ class StateLinkView extends ClassView {
       // /+<alias> is the canonical tournament URL on the web side;
       // /t/<id> is the int-only legacy fallback (not what the
       // variant has, since the API exposes tournaments by alias).
-      const webOrigin = (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '')
+      const webOrigin = (window.TUVERO_WEB_ORIGIN || window.location.origin).replace(/\/$/, '')
       this.$view.attr('href', webOrigin + '/+' + serverlink + this.propertyPath)
     }
   }

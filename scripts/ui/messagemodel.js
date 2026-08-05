@@ -36,7 +36,7 @@ class MessageModel extends Model {
     this.server.registerMessage()
     $.ajax({
       method: 'POST',
-      url: (window.TUVERO_API_ORIGIN || 'https://api.tuvero.de').replace(/\/$/, '') + '/' + this.apipath,
+      url: (window.TUVERO_API_ORIGIN || (window.location.origin + '/api')).replace(/\/$/, '') + '/' + this.apipath,
       data: JSON.stringify(this.data),
       beforeSend: function (xhr) {
         xhr.setRequestHeader('Authorization', 'Bearer ' + server.token.get())

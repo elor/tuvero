@@ -36,7 +36,7 @@ class LoginView extends View {
     // to log in" / "create new preregistration on tuvero.de" links
     // need to point at the same origin our XHRs hit, otherwise the
     // local dev experience splits between localhost and prod.
-    const webOrigin = (window.TUVERO_WEB_ORIGIN || '').replace(/\/$/, '')
+    const webOrigin = (window.TUVERO_WEB_ORIGIN || window.location.origin).replace(/\/$/, '')
     if (webOrigin && webOrigin !== 'https://www.tuvero.de') {
       this.$view.find('a[href^="https://www.tuvero.de"]').each(function () {
         const $a = $(this)
@@ -86,7 +86,7 @@ class LoginView extends View {
       }
       return false
     }
-    const webOrigin = (window.TUVERO_WEB_ORIGIN || 'https://www.tuvero.de').replace(/\/$/, '')
+    const webOrigin = (window.TUVERO_WEB_ORIGIN || window.location.origin).replace(/\/$/, '')
     this.loginWindow = window.open(webOrigin + '/login')
     if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow()
