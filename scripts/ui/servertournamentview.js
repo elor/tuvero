@@ -19,6 +19,13 @@ class ServerTournamentView extends View {
     this.$view.find('a.url_href').attr('href', model.url_www)
     this.controller = new ServerTournamentController(this)
   }
+
+  destroy () {
+    // rows are re-rendered on every list refresh; drop the
+    // controller's TimeMachine listener with them
+    this.controller.destroy()
+    super.destroy()
+  }
 }
 
 export default ServerTournamentView
