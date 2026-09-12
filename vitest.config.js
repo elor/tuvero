@@ -6,6 +6,10 @@ const here = (...p) => resolve(fileURLToPath(new URL('.', import.meta.url)), ...
 
 export default defineConfig({
   resolve: {
+    // Variant-neutral test stubs (boule scoring under a fake target;
+    // see test/scripts/). These files were missing entirely — 18
+    // suites silently failed to collect while the run still reported
+    // its passing subset.
     alias: {
       options: here('test/scripts/options.js'),
       presets: here('test/scripts/presets.js'),
