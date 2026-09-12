@@ -1,18 +1,26 @@
-/* Generic "⋯" action menu (commit box, tournament overview): the
- * primary action stays visible, everything else collapses in here.
- * Native <details>, no framework. */
+/* Generic "⋯" action menu (commit box, tournament overview).
+ *
+ * The open menu expands IN-FLOW below its summary on purpose: the
+ * surrounding .boxview clips overflow, so an absolutely positioned
+ * dropdown would be invisible. In-flow can never be clipped; the box
+ * simply grows while the menu is open. */
 
 .actionmenu {
   display: inline-block;
-  position: relative;
   vertical-align: middle;
+  text-align: left;
+}
+
+.actionmenu.right {
+  float: right;
+  margin-left: 8px;
 }
 
 .actionmenu > summary {
   list-style: none;
   cursor: pointer;
   display: inline-block;
-  padding: 2px 9px;
+  padding: 1px 8px;
   border: 1px solid #aaaaaa;
   border-radius: 4px;
   background: #eeeeee;
@@ -29,18 +37,11 @@
 }
 
 .actionmenu-items {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  z-index: 20;
-  min-width: 13em;
   margin-top: 2px;
   padding: 4px;
-  background: #ffffff;
-  border: 1px solid #bbbbbb;
+  background: #f8f8f8;
+  border: 1px solid #cccccc;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  text-align: left;
 }
 
 .actionmenu-items button {
@@ -55,11 +56,4 @@
   padding: 4px 6px;
   white-space: nowrap;
   cursor: pointer;
-}
-
-/* menus embedded in a box heading stay visually subordinate */
-h3 .actionmenu {
-  margin-left: 6px;
-  font-size: 0.75em;
-  font-weight: normal;
 }
