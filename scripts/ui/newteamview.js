@@ -25,7 +25,27 @@ class NewTeamView extends View {
       this.teamsize.registerListener(this)
       this.updateTeamSize()
     }
+    // The template's static placeholder labels the player SLOT
+    // ("Team 1" / "Spieler 1"). With single-player teams that reads
+    // as a team-name suggestion, so there it follows the team count
+    // instead: "Team 3" when two teams are registered.
+    this.firstPlaceholder = this.$players.eq(0).attr('placeholder') || ''
+    this.updatePlaceholder()
     this.controller = new NewTeamController(this)
+  }
+
+  updatePlaceholder () {
+    const base = this.firstPlaceholder.replace(/\s*\d+\s*$/, '')
+    if (!base || !this.model) {
+      return
+    }
+    const single = this.teamsize && this.teamsize.get() === 1
+    this.$players.eq(0).attr('placeholder',
+      single ? base + ' ' + (this.model.length + 1) : this.firstPlaceholder)
+  }
+
+  onresize () {
+    this.updatePlaceholder()
   }
 
   resetFields () {
@@ -67,6 +87,7 @@ class NewTeamView extends View {
         $(this).hide()
       }
     })
+    this.updatePlaceholder()
   }
 
   onreset () {
