@@ -13,18 +13,7 @@ import UploadLog from './uploadlog.js'
 import {
   syncState, syncLabel, syncTitle, formatSyncTime, formatAbsoluteTime
 } from '../core/syncstatus.js'
-import $ from 'jquery'
-
-// All "⋯" action menus (commit boxes and the tournament overview)
-// close on click-away and after an action inside them; checkboxes and
-// labels keep the menu open. One delegated handler serves them all.
-$(document).on('click', function (event) {
-  const $inside = $(event.target).closest('.actionmenu')
-  $('.actionmenu[open]').not($inside).removeAttr('open')
-  if ($(event.target).closest('.actionmenu-items button').length) {
-    $inside.removeAttr('open')
-  }
-})
+import wireDialog from './dialogcontroller.js'
 
 /**
  * Constructor
@@ -43,6 +32,13 @@ class TimeMachineCommitView extends View {
     this.updateActive()
     this.autouploadCheckbox = new CheckBoxView(State.tabOptions.autouploadState, this.$view.find('input.autoupload'))
     this.stateLinkView = new StateLinkView(State.serverlink, this.$view.find('a.statelink'))
+    // "⋯" in the meta line opens the per-tournament action dialog
+    // (top layer — immune to the box's overflow clipping)
+    wireDialog(
+      this.$view.find('dialog.commitdialog'),
+      this.$view.find('button.moreactions'),
+      { closeOnAction: true }
+    )
     this.syncStatusView = new ValueView(new ValueModel(''), this.$view.find('.syncstatus'))
     this.updateSyncStatus()
     // Re-derive on upload (UploadLog), on link/unlink (serverlink) and

@@ -1,0 +1,62 @@
+/* Native <dialog> styling: the "Neues Turnier" dialog and the
+ * per-tournament action dialog. Dialogs live in the top layer, so
+ * they can never be clipped by the boxes' overflow. */
+
+dialog {
+  border: solid 1px #999999;
+  border-radius: 1em;
+  padding: 1em 1.5em;
+  min-width: 18em;
+  text-align: center;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+dialog .dialogtitle {
+  margin-top: 0;
+}
+
+dialog button {
+  display: block;
+  width: 100%;
+  margin: 4px 0;
+}
+
+dialog label {
+  display: block;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+dialog .teamsizechoice label {
+  display: inline-block;
+  margin: 0 6px;
+}
+
+dialog .futureoption {
+  color: #999999;
+}
+
+dialog .dialogactions {
+  margin-bottom: 0;
+}
+
+dialog .dialogactions button {
+  display: inline-block;
+  width: auto;
+  margin: 0 4px;
+}
+
+/* the "⋯" opener sits at the end of the meta line */
+button.moreactions {
+  margin-left: 6px;
+  padding: 0 7px;
+  font-weight: bold;
+}
+
+/* the three overview actions */
+.tournamentactions button {
+  margin: 2px 4px;
+}

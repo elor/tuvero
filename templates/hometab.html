@@ -5,19 +5,17 @@
     </div>
     <div class="boxview info inline timemachineview">
         <h3>Turniere</h3>
-        {# outside the h3 on purpose: BoxView binds the box collapse
-           to clicks on the title row #}
-        <details class="actionmenu right">
-            <summary title="Weitere Aktionen">&ctdot;</summary>
-            <div class="actionmenu-items">
-                <button class="load" data-img="load">
-                    Turnier aus Datei laden
-                </button>
-                <button class="reset" data-img="clear">
-                    Alle Turniere löschen
-                </button>
-            </div>
-        </details>
+        <p class="tournamentactions">
+            <button class="newtournament" data-img="new">
+                Neues Turnier
+            </button>
+            <button class="load" data-img="load">
+                Turnier aus Datei öffnen
+            </button>
+            <button class="reset" data-img="clear">
+                Alle lokalen Turniere löschen
+            </button>
+        </p>
         <p class="boxintro">
             Turniere werden <b>automatisch gespeichert</b>.
             Zum Umbenennen Turniernamen klicken.
@@ -25,10 +23,39 @@
 
         {% include 'timemachineview.html' %}
 
-        <h3>Online-Voranmeldungen</h3>
+        {% include 'servertournaments.html' %}
+
         {% include 'loginview.html' %}
 
-        {% include 'servertournaments.html' %}
+        <dialog class="newtournamentdialog">
+            <h3 class="dialogtitle">Neues Turnier</h3>
+            <div class="newcommittree">
+                <input type="text" class="treename"
+                       placeholder="z.B. Stadtmeisterschaft 2016" />
+            </div>
+            {% if teamsize %}
+            <p class="teamsizechoice">
+                <label><input type="radio" name="newteamsize" value="1" />
+                    Tête-à-tête</label>
+                <label><input type="radio" name="newteamsize" value="2"
+                              checked="checked" /> Doublette</label>
+                <label><input type="radio" name="newteamsize" value="3" />
+                    Triplette</label>
+            </p>
+            {% endif %}
+            <p>
+                <label class="futureoption" title="Bald verfügbar">
+                    <input type="checkbox" disabled="disabled" />
+                    Direkt online anlegen
+                </label>
+            </p>
+            <p class="dialogactions">
+                <button class="createroot" data-img="new">
+                    Erstellen
+                </button>
+                <button data-close>Abbrechen</button>
+            </p>
+        </dialog>
     </div>
     <div class="boxview info inline firststeps leftalign">
         <h3>Erste Schritte</h3>

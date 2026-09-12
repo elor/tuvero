@@ -11,6 +11,8 @@ import ServerTournamentListModel from './servertournamentlistmodel.js'
 import ServerTournamentView from './servertournamentview.js'
 import ListView from './listview.js'
 import ServerAutoloadModel from './serverautoloadmodel.js'
+import State from './state.js'
+import wireDialog from './dialogcontroller.js'
 
 /**
  * represents a whole team tab
@@ -53,6 +55,28 @@ class HomeTab extends View {
      */
     $container = this.$view.find('.timemachineview')
     this.timeMachineView = new TimeMachineView($container)
+
+    /*
+     * "Neues Turnier" dialog. Creation itself stays with the existing
+     * TimeMachineNewTreeController (input.treename/button.createroot
+     * keep their classes); this only opens/closes the dialog and, for
+     * variants with a team-size choice (boule: Tête/Doublette/
+     * Triplette), applies the selected size to the fresh state.
+     */
+    const $dialog = this.$view.find('dialog.newtournamentdialog')
+    wireDialog($dialog, this.$view.find('button.newtournament'))
+    $dialog.find('button.createroot').on('click', function () {
+      const size = $dialog.find('input[name="newteamsize"]:checked').val()
+      window.setTimeout(function () {
+        if (size) {
+          State.teamsize.set(parseInt(size, 10))
+        }
+        const dialog = $dialog.get(0)
+        if (dialog && dialog.open) {
+          dialog.close()
+        }
+      }, 0)
+    })
 
     /*
      * tournament loader

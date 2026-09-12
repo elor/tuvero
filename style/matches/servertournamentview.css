@@ -2,22 +2,34 @@
 	margin-bottom: 1em;
 }
 
+/* Server tournaments render like the local tournament boxes (they sit
+ * at the end of the same list), minus the BoxView minimize control. */
 .servertournamentview {
-	text-align: left;
-	padding: 4px 6px;
-	border-top: 1px solid #dddddd;
-}
-
-.servertournamentview:first-of-type {
-	border-top: none;
+	margin: 1em;
+	padding: 1em;
+	border: solid 1px;
+	border-radius: 1em;
+	background: #ffffff;
+	text-align: center;
 }
 
 .servertournamentview .name {
 	font-weight: bold;
-	margin-left: 6px;
 }
 
+.servertournamentview .meta,
 .servertournamentview .place {
 	color: #777777;
-	margin-left: 6px;
+	font-size: 0.9em;
+	margin: 0.1em 0 0.4em;
+}
+
+.servertournamentview .serversource {
+	color: #777777;
+}
+
+/* a local copy exists: opening reuses it (dedup in
+ * servertournamentloader.js) */
+.servertournamentview.haslocal .serversource {
+	color: #2a7a2a;
 }
