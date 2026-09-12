@@ -12,7 +12,24 @@ class ServerTournamentView extends View {
     // working minimize control
     this.boxView = new BoxView(this.$view)
     this.$view.find('.name').text(model.name)
-    this.$view.find('.place').text(model.place)
+    // date and place sit left of the Online-Turnier link; empty
+    // values disappear together with their separator dot
+    const $startdate = this.$view.find('.serversource .startdate')
+    if (model.startdate) {
+      $startdate.text(new Date(model.startdate).toLocaleDateString('de', {
+        day: '2-digit', month: '2-digit', year: 'numeric'
+      }))
+    } else {
+      $startdate.hide()
+      $startdate.next('.sep').hide()
+    }
+    const $place = this.$view.find('.serversource .place')
+    if (model.place) {
+      $place.text(model.place)
+    } else {
+      $place.hide()
+      $place.next('.sep').hide()
+    }
     this.$view.find('.creator').text(model.creator)
     this.$view.find('.teamsize').text(model.teamsize)
     this.$view.find('.url').text(model.url_www)

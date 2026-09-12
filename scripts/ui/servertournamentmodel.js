@@ -14,6 +14,7 @@ class ServerTournamentModel extends Model {
     this.alias = data.alias || data.id || undefined
     this.name = data.name
     this.place = data.place
+    this.startdate = data.startdate
     this.creator = data.creator_name
     this.teamsize = data.teamsize
     this.variant = data.target
