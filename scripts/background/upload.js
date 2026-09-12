@@ -12,6 +12,7 @@ import Strings from '../ui/strings.js'
 import Server from '../ui/server.js'
 import State from '../ui/state.js'
 import Listener from '../core/listener.js'
+import UploadLog from '../ui/uploadlog.js'
 function upload () {
   const serverlink = State.serverlink.get()
   let uploadToast
@@ -27,6 +28,7 @@ function upload () {
       console.error(data)
     })
     Listener.bind(message, 'receive', function () {
+      UploadLog.recordUpload(serverlink)
       Toast.once(Strings.state_upload_complete)
     })
     Listener.bind(message, 'complete', function (emitter, event, data) {

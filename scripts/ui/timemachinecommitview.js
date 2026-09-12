@@ -8,6 +8,9 @@ import TimeMachineCommitController from './timemachinecommitcontroller.js'
 import BoxView from './boxview.js'
 import CheckBoxView from './checkboxview.js'
 import StateLinkView from './statelinkview.js'
+import Listener from '../core/listener.js'
+import UploadLog from './uploadlog.js'
+import { syncState, syncLabel } from '../core/syncstatus.js'
 
 /**
  * Constructor
@@ -28,8 +31,30 @@ class TimeMachineCommitView extends View {
     this.updateActive()
     this.autouploadCheckbox = new CheckBoxView(State.tabOptions.autouploadState, this.$view.find('input.autoupload'))
     this.stateLinkView = new StateLinkView(State.serverlink, this.$view.find('a.statelink'))
+    this.syncStatusView = new ValueView(new ValueModel(''), this.$view.find('.syncstatus'))
+    this.updateSyncStatus()
+    // Re-derive on upload (UploadLog), on link/unlink (serverlink) and
+    // on save (onsave below). Like the statelink, the status is only
+    // shown for the active tree (the ".active" gate in the template),
+    // since serverlink describes the loaded state.
+    const view = this
+    Listener.bind(UploadLog, 'update', function () { view.updateSyncStatus() })
+    Listener.bind(State.serverlink, 'update', function () { view.updateSyncStatus() })
     this.controller = new TimeMachineCommitController(this)
     TimeMachine.registerListener(this)
+  }
+
+  updateSyncStatus () {
+    const serverlink = State.serverlink.get()
+    const youngestAncestor = this.model.getYoungestDescendant() || this.model
+    const state = syncState({
+      serverlink,
+      lastUpload: serverlink ? UploadLog.lastUpload(serverlink) : undefined,
+      lastSave: new Date(youngestAncestor.key.saveDate)
+    })
+    this.syncStatusView.model.set(
+      syncLabel(state, serverlink && UploadLog.lastUpload(serverlink))
+    )
   }
 
   updateName () {
@@ -61,6 +86,7 @@ class TimeMachineCommitView extends View {
     if (commit.key.isRelated(this.model.key)) {
       this.updateSaveDate()
       this.updateSize()
+      this.updateSyncStatus()
     }
   }
 
