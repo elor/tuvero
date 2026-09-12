@@ -13,6 +13,7 @@ import TeamModel from './teammodel.js'
 import PlayerModel from './playermodel.js'
 import TimeMachine from '../timemachine/timemachine.js'
 import Toast from './toast.js'
+import UploadLog from './uploadlog.js'
 
 /**
  * Constructor
@@ -84,8 +85,12 @@ class ServerTournamentLoader {
         })
       }
     } else if (tournament.statejson) {
-      // Real state download -- restore from the inner body.
+      // Real state download -- restore from the inner body. Local and
+      // server state are identical right now, so record the download
+      // as the sync point ("Alle Änderungen hochgeladen"). The seed
+      // branch above deliberately doesn't: no server state exists yet.
       State.restore(tournament.statejson)
+      UploadLog.recordUpload(tournament.alias)
     }
     // for good measure, set the serverlink again
     State.serverlink.set(tournament.alias)
