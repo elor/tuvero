@@ -1,17 +1,15 @@
 /**
  * Supports Online(), which returns true if the browser is online.
  *
- * Also notifies if the user wants to leave the page while offline, but cannot
- * re-open it because it's not in the cache
+ * The old offline-exit nag ("you cannot re-open this page") left with
+ * AppCache: the app is precached by tuvero.de's root-scope service
+ * worker now, so an offline visitor can always re-open it.
  *
  * @return Online
  * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */
-import $ from 'jquery'
-import Strings from '../ui/strings.js'
-import Update from '../ui/update.js'
 
 /**
  * Check for an internet connection. Does not check for an active connection
@@ -23,33 +21,4 @@ const Online = function () {
   return navigator.onLine
 }
 
-// if offline, send a nag message on exit!
-
-$(function ($) {
-  $(window).on('beforeunload', function (e) {
-    const message = Strings.offlineconfirmexit
-    if (!Online() && !Update.isCached && document.location.protocol !== 'file:') {
-      if (e) {
-        e.returnValue = message
-      }
-      return message
-    }
-
-    // uncomment to show dev reload notifications again
-    //
-    // if (Shared.Debug.isDevVersion) {
-    // message='(dev output) beforeunload ' + (Online() ? 'online' :
-    // 'offline')
-    // + ' ' + (Update.isCached ? 'cached' : 'uncached');
-    // if (e) {
-    // e.returnValue = message;
-    // }
-    // return message;
-    // }
-    //
-
-    // let it reload
-    return undefined
-  })
-})
 export default Online

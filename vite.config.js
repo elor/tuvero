@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { viteSingleFile } from 'vite-plugin-singlefile'
+import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import nunjucks from 'nunjucks'
@@ -126,9 +127,48 @@ const nunjucksHtmlPlugin = {
   }
 }
 
+// Emits a per-variant web app manifest plus fixed-name icons, so each
+// variant is installable as its own app ("Tuvero Boule" etc.) while
+// sharing tuvero.de's root-scope service worker. Fixed fileName on
+// purpose: the manifest URL must be stable across builds.
+const webManifestPlugin = {
+  name: 'web-manifest',
+  apply: 'build',
+  generateBundle () {
+    if (!variant) return
+    const vars = templateVars(variant)
+    this.emitFile({
+      type: 'asset',
+      fileName: 'manifest.webmanifest',
+      source: JSON.stringify({
+        name: `Tuvero ${vars.variant}`,
+        short_name: vars.variant,
+        description: `Turnierleitung mit Tuvero ${vars.variant} — funktioniert auch offline.`,
+        lang: 'de-DE',
+        start_url: `/${variant}/`,
+        scope: `/${variant}/`,
+        display: 'standalone',
+        background_color: '#f5f5f5',
+        theme_color: '#f5f5f5',
+        icons: [
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
+        ]
+      }, null, 2)
+    })
+    for (const size of [192, 512]) {
+      this.emitFile({
+        type: 'asset',
+        fileName: `icon-${size}.png`,
+        source: readFileSync(here(`${variant}/images/icon-${size}.png`))
+      })
+    }
+  }
+}
+
 export default defineConfig({
   root: variant ? here(variant) : undefined,
-  plugins: [variantAliasPlugin, nunjucksHtmlPlugin, viteSingleFile()],
+  plugins: [variantAliasPlugin, nunjucksHtmlPlugin, webManifestPlugin, viteSingleFile()],
   build: variant
     ? {
         assetsInlineLimit: Infinity,

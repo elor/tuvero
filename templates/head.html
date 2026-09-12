@@ -2,6 +2,22 @@
     <meta charset="utf-8" />
     <title>Tuvero {{ variant }} {{ version }}</title>
     <link inline rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <link inline rel="stylesheet" href="style/main.css" />
+    <script>
+      // Root-scope service worker served by tuvero.de: precaches all
+      // variants, the viewer app and the landing page, so the app
+      // opens offline (successor to the removed AppCache mechanism).
+      // Fails silently where there is no worker to fetch (vite dev,
+      // file:// usage).
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(function () {})
+        if (navigator.storage && navigator.storage.persist) {
+          // Ask the browser not to evict the caches and, more
+          // importantly, the localStorage tournament data.
+          navigator.storage.persist().catch(function () {})
+        }
+      }
+    </script>
     {% include 'scriptinit.html' %}
 </head>

@@ -8,7 +8,6 @@
  * @see LICENSE
  */
 import Online from '../background/online.js'
-import Update from './update.js'
 const Browser = {
   name: undefined,
   version: undefined,
@@ -60,7 +59,10 @@ Browser.update = function () {
     Browser.version = Number(Browser.version)
   }
   Browser.online = Online()
-  Browser.cached = Update.isCached
+  // "cached" now means: this page is controlled by the tuvero.de
+  // service worker, i.e. it will open offline.
+  Browser.cached = !!(navigator.serviceWorker &&
+    navigator.serviceWorker.controller)
   Browser.local = document.location.protocol === 'file:'
   Browser.secure = document.location.protocol === 'https:'
   Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host)

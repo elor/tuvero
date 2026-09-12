@@ -2,7 +2,6 @@ import View from '../core/view.js'
 import Browser from './browser.js'
 import Toast from './toast.js'
 import BrowserInfoController from './browserinfocontroller.js'
-import Update from './update.js'
 
 /**
  * Constructor
@@ -30,7 +29,13 @@ class BrowserInfoView extends View {
 
   onupdate () {
     this.update()
-    Update()
+    // Manual update check: ask the tuvero.de service worker to
+    // re-fetch itself (the AppCache-era Update() equivalent).
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.getRegistration('/').then(function (reg) {
+        if (reg) reg.update()
+      }).catch(function () {})
+    }
     Toast.once('update')
   }
 }
