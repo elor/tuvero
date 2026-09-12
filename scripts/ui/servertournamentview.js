@@ -1,4 +1,5 @@
 import View from '../core/view.js'
+import BoxView from './boxview.js'
 import ServerTournamentController from './servertournamentcontroller.js'
 
 /**
@@ -7,6 +8,9 @@ import ServerTournamentController from './servertournamentcontroller.js'
 class ServerTournamentView extends View {
   constructor (model, $view) {
     super(model, $view)
+    // real BoxView like the local tournament boxes: same title bar,
+    // working minimize control
+    this.boxView = new BoxView(this.$view)
     this.$view.find('.name').text(model.name)
     this.$view.find('.place').text(model.place)
     this.$view.find('.creator').text(model.creator)

@@ -2,23 +2,8 @@
 	margin-bottom: 1em;
 }
 
-/* Server tournaments render like the local tournament boxes (they sit
- * at the end of the same list), minus the BoxView minimize control:
- * a plain box title, the tournament link on the "Online-Turnier"
- * line, and the Öffnen button. */
-.servertournamentview {
-	margin: 1em;
-	padding: 1em;
-	border: solid 1px;
-	border-radius: 1em;
-	background: #ffffff;
-	text-align: center;
-}
-
-.servertournamentview h3.name {
-	margin: 0 0 0.3em;
-}
-
+/* Frame and title come from .boxview — the rows ARE BoxViews, like
+ * the local tournament boxes. Only the extras live here. */
 .servertournamentview .serversource {
 	margin: 0.1em 0 0.4em;
 }
