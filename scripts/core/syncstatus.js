@@ -71,12 +71,18 @@ export function syncLabel (state, lastUpload, now) {
       }
       return 'Noch nicht hochgeladen'
     case SYNC_SYNCED: {
+      // Completeness is the message ("everything is safe"); the time
+      // is secondary context, and "gerade eben" adds nothing.
       const time = formatSyncTime(lastUpload, now)
-      const relative = time === 'gerade eben' || time.indexOf('vor ') === 0
-      return relative ? 'Hochgeladen ' + time : 'Hochgeladen am ' + time
+      if (time === 'gerade eben') {
+        return 'Alle Änderungen hochgeladen'
+      }
+      const relative = time.indexOf('vor ') === 0
+      return 'Alle Änderungen hochgeladen (' +
+        (relative ? time : 'am ' + time) + ')'
     }
     default:
       // Device-only is a deliberate choice, not a deficiency.
-      return 'Lokales Turnier – kein Upload'
+      return 'Lokales Turnier – wird nicht hochgeladen'
   }
 }

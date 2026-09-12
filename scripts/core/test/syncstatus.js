@@ -64,7 +64,8 @@ test('formatSyncTime: absolute from 12 hours on', () => {
 })
 
 test('syncLabel speaks the user\'s language (button says "Hochladen")', () => {
-  expect(syncLabel(SYNC_LOCAL)).toBe('Lokales Turnier – kein Upload')
+  // deliberate choice, and "hochgeladen" rather than "Upload"
+  expect(syncLabel(SYNC_LOCAL)).toBe('Lokales Turnier – wird nicht hochgeladen')
 
   // linked but never uploaded vs. stale online copy
   expect(syncLabel(SYNC_UNSYNCED)).toBe('Noch nicht hochgeladen')
@@ -72,11 +73,15 @@ test('syncLabel speaks the user\'s language (button says "Hochladen")', () => {
     syncLabel(SYNC_UNSYNCED, new Date('2026-09-12T12:32:00'), NOW)
   ).toBe('Geändert seit dem letzten Hochladen (vor 2 Stunden)')
 
-  // recent: relative; older than 12h: absolute with "am"
+  // completeness is the message; the time is secondary context and
+  // "gerade eben" adds nothing at all
+  expect(
+    syncLabel(SYNC_SYNCED, new Date('2026-09-12T14:31:55'), NOW)
+  ).toBe('Alle Änderungen hochgeladen')
   expect(
     syncLabel(SYNC_SYNCED, new Date('2026-09-12T14:30:00'), NOW)
-  ).toBe('Hochgeladen vor 2 Minuten')
+  ).toBe('Alle Änderungen hochgeladen (vor 2 Minuten)')
   expect(
     syncLabel(SYNC_SYNCED, new Date('2026-09-11T09:15:00'), NOW)
-  ).toBe('Hochgeladen am 11.09.2026, 09:15')
+  ).toBe('Alle Änderungen hochgeladen (am 11.09.2026, 09:15)')
 })
