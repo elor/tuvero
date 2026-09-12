@@ -90,7 +90,7 @@ class ServerTournamentLoader {
       // as the sync point ("Alle Änderungen hochgeladen"). The seed
       // branch above deliberately doesn't: no server state exists yet.
       State.restore(tournament.statejson)
-      UploadLog.recordUpload(tournament.alias)
+      UploadLog.recordUpload(tournament.alias, new Date(), tournament.stateid)
     }
     // for good measure, set the serverlink again
     State.serverlink.set(tournament.alias)

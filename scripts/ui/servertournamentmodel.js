@@ -27,6 +27,7 @@ class ServerTournamentModel extends Model {
     this.url_www = data.url_www
     this.statejson = undefined
     this.isSeed = false
+    this.stateid = undefined
     this.server = server
     this.server.registerListener(this)
   }
@@ -52,6 +53,9 @@ class ServerTournamentModel extends Model {
       // empty tree.
       this.statejson = response.body
       this.isSeed = !!response.seed
+      // the server state id this download corresponds to -- recorded
+      // as the sync point so auto-upload can resume after a reload
+      this.stateid = response.id || undefined
       this.emit('ready')
     }.bind(this)
     message.onerror = function () {

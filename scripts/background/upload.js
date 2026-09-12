@@ -27,8 +27,11 @@ function upload () {
       Toast.once(Strings.state_upload_failed)
       console.error(data)
     })
-    Listener.bind(message, 'receive', function () {
-      UploadLog.recordUpload(serverlink)
+    Listener.bind(message, 'receive', function (emitter, event, data) {
+      // remember which state id the server assigned: after a reload,
+      // uploadresume.js compares it against the server's latest state
+      // to decide whether auto-uploading may safely resume.
+      UploadLog.recordUpload(serverlink, new Date(), data && data.state_id)
       Toast.once(Strings.state_upload_complete)
     })
     Listener.bind(message, 'complete', function (emitter, event, data) {

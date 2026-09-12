@@ -7,6 +7,11 @@
  * is globally unique across variants, so one shared storage key
  * serves all of them.
  *
+ * Each entry stores the upload time plus, when known, the state id
+ * the server assigned to the upload ({date, stateId}). Entries written
+ * before the state id existed are plain ISO strings; both shapes are
+ * read transparently.
+ *
  * Emits 'update' after every recorded upload.
  *
  * @author Erik E. Lorenz <erik@tuvero.de>
@@ -55,19 +60,46 @@ class UploadLog extends Emitter {
     }
   }
 
-  recordUpload (serverlink, date = new Date()) {
-    this.uploads[serverlink] = date.toISOString()
+  /**
+   * @param serverlink the tournament's server id
+   * @param date Date of the upload, defaults to now
+   * @param stateId the state id the server assigned to this upload,
+   *          if known. Omitting it clears any previously recorded id:
+   *          an upload with an unknown id means the recorded id no
+   *          longer describes the server's latest state.
+   */
+  recordUpload (serverlink, date = new Date(), stateId = undefined) {
+    const entry = { date: date.toISOString() }
+    if (stateId !== undefined && stateId !== null) {
+      entry.stateId = String(stateId)
+    }
+    this.uploads[serverlink] = entry
     this.write()
     this.emit('update')
   }
 
   lastUpload (serverlink) {
     const stored = this.uploads[serverlink]
-    if (!stored) {
+    // legacy entries are plain ISO strings, current ones {date, stateId}
+    const iso = typeof stored === 'string' ? stored : stored && stored.date
+    if (!iso) {
       return undefined
     }
-    const date = new Date(stored)
+    const date = new Date(iso)
     return isNaN(date.getTime()) ? undefined : date
+  }
+
+  /**
+   * The state id the server assigned to the last recorded upload, as
+   * a string, or undefined when unknown (never uploaded, or recorded
+   * by a version that predates state-id tracking).
+   */
+  lastUploadStateId (serverlink) {
+    const stored = this.uploads[serverlink]
+    if (stored && typeof stored === 'object' && stored.stateId) {
+      return stored.stateId
+    }
+    return undefined
   }
 }
 
