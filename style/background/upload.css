@@ -9,3 +9,18 @@ body.nostatelink button.upload {
 body.nostatelink .hideifnostatelink {
   display: none;
 }
+
+/* Server-sync status in the commit box. Device-only is a normal state
+ * (plenty of tournaments never go online), so it stays neutral; amber
+ * marks an outdated online copy, green a current one. */
+.syncstatus.sync-local {
+  color: #777777;
+}
+
+.syncstatus.sync-unsynced {
+  color: #a66300;
+}
+
+.syncstatus.sync-synced {
+  color: #2a7a2a;
+}

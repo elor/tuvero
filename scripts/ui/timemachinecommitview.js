@@ -46,15 +46,20 @@ class TimeMachineCommitView extends View {
 
   updateSyncStatus () {
     const serverlink = State.serverlink.get()
+    const lastUpload = serverlink
+      ? UploadLog.lastUpload(serverlink)
+      : undefined
     const youngestAncestor = this.model.getYoungestDescendant() || this.model
     const state = syncState({
       serverlink,
-      lastUpload: serverlink ? UploadLog.lastUpload(serverlink) : undefined,
+      lastUpload,
       lastSave: new Date(youngestAncestor.key.saveDate)
     })
-    this.syncStatusView.model.set(
-      syncLabel(state, serverlink && UploadLog.lastUpload(serverlink))
-    )
+    this.syncStatusView.model.set(syncLabel(state, lastUpload))
+    // state class for color coding (style/main.css)
+    this.$view.find('.syncstatus')
+      .removeClass('sync-local sync-unsynced sync-synced')
+      .addClass('sync-' + state)
   }
 
   updateName () {

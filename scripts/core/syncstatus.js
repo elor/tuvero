@@ -57,16 +57,26 @@ export function formatSyncTime (date, now = new Date()) {
 }
 
 /**
- * Display text for a sync state. Not variant-specific, hence not in
- * the per-variant strings module.
+ * Display text for a sync state, in the vocabulary the UI already
+ * teaches (the button is called "Hochladen"). States the consequence
+ * for the user, not the storage location. Not variant-specific,
+ * hence not in the per-variant strings module.
  */
 export function syncLabel (state, lastUpload, now) {
   switch (state) {
     case SYNC_UNSYNCED:
-      return 'Änderungen nicht hochgeladen'
-    case SYNC_SYNCED:
-      return 'Hochgeladen ' + formatSyncTime(lastUpload, now)
+      if (lastUpload) {
+        return 'Geändert seit dem letzten Hochladen (' +
+          formatSyncTime(lastUpload, now) + ')'
+      }
+      return 'Noch nicht hochgeladen'
+    case SYNC_SYNCED: {
+      const time = formatSyncTime(lastUpload, now)
+      const relative = time === 'gerade eben' || time.indexOf('vor ') === 0
+      return relative ? 'Hochgeladen ' + time : 'Hochgeladen am ' + time
+    }
     default:
-      return 'Nur auf diesem Gerät'
+      // Device-only is a deliberate choice, not a deficiency.
+      return 'Lokales Turnier – kein Upload'
   }
 }
