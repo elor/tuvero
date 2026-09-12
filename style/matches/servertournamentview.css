@@ -3,7 +3,9 @@
 }
 
 /* Server tournaments render like the local tournament boxes (they sit
- * at the end of the same list), minus the BoxView minimize control. */
+ * at the end of the same list), minus the BoxView minimize control:
+ * a plain box title, the tournament link on the "Online-Turnier"
+ * line, and the Öffnen button. */
 .servertournamentview {
 	margin: 1em;
 	padding: 1em;
@@ -13,23 +15,20 @@
 	text-align: center;
 }
 
-.servertournamentview .name {
-	font-weight: bold;
-}
-
-.servertournamentview .meta,
-.servertournamentview .place {
-	color: #777777;
-	font-size: 0.9em;
-	margin: 0.1em 0 0.4em;
+.servertournamentview h3.name {
+	margin: 0 0 0.3em;
 }
 
 .servertournamentview .serversource {
-	color: #777777;
+	margin: 0.1em 0 0.4em;
 }
 
-/* a local copy exists: opening reuses it (dedup in
- * servertournamentloader.js) */
-.servertournamentview.haslocal .serversource {
+/* only shown when a local copy exists (dedup reuses it on Öffnen) */
+.servertournamentview .haslocalnote {
+	display: none;
+}
+
+.servertournamentview.haslocal .haslocalnote {
+	display: block;
 	color: #2a7a2a;
 }
