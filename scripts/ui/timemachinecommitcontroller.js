@@ -12,20 +12,27 @@ class TimeMachineCommitController extends RenameController {
   constructor (view) {
     super(view, false)
     this.view.$view.find('button.removecommit').click(this.remove.bind(this))
+    this.view.$view.find('button.confirmremove').click(this.confirmRemove.bind(this))
     this.view.$view.find('button.loaddescendant').click(this.load.bind(this))
     this.view.$view.find('button.cleanuptree').click(this.cleanup.bind(this))
     this.view.$view.find('button.download').click(this.download.bind(this))
   }
 
   remove () {
+    // fills the confirmation dialog; opening/closing is wired in the
+    // view (window.confirm is gone — dialogs all the way)
     const active = TimeMachine.isRelatedToActive(this.model)
     const name = this.model.getTreeName() || 'noname'
     const confirmtext = active ? Strings.confirmactivetreeremoval : Strings.confirmtreeremoval
-    if (window.confirm(confirmtext.replace('%s', name))) {
-      this.model.remove()
-      if (active) {
-        StateLoader.unload()
-      }
+    this.view.$view.find('.removequestion').text(confirmtext.replace('%s', name))
+  }
+
+  confirmRemove () {
+    const active = TimeMachine.isRelatedToActive(this.model)
+    this.model.remove()
+    if (active) {
+      StateLoader.unload()
+      Toast.once(Strings.tournamentclosed, Toast.LONG)
     }
   }
 
@@ -34,7 +41,11 @@ class TimeMachineCommitController extends RenameController {
   }
 
   load () {
-    StateLoader.loadCommit(this.model.getYoungestDescendant() || this.model)
+    if (StateLoader.loadCommit(this.model.getYoungestDescendant() || this.model)) {
+      Toast.once(Strings.loaded, Toast.LONG)
+    } else {
+      Toast.once(Strings.loadfailed, Toast.LONG)
+    }
   }
 
   download () {

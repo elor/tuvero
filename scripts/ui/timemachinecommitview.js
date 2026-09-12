@@ -39,6 +39,14 @@ class TimeMachineCommitView extends View {
       this.$view.find('button.moreactions'),
       { closeOnAction: true }
     )
+    // Löschen swaps to the confirmation dialog (the action dialog
+    // closes itself via closeOnAction); the controller fills the
+    // question and owns the actual removal.
+    wireDialog(
+      this.$view.find('dialog.removedialog'),
+      this.$view.find('button.removecommit'),
+      { closeOnAction: true }
+    )
     this.syncStatusView = new ValueView(new ValueModel(''), this.$view.find('.syncstatus'))
     this.updateSyncStatus()
     // Re-derive on upload (UploadLog), on link/unlink (serverlink) and
