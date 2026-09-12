@@ -1,6 +1,6 @@
 {
   "name": "tuvero-cli",
-  "version": "1.6.0-dev",
+  "version": "1.6.0",
   "description": "Tuvero library for tournament management",
   "type": "module",
   "main": "index.js",
