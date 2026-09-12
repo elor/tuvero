@@ -8,8 +8,8 @@ import ServerTournamentLoader from './servertournamentloader.js'
 class ServerTournamentController extends Controller {
   constructor (view) {
     super(view)
-    // A local copy exists: show the note — opening will reuse it
-    // instead of downloading (dedup in ServerTournamentLoader).
+    // A local copy exists: the tournament already sits in the local
+    // list above, so the server row is redundant and stays hidden.
     if (ServerTournamentLoader.findLocalCommit(this.model.alias)) {
       this.view.$view.addClass('haslocal')
     }

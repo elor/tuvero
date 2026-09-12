@@ -23,12 +23,8 @@
 	margin: 0.1em 0 0.4em;
 }
 
-/* only shown when a local copy exists (dedup reuses it on Öffnen) */
-.servertournamentview .haslocalnote {
+/* a local copy exists: the tournament is already in the local list
+ * above, so the server row is redundant */
+.servertournamentview.haslocal {
 	display: none;
-}
-
-.servertournamentview.haslocal .haslocalnote {
-	display: block;
-	color: #2a7a2a;
 }
