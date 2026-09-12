@@ -13,6 +13,18 @@ import UploadLog from './uploadlog.js'
 import {
   syncState, syncLabel, syncTitle, formatSyncTime, formatAbsoluteTime
 } from '../core/syncstatus.js'
+import $ from 'jquery'
+
+// The "⋯" menus close on click-away and after an action inside them;
+// the autoupload checkbox keeps the menu open. One delegated handler
+// serves every commit box.
+$(document).on('click', function (event) {
+  const $inside = $(event.target).closest('.commitmenu')
+  $('.commitmenu[open]').not($inside).removeAttr('open')
+  if ($(event.target).closest('.commitmenu-items button').length) {
+    $inside.removeAttr('open')
+  }
+})
 
 /**
  * Constructor

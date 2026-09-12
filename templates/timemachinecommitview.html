@@ -11,22 +11,27 @@
   <p class="active">
     <a href="#" class="statelink">Turnier online öffnen</a>
   </p>
-  <p>
+  <p class="commitactions">
     <button class="loaddescendant tiny inactive" data-img="reload">
       Öffnen
     </button>
-    <button class="upload tiny active" data-img="load">
-      Hochladen
-    </button>
-    <button class="removecommit tiny" data-img="clear">
-      Löschen
-    </button>
-    <button class="download tiny" data-img="save">
-      Export
-    </button>
-  </p>
-  <p class="active hideifnostatelink">
-    <span><input type="checkbox" class="autoupload" />
-      automatisch hochladen</span>
+    <details class="commitmenu">
+      <summary title="Weitere Aktionen">&ctdot;</summary>
+      <div class="commitmenu-items">
+        <button class="upload active" data-img="load">
+          Hochladen
+        </button>
+        <button class="download" data-img="save">
+          Export
+        </button>
+        <button class="removecommit" data-img="clear">
+          Löschen
+        </button>
+        <label class="active hideifnostatelink">
+          <input type="checkbox" class="autoupload" />
+          automatisch hochladen
+        </label>
+      </div>
+    </details>
   </p>
 </div>

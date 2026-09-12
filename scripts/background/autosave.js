@@ -11,6 +11,7 @@ import TeamModel from '../ui/teammodel.js'
 import TournamentModel from '../tournament/tournamentmodel.js'
 import StateSaver from '../ui/statesaver.js'
 import Listener from '../core/listener.js'
+import Server from '../ui/server.js'
 import upload from './upload.js'
 let updatePending
 const AutoSave = undefined
@@ -24,7 +25,11 @@ function save () {
           // TODO display as Toast!
           console.error('autosave failed')
         }
-        if (State.tabOptions.autouploadState.get()) {
+        // Only attempt the auto-upload when it can actually succeed —
+        // upload() toasts about missing login/link, which would nag on
+        // every save now that linked tournaments auto-enable the flag.
+        if (State.tabOptions.autouploadState.get() &&
+            Server.logged_in.get() && State.serverlink.get()) {
           upload()
         }
       } else {
