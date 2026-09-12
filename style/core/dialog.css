@@ -60,3 +60,7 @@ button.moreactions {
 .tournamentactions button {
   margin: 2px 4px;
 }
+
+dialog .statelinkline {
+  margin: 4px 0;
+}
