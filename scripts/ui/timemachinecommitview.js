@@ -10,7 +10,9 @@ import CheckBoxView from './checkboxview.js'
 import StateLinkView from './statelinkview.js'
 import Listener from '../core/listener.js'
 import UploadLog from './uploadlog.js'
-import { syncState, syncLabel } from '../core/syncstatus.js'
+import {
+  syncState, syncLabel, syncTitle, formatSyncTime, formatAbsoluteTime
+} from '../core/syncstatus.js'
 
 /**
  * Constructor
@@ -22,12 +24,10 @@ class TimeMachineCommitView extends View {
     this.nameView = new ValueView(new ValueModel(), this.$view.find('.name'))
     this.startDateView = new ValueView(new ValueModel(), this.$view.find('.startdate'))
     this.saveDateView = new ValueView(new ValueModel(), this.$view.find('.savedate'))
-    this.sizeView = new ValueView(new ValueModel(), this.$view.find('.size'))
     this.activeView = new ClassView(new ValueModel(false), this.$view, 'activetree')
     this.updateName()
     this.updateStartDate()
     this.updateSaveDate()
-    this.updateSize()
     this.updateActive()
     this.autouploadCheckbox = new CheckBoxView(State.tabOptions.autouploadState, this.$view.find('input.autoupload'))
     this.stateLinkView = new StateLinkView(State.serverlink, this.$view.find('a.statelink'))
@@ -56,10 +56,12 @@ class TimeMachineCommitView extends View {
       lastSave: new Date(youngestAncestor.key.saveDate)
     })
     this.syncStatusView.model.set(syncLabel(state, lastUpload))
-    // state class for color coding (style/main.css)
+    // state class for color coding (style/background/upload.css);
+    // the exact upload time lives in the hover text
     this.$view.find('.syncstatus')
       .removeClass('sync-local sync-unsynced sync-synced')
       .addClass('sync-' + state)
+      .attr('title', syncTitle(lastUpload))
   }
 
   updateName () {
@@ -68,19 +70,19 @@ class TimeMachineCommitView extends View {
 
   updateStartDate () {
     const startDate = new Date(this.model.key.startDate)
-    this.startDateView.model.set(startDate.toLocaleString())
+    this.startDateView.model.set(startDate.toLocaleDateString('de', {
+      day: '2-digit', month: '2-digit', year: 'numeric'
+    }))
+    this.$view.find('.startdate')
+      .attr('title', 'Beginn: ' + formatAbsoluteTime(startDate))
   }
 
   updateSaveDate () {
     const youngestAncestor = this.model.getYoungestDescendant() || this.model
     const saveDate = new Date(youngestAncestor.key.saveDate)
-    this.saveDateView.model.set(saveDate.toLocaleString())
-  }
-
-  updateSize () {
-    let size = TimeMachine.usedRelatedStorage(this.model)
-    size = Math.round(size / 102.4) / 10
-    this.sizeView.model.set(size + 'kB')
+    this.saveDateView.model.set('geändert ' + formatSyncTime(saveDate))
+    this.$view.find('.savedate')
+      .attr('title', 'Zuletzt geändert: ' + formatAbsoluteTime(saveDate))
   }
 
   updateActive () {
@@ -90,7 +92,6 @@ class TimeMachineCommitView extends View {
   onsave (event, emitter, commit) {
     if (commit.key.isRelated(this.model.key)) {
       this.updateSaveDate()
-      this.updateSize()
       this.updateSyncStatus()
     }
   }
@@ -98,7 +99,6 @@ class TimeMachineCommitView extends View {
   onremove (event, emitter, commit) {
     if (commit && !commit.isRoot()) {
       this.updateSaveDate()
-      this.updateSize()
     }
   }
 
@@ -111,7 +111,6 @@ class TimeMachineCommitView extends View {
   }
 
   oncleanup (event, emitter, commit) {
-    this.updateSize()
   }
 
   onrename (event, emitter, newname) {
@@ -122,11 +121,9 @@ class TimeMachineCommitView extends View {
     this.nameView.destroy()
     this.startDateView.destroy()
     this.saveDateView.destroy()
-    this.sizeView.destroy()
     this.nameView.model.destroy()
     this.startDateView.model.destroy()
     this.saveDateView.model.destroy()
-    this.sizeView.model.destroy()
     this.boxView.destroy()
     super.destroy()
   }

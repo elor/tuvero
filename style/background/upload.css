@@ -10,6 +10,14 @@ body.nostatelink .hideifnostatelink {
   display: none;
 }
 
+/* Muted meta line under the tournament name: start date and last
+ * change, exact timestamps in the hover text. */
+.timemachinecommitview .meta {
+  color: #777777;
+  font-size: 0.9em;
+  margin: 0.1em 0 0.4em;
+}
+
 /* Server-sync status in the commit box. Device-only is a normal state
  * (plenty of tournaments never go online), so it stays neutral; amber
  * marks an outdated online copy, green a current one. */

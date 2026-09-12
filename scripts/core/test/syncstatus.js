@@ -10,7 +10,7 @@ import { test, expect } from 'vitest'
 
 import {
   SYNC_LOCAL, SYNC_UNSYNCED, SYNC_SYNCED,
-  syncState, formatSyncTime, syncLabel
+  syncState, formatSyncTime, syncLabel, syncTitle
 } from '../syncstatus.js'
 
 const NOW = new Date('2026-09-12T14:32:00')
@@ -67,21 +67,33 @@ test('syncLabel speaks the user\'s language (button says "Hochladen")', () => {
   // deliberate choice, and "hochgeladen" rather than "Upload"
   expect(syncLabel(SYNC_LOCAL)).toBe('Lokales Turnier – wird nicht hochgeladen')
 
-  // linked but never uploaded vs. stale online copy
+  // linked but never uploaded vs. stale online copy — times live in
+  // the hover text (syncTitle), not in the label
   expect(syncLabel(SYNC_UNSYNCED)).toBe('Noch nicht hochgeladen')
   expect(
-    syncLabel(SYNC_UNSYNCED, new Date('2026-09-12T12:32:00'), NOW)
-  ).toBe('Geändert seit dem letzten Hochladen (vor 2 Stunden)')
+    syncLabel(SYNC_UNSYNCED, new Date('2026-09-12T12:32:00'))
+  ).toBe('Geändert seit dem letzten Hochladen')
 
-  // completeness is the message; the time is secondary context and
-  // "gerade eben" adds nothing at all
+  // completeness is the whole message — no time chatter
   expect(
-    syncLabel(SYNC_SYNCED, new Date('2026-09-12T14:31:55'), NOW)
+    syncLabel(SYNC_SYNCED, new Date('2026-09-12T14:30:00'))
   ).toBe('Alle Änderungen hochgeladen')
   expect(
-    syncLabel(SYNC_SYNCED, new Date('2026-09-12T14:30:00'), NOW)
-  ).toBe('Alle Änderungen hochgeladen (vor 2 Minuten)')
+    syncLabel(SYNC_SYNCED, new Date('2026-09-11T09:15:00'))
+  ).toBe('Alle Änderungen hochgeladen')
+})
+
+test('syncTitle carries the upload time as hover text', () => {
+  // no upload, nothing to hover
+  expect(syncTitle(undefined)).toBe('')
+
+  // recent: relative plus exact timestamp
   expect(
-    syncLabel(SYNC_SYNCED, new Date('2026-09-11T09:15:00'), NOW)
-  ).toBe('Alle Änderungen hochgeladen (am 11.09.2026, 09:15)')
+    syncTitle(new Date('2026-09-12T14:30:00'), NOW)
+  ).toBe('Zuletzt hochgeladen: vor 2 Minuten (12.09.2026, 14:30)')
+
+  // older than 12h: the absolute time is the message
+  expect(
+    syncTitle(new Date('2026-09-11T09:15:00'), NOW)
+  ).toBe('Zuletzt hochgeladen: 11.09.2026, 09:15')
 })

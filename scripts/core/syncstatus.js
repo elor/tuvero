@@ -34,6 +34,17 @@ export function syncState ({ serverlink, lastUpload, lastSave }) {
 }
 
 /**
+ * "12.09.2026, 14:32"
+ */
+export function formatAbsoluteTime (date) {
+  return date.toLocaleDateString('de', {
+    day: '2-digit', month: '2-digit', year: 'numeric'
+  }) + ', ' + date.toLocaleTimeString('de', {
+    hour: '2-digit', minute: '2-digit'
+  })
+}
+
+/**
  * "vor 2 Minuten" while recent, "12.09.2026, 14:32" from 12 hours on.
  */
 export function formatSyncTime (date, now = new Date()) {
@@ -49,11 +60,7 @@ export function formatSyncTime (date, now = new Date()) {
     const hours = Math.floor(age / HOUR)
     return hours === 1 ? 'vor 1 Stunde' : 'vor ' + hours + ' Stunden'
   }
-  return date.toLocaleDateString('de', {
-    day: '2-digit', month: '2-digit', year: 'numeric'
-  }) + ', ' + date.toLocaleTimeString('de', {
-    hour: '2-digit', minute: '2-digit'
-  })
+  return formatAbsoluteTime(date)
 }
 
 /**
@@ -62,27 +69,35 @@ export function formatSyncTime (date, now = new Date()) {
  * for the user, not the storage location. Not variant-specific,
  * hence not in the per-variant strings module.
  */
-export function syncLabel (state, lastUpload, now) {
+export function syncLabel (state, lastUpload) {
   switch (state) {
     case SYNC_UNSYNCED:
       if (lastUpload) {
-        return 'Geändert seit dem letzten Hochladen (' +
-          formatSyncTime(lastUpload, now) + ')'
+        return 'Geändert seit dem letzten Hochladen'
       }
       return 'Noch nicht hochgeladen'
-    case SYNC_SYNCED: {
-      // Completeness is the message ("everything is safe"); the time
-      // is secondary context, and "gerade eben" adds nothing.
-      const time = formatSyncTime(lastUpload, now)
-      if (time === 'gerade eben') {
-        return 'Alle Änderungen hochgeladen'
-      }
-      const relative = time.indexOf('vor ') === 0
-      return 'Alle Änderungen hochgeladen (' +
-        (relative ? time : 'am ' + time) + ')'
-    }
+    case SYNC_SYNCED:
+      // Completeness is the whole message; when the upload happened
+      // adds nothing once everything is safe.
+      return 'Alle Änderungen hochgeladen'
     default:
       // Device-only is a deliberate choice, not a deficiency.
       return 'Lokales Turnier – wird nicht hochgeladen'
   }
+}
+
+/**
+ * Hover text carrying the upload time the label deliberately omits.
+ * Empty when nothing was ever uploaded (nothing to hover).
+ */
+export function syncTitle (lastUpload, now = new Date()) {
+  if (!lastUpload) {
+    return ''
+  }
+  const relative = formatSyncTime(lastUpload, now)
+  if (relative === formatAbsoluteTime(lastUpload)) {
+    return 'Zuletzt hochgeladen: ' + relative
+  }
+  return 'Zuletzt hochgeladen: ' + relative +
+    ' (' + formatAbsoluteTime(lastUpload) + ')'
 }
