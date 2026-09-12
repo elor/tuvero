@@ -20,16 +20,17 @@ class NewTeamView extends View {
     this.$lines = this.$view.find('.newteamline')
     this.$button = this.$view.find('button.register')
     this.$advanced = this.$view.find('.registeradvanced')
+    // The template's static placeholder labels the player SLOT
+    // ("Team 1" / "Spieler 1"). With single-player teams that reads
+    // as a team-name suggestion, so there it follows the team count
+    // instead: "Team 3" when two teams are registered. Captured
+    // before updateTeamSize(), which already calls updatePlaceholder.
+    this.firstPlaceholder = this.$players.eq(0).attr('placeholder') || ''
     if (teamsize) {
       this.teamsize = teamsize
       this.teamsize.registerListener(this)
       this.updateTeamSize()
     }
-    // The template's static placeholder labels the player SLOT
-    // ("Team 1" / "Spieler 1"). With single-player teams that reads
-    // as a team-name suggestion, so there it follows the team count
-    // instead: "Team 3" when two teams are registered.
-    this.firstPlaceholder = this.$players.eq(0).attr('placeholder') || ''
     this.updatePlaceholder()
     this.controller = new NewTeamController(this)
   }
