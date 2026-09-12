@@ -64,6 +64,7 @@ const Strings = {
   alltabsreloaded: 'Alle Tabs neu geladen',
   modsvariableadded: 'window.mods erstellt',
   tournamentfinished: 'Turnier beendet',
+  tournamentclosed: 'Turnier geschlossen',
   autocompleteloaded: 'Namensvorschläge geladen',
   autocompletereloadfailed: 'Konnte Namensvorschläge nicht laden',
   fileempty: 'Datei ist leer',

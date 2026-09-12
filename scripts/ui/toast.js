@@ -21,6 +21,10 @@ let initialized, pending
 initialized = false
 pending = []
 
+// mute counter: while > 0, new toasts are silently discarded. Used by bulk
+// operations (e.g. StateLoader unload/restore) to suppress per-model toasts.
+let muteCount = 0
+
 /**
  * read the transition durations
  */
@@ -49,6 +53,10 @@ class Toast {
     this.message = message
     this.duration = seconds || Toast.SHORT
     this.$toast = undefined
+    this.muted = Toast.isMuted()
+    if (this.muted) {
+      return
+    }
     if (initialized) {
       this.display()
     } else {
@@ -60,6 +68,9 @@ class Toast {
    * display a toast
    */
   display () {
+    if (this.muted) {
+      return
+    }
     if (!initialized) {
       console.error('Cannot display Toast: ' + 'Toast.init() has not been called yet.')
       return
@@ -167,6 +178,22 @@ class Toast {
 
   static once (message, seconds) {
     return new Toast(message, seconds)
+  }
+
+  /**
+   * suppress all toasts created until the matching unmute() call. Nestable:
+   * every mute() must be balanced by an unmute().
+   */
+  static mute () {
+    muteCount += 1
+  }
+
+  static unmute () {
+    muteCount = Math.max(0, muteCount - 1)
+  }
+
+  static isMuted () {
+    return muteCount > 0
   }
 
   static fadeinDuration = 0.2

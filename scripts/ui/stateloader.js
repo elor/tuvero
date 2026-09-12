@@ -8,6 +8,7 @@
  */
 import semver from 'semver'
 import State from './state.js'
+import Toast from './toast.js'
 import TimeMachine from '../timemachine/timemachine.js'
 import LegacyLoaderModel from './legacyloadermodel.js'
 import LegacyStorageKeyConverter from './legacystoragekeyconverter.js'
@@ -105,13 +106,22 @@ class StateLoaderModel {
     if (!string) {
       return false
     }
+
+    // suppress the per-model toast flood (teams removed/added, matches
+    // removed, tournament state changes, ...) while the old state is torn
+    // down and the new one is restored. Callers show a single summary toast.
+    Toast.mute()
     try {
-      data = JSON.parse(string)
-    } catch (e) {
-      // try CSV-loading
-      return this.loadTeamsCSV(string)
+      try {
+        data = JSON.parse(string)
+      } catch (e) {
+        // try CSV-loading
+        return this.loadTeamsCSV(string)
+      }
+      return this.loadData(data)
+    } finally {
+      Toast.unmute()
     }
-    return this.loadData(data)
   }
 
   /**
@@ -184,8 +194,16 @@ class StateLoaderModel {
      * @returns {undefined}
      */
   unload () {
-    TimeMachine.unload()
-    State.clear()
+    // a full teardown fires 'remove'/'update' events for every team, match
+    // and tournament. Mute the resulting toast flood; callers emit a single
+    // summary toast for the whole operation.
+    Toast.mute()
+    try {
+      TimeMachine.unload()
+      State.clear()
+    } finally {
+      Toast.unmute()
+    }
   }
 }
 

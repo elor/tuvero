@@ -9,6 +9,8 @@
 import State from './state.js'
 import TimeMachine from '../timemachine/timemachine.js'
 import StateLoader from './stateloader.js'
+import Toast from './toast.js'
+import Strings from './strings.js'
 
 /**
  * Constructor of the singleton StateSaver
@@ -25,6 +27,9 @@ class StateSaverModel {
   createNewEmptyTree (name) {
     this.newTree(name)
     StateLoader.unload()
+
+    // unload() mutes all teardown toasts, so emit the single summary here
+    Toast.once(Strings.newtournament, Toast.LONG)
     return this.saveState()
   }
 
