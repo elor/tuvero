@@ -1,14 +1,14 @@
-/* "⋯" action menu in the tournament commit box: the primary action
- * (Öffnen) stays visible, everything else collapses in here. Native
- * <details>, no framework. */
+/* Generic "⋯" action menu (commit box, tournament overview): the
+ * primary action stays visible, everything else collapses in here.
+ * Native <details>, no framework. */
 
-.commitmenu {
+.actionmenu {
   display: inline-block;
   position: relative;
   vertical-align: middle;
 }
 
-.commitmenu > summary {
+.actionmenu > summary {
   list-style: none;
   cursor: pointer;
   display: inline-block;
@@ -20,15 +20,15 @@
   line-height: 1.4;
 }
 
-.commitmenu > summary::-webkit-details-marker {
+.actionmenu > summary::-webkit-details-marker {
   display: none;
 }
 
-.commitmenu[open] > summary {
+.actionmenu[open] > summary {
   background: #dddddd;
 }
 
-.commitmenu-items {
+.actionmenu-items {
   position: absolute;
   left: 0;
   top: 100%;
@@ -43,16 +43,23 @@
   text-align: left;
 }
 
-.commitmenu-items button {
+.actionmenu-items button {
   display: block;
   width: 100%;
   margin: 2px 0;
   text-align: left;
 }
 
-.commitmenu-items label {
+.actionmenu-items label {
   display: block;
   padding: 4px 6px;
   white-space: nowrap;
   cursor: pointer;
+}
+
+/* menus embedded in a box heading stay visually subordinate */
+h3 .actionmenu {
+  margin-left: 6px;
+  font-size: 0.75em;
+  font-weight: normal;
 }

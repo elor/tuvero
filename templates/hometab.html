@@ -4,18 +4,25 @@
         <h2>Tuvero {{ variant }} {{ version }}</h2>
     </div>
     <div class="boxview info inline timemachineview">
-        <h3>Turniere</h3>
-        Turniere werden <b>automatisch gespeichert</b>.
-        <br>
-        Zum Umbenennen Turniernamen klicken.
+        <h3>Turniere
+            <details class="actionmenu">
+                <summary title="Weitere Aktionen">&ctdot;</summary>
+                <div class="actionmenu-items">
+                    <button class="load" data-img="load">
+                        Turnier aus Datei laden
+                    </button>
+                    <button class="reset" data-img="clear">
+                        Alle Turniere löschen
+                    </button>
+                </div>
+            </details>
+        </h3>
+        <p class="boxintro">
+            Turniere werden <b>automatisch gespeichert</b>.
+            Zum Umbenennen Turniernamen klicken.
+        </p>
 
         {% include 'timemachineview.html' %}
-
-        <button class="withlabel load fileload" data-img="load"></button>
-        Turnier aus Datei laden
-        <br>
-        <button class="withlabel reset" data-img="clear"></button>
-        Alle Turniere löschen
 
         <h3>Online-Voranmeldungen</h3>
         {% include 'loginview.html' %}

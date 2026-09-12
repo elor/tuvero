@@ -7,18 +7,52 @@
  * @see LICENSE
  */
 import StateSaver from './statesaver.js'
+import StateLoader from './stateloader.js'
 import State from './state.js'
 import TeamModel from './teammodel.js'
 import PlayerModel from './playermodel.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import Toast from './toast.js'
 
 /**
  * Constructor
  */
 class ServerTournamentLoader {
+  /**
+   * The newest local commit whose saved state is linked to this server
+   * tournament, or undefined. Scans each tree's youngest commit — a
+   * pure localStorage read, the active state is untouched.
+   */
+  static findLocalCommit (alias) {
+    for (let index = 0; index < TimeMachine.roots.length; index += 1) {
+      const root = TimeMachine.roots.get(index)
+      const commit = root.getYoungestDescendant() || root
+      const data = commit.load()
+      if (data) {
+        try {
+          if (JSON.parse(data).serverlink === alias) {
+            return commit
+          }
+        } catch (ignored) {
+          // unreadable state: not a candidate
+        }
+      }
+    }
+    return undefined
+  }
+
   // Called as a class method: ServerTournamentLoader.loadTournament(...)
   // -- see servertournamentcontroller.js. Without `static` the call
   // would resolve to undefined.
   static loadTournament (tournament) {
+    // No accidental duplicates: when this server tournament already
+    // lives here, open the local copy instead of forking a new tree.
+    const existing = ServerTournamentLoader.findLocalCommit(tournament.alias)
+    if (existing) {
+      StateLoader.loadCommit(existing)
+      Toast.once('Lokale Kopie geöffnet')
+      return
+    }
     // create new root RefLog with proper name
     StateSaver.createNewEmptyTree(tournament.name)
     if (tournament.isSeed) {

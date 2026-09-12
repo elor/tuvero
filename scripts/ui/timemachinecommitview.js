@@ -15,13 +15,13 @@ import {
 } from '../core/syncstatus.js'
 import $ from 'jquery'
 
-// The "⋯" menus close on click-away and after an action inside them;
-// the autoupload checkbox keeps the menu open. One delegated handler
-// serves every commit box.
+// All "⋯" action menus (commit boxes and the tournament overview)
+// close on click-away and after an action inside them; checkboxes and
+// labels keep the menu open. One delegated handler serves them all.
 $(document).on('click', function (event) {
-  const $inside = $(event.target).closest('.commitmenu')
-  $('.commitmenu[open]').not($inside).removeAttr('open')
-  if ($(event.target).closest('.commitmenu-items button').length) {
+  const $inside = $(event.target).closest('.actionmenu')
+  $('.actionmenu[open]').not($inside).removeAttr('open')
+  if ($(event.target).closest('.actionmenu-items button').length) {
     $inside.removeAttr('open')
   }
 })
