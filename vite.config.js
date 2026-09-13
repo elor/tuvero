@@ -115,6 +115,28 @@ const detectVariant = (...candidates) => {
   return variant || null
 }
 
+// The dev server mirrors just enough of the tuvero.de URL layout to
+// keep page loads free of console errors (the e2e suite asserts
+// that):
+//   * head.html registers /sw.js unconditionally — a worker body
+//     without a fetch handler registers fine and caches nothing.
+//   * hometab.js mints an anonymous API token on load; answering
+//     with an error JSON sends the client down its normal
+//     not-authenticated path instead of a 404.
+const devBackendStubPlugin = {
+  name: 'dev-backend-stub',
+  configureServer (server) {
+    server.middlewares.use('/sw.js', (req, res) => {
+      res.setHeader('Content-Type', 'text/javascript')
+      res.end('// no-op dev stand-in for the root service worker\n')
+    })
+    server.middlewares.use('/profile/token/new/json', (req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      res.end('{"error": "vite dev server has no backend"}\n')
+    })
+  }
+}
+
 const nunjucksHtmlPlugin = {
   name: 'nunjucks-html',
   transformIndexHtml: {
@@ -168,12 +190,12 @@ const webManifestPlugin = {
 
 export default defineConfig({
   root: variant ? here(variant) : undefined,
-  plugins: [variantAliasPlugin, nunjucksHtmlPlugin, webManifestPlugin, viteSingleFile()],
+  plugins: [variantAliasPlugin, nunjucksHtmlPlugin, webManifestPlugin, devBackendStubPlugin, viteSingleFile()],
   build: variant
     ? {
         assetsInlineLimit: Infinity,
         outDir: here(`dist/${variant}`),
-        emptyOutDir: true,
+        emptyOutDir: true
       }
     : {}
 })
