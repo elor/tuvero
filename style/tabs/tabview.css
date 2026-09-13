@@ -28,23 +28,6 @@
   float: right;
 }
 
-/* Phones: the floated nowrap options row is wider than the screen
- * and would force the whole tab wide — let it flow and wrap. And
- * content that is intrinsically wide (the teams/system table, game
- * plans) scrolls horizontally inside its tab instead of forcing the
- * whole page wide and zooming everything out. */
-@media (max-width: 32em) {
-  #tabs > div .options {
-    white-space: normal;
-    float: none;
-    text-align: center;
-  }
-
-  #tabs > div {
-    min-width: 0;
-    overflow-x: auto;
-  }
-}
 
 #tabs > div .options > span {
   cursor: pointer;

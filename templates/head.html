@@ -1,9 +1,11 @@
 <head>
     <meta charset="utf-8" />
-    {# Without this, phones render into a ~980px legacy viewport and
-       zoom the whole app out. The layout is min-content throughout,
-       so device-width mostly just makes everything readable. #}
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {# Without a viewport meta, phones render into a ~980px legacy
+       viewport and zoom the whole app out. The layout is a desktop
+       layout (~506px min-content), so a fixed 640px viewport keeps
+       it intact while showing everything ~50% larger; device-width
+       would demand a real responsive redesign. #}
+    <meta name="viewport" content="width=640" />
     <title>Tuvero {{ variant }} {{ version }}</title>
     <link inline rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="manifest" href="manifest.webmanifest" />

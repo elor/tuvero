@@ -19,19 +19,6 @@
   box-shadow: none;
 }
 
-/* Phones: the single nowrap row of tab handles is wider than the
- * screen and would force the whole page wide — let it wrap. */
-@media (max-width: 32em) {
-  .tabmenu {
-    white-space: normal;
-  }
-
-  .tabmenu > a {
-    padding: 12px;
-    margin-bottom: 2px;
-  }
-}
-
 @media print {
   .tabmenu {
     display: none !important;
