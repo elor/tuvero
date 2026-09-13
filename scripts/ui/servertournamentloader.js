@@ -85,12 +85,8 @@ class ServerTournamentLoader {
         })
       }
     } else if (tournament.statejson) {
-      // Real state download -- restore from the inner body. Local and
-      // server state are identical right now, so record the download
-      // as the sync point ("Alle Änderungen hochgeladen"). The seed
-      // branch above deliberately doesn't: no server state exists yet.
+      // Real state download -- restore from the inner body.
       State.restore(tournament.statejson)
-      UploadLog.recordUpload(tournament.alias, new Date(), tournament.stateid)
     }
     // for good measure, set the serverlink again
     State.serverlink.set(tournament.alias)
@@ -104,6 +100,16 @@ class ServerTournamentLoader {
     // ran; without this second save, reload reads the earlier commit
     // and the serverlink is lost.
     StateSaver.saveState()
+    if (!tournament.isSeed && tournament.statejson) {
+      // Local and server state are identical right now, so record the
+      // download as the sync point ("Alle Änderungen hochgeladen").
+      // Stamped *after* the save above: an earlier stamp would make
+      // the commit's saveDate younger than the sync point, and the
+      // status logic would read the download itself as a local
+      // change. The seed branch records nothing on purpose -- no
+      // server state exists yet ("Noch nicht hochgeladen").
+      UploadLog.recordUpload(tournament.alias, new Date(), tournament.stateid)
+    }
   }
 }
 
