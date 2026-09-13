@@ -27,6 +27,10 @@
                 hadController = true
                 return
               }
+              try {
+                // picked up after the reload for the update toast
+                window.sessionStorage.setItem('tuvero-dev-reload', '1')
+              } catch (ignored) {}
               window.location.reload()
             })
         }){% endif %}.catch(function () {})

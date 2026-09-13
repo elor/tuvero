@@ -10,6 +10,7 @@
  * @see LICENSE
  */
 import '../background/autosave.js'
+import '../background/devreloadtoast.js'
 import '../background/dropstyle.js'
 import '../background/fonthotkeys.js'
 import '../background/initboxviews.js'
