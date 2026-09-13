@@ -83,7 +83,6 @@ class HomeTab extends View {
     Listener.bind(Server.logged_in, 'update', updateCreateOnline)
     $dialog.find('button.createroot').on('click', function () {
       const size = $dialog.find('input[name="newteamsize"]:checked').val()
-      const name = $dialog.find('input.treename').val()
       const createOnline = $createonline.prop('checked')
       window.setTimeout(function () {
         if (size) {
@@ -91,8 +90,9 @@ class HomeTab extends View {
         }
         if (createOnline) {
           // the controller created + loaded the tree synchronously;
-          // mint the server twin and start auto-uploading
-          linkTournament(name)
+          // mint the server twin (named after the active tree) and
+          // start auto-uploading
+          linkTournament()
         }
         const dialog = $dialog.get(0)
         if (dialog && dialog.open) {

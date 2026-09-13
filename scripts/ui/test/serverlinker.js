@@ -16,6 +16,7 @@ import State from '../state.js'
 import StateSaver from '../statesaver.js'
 import UploadLog from '../uploadlog.js'
 import Model from '../../core/model.js'
+import Presets from 'presets'
 
 class FakeMessage extends Model {
   constructor (response) {
@@ -61,14 +62,21 @@ test('linkTournament: creates on the server, links and auto-uploads', () => {
     return new FakeMessage({ alias: 'fresh1' })
   }
 
-  expect(linkTournament('Online Cup')).toBe(true)
+  State.teamsize.set(2)
+  // no name argument: the linker resolves the active tree's name
+  // itself (the create dialog's input is already cleared by the
+  // time the click settles — reading it there loses the name)
+  expect(linkTournament()).toBe(true)
   expect(State.serverlink.get()).toBe('fresh1')
   expect(State.tabOptions.autouploadState.get()).toBe(true)
   expect(sent[0].apipath).toBe('/t/new')
   expect(sent[0].data.name).toBe('Online Cup')
+  // the server twin must match the local tournament's shape
+  expect(sent[0].data.target).toBe(Presets.target)
+  expect(sent[0].data.teamsize).toBe(2)
   // the fresh link gets the current state right away
   expect(sent[1].apipath).toBe('/t/fresh1/state/upload')
 
   // already linked: no second tournament is minted
-  expect(linkTournament('Online Cup')).toBe(false)
+  expect(linkTournament()).toBe(false)
 })

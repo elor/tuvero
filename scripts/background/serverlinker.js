@@ -21,6 +21,7 @@ import State from '../ui/state.js'
 import StateSaver from '../ui/statesaver.js'
 import TimeMachine from '../timemachine/timemachine.js'
 import Listener from '../core/listener.js'
+import Presets from 'presets'
 import upload from './upload.js'
 
 export function linkTournament (name) {
@@ -31,7 +32,20 @@ export function linkTournament (name) {
     Toast.once(Strings.not_logged_in)
     return false
   }
-  const message = Server.message('/t/new', { name: name || undefined })
+  if (!name) {
+    // Default to the active tree's name. Callers can't reliably pass
+    // it themselves: in the create dialog the name input is already
+    // cleared by TimeMachineNewTreeController when the click settles.
+    const commit = TimeMachine.commit.get()
+    name = commit ? commit.getTreeName() : undefined
+  }
+  const message = Server.message('/t/new', {
+    name: name || undefined,
+    // shape of the server twin: which variant owns it, and the
+    // team size the registration forms should use
+    target: Presets.target,
+    teamsize: State.teamsize.get() || undefined
+  })
   if (!message) {
     Toast.once(Strings.not_logged_in)
     return false
@@ -62,8 +76,7 @@ export function unlinkTournament () {
 
 $(function ($) {
   $('#tabs').on('click', 'button.linkserver', function () {
-    const commit = TimeMachine.commit.get()
-    linkTournament(commit ? commit.getTreeName() : undefined)
+    linkTournament()
   })
   $('#tabs').on('click', 'button.unlinkserver', function () {
     unlinkTournament()
