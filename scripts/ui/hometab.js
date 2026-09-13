@@ -127,9 +127,11 @@ class HomeTab extends View {
           const name = ($row.find('.name').text() || '').toLowerCase()
           const startdate = $row.attr('data-startdate') || ''
           let show = !query || name.indexOf(query) !== -1
-          if (show && range === 'upcoming') {
+          // an explicit text search overrides the date filter — a
+          // name match hidden by "Kommende" reads as a broken search
+          if (show && !query && range === 'upcoming') {
             show = !startdate || startdate >= today
-          } else if (show && range === 'past') {
+          } else if (show && !query && range === 'past') {
             show = !!startdate && startdate < today
           }
           $row.toggleClass('filteredout', !show)

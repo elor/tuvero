@@ -16,11 +16,13 @@ class ServerTournamentController extends Controller {
     // Filter against the local tournament list, live: a row whose
     // tournament already sits in the list above is redundant and
     // hides; it returns the moment the local copy is deleted.
-    // (Listener contract: TimeMachine.registerListener expects an
-    // emitters array on the listener.)
+    // TimeMachine itself never re-emits 'remove' (not in its EVENTS),
+    // so tree deletion is observed on the roots list, which fires
+    // insert/remove/reset as trees come and go.
     this.emitters = []
     this.updateHasLocal()
     TimeMachine.registerListener(this)
+    TimeMachine.roots.registerListener(this)
   }
 
   updateHasLocal () {
@@ -32,7 +34,15 @@ class ServerTournamentController extends Controller {
     this.updateHasLocal()
   }
 
+  oninsert () {
+    this.updateHasLocal()
+  }
+
   onremove () {
+    this.updateHasLocal()
+  }
+
+  onreset () {
     this.updateHasLocal()
   }
 
@@ -46,6 +56,7 @@ class ServerTournamentController extends Controller {
 
   destroy () {
     TimeMachine.unregisterListener(this)
+    TimeMachine.roots.unregisterListener(this)
   }
 }
 
