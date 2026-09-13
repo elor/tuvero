@@ -11,7 +11,25 @@
       // Fails silently where there is no worker to fetch (vite dev,
       // file:// usage).
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(function () {})
+        navigator.serviceWorker.register('/sw.js'){% if isdev %}.then(function (reg) {
+          // Dev builds only (build-time gate; release bundles carry
+          // none of this — same version test as Debug.isDevVersion
+          // and the production deploy guard): poll for new deploys
+          // and reload once the new worker takes over, so an open
+          // staging/dev tab always shows the latest build. The old
+          // AppCache updater did the same for dev versions.
+          window.setInterval(function () { reg.update() }, 60000)
+          var hadController = !!navigator.serviceWorker.controller
+          navigator.serviceWorker.addEventListener('controllerchange',
+            function () {
+              if (!hadController) {
+                // first install claiming the page — not an update
+                hadController = true
+                return
+              }
+              window.location.reload()
+            })
+        }){% endif %}.catch(function () {})
         if (navigator.storage && navigator.storage.persist) {
           // Ask the browser not to evict the caches and, more
           // importantly, the localStorage tournament data.

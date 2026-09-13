@@ -15,7 +15,10 @@ export function templateVars (variant) {
   if (!variants[variant]) {
     throw new Error(`templateVars: unknown variant "${variant}"`)
   }
-  return { ...variants[variant], version }
+  // mirrors Debug.isDevVersion (scripts/ui/debug.js): anything that is
+  // not a plain release (or rc) counts as a dev build
+  const isdev = !/^[0-9]+(\.[0-9]+)+(-rc[0-9]*)?$/.test(version)
+  return { ...variants[variant], version, isdev }
 }
 
 export default variants
