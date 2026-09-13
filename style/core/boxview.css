@@ -19,6 +19,21 @@ div.boxview.inline {
   display: inline-block;
 }
 
+/* Phones: an inline-block box contributes its *preferred* width to
+ * the tab's min-content sizing, so a long info line forces the whole
+ * page wide. Stacked block boxes wrap their text instead — side by
+ * side placement is pointless at this width anyway. */
+@media (max-width: 32em) {
+  div.boxview.inline {
+    display: block;
+  }
+
+  div.boxview {
+    margin: 1em 0.25em;
+    padding: 1em 0.5em;
+  }
+}
+
 div.boxview.info {
   vertical-align: middle;
   max-width: 35em;
