@@ -110,9 +110,12 @@ test('file load: redirects to correct variant', async ({ page }) => {
   await page.goto('/boule/')
   await waitForApp(page)
   expect(errors).toEqual([])
+  // file load lives in the "Turnier öffnen" dialog since the
+  // three-button overview rework
+  await page.locator('button.opentournament').click()
   const [fileChooser] = await Promise.all([
     page.waitForEvent('filechooser'),
-    page.locator('button.fileload').click()
+    page.locator('dialog.opentournamentdialog button.load').click()
   ])
   await fileChooser.setFiles('e2e/fixtures/tac-minimal.json')
   await page.waitForURL(/\/tac\//)

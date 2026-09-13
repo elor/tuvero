@@ -22,8 +22,10 @@ export async function goTab (page, tabName) {
 export async function createTournament (page, name) {
   await page.goto('/basic/')
   await waitForApp(page)
-  await page.fill('.treename', name)
-  await page.click('.createroot.withlabel.big')
+  // tournament creation moved into the "Neues Turnier" dialog
+  await page.click('button.newtournament')
+  await page.fill('dialog.newtournamentdialog .treename', name)
+  await page.click('dialog.newtournamentdialog button.createroot')
 }
 
 export async function registerTeams (page, names) {

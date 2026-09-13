@@ -8,7 +8,9 @@
 import { test, expect } from '@playwright/test'
 
 // Force serial execution — two contexts per test already hits 2 browsers.
-test.describe.configure({ mode: 'serial', timeout: 10000 })
+// 20s: each test drives prod AND localhost through a full flow, and
+// tournament creation now takes a dialog round-trip on the local side.
+test.describe.configure({ mode: 'serial', timeout: 20000 })
 
 // ─── URLs ────────────────────────────────────────────────────────────────────
 const PROD = v => `https://www.tuvero.de/${v}/index.html`
@@ -50,8 +52,20 @@ async function setTab(page, tab) {
 async function newTournament(page, url, name) {
   await page.goto(url, { waitUntil: 'domcontentloaded' })
   await waitForApp(page)
-  await page.locator('.treename').fill(name)
-  await page.locator('.createroot.withlabel.big').click()
+  if (await page.locator('dialog.newtournamentdialog').count() > 0) {
+    // current UI: creation lives in the "Neues Turnier" dialog
+    await page.locator('button.newtournament').click()
+    // boule offers Tête/Doublette/Triplette here; pick single-player
+    // mode to match the prod side (which clicks the teams1 button)
+    const single = page.locator('dialog.newtournamentdialog input[name="newteamsize"][value="1"]')
+    if (await single.count() > 0) await single.check()
+    await page.locator('dialog.newtournamentdialog .treename').fill(name)
+    await page.locator('dialog.newtournamentdialog button.createroot').click()
+  } else {
+    // released build (prod side): inline name field + big button
+    await page.locator('.treename').fill(name)
+    await page.locator('.createroot.withlabel.big').click()
+  }
 }
 
 async function registerTeams(page, teams) {
