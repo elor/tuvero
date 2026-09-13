@@ -25,6 +25,22 @@ class BrowserInfoView extends View {
     this.$online.text(Browser.online)
     this.$local.text(Browser.local)
     this.$cached.text(Browser.cached)
+    this.updateServiceWorkerInfo()
+  }
+
+  updateServiceWorkerInfo () {
+    const $swbuild = this.$view.find('.swbuild')
+    if (!$swbuild.length || !navigator.serviceWorker ||
+        !navigator.serviceWorker.controller) {
+      return
+    }
+    const channel = new MessageChannel()
+    channel.port1.onmessage = function (event) {
+      const info = event.data || {}
+      $swbuild.text((info.builtAt || '?') + ' (' + (info.version || '?') + ')')
+    }
+    navigator.serviceWorker.controller.postMessage(
+      { type: 'GET_INFO' }, [channel.port2])
   }
 
   onupdate () {
