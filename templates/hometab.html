@@ -9,8 +9,8 @@
             <button class="newtournament tiny" data-img="new">
                 Neues Turnier
             </button>
-            <button class="load tiny" data-img="load">
-                Turnier aus Datei öffnen
+            <button class="opentournament tiny" data-img="load">
+                Turnier öffnen
             </button>
         </p>
 
@@ -19,6 +19,50 @@
         {% include 'servertournaments.html' %}
 
         {% include 'loginview.html' %}
+
+        <dialog class="opentournamentdialog">
+            <h3 class="dialogtitle">Turnier öffnen</h3>
+            <button class="load tiny" data-img="load">
+                Aus Datei öffnen
+            </button>
+            <button class="openserver tiny" data-img="reload">
+                Vom Server öffnen
+            </button>
+            <button class="switchcreate tiny" data-img="new">
+                Neues Turnier
+            </button>
+            <p class="dialogactions">
+                <button data-close>Abbrechen</button>
+            </p>
+        </dialog>
+
+        <dialog class="servertournamentdialog">
+            <h3 class="dialogtitle">Vom Server öffnen</h3>
+            <p class="serverfilter">
+                <input type="text" class="serversearch"
+                       placeholder="Turnier suchen" />
+                <select class="serverdaterange">
+                    <option value="all">Alle</option>
+                    <option value="upcoming" selected>Kommende</option>
+                    <option value="past">Vergangene</option>
+                </select>
+            </p>
+            <div class="servertournaments serverdialoglist">
+                <div class="servertournamentview template boxview">
+                    <h3 class="name">%% %%</h3>
+                    <p class="serversource">
+                        <span class="startdate">%% %%</span><span class="sep"> &middot; </span><span class="place">%% %%</span><span class="sep"> &middot; </span><a href="%%%" class="url_href">Online-Turnier</a>
+                    </p>
+                    <p>
+                        <button class="play tiny" data-img="reload">Öffnen</button>
+                    </p>
+                </div>
+            </div>
+            <p class="noresults">Keine Turniere gefunden</p>
+            <p class="dialogactions">
+                <button data-close>Schließen</button>
+            </p>
+        </dialog>
 
         <dialog class="newtournamentdialog">
             <h3 class="dialogtitle">Neues Turnier</h3>
@@ -45,7 +89,7 @@
                     </label>
                 </p>
                 <p class="dialogactions">
-                    <button class="createroot" data-img="new">
+                    <button class="createroot tiny" data-img="new">
                         Erstellen
                     </button>
                     <button data-close>Abbrechen</button>

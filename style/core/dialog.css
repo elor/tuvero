@@ -64,3 +64,48 @@ button.moreactions {
 dialog .statelinkline {
   margin: 4px 0;
 }
+
+
+/* All icon buttons share the tiny (32px) sprite; equal min-height
+ * keeps text-only buttons (Abbrechen) the same size regardless of
+ * whether an icon is present or how tall it is. */
+.tournamentactions button,
+dialog button {
+  box-sizing: border-box;
+  height: 42px;
+  min-height: 42px;
+  vertical-align: middle;
+}
+
+dialog button[data-img]:before,
+.tournamentactions button[data-img]:before {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* "Vom Server öffnen": filter row and result list */
+dialog.servertournamentdialog {
+  min-width: 24em;
+}
+
+dialog .serverfilter input.serversearch {
+  width: 55%;
+}
+
+dialog .serverdialoglist {
+  max-height: 45vh;
+  overflow-y: auto;
+}
+
+dialog .serverdialoglist .servertournamentview.filteredout {
+  display: none;
+}
+
+dialog.servertournamentdialog .noresults {
+  display: none;
+  color: #777777;
+}
+
+dialog.servertournamentdialog.noresultsvisible .noresults {
+  display: block;
+}

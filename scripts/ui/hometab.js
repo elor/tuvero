@@ -79,6 +79,19 @@ class HomeTab extends View {
     })
 
     /*
+     * "Turnier öffnen" dialog: file, server (searchable dialog), or
+     * switch over to the create dialog. closeOnAction closes it when
+     * any of the three is chosen; the chained dialogs open on the
+     * same click via their own wireDialog openers.
+     */
+    const $openDialog = this.$view.find('dialog.opentournamentdialog')
+    wireDialog($openDialog, this.$view.find('button.opentournament'),
+      { closeOnAction: true })
+    wireDialog(this.$view.find('dialog.servertournamentdialog'),
+      $openDialog.find('button.openserver'))
+    wireDialog($dialog, $openDialog.find('button.switchcreate'))
+
+    /*
      * tournament loader
      */
     $button = this.$view.find('button.load')
@@ -90,9 +103,47 @@ class HomeTab extends View {
 
     this.serverAutoloadModel = new ServerAutoloadModel(Server)
     this.serverTournamentListModel = new ServerTournamentListModel(Server)
-    $container = this.$view.find('.servertournaments')
+    $container = this.$view.find('.servertournaments').not('.serverdialoglist')
     const $template = $container.find('.template')
     this.serverTournamentListView = new ListView(this.serverTournamentListModel, $container, $template, ServerTournamentView)
+
+    /*
+     * the same list again inside the "Vom Server öffnen" dialog, with
+     * text search and a simple date filter
+     */
+    const $serverDialog = this.$view.find('dialog.servertournamentdialog')
+    const $dialogList = $serverDialog.find('.serverdialoglist')
+    this.serverDialogListView = new ListView(this.serverTournamentListModel,
+      $dialogList, $dialogList.find('.template'), ServerTournamentView)
+    const filterServerRows = function () {
+      const query = ($serverDialog.find('input.serversearch').val() || '')
+        .toString().trim().toLowerCase()
+      const range = $serverDialog.find('select.serverdaterange').val()
+      const today = new Date().toISOString().slice(0, 10)
+      let visible = 0
+      $dialogList.find('.servertournamentview').not('.template')
+        .each(function () {
+          const $row = $(this)
+          const name = ($row.find('.name').text() || '').toLowerCase()
+          const startdate = $row.attr('data-startdate') || ''
+          let show = !query || name.indexOf(query) !== -1
+          if (show && range === 'upcoming') {
+            show = !startdate || startdate >= today
+          } else if (show && range === 'past') {
+            show = !!startdate && startdate < today
+          }
+          $row.toggleClass('filteredout', !show)
+          if (show && !$row.hasClass('haslocal')) {
+            visible += 1
+          }
+        })
+      $serverDialog.toggleClass('noresultsvisible', visible === 0)
+    }
+    $serverDialog.on('input change', '.serversearch, .serverdaterange', filterServerRows)
+    $serverDialog.find('button.openserver, .serversearch').on('focus', filterServerRows)
+    $openDialog.find('button.openserver').on('click', function () {
+      window.setTimeout(filterServerRows, 0)
+    })
     $container = this.$view.find('.loginview')
     this.loginView = new LoginView(Server, $container)
     if (!Server.token.get()) {

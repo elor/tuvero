@@ -12,6 +12,8 @@ class ServerTournamentView extends View {
     // working minimize control
     this.boxView = new BoxView(this.$view)
     this.$view.find('.name').text(model.name)
+    // ISO date for the dialog's date filter
+    this.$view.attr('data-startdate', model.startdate || '')
     // date and place sit left of the Online-Turnier link; empty
     // values disappear together with their separator dot
     const $startdate = this.$view.find('.serversource .startdate')
