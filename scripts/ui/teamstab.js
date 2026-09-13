@@ -9,7 +9,6 @@ import View from '../core/view.js'
 import State from './state.js'
 import NewTeamView from './newteamview.js'
 import LengthView from './lengthview.js'
-import TeamSizeView from './teamsizeview.js'
 import PreregCloserView from './preregcloserview.js'
 import CheckBoxView from './checkboxview.js'
 import ClassView from '../core/classview.js'
@@ -51,13 +50,7 @@ class TeamsTab extends View {
     $container = this.$view.find('.nextteamnumber')
     this.lengthView = new LengthView(State.teams, $container, +1)
 
-    // change team size
-    $container = this.$view.find('> .teamsizeview')
-    if ($container.length !== 0) {
-      this.teamSizeView = new TeamSizeView(State.teamsize, $container)
-    }
-
-    // hide team size buttons when a team has been registered
+    // hide bulk import / removal helpers once a team is registered
     this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view)
 
     // hide registration and removal buttons after the first tournament
