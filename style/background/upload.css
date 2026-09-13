@@ -10,6 +10,15 @@ body.nostatelink .hideifnostatelink {
   display: none;
 }
 
+/* inverse gate: linking is only offered while nothing is linked */
+body:not(.nostatelink) .showifnostatelink {
+  display: none;
+}
+
+body.loggedout button.linkserver {
+  color: #bbbbbb;
+}
+
 /* Muted meta line under the tournament name: start date and last
  * change, exact timestamps in the hover text. */
 .timemachinecommitview .meta {

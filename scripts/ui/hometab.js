@@ -13,6 +13,8 @@ import ListView from './listview.js'
 import ServerAutoloadModel from './serverautoloadmodel.js'
 import State from './state.js'
 import wireDialog from './dialogcontroller.js'
+import Listener from '../core/listener.js'
+import { linkTournament } from '../background/serverlinker.js'
 
 /**
  * represents a whole team tab
@@ -65,11 +67,32 @@ class HomeTab extends View {
      */
     const $dialog = this.$view.find('dialog.newtournamentdialog')
     wireDialog($dialog, this.$view.find('button.newtournament'))
+    // "Direkt online anlegen" needs a server session; greyed out
+    // (with the checkmark cleared) while logged out.
+    const $createonline = $dialog.find('input.createonline')
+    const updateCreateOnline = function () {
+      const loggedIn = !!Server.logged_in.get()
+      $createonline.prop('disabled', !loggedIn)
+      $createonline.closest('label')
+        .attr('title', loggedIn ? '' : Strings.not_logged_in)
+      if (!loggedIn) {
+        $createonline.prop('checked', false)
+      }
+    }
+    updateCreateOnline()
+    Listener.bind(Server.logged_in, 'update', updateCreateOnline)
     $dialog.find('button.createroot').on('click', function () {
       const size = $dialog.find('input[name="newteamsize"]:checked').val()
+      const name = $dialog.find('input.treename').val()
+      const createOnline = $createonline.prop('checked')
       window.setTimeout(function () {
         if (size) {
           State.teamsize.set(parseInt(size, 10))
+        }
+        if (createOnline) {
+          // the controller created + loaded the tree synchronously;
+          // mint the server twin and start auto-uploading
+          linkTournament(name)
         }
         const dialog = $dialog.get(0)
         if (dialog && dialog.open) {
