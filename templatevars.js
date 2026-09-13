@@ -18,7 +18,15 @@ export function templateVars (variant) {
   // mirrors Debug.isDevVersion (scripts/ui/debug.js): anything that is
   // not a plain release (or rc) counts as a dev build
   const isdev = !/^[0-9]+(\.[0-9]+)+(-rc[0-9]*)?$/.test(version)
-  return { ...variants[variant], version, isdev }
+  const buildtime = new Date().toLocaleString('de-DE', {
+    timeZone: 'Europe/Berlin',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+  return { ...variants[variant], version, isdev, buildtime }
 }
 
 export default variants
