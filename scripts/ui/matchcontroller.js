@@ -36,7 +36,12 @@ class MatchController extends Controller {
     let $lastinput
     const controller = this
     this.$form.keydown(function (e) {
-      switch (e.which) {
+      // Android IMEs deliver the action key without a keyCode (0 or
+      // 229), so e.which alone misses Enter there and the keyboard's
+      // default "next field" behaviour kicked in instead of
+      // finishing the match. e.key is the reliable signal.
+      const which = e.key === 'Enter' ? 13 : (e.key === 'Escape' ? 27 : e.which)
+      switch (which) {
         case 27:
           // escape
           controller.cancel()
