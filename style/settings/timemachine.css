@@ -16,4 +16,12 @@
 
 .timemachineview .rootcommits {
   margin-bottom: 1em;
+  /* flex column so the open tournament can be pulled to the top
+     without reordering the DOM (the list view owns that order) */
+  display: flex;
+  flex-direction: column;
+}
+
+.timemachineview .rootcommits > .timemachinecommitview.activetree {
+  order: -1;
 }
