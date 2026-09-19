@@ -1,3 +1,16 @@
+/* Startup goes straight to the app: the splash panel only shows for
+   the states the user must see (load error, unsupported browser).
+   Toggle this block to bring the old startup screen back. */
+#splash {
+  display: none;
+}
+
+#splash.error,
+#splash.loaderror,
+#splash.oldinternetexplorer {
+  display: block;
+}
+
 #splash {
   position: absolute;
   z-index: 100;
