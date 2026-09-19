@@ -71,8 +71,26 @@ button.moreactions {
   margin: 2px 4px;
 }
 
-dialog .statelinkline {
-  margin: 4px 0;
+/* the online link sits among the action buttons and should read as
+   one: same box, same height, no underline */
+dialog a.statelink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border: solid 1px #d0d0d0;
+  border-radius: 10px;
+  background: linear-gradient(#f0f0f0, #e8e8e8);
+  box-shadow: 0px 1px 0px 0px rgba(64, 64, 64, 0.25);
+  color: inherit;
+  font-size: 90%;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+dialog a.statelink:hover,
+dialog a.statelink:focus {
+  background: #f0f0f0;
 }
 
 
@@ -80,13 +98,15 @@ dialog .statelinkline {
  * keeps text-only buttons (Abbrechen) the same size regardless of
  * whether an icon is present or how tall it is. */
 .tournamentactions button,
-dialog button {
+dialog button,
+dialog a.statelink {
   box-sizing: border-box;
   height: 42px;
   min-height: 42px;
   vertical-align: middle;
 }
 
+dialog a.statelink[data-img]:before,
 dialog button[data-img]:before,
 .tournamentactions button[data-img]:before {
   vertical-align: middle;
