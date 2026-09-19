@@ -1,3 +1,17 @@
+.allimages .loadedimage {
+  display: inline-block;
+  margin: 0 4px 6px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.allimages figcaption {
+  font-size: 0.75em;
+  color: #555555;
+  max-width: 5em;
+  overflow-wrap: anywhere;
+}
+
 .allimages [data-img] {
   display: inline-block;
   margin: 0.2em;

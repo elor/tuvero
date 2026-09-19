@@ -18,8 +18,12 @@ class LoadedImagesView extends View {
   appendImages ($container) {
     const images = LoadedImagesView.imageList($container)
     images.forEach(function (image) {
-      const $image = $('<div>').attr('data-img', image)
-      this.$view.append($image)
+      // name under the icon: the list is a debugging aid, and a
+      // blank tile is only telling once you know which name it is
+      const $entry = $('<figure>').addClass('loadedimage')
+      $entry.append($('<div>').attr('data-img', image))
+      $entry.append($('<figcaption>').text(image))
+      this.$view.append($entry)
     }, this)
   }
 
