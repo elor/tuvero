@@ -79,21 +79,36 @@
                 <input type="text" class="treename"
                        placeholder="z.B. Stadtmeisterschaft 2016" />
                 {% if teamsize %}
-                <p class="teamsizechoice">
-                    <label><input type="radio" name="newteamsize" value="1" />
-                        Tête-à-tête</label>
-                    <label><input type="radio" name="newteamsize" value="2"
-                                  checked="checked" /> Doublette</label>
-                    <label><input type="radio" name="newteamsize" value="3" />
-                        Triplette</label>
+                <p class="pillchoice teamsizechoice">
+                    <label class="pill">
+                        <input type="radio" name="newteamsize" value="1" />
+                        Tête-à-tête
+                    </label>
+                    <label class="pill">
+                        <input type="radio" name="newteamsize" value="2"
+                               checked="checked" />
+                        Doublette
+                    </label>
+                    <label class="pill">
+                        <input type="radio" name="newteamsize" value="3" />
+                        Triplette
+                    </label>
                 </p>
                 {% endif %}
-                <p>
-                    <label class="createonlineoption">
-                        <input type="checkbox" class="createonline"
-                               disabled="disabled" />
-                        Direkt online anlegen
+                <p class="pillchoice onlinechoice">
+                    <label class="pill">
+                        <input type="radio" name="tournamentmode"
+                               value="offline" checked="checked" />
+                        Offline
                     </label>
+                    <label class="pill">
+                        <input type="radio" name="tournamentmode"
+                               value="online" class="createonline" />
+                        Online
+                    </label>
+                </p>
+                <p class="note onlinehint">
+                    Nur auf diesem Gerät gespeichert.
                 </p>
                 <p class="dialogactions">
                     <button class="createroot tiny" data-img="new">

@@ -109,3 +109,63 @@ dialog.servertournamentdialog .noresults {
 dialog.servertournamentdialog.noresultsvisible .noresults {
   display: block;
 }
+
+/* Pill-style radio groups in dialogs — same look as the segmented
+   buttons on the tuvero.de settings pages: one connected row, the
+   active choice filled, the input itself invisible. */
+.pillchoice {
+  display: flex;
+  justify-content: center;
+  margin: 0.8em 0 0.2em;
+}
+
+.pillchoice .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 1em;
+  border: solid 1px #d0d0d0;
+  border-left-width: 0;
+  background: linear-gradient(#f8f8f8, #ececec);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pillchoice .pill:first-child {
+  border-left-width: 1px;
+  border-radius: 999px 0 0 999px;
+  padding-left: 1.2em;
+}
+
+.pillchoice .pill:last-child {
+  border-radius: 0 999px 999px 0;
+  padding-right: 1.2em;
+}
+
+.pillchoice .pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.pillchoice .pill:has(input:checked) {
+  background: #4078c0;
+  border-color: #36629c;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.pillchoice .pill:has(input:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+dialog .note {
+  margin: 0.2em 0 0.6em;
+  color: #777777;
+  font-size: 0.9em;
+  text-align: center;
+}

@@ -70,17 +70,30 @@ class HomeTab extends View {
     // "Direkt online anlegen" needs a server session; greyed out
     // (with the checkmark cleared) while logged out.
     const $createonline = $dialog.find('input.createonline')
+    const $hint = $dialog.find('.onlinehint')
+    const HINTS = {
+      offline: 'Nur auf diesem Gerät gespeichert.',
+      online: 'Wird auf tuvero.de gespeichert und automatisch hochgeladen.',
+      loggedout: 'Zum Online-Anlegen musst du angemeldet sein.'
+    }
     const updateCreateOnline = function () {
       const loggedIn = !!Server.logged_in.get()
       $createonline.prop('disabled', !loggedIn)
       $createonline.closest('label')
         .attr('title', loggedIn ? '' : Strings.not_logged_in)
+      if (!loggedIn && $createonline.prop('checked')) {
+        $dialog.find('input[name="tournamentmode"][value="offline"]')
+          .prop('checked', true)
+      }
       if (!loggedIn) {
-        $createonline.prop('checked', false)
+        $hint.text(HINTS.loggedout)
+      } else {
+        $hint.text($createonline.prop('checked') ? HINTS.online : HINTS.offline)
       }
     }
     updateCreateOnline()
     Listener.bind(Server.logged_in, 'update', updateCreateOnline)
+    $dialog.find('input[name="tournamentmode"]').on('change', updateCreateOnline)
     $dialog.find('button.createroot').on('click', function () {
       const size = $dialog.find('input[name="newteamsize"]:checked').val()
       const createOnline = $createonline.prop('checked')
