@@ -1,0 +1,122 @@
+/* Icons, one file each — no sprite.
+ *
+ * The sprite existed to save HTTP requests; the variants are
+ * single-file bundles now (assetsInlineLimit: Infinity), so every
+ * image is inlined as a data URI either way and the sprite only
+ * added its unused positions plus a generator we no longer ship.
+ * Adding an icon = drop a PNG into core/images and add three lines
+ * here. `make icons` optimises them.
+ */
+
+[data-img]::before {
+  display: inline-block;
+  vertical-align: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 64px;
+  height: 64px;
+  content: '';
+}
+
+button[data-img]::before,
+h2[data-img]::before,
+.middle[data-img]::before {
+  vertical-align: middle;
+}
+
+.tiny[data-img]::before {
+  width: 32px;
+  height: 32px;
+}
+
+.large[data-img]::before {
+  width: 128px;
+  height: 128px;
+}
+
+
+
+
+[data-img="all"]::before {
+  background-image: url("../../core/images/all.png");
+}
+
+
+[data-img="clear"]::before {
+  background-image: url("../../core/images/clear.png");
+}
+
+[data-img="debug"]::before {
+  background-image: url("../../core/images/debug.png");
+}
+
+
+
+[data-img="globe"]::before {
+  background-image: url("../../core/images/globe.png");
+}
+
+[data-img="globeoff"]::before {
+  background-image: url("../../core/images/globeoff.png");
+}
+
+[data-img="history"]::before {
+  background-image: url("../../core/images/history.png");
+}
+
+[data-img="home"]::before {
+  background-image: url("../../core/images/home.png");
+}
+
+
+[data-img="load"]::before {
+  background-image: url("../../core/images/load.png");
+}
+
+
+[data-img="new"]::before {
+  background-image: url("../../core/images/new.png");
+}
+
+[data-img="print"]::before {
+  background-image: url("../../core/images/print.png");
+}
+
+[data-img="ranking"]::before {
+  background-image: url("../../core/images/ranking.png");
+}
+
+[data-img="reload"]::before {
+  background-image: url("../../core/images/reload.png");
+}
+
+[data-img="save"]::before {
+  background-image: url("../../core/images/save.png");
+}
+
+[data-img="settings"]::before {
+  background-image: url("../../core/images/settings.png");
+}
+
+
+[data-img="teams"]::before {
+  background-image: url("../../core/images/teams.png");
+}
+
+[data-img="teams1"]::before {
+  background-image: url("../../core/images/teams1.png");
+}
+
+[data-img="teams2"]::before {
+  background-image: url("../../core/images/teams2.png");
+}
+
+[data-img="teams3"]::before {
+  background-image: url("../../core/images/teams3.png");
+}
+
+
+[data-img="tuvero"]::before {
+  background-image: url("../../core/images/tuvero.png");
+}

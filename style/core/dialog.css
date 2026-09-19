@@ -94,7 +94,7 @@ dialog a.statelink:focus {
 }
 
 
-/* All icon buttons share the tiny (32px) sprite; equal min-height
+/* All icon buttons share the tiny (32px) size; equal min-height
  * keeps text-only buttons (Abbrechen) the same size regardless of
  * whether an icon is present or how tall it is. */
 .tournamentactions button,

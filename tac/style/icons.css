@@ -1,0 +1,5 @@
+/* the games icon is variant specific; everything else comes
+   from style/core/icons.css */
+[data-img="games"]::before {
+  background-image: url("../images/games.png");
+}
