@@ -9,6 +9,14 @@
     <title>Tuvero {{ variant }} {{ version }}</title>
     <link inline rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="manifest" href="manifest.webmanifest" />
+    {# iOS ignores the manifest for the home screen: it needs its own
+       link, an opaque icon (transparency renders black) and the
+       standalone/title hints. #}
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Tuvero {{ variant }}" />
+    <meta name="theme-color" content="#f5f5f5" />
     <link inline rel="stylesheet" href="style/main.css" />
     <script>
       // Root-scope service worker served by tuvero.de: precaches all

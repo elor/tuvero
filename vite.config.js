@@ -173,16 +173,29 @@ const webManifestPlugin = {
         background_color: '#f5f5f5',
         theme_color: '#f5f5f5',
         icons: [
-          { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
+          // "any": shown as-is (launcher fallbacks, iOS). Opaque —
+          // a transparent icon turns black on iOS.
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          // "maskable": Android crops to its own shape, so the logo
+          // sits inside the inner 80% safe zone on a filled square.
+          {
+            src: 'icon-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
         ]
       }, null, 2)
     })
-    for (const size of [192, 512]) {
+    for (const name of [
+      'icon-192.png', 'icon-512.png',
+      'icon-maskable-512.png', 'apple-touch-icon.png'
+    ]) {
       this.emitFile({
         type: 'asset',
-        fileName: `icon-${size}.png`,
-        source: readFileSync(here(`${variant}/images/icon-${size}.png`))
+        fileName: name,
+        source: readFileSync(here(`${variant}/images/${name}`))
       })
     }
   }
