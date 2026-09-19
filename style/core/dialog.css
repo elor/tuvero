@@ -30,9 +30,11 @@ dialog label {
   cursor: pointer;
 }
 
-dialog .teamsizechoice label {
-  display: inline-block;
-  margin: 0 6px;
+/* pills bring their own box model */
+dialog .pillchoice label.pill {
+  display: inline-flex;
+  padding: 0 1em;
+  margin: 0;
 }
 
 dialog .futureoption {
