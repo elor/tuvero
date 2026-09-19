@@ -16,7 +16,6 @@ class MatchTableView extends TemplateView {
     this.$roundtext = this.$view.find('.roundtext')
     this.$round = this.$view.find('.round')
     this.$count = this.$view.find('.count')
-    this.$place = this.$view.find('.place')
     this.$roundtext.text(Strings['grouptext_' + tournament.SYSTEM] || Strings.grouptext_default)
     this.updateRunningState()
     this.updateGroupNumber()
@@ -57,13 +56,15 @@ class MatchTableView extends TemplateView {
   }
 
   updatePlaceHeader () {
-    if (this.model.asArray().some(function (match) {
+    // A class on the table, not show()/hide() on a jQuery set: the
+    // set is captured in the constructor and only ever contained the
+    // header and the template row, so hiding it left the already
+    // cloned match rows with their place cell — every column after
+    // it sat one to the right of its header, with "Ergebnis" empty.
+    const hasPlace = this.model.asArray().some(function (match) {
       return match.place
-    })) {
-      this.$place.show()
-    } else {
-      this.$place.hide()
-    }
+    })
+    this.$view.toggleClass('noplace', !hasPlace)
   }
 
   updateRunningState () {

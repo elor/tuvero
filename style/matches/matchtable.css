@@ -7,6 +7,12 @@
   margin: auto;
 }
 
+/* Places (Bahn/Tisch/Ort) are optional: hide the whole column —
+   header, template and every rendered row — while no match has one. */
+.matchtable.noplace .place {
+  display: none;
+}
+
 /* TODO move to its own css file. This affects other tables, too */
 table .teamno {
   font-weight: bold;
