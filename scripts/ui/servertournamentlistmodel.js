@@ -6,9 +6,20 @@ import Presets from 'presets'
    * Constructor
    */
 class ServerTournamentListModel extends ListModel {
-  constructor (server) {
+  /**
+   * @param server the ServerModel
+   * @param sinceDays how far back to ask for, in days. Undefined
+   *        means the whole archive — that is what the "Vom Server
+   *        öffnen" dialog wants; the overview asks for the recent
+   *        window so the archive isn't transferred at all.
+   */
+  constructor (server, sinceDays, lazy) {
     super()
     this.server = server
+    this.sinceDays = sinceDays
+    // lazy lists don't fetch on login; the caller triggers update()
+    // when the data is actually shown
+    this.lazy = !!lazy
     this.server.registerListener(this)
   }
 
@@ -31,7 +42,13 @@ class ServerTournamentListModel extends ListModel {
     // the caller created. /t is the browseable own + public list,
     // which the variant doesn't want -- users would see other
     // peoples' rows they can't actually act on.
-    const message = this.server.message('me/tournaments')
+    let path = 'me/tournaments'
+    if (this.sinceDays !== undefined) {
+      const since = new Date()
+      since.setDate(since.getDate() - this.sinceDays)
+      path += '?since=' + since.toISOString().slice(0, 10)
+    }
+    const message = this.server.message(path)
     message.onreceive = function (emitter, event, data) {
       this.parseResult(data)
     }.bind(this)
@@ -40,7 +57,9 @@ class ServerTournamentListModel extends ListModel {
   }
 
   onlogin () {
-    this.update()
+    if (!this.lazy) {
+      this.update()
+    }
   }
 
   onlogout () {

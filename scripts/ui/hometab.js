@@ -143,7 +143,9 @@ class HomeTab extends View {
      */
 
     this.serverAutoloadModel = new ServerAutoloadModel(Server)
-    this.serverTournamentListModel = new ServerTournamentListModel(Server)
+    // overview: only what is current (two weeks back), so the
+    // archive never goes over the wire
+    this.serverTournamentListModel = new ServerTournamentListModel(Server, 14)
     $container = this.$view.find('.servertournaments').not('.serverdialoglist')
     const $template = $container.find('.template')
     this.serverTournamentListView = new ListView(this.serverTournamentListModel, $container, $template, ServerTournamentView)
@@ -154,7 +156,10 @@ class HomeTab extends View {
      */
     const $serverDialog = this.$view.find('dialog.servertournamentdialog')
     const $dialogList = $serverDialog.find('.serverdialoglist')
-    this.serverDialogListView = new ListView(this.serverTournamentListModel,
+    // the dialog is where the archive belongs: its own model without
+    // a date window, fetched when the dialog is first opened
+    this.serverArchiveModel = new ServerTournamentListModel(Server, undefined, true)
+    this.serverDialogListView = new ListView(this.serverArchiveModel,
       $dialogList, $dialogList.find('.template'), ServerTournamentView)
     const filterServerRows = function () {
       const query = ($serverDialog.find('input.serversearch').val() || '')
@@ -184,7 +189,11 @@ class HomeTab extends View {
     }
     $serverDialog.on('input change', '.serversearch, .serverdaterange', filterServerRows)
     $serverDialog.find('button.openserver, .serversearch').on('focus', filterServerRows)
+    const archiveModel = this.serverArchiveModel
     $openDialog.find('button.openserver').on('click', function () {
+      if (Server.logged_in.get()) {
+        archiveModel.update()
+      }
       window.setTimeout(filterServerRows, 0)
     })
     $container = this.$view.find('.loginview')
