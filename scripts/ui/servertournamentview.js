@@ -14,16 +14,6 @@ class ServerTournamentView extends View {
     this.$view.find('.name').text(model.name)
     // ISO date for the dialog's date filter
     this.$view.attr('data-startdate', model.startdate || '')
-    // The API hands out every tournament of the account, back to
-    // 2020. The overview only shows what is current — two weeks old
-    // at most; the "Vom Server öffnen" dialog still lists them all.
-    if (model.startdate) {
-      const twoWeeksAgo = new Date()
-      twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14)
-      if (new Date(model.startdate) < twoWeeksAgo) {
-        this.$view.addClass('pastserver')
-      }
-    }
     // date and place sit left of the Online-Turnier link; empty
     // values disappear together with their separator dot
     const $startdate = this.$view.find('.serversource .startdate')

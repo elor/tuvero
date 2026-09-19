@@ -13,9 +13,3 @@
 .servertournamentview.haslocal {
 	display: none;
 }
-
-/* older than two weeks: out of the overview, still reachable
- * through "Turnier öffnen" -> "Vom Server öffnen" */
-.servertournaments:not(.serverdialoglist) .servertournamentview.pastserver {
-	display: none;
-}
