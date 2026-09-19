@@ -25,16 +25,23 @@ class ServerTournamentListModel extends ListModel {
 
   parseResult (data) {
     this.clear()
-    if (data.logged_in) {
-      Object.keys(data.tournaments).forEach(function (tournamentID) {
-        let tournament
-        const tournamentData = data.tournaments[tournamentID]
-        if (tournamentData.target === Presets.target) {
-          tournament = new ServerTournamentModel(this.server, tournamentData)
-          this.push(tournament)
-        }
-      }, this)
+    if (!data.logged_in) {
+      return
     }
+    // Chronological, soonest first. The API orders by start date,
+    // but the response is a JSON object keyed by alias and Flask
+    // sorts object keys alphabetically — so the order is lost on the
+    // wire and has to be restored here. Undated tournaments sort
+    // last.
+    Object.keys(data.tournaments)
+      .map(function (id) { return data.tournaments[id] })
+      .filter(function (t) { return t.target === Presets.target })
+      .sort(function (a, b) {
+        return (a.startdate || '9999').localeCompare(b.startdate || '9999')
+      })
+      .forEach(function (tournamentData) {
+        this.push(new ServerTournamentModel(this.server, tournamentData))
+      }, this)
   }
 
   update () {
