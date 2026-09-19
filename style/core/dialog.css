@@ -74,7 +74,10 @@ button.moreactions {
 /* the online link sits among the action buttons and should read as
    one: same box, same height, no underline */
 dialog a.statelink {
-  display: inline-flex;
+  /* same box as the buttons above and below it */
+  display: flex;
+  width: 100%;
+  margin: 4px 0;
   align-items: center;
   justify-content: center;
   padding: 0 10px;
