@@ -1,0 +1,36 @@
+/* Icons outside the generated sprite.
+ *
+ * sprite.css is imported after mainstyle.css and its generic
+ * [data-img]::before rule would win on source order alone, so these
+ * selectors repeat the attribute to outrank it. Sizes mirror the
+ * sprite's three steps (32 / 64 / 128px).
+ */
+[data-img][data-img="globe"]::before {
+  background-image: url("../../core/images/globe.png");
+}
+
+[data-img][data-img="globeoff"]::before {
+  background-image: url("../../core/images/globeoff.png");
+}
+
+[data-img][data-img="globe"]::before,
+[data-img][data-img="globeoff"]::before {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 64px;
+}
+
+.tiny[data-img][data-img="globe"]::before,
+.tiny[data-img][data-img="globeoff"]::before {
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+}
+
+.large[data-img][data-img="globe"]::before,
+.large[data-img][data-img="globeoff"]::before {
+  background-size: contain;
+  width: 128px;
+  height: 128px;
+}
