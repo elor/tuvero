@@ -1,0 +1,37 @@
+{# One export dialog for the whole app: the tournament menu and the
+   settings page open the same thing, so the state file and the CSV
+   tables live side by side instead of in two unrelated places. #}
+<dialog class="exportdialog">
+  <h3 class="dialogtitle">Exportieren</h3>
+
+  <button class="statedownload tiny" data-img="save">
+    Turnierstand als Datei
+  </button>
+
+  <p class="exporthint">Excel-kompatible .csv-Dateien</p>
+  <span class="csvexports">
+    <button class="tiny teams" data-img="{{ teamsicon }}">
+      {{ teamstext }}
+    </button>
+    <button class="tiny ranking" data-img="ranking">
+      Rangliste
+    </button>
+    <button class="tiny history" data-img="history">
+      Spielverlauf
+    </button>
+    <button class="tiny teams ranking history" data-img="all">
+      Alles zusammen
+    </button>
+    <button class="tiny dpv">
+      DPV Ranglistenmeldung
+    </button>
+  </span>
+
+  <p class="noadownload exporthint">Damit die Datei geöffnet werden kann, muss
+    sie mit der .csv-Dateiendung gespeichert werden, beispielsweise als
+    'tuvero.csv'.</p>
+
+  <p class="dialogactions">
+    <button data-close>Schließen</button>
+  </p>
+</dialog>

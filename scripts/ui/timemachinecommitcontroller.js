@@ -3,7 +3,7 @@ import TimeMachine from '../timemachine/timemachine.js'
 import StateLoader from './stateloader.js'
 import Strings from './strings.js'
 import Toast from './toast.js'
-import FileSaverModel from './filesavermodel.js'
+import { openExportDialog } from './exportdialog.js'
 
 /**
  * Constructor
@@ -49,10 +49,8 @@ class TimeMachineCommitController extends RenameController {
   }
 
   download () {
-    const fileSaver = new FileSaverModel(this.model.getYoungestDescendant() || this.model)
-    if (!fileSaver.save()) {
-      Toast.once(Strings.savefailed)
-    }
+    // hands this box's tournament to the shared export dialog
+    openExportDialog(this.model)
   }
 
   getName (name) {

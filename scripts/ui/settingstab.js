@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import View from '../core/view.js'
-import CSVExportController from './csvexportcontroller.js'
+import { openExportDialog } from './exportdialog.js'
 import FontSizeView from './fontsizeview.js'
 
 /**
@@ -29,10 +29,11 @@ class SettingsTab extends View {
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
 
     /*
-     * CSV buttons
+     * Export: same dialog the tournament menu opens
      */
-    const $container = this.$view.find('.csv')
-    this.csvExportController = new CSVExportController(new View(undefined, $container))
+    this.$view.find('button.openexport').on('click', function () {
+      openExportDialog()
+    })
   }
 }
 
