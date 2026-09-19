@@ -19,6 +19,13 @@
   box-shadow: none;
 }
 
+/* Settings and the dev console are reachable from the home tab and
+   from the settings page respectively — no menu icons for them. */
+.tabmenu > a[href="#settings"],
+.tabmenu > a[href="#debug"] {
+  display: none;
+}
+
 @media print {
   .tabmenu {
     display: none !important;

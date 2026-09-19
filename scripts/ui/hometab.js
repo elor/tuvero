@@ -114,6 +114,11 @@ class HomeTab extends View {
       $openDialog.find('button.openserver'))
     wireDialog($dialog, $openDialog.find('button.switchcreate'))
 
+    // the settings tab lost its menu icon — reach it from here
+    this.$view.find('button.opensettings').on('click', function () {
+      window.location.hash = '#settings'
+    })
+
     /*
      * tournament loader
      */
