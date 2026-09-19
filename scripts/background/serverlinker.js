@@ -55,7 +55,6 @@ export function linkTournament (name) {
   })
   Listener.bind(message, 'receive', function (emitter, event, data) {
     State.serverlink.set(data.alias || String(data.id))
-    State.tabOptions.autouploadState.set(true)
     StateSaver.saveState()
     upload()
   })
@@ -68,7 +67,6 @@ export function unlinkTournament () {
     return false
   }
   State.serverlink.set(undefined)
-  State.tabOptions.autouploadState.set(false)
   StateSaver.saveState()
   Toast.once('Turnier ist jetzt lokal – wird nicht mehr hochgeladen')
   return true

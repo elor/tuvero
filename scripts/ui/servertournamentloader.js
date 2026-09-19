@@ -94,7 +94,6 @@ class ServerTournamentLoader {
     // online: keep it uploaded by default. The checkbox in the commit
     // box stays as the opt-out. (State.clear() still defaults local
     // tournaments to false.)
-    State.tabOptions.autouploadState.set(true)
     // Persist the restored State (with serverlink) to TimeMachine.
     // createNewEmptyTree() committed an empty State *before* restore
     // ran; without this second save, reload reads the earlier commit

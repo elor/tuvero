@@ -6,12 +6,12 @@ import ClassView from '../core/classview.js'
 import State from './state.js'
 import TimeMachineCommitController from './timemachinecommitcontroller.js'
 import BoxView from './boxview.js'
-import CheckBoxView from './checkboxview.js'
 import StateLinkView from './statelinkview.js'
 import Listener from '../core/listener.js'
 import UploadLog from './uploadlog.js'
 import {
-  syncState, syncLabel, syncTitle, formatSyncTime, formatAbsoluteTime
+  syncState, syncLabel, syncTitle, formatSyncTime, formatAbsoluteTime,
+  SYNC_SYNCED
 } from '../core/syncstatus.js'
 import wireDialog from './dialogcontroller.js'
 
@@ -30,7 +30,6 @@ class TimeMachineCommitView extends View {
     this.updateStartDate()
     this.updateSaveDate()
     this.updateActive()
-    this.autouploadCheckbox = new CheckBoxView(State.tabOptions.autouploadState, this.$view.find('input.autoupload'))
     this.stateLinkView = new StateLinkView(State.serverlink, this.$view.find('a.statelink'))
     // "⋯" in the meta line opens the per-tournament action dialog
     // (top layer — immune to the box's overflow clipping)
@@ -72,6 +71,13 @@ class TimeMachineCommitView extends View {
       lastSave: new Date(youngestAncestor.key.saveDate)
     })
     this.syncStatusView.model.set(syncLabel(state, lastUpload))
+    // nothing to send: the upload button says so instead of
+    // pretending there is work left
+    this.$view.find('button.upload')
+      .prop('disabled', state === SYNC_SYNCED)
+      .attr('title', state === SYNC_SYNCED
+        ? 'Alle Änderungen sind bereits hochgeladen'
+        : '')
     // state class for color coding (style/background/upload.css);
     // the exact upload time lives in the hover text
     this.$view.find('.syncstatus')

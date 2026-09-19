@@ -25,11 +25,11 @@ function save () {
           // TODO display as Toast!
           console.error('autosave failed')
         }
-        // Only attempt the auto-upload when it can actually succeed —
-        // upload() toasts about missing login/link, which would nag on
-        // every save now that linked tournaments auto-enable the flag.
-        if (State.tabOptions.autouploadState.get() &&
-            Server.logged_in.get() && State.serverlink.get()) {
+        // Linked tournaments always upload: being linked IS the
+        // opt-in, and a tournament that silently stops syncing is
+        // worse than an extra request. Guarded so upload() doesn't
+        // toast about a missing login or link on every save.
+        if (Server.logged_in.get() && State.serverlink.get()) {
           upload()
         }
       } else {

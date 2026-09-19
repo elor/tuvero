@@ -30,8 +30,7 @@ class StateModel extends Model {
       teamTable: tabOptionPreset('teamtable', true),
       rankingAbbreviations: tabOptionPreset('rankingabbreviations', false),
       showMatchTables: tabOptionPreset('showmatchtables', false),
-      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false),
-      autouploadState: tabOptionPreset('autouploadstate', false)
+      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false)
     }
     this.focusedteam = new ValueModel(undefined) // Holds a TeamModel reference
 
@@ -64,7 +63,6 @@ class StateModel extends Model {
     this.emit('clear')
 
     // explicit rule to avoid uploading an already existing state
-    this.tabOptions.autouploadState.set(false)
     this.teamsize.set(Presets.registration.defaultteamsize || Presets.registration.minteamsize)
   }
 

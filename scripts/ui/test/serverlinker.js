@@ -38,12 +38,10 @@ class FakeMessage extends Model {
 test('unlinkTournament: drops the link, keeps the upload history', () => {
   StateSaver.createNewEmptyTree('Local Cup')
   State.serverlink.set('oldlink')
-  State.tabOptions.autouploadState.set(true)
   UploadLog.recordUpload('oldlink', new Date(), 7)
 
   expect(unlinkTournament()).toBe(true)
   expect(State.serverlink.get()).toBeFalsy()
-  expect(State.tabOptions.autouploadState.get()).toBe(false)
   // history survives for a later re-link
   expect(UploadLog.lastUpload('oldlink')).toBeDefined()
 
@@ -68,7 +66,6 @@ test('linkTournament: creates on the server, links and auto-uploads', () => {
   // time the click settles — reading it there loses the name)
   expect(linkTournament()).toBe(true)
   expect(State.serverlink.get()).toBe('fresh1')
-  expect(State.tabOptions.autouploadState.get()).toBe(true)
   expect(sent[0].apipath).toBe('/t/new')
   expect(sent[0].data.name).toBe('Online Cup')
   // the server twin must match the local tournament's shape
