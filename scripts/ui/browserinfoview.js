@@ -34,10 +34,12 @@ class BrowserInfoView extends View {
         !navigator.serviceWorker.controller) {
       return
     }
+    const view = this
     const channel = new MessageChannel()
     channel.port1.onmessage = function (event) {
       const info = event.data || {}
-      $swbuild.text((info.builtAt || '?') + ' (' + (info.version || '?') + ')')
+      $swbuild.text(info.version || '?')
+      view.$view.find('.swbuildtime').text(info.builtAt || '?')
     }
     navigator.serviceWorker.controller.postMessage(
       { type: 'GET_INFO' }, [channel.port2])
