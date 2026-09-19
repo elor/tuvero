@@ -30,6 +30,14 @@ dialog label {
   cursor: pointer;
 }
 
+.pillchoice .pillicon {
+  margin-right: 5px;
+}
+
+.pillchoice .pillicon::before {
+  vertical-align: middle;
+}
+
 /* pills bring their own box model */
 dialog .pillchoice label.pill {
   display: inline-flex;
