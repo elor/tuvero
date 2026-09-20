@@ -40,3 +40,19 @@
   display: inline-block;
   margin: 1em 1em;
 }
+
+/*
+ * The dev console used to be a tab of its own, so it keeps the full
+ * page width — the 20em cap above is meant for the narrow option
+ * boxes that sit next to each other, and the tools inside the
+ * console lay themselves out like they did on the old tab.
+ */
+#tabs > [data-tab="settings"] > .boxview.devconsole {
+  display: block;
+  max-width: none;
+}
+
+#tabs > [data-tab="settings"] > .devconsole > div {
+  max-width: none;
+  padding: 0;
+}
