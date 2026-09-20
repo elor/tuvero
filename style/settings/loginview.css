@@ -63,14 +63,8 @@ dialog.accountdialog .dialogtitle {
   gap: 0.4em;
 }
 
+/* the entries are plain dialog buttons: block, full width, same
+   spacing as the tournament dialog's actions */
 dialog.accountdialog .accountlinks {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.4em;
   margin: 1em 0;
-}
-
-dialog.accountdialog .accountlinks button {
-  text-align: left;
 }
