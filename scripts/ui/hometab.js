@@ -96,22 +96,20 @@ class HomeTab extends View {
     $dialog.find('input[name="tournamentmode"]').on('change', updateCreateOnline)
 
     /*
-     * Supermêlée or fixed teams. The size pills mean different
-     * things in the two modes: the size of a registered team, or
-     * the size of the line-ups drawn every round. A mêlée registers
-     * single players, so Tête-à-tête has nothing to choose there.
+     * Supermêlée or fixed teams. The size above means different
+     * things in the two: the size of a registered team, or the size
+     * of the line-ups drawn every round (a mêlée of tête-à-têtes is
+     * a valid one -- it draws the opponents).
      */
     const $melee = $dialog.find('input.createmelee')
     const $sizechoice = $dialog.find('.teamsizechoice')
     const updateKind = function () {
       const melee = $melee.prop('checked')
       $dialog.find('.meleehint').toggleClass('hidden', !melee)
-      $sizechoice.find('.fixedteamsonly').toggleClass('hidden', melee)
       if ($sizechoice.hasClass('meleeonly')) {
+        // variants without a team-size choice only need the size
+        // for a mêlée
         $sizechoice.toggleClass('hidden', !melee)
-      }
-      if (melee && Number($sizechoice.find('input:checked').val()) < 2) {
-        $sizechoice.find('input[value="2"]').prop('checked', true)
       }
     }
     updateKind()
