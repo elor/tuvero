@@ -6,6 +6,7 @@ import TournamentListModel from '../tournament/tournamentlistmodel.js'
 import Options from 'options'
 import Presets from 'presets'
 import TeamModel from './teammodel.js'
+import TemplatePlanModel from '../tournament/templateplanmodel.js'
 
 class StateModel extends Model {
   constructor () {
@@ -47,6 +48,14 @@ class StateModel extends Model {
     }
     this.focusedteam = new ValueModel(undefined) // Holds a TeamModel reference
 
+    /*
+     * An optional template the tournament follows: group phases,
+     * a final for the best of every group, a placement round for
+     * the rest. Only bookkeeping -- the phases themselves are
+     * ordinary tournaments.
+     */
+    this.plan = new TemplatePlanModel()
+
     this.initCleanupListeners()
   }
 
@@ -79,6 +88,7 @@ class StateModel extends Model {
     this.teamsize.set(Presets.registration.defaultteamsize || Presets.registration.minteamsize)
     this.melee.set(false)
     this.meleesize.set((Presets.systems.melee && Presets.systems.melee.teamsize) || 2)
+    this.plan.clear()
   }
 
   // StateModel.prototype.SAVEFORMAT.serverlink = String; // OPTIONAL alphanumeric serverside identifier
@@ -102,6 +112,9 @@ class StateModel extends Model {
     // now has to keep loading in an older build
     data.melee = this.melee.get()
     data.meleesize = this.meleesize.get()
+    if (this.plan.isActive()) {
+      data.plan = this.plan.save()
+    }
 
     // This reflects the json schema version for now.
     data.version = '1.5.26'
@@ -143,6 +156,9 @@ class StateModel extends Model {
     this.serverlink.set(data.serverlink || undefined)
     this.melee.set(!!data.melee)
     this.meleesize.set(data.meleesize || this.meleesize.get())
+    if (data.plan) {
+      this.plan.restore(data.plan)
+    }
     return true
   }
 }
