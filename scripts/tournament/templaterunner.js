@@ -34,7 +34,9 @@ export function canStartNextStep (plan, teamIDs, tournaments) {
   if (!template || stepIndex === -1) {
     return false
   }
-  if (teamIDs.length < (template.minteams || 2)) {
+  // the minimum only gates the start: once the phases are running,
+  // a deleted team must not block the rest of the plan
+  if (stepIndex === 0 && teamIDs.length < (template.minteams || 2)) {
     return false
   }
   return stepReady(template, stepIndex, context(plan, teamIDs, tournaments))
@@ -80,9 +82,9 @@ export function startNextStep (plan, teamIDs, tournaments) {
   }).map(function (spec) {
     return createPhase(spec, tournaments).getID()
   })
-  if (created.length === 0) {
-    return false
-  }
+  // a step which has nothing to play -- a placement round without
+  // any teams left over -- still counts as done, or the plan would
+  // never reach its end
   plan.record(stepIndex, created)
   return true
 }

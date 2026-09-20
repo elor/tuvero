@@ -18,15 +18,40 @@
  * - `top`: one phase for the best `perGroup` of every group phase
  *   of the previous step, seeded across the groups (A1, B1, A2, …).
  * - `rest`: one phase for everybody the previous step left over.
+ * - `brackets`: the whole field, split into blocks of `size` by
+ *   rank, each block playing its own phase (A, B, C, ...).
  */
 const TEMPLATES = [
+  {
+    id: 'maastricht',
+    name: 'Maastrichter System',
+    description: 'Eine Vorrunde im Schweizer System, danach spielt je ' +
+      'ein Achterfeld nach Platzierung sein eigenes KO-Turnier: A, B, ' +
+      'C … Jedes Team spielt also bis zum Schluss mit.',
+    minteams: 8,
+    steps: [
+      {
+        kind: 'groups',
+        groups: 1,
+        system: 'swiss',
+        names: ['Vorrunde'],
+        label: 'Vorrunde auslosen'
+      },
+      {
+        kind: 'brackets',
+        size: 8,
+        system: 'ko',
+        label: 'KO-Turniere A, B, C … auslosen'
+      }
+    ]
+  },
   {
     id: 'groupsfinal',
     name: 'Vorrunde A/B mit Finale',
     description: 'Zwei Vorrundengruppen im Schweizer System, danach ' +
       'ein KO-Finale der besten Vier jeder Gruppe und eine ' +
       'Platzierungsrunde für alle anderen.',
-    minteams: 8,
+    minteams: 10,
     steps: [
       {
         kind: 'groups',
@@ -55,7 +80,7 @@ const TEMPLATES = [
     name: 'Vorrunde A/B mit großem Finale',
     description: 'Wie oben, aber die besten Acht jeder Gruppe ' +
       'spielen das Finale aus.',
-    minteams: 16,
+    minteams: 18,
     steps: [
       {
         kind: 'groups',
@@ -84,7 +109,7 @@ const TEMPLATES = [
     name: 'Vorrunde mit KO-Finale',
     description: 'Eine Vorrunde im Schweizer System, danach ein ' +
       'KO-Finale der besten Acht und eine Platzierungsrunde.',
-    minteams: 8,
+    minteams: 10,
     steps: [
       {
         kind: 'groups',

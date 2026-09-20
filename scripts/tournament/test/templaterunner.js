@@ -88,3 +88,36 @@ test('a template needs enough teams', () => {
   expect(canStartNextStep(plan, teamIDs(3), tournaments), 'three is not enough')
     .toBe(false)
 })
+
+test('the smallest allowed field still fills every phase', () => {
+  const plan = new TemplatePlanModel()
+  const tournaments = new TournamentListModel()
+  plan.start('groupsfinal')
+  let guard = 0
+  while (canStartNextStep(plan, teamIDs(10), tournaments) && guard++ < 10) {
+    startNextStep(plan, teamIDs(10), tournaments)
+    tournaments.forEach(playAll)
+  }
+  expect(plan.isFinished(), 'the plan ran to its end').toBe(true)
+  expect(tournaments.length, 'two groups, a final and a placement round')
+    .toBe(4)
+  expect(tournaments.get(3).getTeams().length, 'the two teams left over')
+    .toBe(2)
+})
+
+test('the Maastricht system draws every bracket at once', () => {
+  const plan = new TemplatePlanModel()
+  const tournaments = new TournamentListModel()
+  plan.start('maastricht')
+  startNextStep(plan, teamIDs(20), tournaments)
+  expect(tournaments.length, 'the qualifying phase').toBe(1)
+
+  tournaments.forEach(playAll)
+  expect(startNextStep(plan, teamIDs(20), tournaments), 'the brackets follow')
+    .toBe(true)
+  expect(tournaments.length, 'three KO tournaments were added').toBe(4)
+  expect(tournaments.get(1).getName().get(), 'the best eight').toBe('A-Turnier')
+  expect(tournaments.get(3).getName().get(), 'and the last four').toBe('C-Turnier')
+  expect(tournaments.get(3).getTeams().length, 'four teams left').toBe(4)
+  expect(plan.isFinished(), 'and that is the whole system').toBe(true)
+})

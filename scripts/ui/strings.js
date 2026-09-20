@@ -193,6 +193,8 @@ const Strings = {
   team_settings_updated: 'Änderungen gespeichert',
   team_settings_reset: 'Änderungen zurückgesetzt',
   confirm_team_sort_action: 'Teams werden neu sortiert. OK?',
+  confirm_plan_cancel: 'Turnierablauf verwerfen? Die bereits ' +
+    'ausgelosten Phasen bleiben bestehen.',
   grouptext_default: 'Runde',
   grouptext_poules: 'Poule',
   matchplace: 'Ort',

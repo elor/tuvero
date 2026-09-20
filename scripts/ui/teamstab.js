@@ -20,6 +20,7 @@ import NoRegModel from './noregmodel.js'
 import DeleteAllTeamsController from './deleteallteamscontroller.js'
 import TimeMachine from '../timemachine/timemachine.js'
 import Strings from './strings.js'
+import TemplatePlanView from './templateplanview.js'
 
 class TeamsTab extends View {
   constructor ($tab) {
@@ -49,6 +50,10 @@ class TeamsTab extends View {
     this.newTeamView = new NewTeamView(State.teams, $container,
     //
       State.teamsize)
+
+    // the multi-phase template plan
+    $container = this.$view.find('.templateplan')
+    this.templatePlanView = new TemplatePlanView($container)
 
     // number of teams
     $container = this.$view.find('.nextteamnumber')

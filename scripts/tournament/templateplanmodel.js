@@ -52,7 +52,8 @@ class TemplatePlanModel extends Model {
   }
 
   /**
-   * remember which tournaments were created for a step
+   * remember which tournaments were created for a step. An empty
+   * list marks a step which had nothing to do -- it counts as done.
    *
    * @param stepIndex
    *          the step
@@ -76,7 +77,7 @@ class TemplatePlanModel extends Model {
       return -1
     }
     for (let index = 0; index < template.steps.length; index += 1) {
-      if (!this.steps[index] || this.steps[index].length === 0) {
+      if (this.steps[index] === undefined) {
         return index
       }
     }

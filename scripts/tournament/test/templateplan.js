@@ -148,3 +148,34 @@ test('a step waits for the previous phases to finish', () => {
   expect(stepReady(template, 1, { tournaments: [played] }), 'but once they are done')
     .toBe(true)
 })
+
+test('the Maastricht system splits the field into KO brackets of eight', () => {
+  const template = templateById('maastricht')
+  const groups = planStep(template, 0, { teamIDs: teamIDs(29), tournaments: [] })
+  expect(groups.length, 'a single qualifying phase').toBe(1)
+  const played = [playTournament(groups[0].system, groups[0].teamIDs)]
+
+  const specs = planStep(template, 1, { teamIDs: teamIDs(29), tournaments: [played] })
+  expect(specs.map(function (spec) { return spec.name }), 'four brackets')
+    .toEqual(['A-Turnier', 'B-Turnier', 'C-Turnier', 'D-Turnier'])
+  expect(specs.map(function (spec) { return spec.teamIDs.length }), '8, 8, 8, 5')
+    .toEqual([8, 8, 8, 5])
+  expect(specs.map(function (spec) { return spec.startIndex }), 'one below the other')
+    .toEqual([0, 8, 16, 24])
+
+  const ranked = rankedTeams(played[0])
+  expect(specs[0].teamIDs, 'the best eight play the A tournament')
+    .toEqual(ranked.slice(0, 8))
+  expect(specs[3].teamIDs, 'the rest play the D tournament')
+    .toEqual(ranked.slice(24))
+})
+
+test('a lonely team joins the last bracket instead of playing alone', () => {
+  const template = templateById('maastricht')
+  const groups = planStep(template, 0, { teamIDs: teamIDs(17), tournaments: [] })
+  const played = [playTournament(groups[0].system, groups[0].teamIDs)]
+
+  const specs = planStep(template, 1, { teamIDs: teamIDs(17), tournaments: [played] })
+  expect(specs.map(function (spec) { return spec.teamIDs.length }), '8 and 9')
+    .toEqual([8, 9])
+})

@@ -1,0 +1,73 @@
+div.boxview.templateplan {
+  display: inline-block;
+  max-width: 45em;
+  text-align: left;
+}
+
+div.boxview.templateplan h4 {
+  margin: 0em 0em 0.5em 0em;
+  text-align: center;
+}
+
+div.boxview.templateplan .hint {
+  margin-bottom: 1em;
+  text-align: justify;
+  color: #555;
+}
+
+div.boxview.templateplan ul.templatelist {
+  margin: 0em;
+  padding: 0em;
+  list-style: none;
+}
+
+div.boxview.templateplan ul.templatelist > li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8em;
+  margin-bottom: 0.7em;
+}
+
+div.boxview.templateplan ul.templatelist > li > button {
+  flex: none;
+  min-width: 16em;
+}
+
+div.boxview.templateplan .description {
+  color: #555;
+  font-size: 0.9em;
+}
+
+div.boxview.templateplan ol.templatesteps {
+  margin: 0em 0em 1em 0em;
+  padding-left: 1.5em;
+}
+
+div.boxview.templateplan ol.templatesteps > li {
+  margin-bottom: 0.3em;
+}
+
+div.boxview.templateplan ol.templatesteps > li.done {
+  color: #777;
+}
+
+div.boxview.templateplan ol.templatesteps > li.next {
+  font-weight: bold;
+}
+
+div.boxview.templateplan ol.templatesteps .phases {
+  display: block;
+  color: #777;
+  font-size: 0.9em;
+}
+
+div.boxview.templateplan .planactions {
+  text-align: center;
+}
+
+div.boxview.templateplan .stephint {
+  margin-top: 0.5em;
+  text-align: center;
+  color: #777;
+  font-size: 0.9em;
+}

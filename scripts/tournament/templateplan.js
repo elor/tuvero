@@ -161,6 +161,31 @@ export function planStep (template, stepIndex, context) {
       }]
     }
 
+    case 'brackets': {
+      const groups = groupTournaments(template, stepIndex, context)
+      const ranked = interleave(groups.map(rankedTeams))
+      const blocks = []
+      for (let index = 0; index < ranked.length; index += step.size) {
+        blocks.push(ranked.slice(index, index + step.size))
+      }
+      // a single team cannot play a bracket of its own
+      if (blocks.length > 1 && blocks[blocks.length - 1].length < 2) {
+        const lonely = blocks.pop()
+        blocks[blocks.length - 1] = blocks[blocks.length - 1].concat(lonely)
+      }
+      let bracketIndex = 0
+      return blocks.map(function (ids) {
+        const spec = {
+          system: step.system,
+          name: String.fromCharCode('A'.charCodeAt(0) + bracketIndex) + '-Turnier',
+          teamIDs: ids,
+          startIndex: bracketIndex * step.size
+        }
+        bracketIndex += 1
+        return spec
+      })
+    }
+
     case 'rest': {
       const groups = groupTournaments(template, stepIndex, context)
       const taken = teamsOf(context.tournaments[stepIndex - 1] || [])

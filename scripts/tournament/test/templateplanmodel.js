@@ -34,6 +34,16 @@ test('a plan walks through the steps of its template', () => {
   expect(plan.isFinished(), 'which the plan says out loud').toBe(true)
 })
 
+test('a step with nothing to play counts as done', () => {
+  const plan = new TemplatePlanModel()
+  plan.start('groupsfinal')
+  plan.record(0, [0, 1])
+  plan.record(1, [2])
+  plan.record(2, [])
+  expect(plan.nextStep(), 'nothing left to start').toBe(-1)
+  expect(plan.isFinished(), 'the plan is over').toBe(true)
+})
+
 test('an unknown template is refused', () => {
   const plan = new TemplatePlanModel()
   expect(plan.start('nosuchtemplate'), 'no such template').toBe(false)
