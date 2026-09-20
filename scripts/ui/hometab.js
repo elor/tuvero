@@ -198,7 +198,9 @@ class HomeTab extends View {
     })
     $container = this.$view.find('.loginview')
     this.loginView = new LoginView(Server, $container)
-    if (!Server.token.get()) {
+    if (!Server.token.get() && !Server.rejected) {
+      // no token yet: try a silent mint off an existing tuvero.de
+      // session. Not after a rejection though -- that logs out.
       this.loginView.loginWindowSuppressed.set(true)
       Server.createToken()
     }

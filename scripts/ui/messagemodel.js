@@ -61,6 +61,11 @@ class MessageModel extends Model {
       error: function (data) {
         this.result.set(data)
         this.status.set('error')
+        // 401 is the server saying this token is no good — the
+        // session is over regardless of which call ran into it
+        if (data && data.status === 401) {
+          this.server.unauthorized()
+        }
         this.emit('error', data)
       }.bind(this),
       complete: function (data) {
