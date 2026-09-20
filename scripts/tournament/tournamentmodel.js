@@ -485,6 +485,21 @@ class TournamentModel extends PropertyModel {
   }
 
   /**
+   * The team list the match views should resolve this tournament's
+   * match sides against.
+   *
+   * Overridable seam: a Supermêlée plays line-ups that are not in
+   * the global team list, so it composes its own.
+   *
+   * @param teamlist
+   *          the global team list
+   * @return the list to resolve match sides against
+   */
+  getDisplayTeams (teamlist) {
+    return teamlist
+  }
+
+  /**
    * Feed a finished match into the ranking.
    *
    * Overridable seam: in most systems a match side and a ranking

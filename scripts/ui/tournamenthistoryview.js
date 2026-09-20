@@ -24,6 +24,7 @@ import TournamentRenameController from './tournamentrenamecontroller.js'
    */
 class TournamentHistoryView extends View {
   constructor (model, $view, teamlist, teamsize, fullwidth) {
+    teamlist = model.getDisplayTeams(teamlist)
     const $popoutTemplate = $view.clone()
     super(model, $view)
     this.renameController = new TournamentRenameController(new View(model, this.$view.find('.tournamentname.rename')))

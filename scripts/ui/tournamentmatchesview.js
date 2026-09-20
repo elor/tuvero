@@ -22,15 +22,22 @@ import TournamentRenameController from './tournamentrenamecontroller.js'
  */
 class TournamentMatchesView extends TemplateView {
   constructor (model, $view, teamlist, teamsize) {
+    // systems whose matches are not played by registered teams
+    // (Supermêlée: drawn line-ups) resolve their sides themselves.
+    // Votes stay with the registered teams — a bye belongs to a
+    // player, not to a line-up.
+    const globalteamlist = teamlist
+    teamlist = model.getDisplayTeams(teamlist)
     const $popoutTemplate = $view.clone()
     super(model, $view, //
       $view.find('.template.voteview'))
     this.renameController = new TournamentRenameController(new View(model, this.$view.find('.tournamentname.rename')))
     this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function ($view) {
-      return new TournamentMatchesView(model, $view, teamlist, teamsize)
+      return new TournamentMatchesView(model, $view, globalteamlist, teamsize)
     })
     this.$names = this.$view.find('.tournamentname')
     this.teamlist = teamlist
+    this.globalteamlist = globalteamlist
     this.teamsize = teamsize
     this.initMatches()
     this.initVotes()
@@ -83,7 +90,7 @@ class TournamentMatchesView extends TemplateView {
       }
       return new ListView(votelist, $votes, $votetemplate, TeamView,
       //
-        this.teamlist)
+        this.globalteamlist)
     }, this)
   }
 
