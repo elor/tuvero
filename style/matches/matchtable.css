@@ -23,3 +23,23 @@ table .teamno {
     display: none !important;
   }
 }
+
+/* The team tab's match list: same table as the games tables, plus a
+   quiet marker for how each one ended. */
+.teammatches .outcome-won .resultcol {
+  color: #1a7f37;
+  font-weight: bold;
+}
+
+.teammatches .outcome-lost .resultcol {
+  color: #8b1a1a;
+}
+
+.teammatches .outcome-bye .resultcol,
+.teammatches .outcome-open .resultcol {
+  color: #777777;
+}
+
+.teammatches .phase {
+  color: #777777;
+}

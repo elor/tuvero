@@ -69,8 +69,9 @@ function outcomeOf (score) {
  *          the TeamModel to report on
  * @param teamlist
  *          the global team list (State.teams)
- * @return an array of rows: tournament, round, place, partners,
- *         opponents, score (from this team's side) and outcome
+ * @return an array of rows: the match and which side the team is on,
+ *         plus tournament, round, place, partners, opponents, score
+ *         (from this team's side) and outcome
  */
 export default function collectMatches (tournaments, team, teamlist) {
   const rows = []
@@ -92,6 +93,9 @@ export default function collectMatches (tournaments, team, teamlist) {
         ? [match.score[own], match.score[1 - own]]
         : undefined
       rows.push({
+        // the match itself: an open one can be finished from here
+        match,
+        own,
         tournament: tournament.getName().get(),
         round: match.getGroup() + 1,
         place: match.place || '',

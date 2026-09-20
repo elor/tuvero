@@ -62,21 +62,26 @@
       <button class="reset">Zurücksetzen</button>
     </div>
 
-    <div class="teammatches">
+    <div class="teammatches matchtable">
       <h3>Begegnungen</h3>
       <p class="nomatches">Noch keine Begegnungen</p>
-      <table class="matches hidden">
+      {# same table style as the match tables in the games tab #}
+      <table class="matches background hidden">
         <thead>
           <tr>
-            <th>Turnier</th>
+            <th>Phase</th>
             <th>Runde</th>
-            <th>Mit</th>
-            <th>Gegen</th>
-            <th>Ergebnis</th>
+            <th class="partnercol">Mitspieler</th>
+            <th>Gegner</th>
+            <th class="resultcol">Ergebnis</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+      {# cloned into the rows of matches that are still open #}
+      <div class="template matchfinish">
+        {% include 'finishmatchform.html' %}
+      </div>
     </div>
 
     <div class="playersettings">

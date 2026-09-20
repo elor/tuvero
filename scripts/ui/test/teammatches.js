@@ -96,6 +96,30 @@ test('a bye is listed as one', () => {
   expect(rows[0].opponents, 'without an opponent').toEqual([])
 })
 
+test('an open match comes with the match, so it can be finished', () => {
+  const teams = buildTeams(['Anna', 'Ben', 'Cleo', 'Dan'])
+  const tournament = new RoundTournamentModel(['wins'])
+  teams.forEach(function (team, id) {
+    tournament.addTeam(id)
+  })
+  tournament.run()
+
+  const rows = collectMatches(new ListModel([tournament]), teams.get(0), teams)
+  const row = rows[0]
+  expect(row.match, 'the match travels with the row').toBeTruthy()
+  expect([0, 1], 'and which side is ours').toContain(row.own)
+
+  // finishing it from here counts for the right side
+  const points = []
+  points[row.own] = 13
+  points[1 - row.own] = 4
+  row.match.finish(points)
+
+  const after = collectMatches(new ListModel([tournament]), teams.get(0), teams)
+  expect(after[0].score, 'our points first').toEqual([13, 4])
+  expect(after[0].outcome).toBe('won')
+})
+
 test('open matches are listed without a result', () => {
   const teams = buildTeams(['Anna', 'Ben'])
   const tournament = new RoundTournamentModel(['wins'])
