@@ -21,7 +21,11 @@ const Presets = {
     round: {
       ranking: ['wins', 'sonneborn', 'headtohead', 'points']
     },
-    placement: {}
+    placement: {},
+    melee: {
+      ranking: ['wins', 'saldo', 'points'],
+      teamsize: 2
+    }
   },
   ranking: {
     components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn', 'numgames', 'wins', 'headtohead', 'threepoint', 'twopoint']

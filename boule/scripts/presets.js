@@ -22,6 +22,10 @@ const Presets = {
       ranking: ['wins', 'sonneborn', 'headtohead', 'points']
     },
     placement: {},
+    melee: {
+      ranking: ['wins', 'saldo', 'points'],
+      teamsize: 2
+    },
     poules: {}
   },
   ranking: {

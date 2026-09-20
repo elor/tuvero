@@ -14,6 +14,7 @@ import KOTournamentModel from './kotournamentmodel.js'
 import PlacementTournamentModel from './placementtournamentmodel.js'
 import PoulesTournamentModel from './poulestournamentmodel.js'
 import FormuleXTournamentModel from './formulextournamentmodel.js'
+import MeleeTournamentModel from './meleetournamentmodel.js'
 
 const allTournamentModels = [
   RoundTournamentModel,
@@ -21,7 +22,8 @@ const allTournamentModels = [
   KOTournamentModel,
   PlacementTournamentModel,
   PoulesTournamentModel,
-  FormuleXTournamentModel
+  FormuleXTournamentModel,
+  MeleeTournamentModel
 ]
 
 let i, sys

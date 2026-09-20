@@ -1,0 +1,90 @@
+<div class="boxview melee system template" data-system="melee">
+  <h3><span class="tournamentname rename">##</span>
+    - Supermêlée</h3>
+
+  <div class="initial">
+    <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+    <div class="option">
+      Mannschaften
+      <select class="meleeteamsize">
+        <option value="2">Doublette</option>
+        <option value="3">Triplette</option>
+      </select>
+    </div>
+
+    <div class="rankingorder">
+      {% include 'rankingorderview.html' %}
+    </div>
+
+    <div class="infotext">
+      Die Mannschaften werden jede Runde neu ausgelost.
+      <br>
+      Gewertet wird einzeln.
+    </div>
+
+    <button class="runtournament">
+      Runde starten
+    </button>
+    <button class="closetournament">
+      Supermêlée abbrechen
+    </button>
+  </div>
+
+  <div class="running">
+    <p>
+      Runde <span class="round">#</span> wurde ausgelost.
+    </p>
+    <p>
+      Siehe <a href="#history" data-img="history">Turnierverlauf</a>
+    </p>
+
+    <div class="rankingorder boxview collapsed">
+      <h3>Erweiterte Optionen</h3>
+
+      {% include 'rankingorderview.html' %}
+    </div>
+  </div>
+
+  <div class="idle">
+    <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+    <div class="boxview collapsed tournamentoptions">
+      <h3>Erweiterte Optionen</h3>
+
+      <div class="option">
+        Mannschaften
+        <select class="meleeteamsize">
+          <option value="2">Doublette</option>
+          <option value="3">Triplette</option>
+        </select>
+      </div>
+
+      {% include 'rankingorderview.html' %}
+    </div>
+
+    <div class="infotext">
+      Wer nicht aufgeht, setzt eine Runde aus und bekommt sie gutgeschrieben.
+    </div>
+
+    <button class="runtournament">
+      Runde starten
+    </button>
+    <button class="closetournament">
+      Supermêlée beenden
+    </button>
+  </div>
+
+  <div class="finished">
+    Keine weiteren Spiele möglich
+    <br>
+    <button class="closetournament">
+      Supermêlée beenden
+    </button>
+  </div>
+
+  <div class="failure">
+    Unerwarteter Fehler bei der Turnierberechnung.
+  </div>
+  <h3><span class="tournamentname">##</span> - Supermêlée </h3>
+</div>

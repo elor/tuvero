@@ -86,7 +86,7 @@ const Strings = {
   defaultnameko: 'KO-Turnier',
   defaultnamepoule: 'Poule-System',
   defaultnameround: 'Rundenturnier',
-  defaultnamesupermelee: 'Supermelee',
+  defaultnamemelee: 'Supermêlée',
   defaultnameplacement: 'Platzierungsrunde',
   defaultnamepoules: 'Poules',
   offlineconfirmexit: 'Tuvero ist gerade nicht offline verfügbar. Beenden?',

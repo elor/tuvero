@@ -5,13 +5,15 @@ import SwissTournamentView from './swisstournamentview.js'
 import KOTournamentView from './kotournamentview.js'
 import PlacementTournamentView from './placementtournamentview.js'
 import PoulesTournamentView from './poulestournamentview.js'
+import MeleeTournamentView from './meleetournamentview.js'
 const constructors = {
   swiss: SwissTournamentView,
   formulex: SwissTournamentView,
   round: RoundTournamentView,
   ko: KOTournamentView,
   placement: PlacementTournamentView,
-  poules: PoulesTournamentView
+  poules: PoulesTournamentView,
+  melee: MeleeTournamentView
 }
 const defaultConstructor = TournamentView
 
