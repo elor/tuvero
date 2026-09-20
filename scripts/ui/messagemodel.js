@@ -26,6 +26,9 @@ class MessageModel extends Model {
 
   send () {
     const server = this.server
+    // which token this request carries: a 401 for a token that has
+    // since been replaced says nothing about the current one
+    const sentToken = server.token.get()
     if (this.server.tokenvalid.get() === false || !this.server.token.get()) {
       return false
     }
@@ -64,7 +67,7 @@ class MessageModel extends Model {
         // 401 is the server saying this token is no good — the
         // session is over regardless of which call ran into it
         if (data && data.status === 401) {
-          this.server.unauthorized()
+          this.server.unauthorized(sentToken)
         }
         this.emit('error', data)
       }.bind(this),

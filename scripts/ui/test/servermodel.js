@@ -69,6 +69,73 @@ test('an expired token logs the user out', () => {
   expect(server.rejected, 'and no silent mint papers over it').toBe(true)
 })
 
+test('an expired token is replaced from a live tuvero.de session', () => {
+  const server = new ServerModel()
+  server.restore({ token: 'expired-token' })
+  const authentications = []
+  Listener.bind(server, 'authenticate', function () {
+    authentications.push(true)
+  })
+  requests.length = 0
+
+  const message = server.message('t')
+  message.send()
+  requests[0].error({ status: 401 })
+
+  // the token is gone, but the browser may still hold a session
+  // cookie: mint a fresh one rather than making the user click
+  const mint = requests.find(function (request) {
+    return String(request.url).indexOf('/profile/token/new') !== -1
+  })
+  expect(mint, 'a silent mint is attempted').toBeTruthy()
+
+  mint.success({ fulltoken: 'fresh-token' })
+  expect(server.token.get(), 'back in business').toBe('fresh-token')
+  expect(server.logged_in.get(), 'and logged in').toBe(true)
+  expect(authentications.length, 'without a login popup').toBe(0)
+})
+
+test('an expired token without a session logs out for good', () => {
+  const server = new ServerModel()
+  server.restore({ token: 'expired-token' })
+  const authentications = []
+  Listener.bind(server, 'authenticate', function () {
+    authentications.push(true)
+  })
+  requests.length = 0
+
+  const message = server.message('t')
+  message.send()
+  requests[0].error({ status: 401 })
+  const mint = requests.find(function (request) {
+    return String(request.url).indexOf('/profile/token/new') !== -1
+  })
+  mint.success({ error: 'Login required' })
+  mint.complete({})
+
+  expect(server.token.get(), 'no token').toBeFalsy()
+  expect(server.logged_in.get(), 'logged out').toBe(false)
+  // a popup nobody asked for is worse than the login button
+  expect(authentications.length, 'and no popup').toBe(0)
+})
+
+test('a 401 for an already replaced token is ignored', () => {
+  const server = new ServerModel()
+  server.restore({ token: 'old-token' })
+  requests.length = 0
+
+  // a request goes out with the old token...
+  const straggler = server.message('t')
+  straggler.send()
+  // ...while the token is replaced (a mint that overtook it)
+  server.setToken('fresh-token')
+  // and only then does the old request come back rejected
+  requests[0].error({ status: 401 })
+
+  expect(server.token.get(), 'the fresh token survives').toBe('fresh-token')
+  expect(server.logged_in.get(), 'still logged in').toBe(true)
+})
+
 test('a network error keeps the user logged in', () => {
   const server = new ServerModel()
   server.restore({ token: 'stored-token' })

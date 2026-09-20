@@ -46,6 +46,11 @@ class ServerModel extends Model {
      * worse than either outcome.
      */
     this.rejected = false
+
+    /**
+     * whether the silent re-mint below has already been tried
+     */
+    this.reminted = false
     this.openTransactions = new ValueModel(0)
     this.token.registerListener(this)
     this.username.registerListener(this)
@@ -97,13 +102,31 @@ class ServerModel extends Model {
 
   /**
    * The server rejected the token: it expired, was revoked, or the
-   * server rotated its key. Whichever call noticed, the session is
-   * over.
+   * server rotated its key. Whichever call noticed, this token is
+   * done.
+   *
+   * The session behind it may well still be alive though -- the
+   * browser holds a tuvero.de cookie far longer than an API token
+   * lives -- so take the existing login over silently instead of
+   * putting a login button in front of someone who is logged in.
+   * Only when that mint comes back empty is the user really logged
+   * out. Once per page: a fresh token that is rejected again would
+   * otherwise mint in a loop.
    */
-  unauthorized () {
-    if (this.token.get()) {
-      this.rejected = true
-      this.invalidateToken()
+  unauthorized (token) {
+    if (!this.token.get()) {
+      return
+    }
+    if (token && token !== this.token.get()) {
+      // a straggler: it was sent with a token that has already been
+      // replaced, so it says nothing about the one in hand
+      return
+    }
+    this.rejected = true
+    this.invalidateToken()
+    if (!this.reminted) {
+      this.reminted = true
+      this.createToken(undefined, { silent: true })
     }
   }
 
@@ -113,7 +136,16 @@ class ServerModel extends Model {
     this.validateToken()
   }
 
-  createToken (token) {
+  /**
+   * @param token
+   *          unused, kept for the historical signature
+   * @param options
+   *          `silent: true` keeps the login popup out of it: the
+   *          mint is a background attempt nobody asked for, so a
+   *          missing session just means "stay logged out"
+   */
+  createToken (token, options) {
+    const silent = !!(options && options.silent)
     // Re-entrancy guard: ServerAutoloadModel and HomeTab can both
     // call this synchronously in the same tick (the first call's
     // invalidateToken() clears the token, so the second caller's
@@ -138,7 +170,9 @@ class ServerModel extends Model {
         if (!data) {
           this.emit('error')
         } else if (data.error) {
-          this.emit('authenticate')
+          if (!silent) {
+            this.emit('authenticate')
+          }
         } else {
           this.setToken(data.fulltoken)
         }
