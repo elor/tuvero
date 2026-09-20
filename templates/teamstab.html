@@ -9,7 +9,7 @@
       <span>
         <input class="showteamname" type="checkbox" checked="checked" />Team-Pseudonym</span>
       <span>
-        <input class="shownames" type="checkbox" checked="checked" />{{ teamtext }}namen</span>
+        <input class="shownames" type="checkbox" checked="checked" />{{ playertext }}namen</span>
       <span>
         <input class="rankingpoints" type="checkbox" checked="checked" /> Ranglistenpunkte
       </span>
@@ -38,10 +38,10 @@
       <tr>
         <th colspan="2" class="noprint">Platz</th>
         <th>No.</th>
-        <th class="teamcol">Teamname</th>
-        <th class="playercol">{{ teamtext }}</th>
-        <th class="playercol">{{ teamtext }}</th>
-        <th class="playercol">{{ teamtext }}</th>
+        <th class="teamcol">{{ teamnametext }}</th>
+        <th class="playercol">{{ playertext }}</th>
+        <th class="playercol">{{ playertext }}</th>
+        <th class="playercol">{{ playertext }}</th>
         <th class="rankingpoints">Rangliste</th>
         <th>
           <button class="sortbyrankingpoints rankingpoints">sortieren</button>
@@ -76,15 +76,15 @@
         </td>
         <td class="newteamline playercol">
           <input class="playername mini" type="text"
-                 placeholder="{% if teamnamefirst %}optional{% else %}{{ teamtext }} 1{% endif %}" />
+                 placeholder="{% if teamnamefirst %}optional{% else %}{{ playertext }} 1{% endif %}" />
         </td>
         <td class="newteamline playercol">
           <input class="playername mini" type="text"
-                 placeholder="{% if teamnamefirst %}optional{% else %}{{ teamtext }} 2{% endif %}" />
+                 placeholder="{% if teamnamefirst %}optional{% else %}{{ playertext }} 2{% endif %}" />
         </td>
         <td class="newteamline playercol">
           <input class="playername mini" type="text"
-                 placeholder="{% if teamnamefirst %}optional{% else %}{{ teamtext }} 3{% endif %}" />
+                 placeholder="{% if teamnamefirst %}optional{% else %}{{ playertext }} 3{% endif %}" />
         </td>
         <td class="rankingpoints">
           <input type="number" class="rankingpoints" value="0" />
