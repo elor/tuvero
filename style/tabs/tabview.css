@@ -45,11 +45,31 @@
   white-space: nowrap;
 }
 
-/* the login view is a block of its own (it carries the notices
-   below the button), so it has to line up with the buttons */
+/* The login view is a block of its own (it carries the notices
+   below the button). As an inline-block its text line box made it
+   taller than the button inside it, which left the button sitting
+   half a line above its neighbour; as a flex row it is exactly as
+   tall as its button. The notices take a line of their own. */
 #tabs > div > .tabtitle > .tabactions > .loginview {
-  display: inline-block;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#tabs > div > .tabtitle > .tabactions > .loginview > p {
+  width: 100%;
+  margin: 0.2em 0 0;
+}
+
+#tabs > div > .tabtitle > .tabactions > * {
   vertical-align: middle;
+}
+
+/* .big carries a bottom margin for the places it stacks in; in this
+   row it would only push its button off centre */
+#tabs > div > .tabtitle > .tabactions button {
+  margin-bottom: 0;
 }
 
 /* the options themselves live in a dialog: one per line, and the
