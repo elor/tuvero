@@ -52,7 +52,18 @@
   max-width: none;
 }
 
-#tabs > [data-tab="settings"] > .devconsole > div {
+/*
+ * The 17em cap above is meant for the option boxes on this page.
+ * Inside the console it squeezed every tool box into a narrow
+ * column, and cancelling their padding pushed the box headings —
+ * which reach out into that padding — past the box edge, where
+ * they were cut off.
+ */
+#tabs > [data-tab="settings"] .devconsole div {
   max-width: none;
+}
+
+#tabs > [data-tab="settings"] .devconsole .boxview > div:not(.boxview) {
+  display: block;
   padding: 0;
 }
