@@ -53,7 +53,9 @@ test('a team sees its own matches, with opponent and result', () => {
   expect(row.tournament, 'names the tournament').toBe('Rundenturnier')
   expect(row.round, 'first round').toBe(1)
   expect(row.opponents.length, 'one opponent').toBe(1)
-  expect(row.opponents[0], 'not itself').not.toBe('Anna')
+  expect(row.opponents[0].name, 'not itself').not.toBe('Anna')
+  expect(row.opponents[0].team, 'and it leads to their team')
+    .toBe(teams.get(row.opponents[0].team.getID()))
   expect(row.partners, 'nobody to share a team with').toEqual([])
   expect(row.score, 'from this team\'s point of view').toEqual([13, 7])
   expect(row.outcome).toBe('won')
@@ -74,9 +76,12 @@ test('a Supermêlée player sees who they played with and against', () => {
   expect(rows.length, 'one match').toBe(1)
   const row = rows[0]
   expect(row.partners.length, 'one partner in a doublette').toBe(1)
-  expect(row.partners[0], 'not itself').not.toBe('Anna')
+  expect(row.partners[0].name, 'not itself').not.toBe('Anna')
+  expect(row.partners[0].team, 'the partner has a team of their own')
+    .toBeTruthy()
   expect(row.opponents.length, 'two opponents').toBe(2)
-  expect(row.opponents, 'and they are somebody else').not.toContain('Anna')
+  expect(row.opponents.map(function (o) { return o.name }),
+    'and they are somebody else').not.toContain('Anna')
   expect(['won', 'lost'], 'decided').toContain(row.outcome)
 })
 

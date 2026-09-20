@@ -32,21 +32,41 @@ function isOwnSide (side, team) {
 }
 
 /**
+ * Who a side is made of, with the registered team behind each name
+ * so the list can lead there. In a Supermêlée the side is a line-up,
+ * not a team, so the player's own registration is what the name
+ * points at.
+ *
  * @param side a TeamModel
  * @param exclude players to leave out (the team's own)
- * @return the names of the side's players
+ * @param owners a Map of player -> registered team
+ * @return [{ name, team }]
  */
-function names (side, exclude) {
+function members (side, exclude, owners) {
   if (!side) {
     return []
   }
   return side.players.filter(function (player) {
     return !exclude || exclude.indexOf(player) === -1
   }).map(function (player) {
-    return player.getName()
-  }).filter(function (name) {
-    return !!name
+    return { name: player.getName(), team: owners.get(player) }
+  }).filter(function (member) {
+    return !!member.name
   })
+}
+
+/**
+ * @param teamlist the registered teams
+ * @return a Map of player -> the team they are registered with
+ */
+function playerOwners (teamlist) {
+  const owners = new Map()
+  teamlist.forEach(function (team) {
+    team.players.forEach(function (player) {
+      owners.set(player, team)
+    })
+  })
+  return owners
 }
 
 function outcomeOf (score) {
@@ -78,6 +98,7 @@ export default function collectMatches (tournaments, team, teamlist) {
   if (!team) {
     return rows
   }
+  const owners = playerOwners(teamlist)
   tournaments.forEach(function (tournament) {
     const sides = tournament.getDisplayTeams(teamlist)
     tournament.getCombinedHistory().forEach(function (match) {
@@ -99,10 +120,10 @@ export default function collectMatches (tournaments, team, teamlist) {
         tournament: tournament.getName().get(),
         round: match.getGroup() + 1,
         place: match.place || '',
-        partners: names(sides.get(match.teams[own]), team.players),
+        partners: members(sides.get(match.teams[own]), team.players, owners),
         opponents: isBye || other === undefined
           ? []
-          : names(sides.get(match.teams[other])),
+          : members(sides.get(match.teams[other]), undefined, owners),
         score: isBye ? undefined : score,
         outcome: isBye ? 'bye' : outcomeOf(score)
       })

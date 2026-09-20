@@ -39,8 +39,14 @@ class TeamMatchesView extends View {
     this.$empty = this.$view.find('.nomatches')
     this.$finishtemplate = this.$view.find('.template.matchfinish').detach()
     this.controllers = []
+    this.nameListeners = []
     this.tournamentsListener = Listener.bind(State.tournaments,
       'update,resize', this.update.bind(this))
+    // a phase's name lives in a model of its own and does not reach
+    // the list, so the column would keep showing the system name
+    this.listListener = Listener.bind(State.tournaments,
+      'insert,remove,resize', this.bindNames.bind(this))
+    this.bindNames()
     this.update()
   }
 
@@ -64,6 +70,38 @@ class TeamMatchesView extends View {
     }
   }
 
+  bindNames () {
+    this.nameListeners.forEach(function (listener) {
+      listener.destroy()
+    })
+    this.nameListeners = State.tournaments.map(function (tournament) {
+      return Listener.bind(tournament.getName(), 'update', this.update.bind(this))
+    }, this)
+  }
+
+  /**
+   * @param members [{ name, team }] of one side
+   * @return a jQuery fragment of clickable names
+   */
+  memberCell (members) {
+    const $cell = $('<td>')
+    members.forEach(function (member, index) {
+      if (index > 0) {
+        $cell.append(', ')
+      }
+      const $name = $('<span>').addClass('name').text(member.name)
+      if (member.team) {
+        // the same gesture as everywhere else: a name leads to its
+        // team
+        $name.on('click', function () {
+          State.focusedteam.set(member.team)
+        })
+      }
+      $cell.append($name)
+    })
+    return $cell
+  }
+
   update () {
     const rows = collectMatches(State.tournaments, this.model, State.teams)
     this.destroyControllers()
@@ -72,8 +110,8 @@ class TeamMatchesView extends View {
       const $row = $('<tr>').addClass('outcome-' + row.outcome)
       $row.append($('<td>').addClass('phase').text(row.tournament))
       $row.append($('<td>').text(row.round))
-      $row.append($('<td>').addClass('partnercol').text(row.partners.join(', ')))
-      $row.append($('<td>').text(row.opponents.join(', ')))
+      $row.append(this.memberCell(row.partners).addClass('partnercol'))
+      $row.append(this.memberCell(row.opponents))
       const $result = $('<td>').addClass('resultcol')
       if (row.outcome === 'open') {
         const $form = this.$finishtemplate.children().clone()
@@ -115,6 +153,10 @@ class TeamMatchesView extends View {
     this.destroyControllers()
     this.$body.empty()
     this.tournamentsListener.destroy()
+    this.listListener.destroy()
+    this.nameListeners.forEach(function (listener) {
+      listener.destroy()
+    })
     Listener.prototype.destroy.call(this)
   }
 

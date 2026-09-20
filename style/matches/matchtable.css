@@ -43,3 +43,12 @@ table .teamno {
 .teammatches .phase {
   color: #777777;
 }
+
+/* Names in the team's match list lead to that team */
+.teammatches td .name {
+  cursor: pointer;
+}
+
+.teammatches td .name:hover {
+  text-decoration: underline;
+}
