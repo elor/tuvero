@@ -78,9 +78,25 @@
             <div class="newcommittree">
                 <input type="text" class="treename"
                        placeholder="z.B. Stadtmeisterschaft 2016" />
-                {% if teamsize %}
-                <p class="pillchoice teamsizechoice">
+                {% if melee %}
+                <p class="pillchoice kindchoice">
                     <label class="pill">
+                        <input type="radio" name="tournamentkind" value="normal"
+                               checked="checked" />
+                        <span class="pillicon tiny" data-img="{{ teamsicon }}"></span>
+                        Feste Teams
+                    </label>
+                    <label class="pill">
+                        <input type="radio" name="tournamentkind" value="melee"
+                               class="createmelee" />
+                        <span class="pillicon tiny" data-img="new"></span>
+                        Supermêlée
+                    </label>
+                </p>
+                {% endif %}
+                {% if teamsize or melee %}
+                <p class="pillchoice teamsizechoice{% if not teamsize %} meleeonly hidden{% endif %}">
+                    <label class="pill fixedteamsonly">
                         <input type="radio" name="newteamsize" value="1" />
                         <span class="pillicon tiny" data-img="teams1"></span>
                         Tête-à-tête
@@ -96,6 +112,10 @@
                         <span class="pillicon tiny" data-img="teams3"></span>
                         Triplette
                     </label>
+                </p>
+                <p class="note meleehint hidden">
+                    Angemeldet wird einzeln, die Mannschaften werden jede
+                    Runde neu ausgelost.
                 </p>
                 {% endif %}
                 <p class="pillchoice onlinechoice">

@@ -10,6 +10,7 @@ import $ from 'jquery'
 import Controller from '../core/controller.js'
 import TournamentIndex from '../tournament/tournamentindex.js'
 import Strings from './strings.js'
+import State from './state.js'
 import TournamentController from './tournamentcontroller.js'
 import Presets from 'presets'
 import InputValueView from './inputvalueview.js'
@@ -73,6 +74,11 @@ class NewTournamentController extends Controller {
     }
     const tournament = TournamentIndex.createTournament(type, rankingorder)
     tournament.getName().set(Strings['defaultname' + tournament.SYSTEM] || Strings.defaultnamegeneric)
+    if (type === 'melee') {
+      // doublette or triplette, as picked when the tournament was
+      // created. Set before the view exists, which reads it once.
+      tournament.setProperty('meleeteamsize', State.meleesize.get())
+    }
     const ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length)
     const imax = Math.min(this.model.firstTeamID + size,
     //

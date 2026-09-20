@@ -15,6 +15,17 @@ class StateModel extends Model {
     this.teamsize = new ValueModel(Presets.registration.defaultteamsize || Presets.registration.minteamsize)
     this.tournaments = new TournamentListModel()
     this.serverlink = new ValueModel(undefined)
+
+    /*
+     * A Supermêlée is chosen when the tournament is created, not
+     * when a phase is started: it registers players instead of
+     * teams and does not mix with the other systems, so the choice
+     * decides which systems the teams tab offers at all.
+     * `meleesize` is the size of the drawn line-ups (doublette or
+     * triplette), not the registration team size, which is 1.
+     */
+    this.melee = new ValueModel(false)
+    this.meleesize = new ValueModel((Presets.systems.melee && Presets.systems.melee.teamsize) || 2)
     function tabOptionPreset (name, defaultValue) {
       if (!Presets.taboptions || Presets.taboptions[name] === undefined) {
         return new ValueModel(defaultValue)
@@ -64,6 +75,8 @@ class StateModel extends Model {
 
     // explicit rule to avoid uploading an already existing state
     this.teamsize.set(Presets.registration.defaultteamsize || Presets.registration.minteamsize)
+    this.melee.set(false)
+    this.meleesize.set((Presets.systems.melee && Presets.systems.melee.teamsize) || 2)
   }
 
   // StateModel.prototype.SAVEFORMAT.serverlink = String; // OPTIONAL alphanumeric serverside identifier
@@ -81,6 +94,12 @@ class StateModel extends Model {
     data.tournaments = this.tournaments.save()
     data.serverlink = this.serverlink.get()
     data.options = JSON.parse(Options.toBlob())
+
+    // deliberately not in SAVEFORMAT: a state written before the
+    // Supermêlée existed has to keep restoring, and a state written
+    // now has to keep loading in an older build
+    data.melee = this.melee.get()
+    data.meleesize = this.meleesize.get()
 
     // This reflects the json schema version for now.
     data.version = '1.5.26'
@@ -120,6 +139,8 @@ class StateModel extends Model {
       return false
     }
     this.serverlink.set(data.serverlink || undefined)
+    this.melee.set(!!data.melee)
+    this.meleesize.set(data.meleesize || this.meleesize.get())
     return true
   }
 }

@@ -94,11 +94,41 @@ class HomeTab extends View {
     updateCreateOnline()
     Listener.bind(Server.logged_in, 'update', updateCreateOnline)
     $dialog.find('input[name="tournamentmode"]').on('change', updateCreateOnline)
+
+    /*
+     * Supermêlée or fixed teams. The size pills mean different
+     * things in the two modes: the size of a registered team, or
+     * the size of the line-ups drawn every round. A mêlée registers
+     * single players, so Tête-à-tête has nothing to choose there.
+     */
+    const $melee = $dialog.find('input.createmelee')
+    const $sizechoice = $dialog.find('.teamsizechoice')
+    const updateKind = function () {
+      const melee = $melee.prop('checked')
+      $dialog.find('.meleehint').toggleClass('hidden', !melee)
+      $sizechoice.find('.fixedteamsonly').toggleClass('hidden', melee)
+      if ($sizechoice.hasClass('meleeonly')) {
+        $sizechoice.toggleClass('hidden', !melee)
+      }
+      if (melee && Number($sizechoice.find('input:checked').val()) < 2) {
+        $sizechoice.find('input[value="2"]').prop('checked', true)
+      }
+    }
+    updateKind()
+    $dialog.find('input[name="tournamentkind"]').on('change', updateKind)
+
     $dialog.find('button.createroot').on('click', function () {
       const size = $dialog.find('input[name="newteamsize"]:checked').val()
+      const melee = $melee.prop('checked')
       const createOnline = $createonline.prop('checked')
       window.setTimeout(function () {
-        if (size) {
+        State.melee.set(melee)
+        if (melee) {
+          // a mêlée draws its teams: registration is per player and
+          // the chosen size belongs to the line-ups
+          State.meleesize.set(parseInt(size, 10) || 2)
+          State.teamsize.set(1)
+        } else if (size) {
           State.teamsize.set(parseInt(size, 10))
         }
         if (createOnline) {

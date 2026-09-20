@@ -1,14 +1,20 @@
 import { createRequire } from 'node:module'
+import basicPresets from './basic/scripts/presets.js'
+import boulePresets from './boule/scripts/presets.js'
+import tacPresets from './tac/scripts/presets.js'
 
 const require = createRequire(import.meta.url)
 const { version } = require('./package.json')
 
 // Per-variant values substituted into the Nunjucks page templates at build time.
 // These replaced the hand-maintained differences between the three index.html files.
+// `melee` mirrors the variant's presets: only variants that offer the
+// system get the Supermêlée choice in the create dialog.
+
 const variants = {
-  basic: { variant: 'Basic', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Ort', matchplaces: 'Orte', teamsize: false },
-  boule: { variant: 'Boule', teamtext: 'Spieler', teamstext: 'Spieler', teamsicon: 'teams3', matchplace: 'Bahn', matchplaces: 'Bahnen', teamsize: true },
-  tac: { variant: 'TAC', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Tisch', matchplaces: 'Tische', teamsize: false }
+  basic: { variant: 'Basic', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Ort', matchplaces: 'Orte', teamsize: false, melee: !!basicPresets.systems.melee },
+  boule: { variant: 'Boule', teamtext: 'Spieler', teamstext: 'Spieler', teamsicon: 'teams3', matchplace: 'Bahn', matchplaces: 'Bahnen', teamsize: true, melee: !!boulePresets.systems.melee },
+  tac: { variant: 'TAC', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Tisch', matchplaces: 'Tische', teamsize: false, melee: !!tacPresets.systems.melee }
 }
 
 export function templateVars (variant) {
