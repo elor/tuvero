@@ -44,9 +44,13 @@
         </thead>
         <tbody></tbody>
       </table>
-      {# cloned into the rows of matches that are still open #}
+      {# cloned into the rows: the first for matches that are still
+         open, the second to correct one that is not #}
       <div class="template matchfinish">
         {% include 'finishmatchform.html' %}
+      </div>
+      <div class="template matchcorrect">
+        {% include 'correctionform.html' %}
       </div>
     </div>
 

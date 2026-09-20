@@ -114,9 +114,11 @@ export default function collectMatches (tournaments, team, teamlist) {
         ? [match.score[own], match.score[1 - own]]
         : undefined
       rows.push({
-        // the match itself: an open one can be finished from here
+        // the match itself: an open one can be finished from here,
+        // a finished one corrected -- both through its tournament
         match,
         own,
+        tournamentModel: tournament,
         tournament: tournament.getName().get(),
         round: match.getGroup() + 1,
         place: match.place || '',

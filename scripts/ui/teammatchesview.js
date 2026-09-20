@@ -15,6 +15,7 @@ import View from '../core/view.js'
 import State from './state.js'
 import Listener from '../core/listener.js'
 import MatchController from './matchcontroller.js'
+import MatchResultController from './matchresultcontroller.js'
 import collectMatches from './teammatches.js'
 
 const OUTCOMES = {
@@ -38,6 +39,7 @@ class TeamMatchesView extends View {
     this.$body = this.$table.find('tbody')
     this.$empty = this.$view.find('.nomatches')
     this.$finishtemplate = this.$view.find('.template.matchfinish').detach()
+    this.$correcttemplate = this.$view.find('.template.matchcorrect').detach()
     this.controllers = []
     this.nameListeners = []
     this.tournamentsListener = Listener.bind(State.tournaments,
@@ -70,12 +72,23 @@ class TeamMatchesView extends View {
     }
   }
 
+  /**
+   * Follow what the tournament list itself does not pass on: a
+   * phase's name lives in a model of its own, and a correction
+   * lands in the tournament's own lists.
+   */
   bindNames () {
     this.nameListeners.forEach(function (listener) {
       listener.destroy()
     })
-    this.nameListeners = State.tournaments.map(function (tournament) {
-      return Listener.bind(tournament.getName(), 'update', this.update.bind(this))
+    this.nameListeners = []
+    State.tournaments.forEach(function (tournament) {
+      const update = this.update.bind(this)
+      this.nameListeners.push(Listener.bind(tournament.getName(), 'update', update))
+      this.nameListeners.push(Listener.bind(tournament.getCorrections(),
+        'insert,resize,update', update))
+      this.nameListeners.push(Listener.bind(tournament.getCombinedHistory(),
+        'resize,update,set', update))
     }, this)
   }
 
@@ -102,17 +115,44 @@ class TeamMatchesView extends View {
     return $cell
   }
 
+  /**
+   * A finished row reads from this team's point of view, and so does
+   * its correction form. Both stand-ins put the points back into the
+   * match's order on the way in.
+   *
+   * @param row a collectMatches() row of a finished match
+   * @return { result, tournament } for the MatchResultController
+   */
+  static correctable (row) {
+    return {
+      result: { score: row.score.slice(0), length: 2 },
+      tournament: {
+        correct: function (result, score) {
+          const ordered = []
+          ordered[row.own] = score[0]
+          ordered[1 - row.own] = score[1]
+          return row.tournamentModel.correct(row.match, ordered)
+        }
+      }
+    }
+  }
+
   update () {
     const rows = collectMatches(State.tournaments, this.model, State.teams)
     this.destroyControllers()
     this.$body.empty()
     rows.forEach(function (row) {
-      const $row = $('<tr>').addClass('outcome-' + row.outcome)
+      // .match is what the correction form keys its visibility off
+      const $row = $('<tr>').addClass('match outcome-' + row.outcome)
       $row.append($('<td>').addClass('phase').text(row.tournament))
       $row.append($('<td>').text(row.round))
       $row.append(this.memberCell(row.partners).addClass('partnercol'))
       $row.append(this.memberCell(row.opponents))
       const $result = $('<td>').addClass('resultcol')
+      // in the row before the controllers: they look for the .match
+      // ancestor to show and hide the correction form
+      $row.append($result)
+      this.$body.append($row)
       if (row.outcome === 'open') {
         const $form = this.$finishtemplate.children().clone()
         $result.append($form)
@@ -120,11 +160,20 @@ class TeamMatchesView extends View {
           model: TeamMatchesView.ownOrder(row),
           $view: $row
         }, $form))
+      } else if (row.score) {
+        // click the result to correct it, like in the history
+        const $score = $('<span>').addClass('result').text(row.score.join(' : '))
+        const $form = this.$correcttemplate.children().clone()
+        $result.append($score).append($form)
+        const correctable = TeamMatchesView.correctable(row)
+        this.controllers.push(new MatchResultController({
+          model: correctable.result,
+          $view: $row,
+          $result: $score
+        }, $form, correctable.tournament))
       } else {
-        $result.text(row.score ? row.score.join(' : ') : OUTCOMES[row.outcome])
+        $result.text(OUTCOMES[row.outcome])
       }
-      $row.append($result)
-      this.$body.append($row)
     }, this)
 
     // a column of empty cells says nothing: in a normal tournament
