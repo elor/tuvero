@@ -44,10 +44,11 @@ test('a stored token is trusted until the server says otherwise', async () => {
   expect(requests.length, 'the token is verified in the background').toBe(1)
 
   // the login event is deferred: the models that listen for it are
-  // built after the storage layer restores this one
+  // built in DOM-ready handlers, after the storage layer restores
+  // this one
   expect(logins.length, 'not emitted before the listeners exist').toBe(0)
-  await new Promise(function (resolve) { window.setTimeout(resolve, 0) })
-  expect(logins.length, 'emitted once the call stack is clear').toBe(1)
+  await new Promise(function (resolve) { $(function () { window.setTimeout(resolve, 1) }) })
+  expect(logins.length, 'emitted once the page is ready').toBe(1)
 })
 
 test('an expired token logs the user out', () => {

@@ -72,15 +72,21 @@ class ServerModel extends Model {
     this.logged_in.set(true)
 
     /*
-     * Deferred: the storage layer restores this model while the
-     * modules that listen for 'login' are still being constructed,
-     * and they would miss a synchronous event.
+     * Deferred: the storage layer restores this model at import
+     * time, while everything that listens for 'login' is still
+     * being built -- the server tournament list, the autoloader and
+     * the login views are all constructed in DOM-ready handlers.
+     * Wait for ready, then one more turn so that every ready
+     * handler has run, or the event arrives before its listeners
+     * exist and the tournament list stays empty.
      */
-    window.setTimeout(function () {
-      if (this.logged_in.get()) {
-        this.emit('login')
-      }
-    }.bind(this), 0)
+    $(function () {
+      window.setTimeout(function () {
+        if (this.logged_in.get()) {
+          this.emit('login')
+        }
+      }.bind(this), 0)
+    }.bind(this))
 
     const message = this.message('/')
     message.onerror = function () {
