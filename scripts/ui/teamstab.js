@@ -19,7 +19,6 @@ import Presets from 'presets'
 import NoRegModel from './noregmodel.js'
 import DeleteAllTeamsController from './deleteallteamscontroller.js'
 import TimeMachine from '../timemachine/timemachine.js'
-import ValueModel from '../core/valuemodel.js'
 import Strings from './strings.js'
 
 class TeamsTab extends View {
@@ -81,7 +80,7 @@ class TeamsTab extends View {
     this.showTeamNameClassView = new ClassView(value, this.$view, undefined, 'hideteamname')
 
     // rankingpoints checkbox
-    value = new ValueModel(Presets.ui.rankingpoints)
+    value = State.tabOptions.rankingPoints
     $container = this.$view.find('.options input.rankingpoints')
     this.rankingpointsCheckBoxView = new CheckBoxView(value, $container)
     this.rankingpointsClassView = new ClassView(value, this.$view, undefined, 'hiderankingpoints')

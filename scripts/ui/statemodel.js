@@ -41,7 +41,9 @@ class StateModel extends Model {
       teamTable: tabOptionPreset('teamtable', true),
       rankingAbbreviations: tabOptionPreset('rankingabbreviations', false),
       showMatchTables: tabOptionPreset('showmatchtables', false),
-      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false)
+      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false),
+      // shared like the rest so the settings page can offer it too
+      rankingPoints: tabOptionPreset('rankingpoints', !!Presets.ui.rankingpoints)
     }
     this.focusedteam = new ValueModel(undefined) // Holds a TeamModel reference
 

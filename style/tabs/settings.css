@@ -67,3 +67,20 @@
   display: block;
   padding: 0;
 }
+
+/* The view options, same list as in the tabs' "Ansicht" dialog:
+   one per line. The generic option-box rule above would make the
+   container an inline-block and let the labels run into each
+   other. */
+#tabs > [data-tab="settings"] .viewoptions .options {
+  display: block;
+  max-width: none;
+  padding: 0;
+  text-align: left;
+}
+
+#tabs > [data-tab="settings"] .viewoptions .options > span {
+  display: block;
+  padding: 0.25em 0;
+  cursor: pointer;
+}

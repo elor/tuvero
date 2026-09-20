@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import View from '../core/view.js'
 import LoginView from './loginview.js'
+import CheckBoxView from './checkboxview.js'
+import State from './state.js'
 import Server from './server.js'
 import FontSizeView from './fontsizeview.js'
 
@@ -28,6 +30,23 @@ class SettingsTab extends View {
   init () {
     this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
+
+    /*
+     * The same view options the tabs offer in their "Ansicht"
+     * dialog: one shared model each, so both places always agree.
+     */
+    const options = {
+      maxwidth: State.tabOptions.nameMaxWidth,
+      showteamname: State.tabOptions.showTeamName,
+      shownames: State.tabOptions.showNames,
+      showtable: State.tabOptions.showMatchTables,
+      abbreviate: State.tabOptions.rankingAbbreviations,
+      rankingpoints: State.tabOptions.rankingPoints
+    }
+    this.optionViews = Object.keys(options).map(function (name) {
+      return new CheckBoxView(options[name],
+        this.$view.find('.viewoptions input.' + name))
+    }, this)
 
     /*
      * Login/logout, same view as on the home tab
