@@ -74,7 +74,8 @@ async function registerTeams(page, teams) {
   const singleBtn = page.locator('[data-tab="teams"] .teamsizeview [data-img="teams1"]')
   if (await singleBtn.count() > 0) await singleBtn.click()
   for (let i = 0; i < teams.length; i++) {
-    await page.locator('[data-tab="teams"] .newteamview input.playername').first().fill(teams[i])
+    await page.locator('[data-tab="teams"] .newteamview input.teamname:visible, ' +
+      '[data-tab="teams"] .newteamview input.playername:visible').first().fill(teams[i])
     await page.locator('[data-tab="teams"] .newteamview button.register').click()
     await expect(page.locator('[data-tab="teams"] tr.team:not(.template)')).toHaveCount(i + 1, { timeout: 1000 })
   }

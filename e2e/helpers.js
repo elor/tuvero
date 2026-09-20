@@ -28,9 +28,14 @@ export async function createTournament (page, name) {
   await page.click('dialog.newtournamentdialog button.createroot')
 }
 
+// Which field carries the registration depends on the variant: basic
+// and TAC register a team name and hide the player names, boule asks
+// for the players. Whichever is on screen is the one to type into.
 export async function registerTeams (page, names) {
+  const field = page.locator('.newteamview input.teamname:visible, ' +
+    '.newteamview input.playername:visible').first()
   for (let i = 0; i < names.length; i++) {
-    await page.locator('.newteamview input.playername').first().fill(names[i])
+    await field.fill(names[i])
     await page.locator('.newteamview button.register').click()
     await expect(page.locator('tr.team:not(.template)')).toHaveCount(i + 1)
   }
@@ -54,14 +59,15 @@ export async function startNextRound (page) {
 export async function finishAllMatches (page) {
   await goTab(page, 'games')
   const forms = page.locator('[data-tab="games"] .finish')
-  while (true) {
-    const count = await forms.count()
-    if (count === 0) break
+  while (await forms.count() > 0) {
     const form = forms.first()
+    // a finished KO match can open its follow-up right away, so the
+    // number of open forms says nothing: wait for this one to go
+    const handle = await form.elementHandle()
     await form.locator('input.score').nth(0).fill('1')
     await form.locator('input.score').nth(1).fill('0')
     await form.locator('button.accept').click()
-    await expect(forms).not.toHaveCount(count)
+    await handle.waitForElementState('hidden')
   }
 }
 
