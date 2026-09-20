@@ -21,8 +21,10 @@ let windowOwner
 class LoginView extends View {
   constructor (model, $view) {
     super(model, $view)
-    this.username = new ValueModel(undefined)
-    this.avatar = new ValueModel(undefined)
+    // identity lives on the server model: it is cached with the
+    // token, and both login views show the same person
+    this.username = this.model.username
+    this.avatar = this.model.avatar
     this.popupBlocked = new ValueModel(false)
     this.errorModel = new ValueModel(false)
     this.online = new ValueModel(this.model.communicationStatus().online)
@@ -66,6 +68,20 @@ class LoginView extends View {
       this.$offline, 'hidden')
     this.usernameView = new ValueView(this.username, this.$username)
     this.avatarView = new ImageView(this.avatar, this.$avatar)
+
+    /*
+     * The avatar URL is cached with the token and points at the
+     * login provider, so it can be unreachable while the rest of
+     * the app works — offline, or after the provider rotated it.
+     * A broken-image icon next to the name looks like a bug, so
+     * the picture is only shown once it has actually loaded.
+     */
+    this.$avatar.on('load', function () {
+      $(this).removeClass('brokenimage')
+    })
+    this.$avatar.on('error', function () {
+      $(this).addClass('brokenimage')
+    })
     this.loginWindow = undefined
     this.loginPollingTimeout = undefined
     this.loginWindowSuppressed = new ValueModel(false)
@@ -141,14 +157,21 @@ class LoginView extends View {
     return !!this.loginWindow && !!this.loginWindow.parent
   }
 
+  /**
+   * Refresh the cached identity. The cache is what the user sees
+   * until the server answers, so a failure leaves it alone — being
+   * offline is not being logged out. A token the server actually
+   * rejects logs out through ServerModel.unauthorized().
+   */
   updateProfile () {
     if (!this.model.communicationStatus().all) {
-      this.username.set(undefined)
-      this.avatar.set(undefined)
       return
     }
     this.errorModel.set(false)
     const msg = this.model.message('/profile')
+    if (!msg) {
+      return
+    }
     msg.onreceive = function (emitter, event, data) {
       this.username.set(data.displayname)
       this.avatar.set(data.avatar_url)
@@ -156,9 +179,6 @@ class LoginView extends View {
     }.bind(this)
     msg.onerror = function () {
       this.errorModel.set(true)
-      this.username.set(undefined)
-      this.avatar.set(undefined)
-      this.model.is_admin.set(false)
     }.bind(this)
     msg.send()
   }
