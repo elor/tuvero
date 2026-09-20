@@ -1,12 +1,34 @@
+/* One segmented control, like the pill choices elsewhere: equal
+ * boxes, only the letter inside grows. The boxes are sized in rem so
+ * the control itself stays put while it scales the page around it.
+ */
 .fontsizeview {
-  display: inline-block;
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
 }
 
 .fontsizeview > button {
-  vertical-align: middle;
-  height: 2em;
-  width: 2em;
-  border-radius: 1em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.2rem;
+  padding: 0;
+  border: solid 1px #d0d0d0;
+  border-left-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+  line-height: 1;
+}
+
+.fontsizeview > button:first-child {
+  border-left-width: 1px;
+  border-radius: 999px 0 0 999px;
+}
+
+.fontsizeview > button:last-child {
+  border-radius: 0 999px 999px 0;
 }
 
 .fontsizeview.fontsizesmall > button.fontsizesmall,
@@ -14,8 +36,9 @@
 .fontsizeview.fontsizelarge > button.fontsizelarge,
 .fontsizeview.fontsizehuge > button.fontsizehuge,
 .fontsizeview.fontsizenormal > button.fontsizenormal {
-  background: #bbbbbb;
-  box-shadow: none;
+  background: #4078c0;
+  border-color: #36629c;
+  color: #ffffff;
 }
 
 @media print {
