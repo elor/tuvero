@@ -1,5 +1,8 @@
 import $ from 'jquery'
 import View from '../core/view.js'
+import BoxView from './boxview.js'
+import Listener from '../core/listener.js'
+import Server from './server.js'
 import Storage from './storage.js'
 import Strings from './strings.js'
 import Toast from './toast.js'
@@ -9,8 +12,6 @@ import RegisterTeamsController from './registerteamscontroller.js'
 import RegisterIDsController from './registeridscontroller.js'
 import RequireModsShortcut from './requiremodsshortcut.js'
 import FinishRoundController from './finishroundcontroller.js'
-import Debug from './debug.js'
-import TabsHandle from './tabshandle.js'
 import StateSaver from './statesaver.js'
 import StartRoundController from './startroundcontroller.js'
 import RankingRecalcController from './rankingrecalccontroller.js'
@@ -40,14 +41,22 @@ class DebugTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
-    let $container, $button
-
     /*
-     * Show Tab in dev versions
+     * The console lives in a collapsed box on the settings page.
+     * Admins get it open right away — they are the ones who came
+     * looking for it.
      */
-    if (!Debug.isDevVersion) {
-      TabsHandle.secret('debug')
+    this.boxView = new BoxView(this.$view)
+    const view = this
+    function expandForAdmin () {
+      if (Server.is_admin.get()) {
+        view.boxView.reset()
+      }
     }
+    Listener.bind(Server.is_admin, 'update', expandForAdmin)
+    expandForAdmin()
+
+    let $container, $button
 
     /*
      * show browser info
@@ -117,9 +126,9 @@ class DebugTab extends View {
 
 // FIXME CHEAP HACK AHEAD
 $(function ($) {
-  const $tab = $('#tabs > [data-tab="debug"]')
-  if ($tab.length && $('#testmain').length === 0) {
-    return new DebugTab($tab)
+  const $box = $('.devconsole')
+  if ($box.length && $('#testmain').length === 0) {
+    return new DebugTab($box)
   }
 })
 export default DebugTab

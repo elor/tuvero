@@ -6,6 +6,15 @@ import ValueModel from '../core/valuemodel.js'
 import ClassView from '../core/classview.js'
 import ImageView from './imageview.js'
 
+/*
+ * The login view is instantiated more than once (home tab and
+ * settings page) on the same server model, so every instance sees
+ * the same 'authenticate' event. Only the first one gets to open
+ * the popup — the others would stack duplicate login windows for a
+ * single click.
+ */
+let windowOwner
+
 /**
  * Constructor
  */
@@ -86,7 +95,12 @@ class LoginView extends View {
       }
       return false
     }
+    if (windowOwner && windowOwner !== this && windowOwner.isLoginWindowOpen()) {
+      // another view is already waiting for the same login
+      return false
+    }
     const webOrigin = (window.TUVERO_WEB_ORIGIN || window.location.origin).replace(/\/$/, '')
+    windowOwner = this
     this.loginWindow = window.open(webOrigin + '/login')
     if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow()
@@ -138,11 +152,13 @@ class LoginView extends View {
     msg.onreceive = function (emitter, event, data) {
       this.username.set(data.displayname)
       this.avatar.set(data.avatar_url)
+      this.model.is_admin.set(!!data.is_admin)
     }.bind(this)
     msg.onerror = function () {
       this.errorModel.set(true)
       this.username.set(undefined)
       this.avatar.set(undefined)
+      this.model.is_admin.set(false)
     }.bind(this)
     msg.send()
   }

@@ -20,6 +20,9 @@ class ServerModel extends Model {
   constructor (token) {
     super()
     this.logged_in = new ValueModel(false)
+    // filled from /profile; the settings page expands the dev
+    // console for admins instead of hiding it behind a collapse
+    this.is_admin = new ValueModel(false)
     this.token = new ValueModel(token || undefined)
     this.tokenvalid = new ValueModel(undefined)
     this.openTransactions = new ValueModel(0)
@@ -101,6 +104,7 @@ class ServerModel extends Model {
     this.token.set(undefined)
     this.tokenvalid.set(undefined)
     this.logged_in.set(false)
+    this.is_admin.set(false)
     this.emit('logout')
   }
 

@@ -16,6 +16,11 @@
     Browser. Manche Hersteller stellen keine Updates für ihre Browser unter einigen Betriebssystemen zur Verfügung (z.B.
     Apple mit Safari für Windows).</p>
 
+  <div class="boxview inline account">
+    <h3>Tuvero Online</h3>
+    {% include 'loginview.html' %}
+  </div>
+
   <div class="boxview inline export">
     <h3>Export</h3>
     <p>Turnierstand als Datei und Tabellen als .csv</p>
@@ -24,11 +29,6 @@
     </p>
   </div>
 
-  <div class="boxview inline">
-    <h3>Entwicklerwerkzeuge</h3>
-    <a href="#debug" data-img="debug">
-      <br> Dev Console
-    </a>
-  </div>
+{% include 'devconsole.html' %}
 
 </div>

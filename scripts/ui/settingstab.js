@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import View from '../core/view.js'
 import { openExportDialog } from './exportdialog.js'
+import LoginView from './loginview.js'
+import Server from './server.js'
 import FontSizeView from './fontsizeview.js'
 
 /**
@@ -27,6 +29,14 @@ class SettingsTab extends View {
   init () {
     this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
+
+    /*
+     * Login/logout, same view as on the home tab
+     */
+    const $login = this.$view.find('.loginview')
+    if ($login.length) {
+      this.loginView = new LoginView(Server, $login)
+    }
 
     /*
      * Export: same dialog the tournament menu opens
