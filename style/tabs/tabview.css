@@ -45,6 +45,13 @@
   white-space: nowrap;
 }
 
+/* the login view is a block of its own (it carries the notices
+   below the button), so it has to line up with the buttons */
+#tabs > div > .tabtitle > .tabactions > .loginview {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* the options themselves live in a dialog: one per line, and the
    whole line toggles (CheckboxController) */
 dialog.optionsdialog .options {

@@ -8,6 +8,10 @@
             <h2>Tuvero {{ variant }}</h2>
         </div>
         <div class="tabactions">
+            {# whitespace between icon and label #}
+            <button class="opensettings tiny" data-img="settings">
+                Einstellungen
+            </button>
             {% include 'loginview.html' %}
         </div>
     </div>
@@ -20,9 +24,6 @@
                 </button>
                 <button class="opentournament tiny" data-img="load">
                     Turnier öffnen
-                </button>
-                <button class="opensettings tiny" data-img="settings">
-                    Einstellungen
                 </button>
             </p>
 
