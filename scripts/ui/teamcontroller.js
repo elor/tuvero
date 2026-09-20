@@ -1,49 +1,31 @@
-import RenameController from './renamecontroller.js'
+/**
+ * A team in a list, a match table or a ranking row: clicking it
+ * opens the team tab, which shows the team, its players and every
+ * match it played.
+ *
+ * Names used to open a rename field right where they stood. The
+ * team tab has proper inputs for that, and reaching a team's matches
+ * mattered more than saving one click on a rename.
+ *
+ * @author Erik E. Lorenz <erik@tuvero.de>
+ * @license MIT License
+ * @see LICENSE
+ */
+import Controller from '../core/controller.js'
 import State from './state.js'
 import TabsHandle from './tabshandle.js'
 
-class TeamController extends RenameController {
-  constructor (view, $input) {
+const SELECTOR = '.teamno, .name, .teamname'
+
+class TeamController extends Controller {
+  constructor (view) {
     super(view)
-    this.view.$view.find('.teamno').click(this.openModal.bind(this))
+    const open = this.openTeam.bind(this)
+    this.view.$view.on('click', SELECTOR, open)
+    this.view.$view.filter(SELECTOR).on('click', open)
   }
 
-  getPlayer ($name) {
-    let $names
-    $names = this.view.$view.find('.name')
-    if ($names.length === 0) {
-      $names = this.view.$view.filter('.name')
-    }
-    const index = $names.index($name)
-    return this.model.getPlayer(index)
-  }
-
-  getNameModel ($anchor) {
-    if (this.$anchor.hasClass('teamname')) {
-      return this.model
-    } else {
-      return this.getPlayer(this.$anchor)
-    }
-  }
-
-  getName () {
-    if (!this.$anchor) {
-      return ''
-    }
-    const nameModel = this.getNameModel(this.$anchor)
-    return nameModel.getName()
-  }
-
-  setName (name) {
-    if (!this.$anchor) {
-      return false
-    }
-    const nameModel = this.getNameModel(this.$anchor)
-    nameModel.setName(name)
-    return true
-  }
-
-  openModal () {
+  openTeam () {
     State.focusedteam.set(this.model)
     TabsHandle.focus('team')
   }
