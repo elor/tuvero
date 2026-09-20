@@ -223,6 +223,8 @@ class HomeTab extends View {
     $container = this.$view.find('.servertournaments').not('.serverdialoglist')
     const $template = $container.find('.template')
     this.serverTournamentListView = new ListView(this.serverTournamentListModel, $container, $template, ServerTournamentView)
+    HomeTab.showWhileLoading(this.serverTournamentListModel,
+      $container.prev('.serverloading'))
 
     /*
      * the same list again inside the "Vom Server öffnen" dialog, with
@@ -235,6 +237,8 @@ class HomeTab extends View {
     this.serverArchiveModel = new ServerTournamentListModel(Server, undefined, true)
     this.serverDialogListView = new ListView(this.serverArchiveModel,
       $dialogList, $dialogList.find('.template'), ServerTournamentView)
+    HomeTab.showWhileLoading(this.serverArchiveModel,
+      $dialogList.prev('.serverloading'))
     const filterServerRows = function () {
       const query = ($serverDialog.find('input.serversearch').val() || '')
         .toString().trim().toLowerCase()
@@ -279,6 +283,37 @@ class HomeTab extends View {
       Server.createToken()
     }
   }
+}
+
+/**
+ * Show a "loading" line while the list is waiting for the server and
+ * has nothing to show yet. Once rows are there -- from the cache or
+ * from a previous answer -- they speak for themselves and a refresh
+ * happens quietly.
+ *
+ * Signing in counts as loading: minting a token takes a moment, and
+ * an empty list during it looks like a user without tournaments.
+ *
+ * @param model
+ *          a ServerTournamentListModel
+ * @param $line
+ *          the element to show and hide
+ */
+HomeTab.showWhileLoading = function (model, $line) {
+  if ($line.length === 0) {
+    return
+  }
+  const update = function () {
+    const signingIn = !Server.logged_in.get() &&
+      Server.openTransactions.get() > 0
+    $line.toggleClass('hidden',
+      !((model.loading.get() || signingIn) && model.length === 0))
+  }
+  Listener.bind(model.loading, 'update', update)
+  Listener.bind(model, 'resize', update)
+  Listener.bind(Server.openTransactions, 'update', update)
+  Listener.bind(Server.logged_in, 'update', update)
+  update()
 }
 
 // FIXME CHEAP HACK AHEAD

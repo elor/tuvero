@@ -13,3 +13,16 @@
 .servertournamentview.haslocal {
 	display: none;
 }
+
+/* "Lade Turniere vom Server …": a quiet status line, not a button —
+   the icon reads as a spinner at text size */
+.serverloading {
+  color: #555555;
+}
+
+.serverloading .spin[data-img]::before {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  opacity: 0.6;
+}
