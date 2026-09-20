@@ -15,3 +15,26 @@
 .loginview img.avatar.brokenimage {
   display: none;
 }
+
+/*
+ * The spinner belongs next to the button it is waiting for, not on
+ * a line of its own below it. Its slot is reserved even while
+ * hidden, so the box does not jump every time a request starts.
+ */
+.loginview .busy {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.4em;
+  opacity: 0.5;
+}
+
+.loginview .busy.hidden {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.loginview .busy[data-img]::before {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}

@@ -19,7 +19,8 @@ function fixture () {
     '<div class="loginview">' +
     '<img class="avatar userinfo" /><span class="username userinfo"></span>' +
     '<button class="login"></button><button class="logout"></button>' +
-    '<p class="busy"></p><p class="popupnotice"></p>' +
+    '<span class="busy spin" data-img="reload"></span>' +
+    '<p class="popupnotice"></p>' +
     '<p class="offline"></p>' +
     '<p class="errornotice"><span class="online"></span></p>' +
     '</div>'
