@@ -26,14 +26,18 @@ const Presets = {
     components: ['tac', 'numgames', 'wins', 'saldo', 'headtohead', 'buchholz', 'finebuchholz', 'sonneborn']
   },
   registration: {
-    defaultteamsize: 1,
+    defaultteamsize: 2,
     minteamsize: 1,
     maxteamsize: 3,
-    teamsizeicon: false
+    teamsizeicon: false,
+    // a TAC team registers under its name; who plays for it is
+    // welcome but not required
+    playernamesoptional: true
   },
   taboptions: {
     namemaxwidth: false,
-    showmatchtables: true
+    showmatchtables: true,
+    showteamname: true
   },
   names: {
     playernameurl: '',

@@ -12,9 +12,9 @@ const { version } = require('./package.json')
 // system get the Supermêlée choice in the create dialog.
 
 const variants = {
-  basic: { variant: 'Basic', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Ort', matchplaces: 'Orte', teamsize: false, melee: !!basicPresets.systems.melee },
-  boule: { variant: 'Boule', teamtext: 'Spieler', teamstext: 'Spieler', teamsicon: 'teams3', matchplace: 'Bahn', matchplaces: 'Bahnen', teamsize: true, melee: !!boulePresets.systems.melee },
-  tac: { variant: 'TAC', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Tisch', matchplaces: 'Tische', teamsize: false, melee: !!tacPresets.systems.melee }
+  basic: { variant: 'Basic', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Ort', matchplaces: 'Orte', teamsize: false, melee: !!basicPresets.systems.melee, teamnamefirst: false },
+  boule: { variant: 'Boule', teamtext: 'Spieler', teamstext: 'Spieler', teamsicon: 'teams3', matchplace: 'Bahn', matchplaces: 'Bahnen', teamsize: true, melee: !!boulePresets.systems.melee, teamnamefirst: false },
+  tac: { variant: 'TAC', teamtext: 'Team', teamstext: 'Teams', teamsicon: 'teams', matchplace: 'Tisch', matchplaces: 'Tische', teamsize: false, melee: !!tacPresets.systems.melee, teamnamefirst: true }
 }
 
 export function templateVars (variant) {

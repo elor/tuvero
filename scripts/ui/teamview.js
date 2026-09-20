@@ -1,6 +1,7 @@
 import View from '../core/view.js'
 import Type from '../core/type.js'
 import TeamController from './teamcontroller.js'
+import PlayerModel from './playermodel.js'
 
 class TeamView extends View {
   constructor (model, $view, teamlist) {
@@ -36,7 +37,9 @@ class TeamView extends View {
       $name = $names.eq(i)
       player = this.model.getPlayer(i)
       if (player) {
-        $name.text(player.getName())
+        // a player without a name shows nothing, not the sentinel
+        const name = player.getName()
+        $name.text(name === PlayerModel.NONAME ? '' : name)
       } else {
         $name.remove()
       }

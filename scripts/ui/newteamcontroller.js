@@ -11,6 +11,7 @@ import PlayerModel from './playermodel.js'
 import TeamModel from './teammodel.js'
 import State from './state.js'
 import TabsHandle from './tabshandle.js'
+import Presets from 'presets'
 
 class NewTeamController extends Controller {
   constructor (view) {
@@ -56,11 +57,24 @@ class NewTeamController extends Controller {
     })
   }
 
+  /**
+   * @param players the players of the team about to be registered
+   * @return true if the form holds enough to register
+   */
+  isComplete (players) {
+    const named = players.filter(function (player) {
+      return player.getName() !== PlayerModel.NONAME
+    })
+    if (Presets.registration.playernamesoptional) {
+      // the team name carries the registration; players may follow
+      return named.length > 0 || !!this.$teamname.val().trim()
+    }
+    return named.length === players.length
+  }
+
   createNewTeam () {
     const players = this.createPlayers()
-    if (players.every(function (player) {
-      return player.getName() !== PlayerModel.NONAME
-    })) {
+    if (this.isComplete(players)) {
       const team = new TeamModel(players)
       team.setName(this.$teamname.val())
       team.rankingpoints = Number(this.$rankingpoints.val())

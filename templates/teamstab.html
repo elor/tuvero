@@ -68,17 +68,23 @@
         <td></td>
         <td></td>
         <td class="teamno nextteamnumber registeradvanced">##</td>
+        {# where the team name carries the registration (TAC), it is
+           the field that asks for input and the players are optional #}
         <td class="newteamname teamcol">
-          <input class="teamname mini" type="text" placeholder="optional" />
+          <input class="teamname mini" type="text"
+                 placeholder="{% if teamnamefirst %}Teamname{% else %}optional{% endif %}" />
         </td>
         <td class="newteamline playercol">
-          <input class="playername mini" type="text" placeholder="{{ teamtext }} 1" />
+          <input class="playername mini" type="text"
+                 placeholder="{% if teamnamefirst %}optional{% else %}{{ teamtext }} 1{% endif %}" />
         </td>
         <td class="newteamline playercol">
-          <input class="playername mini" type="text" placeholder="{{ teamtext }} 2" />
+          <input class="playername mini" type="text"
+                 placeholder="{% if teamnamefirst %}optional{% else %}{{ teamtext }} 2{% endif %}" />
         </td>
         <td class="newteamline playercol">
-          <input class="playername mini" type="text" placeholder="{{ teamtext }} 3" />
+          <input class="playername mini" type="text"
+                 placeholder="{% if teamnamefirst %}optional{% else %}{{ teamtext }} 3{% endif %}" />
         </td>
         <td class="rankingpoints">
           <input type="number" class="rankingpoints" value="0" />
