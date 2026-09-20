@@ -15,6 +15,7 @@ import ListModel from '../list/listmodel.js'
 import TabsHandle from './tabshandle.js'
 import NoRegModel from './noregmodel.js'
 import NewTeamView from './newteamview.js'
+import TeamMatchesView from './teammatchesview.js'
 
 class TeamViewTab extends View {
   constructor ($tab) {
@@ -56,6 +57,7 @@ class TeamViewTab extends View {
         this.players.push(player)
       }, this)
       this.teamSettingsView = new TeamSettingsView(this.team, this.$view.find('.teamsettings'))
+      this.matchesView = new TeamMatchesView(this.team, this.$view.find('.teammatches'))
       this.updateTeamNo()
     } else {
       TabsHandle.hide('team')
@@ -71,6 +73,10 @@ class TeamViewTab extends View {
     if (this.teamSettingsView) {
       this.teamSettingsView.destroy()
       this.teamSettingsView = undefined
+    }
+    if (this.matchesView) {
+      this.matchesView.destroy()
+      this.matchesView = undefined
     }
   }
 
