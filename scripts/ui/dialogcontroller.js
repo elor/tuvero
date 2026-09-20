@@ -20,9 +20,29 @@ function wireDialog ($dialog, $opener, options) {
   $opener.on('click', function () {
     dialog.showModal()
   })
+  /*
+   * Light dismiss. A click on the dialog element itself is *not*
+   * enough to call it a backdrop click: the dialog's own padding
+   * belongs to the visible box, and a click that lands between two
+   * children hits the dialog element while being inside the box.
+   * Ask the geometry instead, and require the press to have started
+   * outside too, so dragging a selection out of the dialog does not
+   * close it either.
+   */
+  function isOutside (event) {
+    if (event.target !== dialog) {
+      return false
+    }
+    const rect = dialog.getBoundingClientRect()
+    return event.clientX < rect.left || event.clientX > rect.right ||
+      event.clientY < rect.top || event.clientY > rect.bottom
+  }
+  let pressedOutside = false
+  $dialog.on('mousedown', function (event) {
+    pressedOutside = isOutside(event)
+  })
   $dialog.on('click', function (event) {
-    // a click on the dialog element itself is a backdrop click
-    if (event.target === dialog) {
+    if (pressedOutside && isOutside(event)) {
       dialog.close()
     }
   })
