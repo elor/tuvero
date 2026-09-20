@@ -55,7 +55,19 @@ class LoginView extends View {
         const $a = $(this)
         $a.attr('href', $a.attr('href').replace('https://www.tuvero.de', webOrigin))
       })
+      this.$view.find('[data-href^="https://www.tuvero.de"]').each(function () {
+        const $button = $(this)
+        $button.attr('data-href',
+          $button.attr('data-href').replace('https://www.tuvero.de', webOrigin))
+      })
     }
+
+    // the account dialog's entries are buttons like everything else
+    // here; they open the website in a tab of its own so the
+    // tournament in this one stays put
+    this.$view.on('click', 'button[data-href]', function () {
+      window.open($(this).attr('data-href'), '_blank', 'noopener')
+    })
     this.userinfovisibility = new ClassView(this.model.tokenvalid, this.$userinfo, undefined, 'hidden')
     this.avatarvisibility = new ClassView(this.avatar, this.$avatar, undefined, 'hidden')
     this.usernamevisibility = new ClassView(this.username, this.$username, undefined, 'hidden')
