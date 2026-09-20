@@ -176,6 +176,21 @@ dialog.servertournamentdialog.noresultsvisible .noresults {
   padding-right: 1.2em;
 }
 
+/* :first-child/:last-child count hidden children too, so a hidden
+   pill would keep the rounded end for itself and leave its visible
+   neighbour square. These pick the first and last pill that is
+   actually on screen. */
+.pillchoice > :nth-child(1 of .pill:not(.hidden)) {
+  border-left-width: 1px;
+  border-radius: 999px 0 0 999px;
+  padding-left: 1.2em;
+}
+
+.pillchoice > :nth-last-child(1 of .pill:not(.hidden)) {
+  border-radius: 0 999px 999px 0;
+  padding-right: 1.2em;
+}
+
 .pillchoice .pill input {
   position: absolute;
   opacity: 0;
