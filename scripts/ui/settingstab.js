@@ -1,6 +1,5 @@
 import $ from 'jquery'
 import View from '../core/view.js'
-import { openExportDialog } from './exportdialog.js'
 import LoginView from './loginview.js'
 import Server from './server.js'
 import FontSizeView from './fontsizeview.js'
@@ -37,13 +36,6 @@ class SettingsTab extends View {
     if ($login.length) {
       this.loginView = new LoginView(Server, $login)
     }
-
-    /*
-     * Export: same dialog the tournament menu opens
-     */
-    this.$view.find('button.openexport').on('click', function () {
-      openExportDialog()
-    })
   }
 }
 
