@@ -7,6 +7,19 @@
   position: relative;
 }
 
+/* The forest is pulled up by a negative margin when the tree does
+ * not start at the top, which lays its empty top strip over the box
+ * heading and swallowed its clicks. Only the matches inside need to
+ * be clickable, so the empty parts let clicks through to the heading
+ * underneath. Nothing moves. */
+.kotree .forest {
+  pointer-events: none;
+}
+
+.kotree .forest > * {
+  pointer-events: auto;
+}
+
 .kotree .komatchresult {
   position: absolute;
   display: block;
