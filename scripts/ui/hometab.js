@@ -118,7 +118,11 @@ class HomeTab extends View {
     $dialog.find('input[name="tournamentkind"]').on('change', updateKind)
 
     $dialog.find('button.createroot').on('click', function () {
-      const size = $dialog.find('input[name="newteamsize"]:checked').val()
+      // variants without a team-size choice only show the size
+      // pills for a mêlée; their preset default applies otherwise
+      const size = $sizechoice.hasClass('hidden')
+        ? undefined
+        : $dialog.find('input[name="newteamsize"]:checked').val()
       const melee = $melee.prop('checked')
       const createOnline = $createonline.prop('checked')
       window.setTimeout(function () {
