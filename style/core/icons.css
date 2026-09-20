@@ -47,10 +47,6 @@ h2[data-img]::before,
   background-image: url("../../core/images/clear.png");
 }
 
-[data-img="debug"]::before {
-  background-image: url("../../core/images/debug.png");
-}
-
 
 
 [data-img="eye"]::before {
