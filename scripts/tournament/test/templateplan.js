@@ -1,0 +1,150 @@
+/**
+ * unit tests
+ *
+ * @return a test function
+ * @author Erik E. Lorenz <erik@tuvero.de>
+ * @license MIT License
+ * @see LICENSE
+ */
+import { test, expect } from 'vitest'
+
+import { snakeGroups, planStep, stepReady, rankedTeams } from '../templateplan.js'
+import { templateById } from '../templates.js'
+import TournamentIndex from '../tournamentindex.js'
+
+function teamIDs (count) {
+  const ids = []
+  while (ids.length < count) {
+    ids.push(ids.length)
+  }
+  return ids
+}
+
+function playTournament (system, ids) {
+  const tournament = TournamentIndex.createTournament(system, ['wins', 'id'])
+  ids.forEach(function (id) {
+    tournament.addTeam(id)
+  })
+  tournament.run()
+  const matches = tournament.getMatches()
+  while (matches.length) {
+    // the team which was registered first always wins
+    const match = matches.get(0)
+    match.finish(match.getTeamID(0) < match.getTeamID(1) ? [13, 7] : [7, 13])
+  }
+  tournament.finish()
+  return tournament
+}
+
+test('snake seeding spreads the strong teams over the groups', () => {
+  expect(snakeGroups(teamIDs(8), 2), 'eight teams, two groups')
+    .toEqual([[0, 3, 4, 7], [1, 2, 5, 6]])
+  expect(snakeGroups(teamIDs(6), 3), 'six teams, three groups')
+    .toEqual([[0, 5], [1, 4], [2, 3]])
+  expect(snakeGroups(teamIDs(5), 2), 'an odd team lands in the first group')
+    .toEqual([[0, 3, 4], [1, 2]])
+  expect(snakeGroups(teamIDs(4), 1), 'a single group keeps the order')
+    .toEqual([[0, 1, 2, 3]])
+})
+
+test('the first step splits everybody into the group phases', () => {
+  const template = templateById('groupsfinal')
+  const specs = planStep(template, 0, { teamIDs: teamIDs(16), tournaments: [] })
+
+  expect(specs.length, 'two group phases').toBe(2)
+  expect(specs[0].name, 'named by the template').toBe('Vorrunde A')
+  expect(specs[1].name, 'named by the template').toBe('Vorrunde B')
+  expect(specs[0].system, 'swiss system').toBe('swiss')
+  expect(specs[0].teamIDs.length, 'half the teams').toBe(8)
+  expect(specs[1].teamIDs.length, 'the other half').toBe(8)
+  expect(specs[0].startIndex, 'group A leads the global ranking').toBe(0)
+  expect(specs[1].startIndex, 'group B follows it').toBe(8)
+})
+
+test('the final takes the best of every group, seeded across them', () => {
+  const template = templateById('groupsfinal')
+  // group A: 0, 3, 4, 7, 8, 11, 12, 15 — group B: 1, 2, 5, 6, 9, 10, 13, 14
+  const groups = planStep(template, 0, { teamIDs: teamIDs(16), tournaments: [] })
+  const played = groups.map(function (spec) {
+    return playTournament(spec.system, spec.teamIDs)
+  })
+
+  const specs = planStep(template, 1, { teamIDs: teamIDs(16), tournaments: [played] })
+  expect(specs.length, 'a single final').toBe(1)
+  expect(specs[0].name, 'named by the template').toBe('Finale')
+  expect(specs[0].system, 'played as a KO round').toBe('ko')
+  expect(specs[0].teamIDs.length, 'the best four of each group').toBe(8)
+  expect(specs[0].startIndex, 'the final leads the global ranking').toBe(0)
+
+  const a = rankedTeams(played[0])
+  const b = rankedTeams(played[1])
+  expect(specs[0].teamIDs, 'A1, B1, A2, B2, …').toEqual([
+    a[0], b[0], a[1], b[1], a[2], b[2], a[3], b[3]
+  ])
+})
+
+test('the placement round picks up everybody who did not qualify', () => {
+  const template = templateById('groupsfinal')
+  const groups = planStep(template, 0, { teamIDs: teamIDs(16), tournaments: [] })
+  const played = groups.map(function (spec) {
+    return playTournament(spec.system, spec.teamIDs)
+  })
+  const final = planStep(template, 1, { teamIDs: teamIDs(16), tournaments: [played] })
+  const finaltournament = playTournament(final[0].system, final[0].teamIDs)
+
+  const specs = planStep(template, 2, {
+    teamIDs: teamIDs(16),
+    tournaments: [played, [finaltournament]]
+  })
+  expect(specs.length, 'a single placement round').toBe(1)
+  expect(specs[0].name, 'named by the template').toBe('Platzierungsrunde')
+  expect(specs[0].teamIDs.length, 'the remaining eight').toBe(8)
+  expect(specs[0].startIndex, 'below the finalists').toBe(8)
+  final[0].teamIDs.forEach(function (teamID) {
+    expect(specs[0].teamIDs.indexOf(teamID), 'no finalist plays here').toBe(-1)
+  })
+
+  const a = rankedTeams(played[0])
+  const b = rankedTeams(played[1])
+  expect(specs[0].teamIDs, 'A5, B5, A6, B6, …').toEqual([
+    a[4], b[4], a[5], b[5], a[6], b[6], a[7], b[7]
+  ])
+})
+
+test('a late registration joins the placement round', () => {
+  const template = templateById('groupsfinal')
+  const groups = planStep(template, 0, { teamIDs: teamIDs(8), tournaments: [] })
+  const played = groups.map(function (spec) {
+    return playTournament(spec.system, spec.teamIDs)
+  })
+  const final = planStep(template, 1, { teamIDs: teamIDs(8), tournaments: [played] })
+  const finaltournament = playTournament(final[0].system, final[0].teamIDs)
+
+  const specs = planStep(template, 2, {
+    teamIDs: teamIDs(10),
+    tournaments: [played, [finaltournament]]
+  })
+  expect(specs[0].teamIDs.indexOf(8), 'the new team is in').toBeGreaterThan(-1)
+  expect(specs[0].teamIDs.indexOf(9), 'and so is the next one').toBeGreaterThan(-1)
+})
+
+test('a step waits for the previous phases to finish', () => {
+  const template = templateById('groupsfinal')
+  const groups = planStep(template, 0, { teamIDs: teamIDs(16), tournaments: [] })
+  expect(stepReady(template, 0, { tournaments: [] }), 'the first step is ready')
+    .toBe(true)
+
+  const running = TournamentIndex.createTournament('swiss', ['wins', 'id'])
+  groups[0].teamIDs.forEach(function (id) {
+    running.addTeam(id)
+  })
+  running.run()
+  expect(stepReady(template, 1, { tournaments: [[running]] }), 'not while it runs')
+    .toBe(false)
+
+  const played = groups.map(function (spec) {
+    return playTournament(spec.system, spec.teamIDs)
+  })
+  expect(stepReady(template, 1, { tournaments: [played] }), 'but once they are done')
+    .toBe(true)
+})
