@@ -26,9 +26,10 @@
   order: -1;
 }
 
-/* The buttons above the list are centred over it: the boxview's
-   justified-paragraph rule would leave them hanging on the left. */
-.timemachineview .tournamentactions {
+/* The buttons above the list are centred over it. The info box
+   justifies its paragraphs (div.boxview.info > p), which spreads
+   them to both edges instead, so this has to outweigh that rule. */
+div.boxview.info > p.tournamentactions {
   text-align: center;
 }
 
