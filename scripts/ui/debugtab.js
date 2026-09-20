@@ -1,6 +1,5 @@
 import $ from 'jquery'
 import View from '../core/view.js'
-import BoxView from './boxview.js'
 import Listener from '../core/listener.js'
 import Server from './server.js'
 import Storage from './storage.js'
@@ -44,13 +43,14 @@ class DebugTab extends View {
     /*
      * The console lives in a collapsed box on the settings page.
      * Admins get it open right away — they are the ones who came
-     * looking for it.
+     * looking for it. The box itself already has a BoxView from
+     * initboxviews.js; a second one would toggle the box twice per
+     * click, so ask the existing one through its header.
      */
-    this.boxView = new BoxView(this.$view)
     const view = this
     function expandForAdmin () {
-      if (Server.is_admin.get()) {
-        view.boxView.reset()
+      if (Server.is_admin.get() && view.$view.hasClass('collapsed')) {
+        view.$view.children('h3').first().trigger('click')
       }
     }
     Listener.bind(Server.is_admin, 'update', expandForAdmin)
