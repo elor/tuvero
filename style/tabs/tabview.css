@@ -45,12 +45,6 @@
   white-space: nowrap;
 }
 
-#tabs > div > .tabhint {
-  clear: both;
-  margin: 0;
-  text-align: center;
-}
-
 /* the options themselves live in a dialog: one per line, and the
    whole line toggles (CheckboxController) */
 dialog.optionsdialog .options {
@@ -74,8 +68,7 @@ dialog.optionsdialog .options > span {
     padding: 0em;
   }
 
-  #tabs > div > .tabtitle > .tabactions,
-  #tabs > div > .tabhint {
+  #tabs > div > .tabtitle > .tabactions {
     display: none;
   }
 }
