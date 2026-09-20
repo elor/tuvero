@@ -4,6 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
+import wireDialog from './dialogcontroller.js'
 import $ from 'jquery'
 import View from '../core/view.js'
 import State from './state.js'
@@ -30,6 +31,10 @@ class TeamsTab extends View {
   }
 
   init () {
+    // the view options moved off the tab header into a dialog
+    wireDialog(this.$view.find('dialog.optionsdialog'),
+      this.$view.find('button.viewoptions'))
+
     let $container, $button, value
 
     // teamsize bugfix
@@ -59,25 +64,25 @@ class TeamsTab extends View {
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth
-    $container = this.$view.find('>.options input.maxwidth')
+    $container = this.$view.find('.options input.maxwidth')
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container)
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth', 'nomaxwidth')
 
     // player names checkbox
     value = State.tabOptions.showNames
-    $container = this.$view.find('>.options input.shownames')
+    $container = this.$view.find('.options input.shownames')
     this.showNamesCheckBoxView = new CheckBoxView(value, $container)
     this.showNamesClassView = new ClassView(value, this.$view, undefined, 'hidenames')
 
     // team names checkbox
     value = State.tabOptions.showTeamName
-    $container = this.$view.find('>.options input.showteamname')
+    $container = this.$view.find('.options input.showteamname')
     this.showTeamNameCheckBoxView = new CheckBoxView(value, $container)
     this.showTeamNameClassView = new ClassView(value, this.$view, undefined, 'hideteamname')
 
     // rankingpoints checkbox
     value = new ValueModel(Presets.ui.rankingpoints)
-    $container = this.$view.find('>.options input.rankingpoints')
+    $container = this.$view.find('.options input.rankingpoints')
     this.rankingpointsCheckBoxView = new CheckBoxView(value, $container)
     this.rankingpointsClassView = new ClassView(value, this.$view, undefined, 'hiderankingpoints')
     $button = this.$view.find('button.sortbyrankingpoints').click(function (e) {

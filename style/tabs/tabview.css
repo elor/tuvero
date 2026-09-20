@@ -23,13 +23,29 @@
   display: block;
 }
 
-#tabs > div .options {
-  white-space: nowrap;
+/* print + view options, top right of every tab */
+#tabs > div > .tabactions {
   float: right;
+  margin: 0 0 0.5em 0.5em;
+  white-space: nowrap;
 }
 
+#tabs > div > .tabhint {
+  clear: both;
+  margin: 0;
+  text-align: center;
+}
 
-#tabs > div .options > span {
+/* the options themselves live in a dialog: one per line, and the
+   whole line toggles (CheckboxController) */
+dialog.optionsdialog .options {
+  text-align: left;
+  margin: 0.5em 0 1em;
+}
+
+dialog.optionsdialog .options > span {
+  display: block;
+  padding: 0.3em 0;
   cursor: pointer;
 }
 
@@ -43,7 +59,8 @@
     padding: 0em;
   }
 
-  #tabs > div .options {
+  #tabs > div > .tabactions,
+  #tabs > div > .tabhint {
     display: none;
   }
 }

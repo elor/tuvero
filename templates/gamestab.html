@@ -1,19 +1,31 @@
 <div data-tab="games" accesskey="g">
-  {# whitespace between icon and label, like the other icon buttons #}
-  <button class="print tiny left" data-img="print">
-    Drucken
-  </button>
-  <div class="options">
-    <span><input class="maxwidth" type="checkbox" />
-      feste Breite
-    </span>
-    <span><input class="showteamname" type="checkbox" />
-      Team-Pseudonym
-    </span>
-    <span><input class="shownames" type="checkbox" />
-      {{ teamtext }}namen
-    </span>
-  </div>
+  <p class="tabactions">
+    {# whitespace between icon and label, like the other icon buttons #}
+    <button class="print tiny" data-img="print">
+      Drucken
+    </button>
+    <button class="viewoptions tiny" data-img="settings">
+      Ansicht
+    </button>
+  </p>
+
+  <dialog class="optionsdialog">
+    <h3 class="dialogtitle">Ansicht</h3>
+    <div class="options">
+      <span><input class="maxwidth" type="checkbox" />
+        feste Breite
+      </span>
+      <span><input class="showteamname" type="checkbox" />
+        Team-Pseudonym
+      </span>
+      <span><input class="shownames" type="checkbox" />
+        {{ teamtext }}namen
+      </span>
+    </div>
+    <p class="dialogactions">
+      <button data-close>Schließen</button>
+    </p>
+  </dialog>
   <h2>Laufende Spiele</h2>
 
   <div class="tournamentlist">

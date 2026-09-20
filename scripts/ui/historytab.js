@@ -1,3 +1,4 @@
+import wireDialog from './dialogcontroller.js'
 import $ from 'jquery'
 import View from '../core/view.js'
 import ListView from './listview.js'
@@ -33,6 +34,10 @@ class HistoryTab extends View {
    * TODO maybe split it into multiple autodetected functions?
    */
   init () {
+    // the view options moved off the tab header into a dialog
+    wireDialog(this.$view.find('dialog.optionsdialog'),
+      this.$view.find('button.viewoptions'))
+
     let $container, value
     const fullwidth = new ValueModel()
     fullwidth.dependencies = [State.tabOptions.showNames, State.tabOptions.showTeamName]
@@ -56,31 +61,31 @@ class HistoryTab extends View {
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth
-    $container = this.$view.find('>.options input.maxwidth')
+    $container = this.$view.find('.options input.maxwidth')
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container)
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth', 'nomaxwidth')
 
     // player names checkbox
     value = State.tabOptions.showNames
-    $container = this.$view.find('>.options input.shownames')
+    $container = this.$view.find('.options input.shownames')
     this.showNamesCheckBoxView = new CheckBoxView(value, $container)
     this.showNamesClassView = new ClassView(value, this.$view, undefined, 'hidenames')
 
     // team names checkbox
     value = State.tabOptions.showTeamName
-    $container = this.$view.find('>.options input.showteamname')
+    $container = this.$view.find('.options input.showteamname')
     this.showTeamNameCheckBoxView = new CheckBoxView(value, $container)
     this.showTeamNameClassView = new ClassView(value, this.$view, undefined, 'hideteamname')
 
     // list/table selection checkbox
     value = State.tabOptions.showMatchTables
-    $container = this.$view.find('>.options input.showtable')
+    $container = this.$view.find('.options input.showtable')
     this.showtableCheckBoxView = new CheckBoxView(value, $container)
     this.showtableClassView = new ClassView(value, this.$view, 'showmatchtable', 'showtable')
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups
-    $container = this.$view.find('>.options input.hidefinished')
+    $container = this.$view.find('.options input.hidefinished')
     this.hidefinishedCheckBoxView = new CheckBoxView(value, $container)
     this.hidefinishedClassView = new ClassView(value, this.$view, 'hidefinished')
   }

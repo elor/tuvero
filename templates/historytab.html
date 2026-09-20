@@ -1,23 +1,34 @@
 <div data-tab="history" accesskey="h">
-  {# whitespace between icon and label, like the other icon buttons #}
-  <button class="print tiny left" data-img="print">
-    Drucken
-  </button>
-  <div class="options">
-    <span>
-      <input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-    <span>
-      <input class="showteamname" type="checkbox" checked="checked" />Team-Pseudonym</span>
-    <span>
-      <input class="shownames" type="checkbox" checked="checked" />{{ teamtext }}namen</span>
-    <span class="hidden">
-      <input class="hidefinished" type="checkbox" />Nur Laufende Runden</span>
-    <span>
-      <input class="showtable" type="checkbox" checked="checked" />Spielelisten</span>
-    <br>
-    <br>
-    Zum Korrigieren Ergebnis klicken
-  </div>
+  <p class="tabactions">
+    {# whitespace between icon and label, like the other icon buttons #}
+    <button class="print tiny" data-img="print">
+      Drucken
+    </button>
+    <button class="viewoptions tiny" data-img="settings">
+      Ansicht
+    </button>
+  </p>
+
+  <dialog class="optionsdialog">
+    <h3 class="dialogtitle">Ansicht</h3>
+    <div class="options">
+      <span>
+        <input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
+      <span>
+        <input class="showteamname" type="checkbox" checked="checked" />Team-Pseudonym</span>
+      <span>
+        <input class="shownames" type="checkbox" checked="checked" />{{ teamtext }}namen</span>
+      <span class="hidden">
+        <input class="hidefinished" type="checkbox" />Nur Laufende Runden</span>
+      <span>
+        <input class="showtable" type="checkbox" checked="checked" />Spielelisten</span>
+    </div>
+    <p class="dialogactions">
+      <button data-close>Schließen</button>
+    </p>
+  </dialog>
+
+  <p class="tabhint">Zum Korrigieren Ergebnis klicken</p>
 
   <h2>Turnierverlauf</h2>
 
