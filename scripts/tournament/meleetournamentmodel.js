@@ -23,11 +23,14 @@
 import TournamentModel from './tournamentmodel.js'
 import MatchModel from '../core/matchmodel.js'
 import MatchResult from '../core/matchresult.js'
+import ByeResult from '../core/byeresult.js'
+import Options from 'options'
 import MatchReferenceModel from '../core/matchreferencemodel.js'
 import ResultReferenceModel from '../core/resultreferencemodel.js'
 import ReferenceListModel from '../list/referencelistmodel.js'
 import SortedReferenceListModel from '../list/sortedreferencelistmodel.js'
 import CombinedReferenceListModel from '../list/combinedreferencelistmodel.js'
+import MeleeLineupListModel from './meleelineuplistmodel.js'
 import { drawRound } from './meleedraw.js'
 import Presets from 'presets'
 
@@ -101,8 +104,19 @@ class MeleeTournamentModel extends TournamentModel {
       this.matches.push(new MatchModel(
         [offset + pairing[0], offset + pairing[1]], matchid, this.round))
     }, this)
+    /*
+     * A bye is a line-up of one, so that everything in matches and
+     * history speaks line-up ids. The vote list and the ranking, on
+     * the other hand, belong to the player who is sitting out.
+     */
     draw.byes.forEach(function (playerid, index) {
-      this.addBye(playerid, draw.matches.length + index, this.round)
+      const lineupid = this.lineups.length
+      this.lineups.push([playerid])
+      this.votes.bye.push(playerid)
+      this.ranking.bye(playerid, this.round)
+      this.history.push(new ByeResult(lineupid,
+        [Options.byepointswon, Options.byepointslost],
+        draw.matches.length + index, this.round))
     }, this)
 
     this.ranking.invalidate()
@@ -127,7 +141,7 @@ class MeleeTournamentModel extends TournamentModel {
 
     this.history.forEach(function (result) {
       if (result.isBye && result.isBye()) {
-        const playerid = result.getTeamID(0)
+        const playerid = this.byePlayer(result)
         byes[playerid] = (byes[playerid] || 0) + 1
         return
       }
@@ -162,6 +176,16 @@ class MeleeTournamentModel extends TournamentModel {
   }
 
   /**
+   * @param byeresult
+   *          a ByeResult from this tournament's history
+   * @return the internal id of the player who sat that round out
+   */
+  byePlayer (byeresult) {
+    const lineup = this.getLineup(byeresult.getTeamID(0)) || []
+    return lineup[0]
+  }
+
+  /**
    * Translate a line-up result into one result per player.
    *
    * Line-ups of a match always have the same size, so pairing the
@@ -191,7 +215,8 @@ class MeleeTournamentModel extends TournamentModel {
     const expanded = []
     this.history.forEach(function (result) {
       if (result.isBye && result.isBye()) {
-        expanded.push(result)
+        expanded.push(new ByeResult(this.byePlayer(result), result.score.slice(0),
+          result.getID(), result.getGroup()))
       } else {
         expanded.push(...this.expandResult(result))
       }
@@ -227,6 +252,13 @@ class MeleeTournamentModel extends TournamentModel {
     const rankingcopy = this.ranking.clone()
     rankingcopy.recalculate(this.expandHistory(), this.totalvotes)
     return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get())
+  }
+
+  getDisplayTeams (teamlist) {
+    if (this.singletons.displayteams === undefined) {
+      this.singletons.displayteams = new MeleeLineupListModel(this, teamlist)
+    }
+    return this.singletons.displayteams
   }
 
   /*

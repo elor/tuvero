@@ -93,6 +93,16 @@ test('MeleeTournamentModel: leftover players sit out and are compensated', () =>
   const ranking = tournament.ranking.get()
   expect(ranking.wins[benched], 'a bye counts as a win').toBe(1)
 
+  // the bye is a line-up of one, so matches and history speak the
+  // same ids throughout
+  const byeresult = tournament.history.asArray().find(function (result) {
+    return result.isBye()
+  })
+  expect(tournament.getLineup(byeresult.getTeamID(0)),
+    'the bye is a line-up of one').toEqual([benched])
+  expect(tournament.verifyRanking(),
+    'byes survive a recalculation from the history').toBe(true)
+
   // the next round sends somebody else to the bench
   expect(tournament.run(), 'second round').toBeTruthy()
   const secondbyes = tournament.getVotes('bye').asArray()
