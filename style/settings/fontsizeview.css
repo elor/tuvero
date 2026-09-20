@@ -1,6 +1,7 @@
-/* One segmented control, like the pill choices elsewhere: equal
- * boxes, only the letter inside grows. The boxes are sized in rem so
- * the control itself stays put while it scales the page around it.
+/* One segmented control, like the pill choices elsewhere: equal,
+ * flat boxes with a shared border, and only the letter inside grows.
+ * The boxes are sized in rem so the control itself stays put while
+ * it scales the page around it.
  */
 .fontsizeview {
   display: inline-flex;
@@ -12,23 +13,33 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.4rem;
+  /* fixed and unshrinkable: a bigger letter must not widen its box */
+  flex: 0 0 2.6rem;
+  min-width: 0;
   height: 2.2rem;
   padding: 0;
+  overflow: hidden;
   border: solid 1px #d0d0d0;
   border-left-width: 0;
   border-radius: 0;
+  background: #ffffff;
   box-shadow: none;
+  color: #24292e;
   line-height: 1;
+  transition: background 0.15s, color 0.15s;
 }
 
 .fontsizeview > button:first-child {
   border-left-width: 1px;
-  border-radius: 999px 0 0 999px;
+  border-radius: 0.4rem 0 0 0.4rem;
 }
 
 .fontsizeview > button:last-child {
-  border-radius: 0 999px 999px 0;
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+
+.fontsizeview > button:hover {
+  background: #f0f0f0;
 }
 
 .fontsizeview.fontsizesmall > button.fontsizesmall,

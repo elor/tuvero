@@ -11,7 +11,9 @@
   background: #ffffff;
 }
 
-#tabs > [data-tab="settings"] .boxview > div {
+/* option columns inside the settings boxes. Widgets that bring
+   their own layout (the font size control) are not columns. */
+#tabs > [data-tab="settings"] .boxview > div:not(.fontsizeview) {
   display: inline-block;
   max-width: 17em;
   vertical-align: top;
