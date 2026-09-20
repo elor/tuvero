@@ -21,7 +21,9 @@ div.boxview.inline {
 
 
 div.boxview.info {
-  vertical-align: middle;
+  /* boxes of different heights sit next to each other on the home
+     tab: line their tops up rather than their middles */
+  vertical-align: top;
   max-width: 35em;
 }
 
