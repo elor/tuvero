@@ -1,6 +1,31 @@
 import ListModel from '../list/listmodel.js'
 import ServerTournamentModel from './servertournamentmodel.js'
+import ValueModel from '../core/valuemodel.js'
 import Presets from 'presets'
+
+/*
+ * The last response, kept in localStorage so the list is on screen
+ * at once instead of popping in when the server answers. Shared by
+ * the variants on purpose: it holds every tournament of the user,
+ * and each variant picks its own target out of it.
+ */
+const CACHEKEY = 'servertournaments'
+
+function readCache () {
+  try {
+    return JSON.parse(window.localStorage.getItem(CACHEKEY) || 'null')
+  } catch (error) {
+    return null
+  }
+}
+
+function writeCache (data) {
+  try {
+    window.localStorage.setItem(CACHEKEY, JSON.stringify(data))
+  } catch (error) {
+    // a full or disabled storage is not worth a broken list
+  }
+}
 
 /**
    * Constructor
@@ -20,6 +45,22 @@ class ServerTournamentListModel extends ListModel {
     // lazy lists don't fetch on login; the caller triggers update()
     // when the data is actually shown
     this.lazy = !!lazy
+
+    /**
+     * true while a request is on its way -- the view says so
+     * instead of showing an empty list
+     */
+    this.loading = new ValueModel(false)
+
+    // the archive is a different, much larger query: only the
+    // overview list caches
+    this.cached = !this.lazy
+    if (this.cached) {
+      const cached = readCache()
+      if (cached) {
+        this.parseResult(cached)
+      }
+    }
     this.server.registerListener(this)
   }
 
@@ -56,10 +97,21 @@ class ServerTournamentListModel extends ListModel {
       path += '?since=' + since.toISOString().slice(0, 10)
     }
     const message = this.server.message(path)
+    if (!message) {
+      return
+    }
+    this.loading.set(true)
     message.onreceive = function (emitter, event, data) {
       this.parseResult(data)
+      if (this.cached) {
+        writeCache(data)
+      }
     }.bind(this)
-    message.onerror = this.clear.bind(this)
+    message.oncomplete = function () {
+      this.loading.set(false)
+    }.bind(this)
+    // a failed refresh keeps what is on screen: being offline is not
+    // the same as having no tournaments
     message.send()
   }
 
@@ -70,11 +122,15 @@ class ServerTournamentListModel extends ListModel {
   }
 
   onlogout () {
+    this.loading.set(false)
     this.clear()
+    if (this.cached) {
+      writeCache(null)
+    }
   }
 
   onerror () {
-    this.clear()
+    this.loading.set(false)
   }
 }
 
