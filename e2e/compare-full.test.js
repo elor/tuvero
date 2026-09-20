@@ -57,8 +57,12 @@ async function newTournament(page, url, name) {
     await page.locator('button.newtournament').click()
     // boule offers Tête/Doublette/Triplette here; pick single-player
     // mode to match the prod side (which clicks the teams1 button)
-    const single = page.locator('dialog.newtournamentdialog input[name="newteamsize"][value="1"]')
-    if (await single.count() > 0) await single.check()
+    // the size is a pill: its radio sits behind the label with
+    // pointer-events off, and the variants without a team size
+    // (basic, tac) keep the whole row hidden
+    const single = page.locator('dialog.newtournamentdialog label.pill:has(' +
+      'input[name="newteamsize"][value="1"])')
+    if (await single.isVisible().catch(() => false)) await single.click()
     await page.locator('dialog.newtournamentdialog .treename').fill(name)
     await page.locator('dialog.newtournamentdialog button.createroot').click()
   } else {
