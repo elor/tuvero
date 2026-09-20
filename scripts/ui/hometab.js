@@ -12,6 +12,7 @@ import ServerTournamentView from './servertournamentview.js'
 import ListView from './listview.js'
 import ServerAutoloadModel from './serverautoloadmodel.js'
 import State from './state.js'
+import TabsHandle from './tabshandle.js'
 import wireDialog from './dialogcontroller.js'
 import Listener from '../core/listener.js'
 import { linkTournament } from '../background/serverlinker.js'
@@ -134,7 +135,24 @@ class HomeTab extends View {
     $dialog.find('input[name="tournamentkind"], input[name="newteamsize"]')
       .on('change', updateKind)
 
-    $dialog.find('button.createroot').on('click', function () {
+    /*
+     * The name is the one thing that has to be filled in -- every
+     * other choice has a default -- so "Erstellen" stays disabled
+     * until there is one. Enter in the name field goes through the
+     * same button, so the guard below covers that path too.
+     */
+    const $treename = $dialog.find('input.treename')
+    const $create = $dialog.find('button.createroot')
+    const updateCreateEnabled = function () {
+      $create.prop('disabled', !String($treename.val() || '').trim())
+    }
+    updateCreateEnabled()
+    $treename.on('input change', updateCreateEnabled)
+
+    $create.on('click', function () {
+      if ($create.prop('disabled')) {
+        return
+      }
       // variants without a team-size choice only show the size
       // pills for a mêlée; their preset default applies otherwise
       const size = $sizechoice.hasClass('hidden')
@@ -162,6 +180,11 @@ class HomeTab extends View {
         if (dialog && dialog.open) {
           dialog.close()
         }
+        // the name input is cleared on success -- and an empty name
+        // is no name
+        updateCreateEnabled()
+        // registering the participants is what comes next
+        TabsHandle.focus('teams')
       }, 0)
     })
 
