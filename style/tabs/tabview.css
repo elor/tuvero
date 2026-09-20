@@ -79,3 +79,17 @@ dialog.optionsdialog .options > span {
     display: none;
   }
 }
+
+/* Home tab: the info boxes float, so a short box moves up beside
+   the tall tournament list instead of waiting below it. The
+   container is centred and contains the floats; inline-block would
+   line them up on a baseline and leave the gap. */
+#tabs > [data-tab="home"] > .homeboxes {
+  max-width: 74em;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#tabs > [data-tab="home"] > .homeboxes > .boxview {
+  float: left;
+}

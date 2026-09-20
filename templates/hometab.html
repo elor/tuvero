@@ -11,206 +11,208 @@
             {% include 'loginview.html' %}
         </div>
     </div>
-    <div class="boxview info inline timemachineview">
-        <h3>Turniere</h3>
-        <p class="tournamentactions">
-            <button class="newtournament tiny" data-img="new">
-                Neues Turnier
-            </button>
-            <button class="opentournament tiny" data-img="load">
-                Turnier öffnen
-            </button>
-            <button class="opensettings tiny" data-img="settings">
-                Einstellungen
-            </button>
-        </p>
-
-        {% include 'timemachineview.html' %}
-
-        {% include 'servertournaments.html' %}
-
-        <dialog class="opentournamentdialog">
-            <h3 class="dialogtitle">Turnier öffnen</h3>
-            <button class="load tiny" data-img="load">
-                Aus Datei öffnen
-            </button>
-            <button class="openserver tiny" data-img="tuvero">
-                Vom Server öffnen
-            </button>
-            <button class="switchcreate tiny" data-img="new">
-                Neues Turnier
-            </button>
-            <p class="dialogactions">
-                <button data-close>Abbrechen</button>
+    <div class="homeboxes">
+        <div class="boxview info inline timemachineview">
+            <h3>Turniere</h3>
+            <p class="tournamentactions">
+                <button class="newtournament tiny" data-img="new">
+                    Neues Turnier
+                </button>
+                <button class="opentournament tiny" data-img="load">
+                    Turnier öffnen
+                </button>
+                <button class="opensettings tiny" data-img="settings">
+                    Einstellungen
+                </button>
             </p>
-        </dialog>
 
-        <dialog class="servertournamentdialog">
-            <h3 class="dialogtitle">Vom Server öffnen</h3>
-            <p class="serverfilter">
-                <input type="text" class="serversearch"
-                       placeholder="Turnier suchen" />
-                <select class="serverdaterange">
-                    <option value="all">Alle</option>
-                    <option value="upcoming" selected>Kommende</option>
-                    <option value="past">Vergangene</option>
-                </select>
-            </p>
-            <p class="serverloading hidden">
-                {# whitespace between icon and label #}
-                <span class="spin tiny" data-img="reload"></span>
-                Lade Turniere vom Server …
-            </p>
-            <div class="servertournaments serverdialoglist">
-                <div class="servertournamentview template boxview">
-                    <h3 class="name">%% %%</h3>
-                    <p class="serversource">
-                        <span class="startdate">%% %%</span><span class="sep"> &middot; </span><span class="place">%% %%</span><span class="sep"> &middot; </span><a href="%%%" class="url_href">Online-Turnier</a>
-                    </p>
-                    <p>
-                        <button class="play tiny" data-img="reload">Öffnen</button>
-                    </p>
-                </div>
-            </div>
-            <p class="noresults">Keine Turniere gefunden</p>
-            <p class="dialogactions">
-                <button data-close>Schließen</button>
-            </p>
-        </dialog>
+            {% include 'timemachineview.html' %}
 
-        <dialog class="newtournamentdialog">
-            <h3 class="dialogtitle">Neues Turnier</h3>
-            {# everything inside .newcommittree:
-               TimeMachineNewTreeController scopes its treename/
-               createroot lookups to this container #}
-            <div class="newcommittree">
-                <input type="text" class="treename"
-                       placeholder="z.B. Stadtmeisterschaft 2016" />
-                {% if teamsize or melee %}
-                <p class="pillchoice teamsizechoice{% if not teamsize %} meleeonly hidden{% endif %}">
-                    {# variants without a team-size choice show this row
-                       for the mêlée only, where tête-à-tête has nothing
-                       to draw #}
-                    <label class="pill{% if not teamsize %} hidden{% endif %}">
-                        <input type="radio" name="newteamsize" value="1" />
-                        <span class="pillicon tiny" data-img="teams1"></span>
-                        Tête-à-tête
-                    </label>
-                    <label class="pill">
-                        <input type="radio" name="newteamsize" value="2"
-                               checked="checked" />
-                        <span class="pillicon tiny" data-img="teams2"></span>
-                        Doublette
-                    </label>
-                    <label class="pill">
-                        <input type="radio" name="newteamsize" value="3" />
-                        <span class="pillicon tiny" data-img="teams3"></span>
-                        Triplette
-                    </label>
-                </p>
-                {% endif %}
-                {% if melee %}
-                <p class="pillchoice kindchoice">
-                    <label class="pill">
-                        <input type="radio" name="tournamentkind" value="normal"
-                               checked="checked" />
-                        <span class="pillicon tiny" data-img="{{ teamsicon }}"></span>
-                        Feste Teams
-                    </label>
-                    <label class="pill">
-                        <input type="radio" name="tournamentkind" value="melee"
-                               class="createmelee" />
-                        <span class="pillicon tiny" data-img="new"></span>
-                        Supermêlée
-                    </label>
-                </p>
-                <p class="note meleehint hidden">
-                    Angemeldet wird einzeln, die Teams werden jede Runde
-                    neu ausgelost.
-                </p>
-                {% endif %}
-                <p class="pillchoice onlinechoice">
-                    <label class="pill">
-                        <input type="radio" name="tournamentmode"
-                               value="offline" checked="checked" />
-                        <span class="pillicon tiny" data-img="globeoff"></span>
-                        Offline
-                    </label>
-                    <label class="pill">
-                        <input type="radio" name="tournamentmode"
-                               value="online" class="createonline" />
-                        <span class="pillicon tiny" data-img="globe"></span>
-                        Online
-                    </label>
-                </p>
-                <p class="note onlinehint">
-                    Nur auf diesem Gerät gespeichert.
-                </p>
+            {% include 'servertournaments.html' %}
+
+            <dialog class="opentournamentdialog">
+                <h3 class="dialogtitle">Turnier öffnen</h3>
+                <button class="load tiny" data-img="load">
+                    Aus Datei öffnen
+                </button>
+                <button class="openserver tiny" data-img="tuvero">
+                    Vom Server öffnen
+                </button>
+                <button class="switchcreate tiny" data-img="new">
+                    Neues Turnier
+                </button>
                 <p class="dialogactions">
-                    <button class="createroot tiny" data-img="new">
-                        Erstellen
-                    </button>
                     <button data-close>Abbrechen</button>
                 </p>
-            </div>
-        </dialog>
-    </div>
-    <div class="boxview info inline firststeps leftalign">
-        <h3>Erste Schritte</h3>
-        So führst du ein Turnier durch:
-        <ol class="leftalign">
-            <li>
-                Trage links den Turniernamen ein und erstelle ein neues
-                Turnier
-            </li>
-            <li>
-                Trage die Teilnehmer im <a href="#teams" class="tiny"
-                                           data-img="{{ teamsicon }}">Teilnehmer-Tab</a> ein
-            </li>
-            <li>
-                Wähle und starte ein Turniersystem im <a href="#new"
-                                                         class="tiny" data-img="new">Turniersysteme-Tab</a>
-            </li>
-            <li>
-                Trage die Spielergebnisse im <a href="#games"
-                                                class="tiny" data-img="history">Turnierverlauf-Tab</a> ein
-            </li>
-            <li>
-                Sieh die Platzierung im <a href="#ranking" class="tiny"
-                                           data-img="ranking">Platzierungen-Tab</a> ein
-            </li>
-            <li>
-                Drucke Begegnungen und Ergebnisse über den
-                <button class="print tiny" data-img="print"></button>
-                Drucker-Knopf
-            </li>
-        </ol>
-    </div>
-    <div class="boxview info inline">
-        <h3>Autor &amp; Mitwirkende</h3>
-        <p>
-            © Erik E. Lorenz
-            <br>
-            Tel: 0175 8404964
-            <br>
-            Mail: <a href="mailto:erik@tuvero.de">erik@tuvero.de</a>
-        </p>
-        <p>Bei Fragen und Problemen stehe ich gern zur Verfügung.</p>
-        <p>
-            <a href="https://www.tuvero.de/impressum">Impressum</a>
-            <br>
-            <a href="https://www.tuvero.de/datenschutz">Datenschutzerklärung</a>
-        </p>
-        <h4>Mitwirkende</h4>
-        <table class="borderless background middle">
-            <tr>
-                <td>Fabian Böttcher</td>
-                <td>Öffentlichkeitsarbeit <br> Beratung (Boule, Design)</td>
-            </tr>
-            <tr>
-                <td>Kai Angne</td>
-                <td>Beratung (TAC), Tuvero-Logo</td>
-            </tr>
-        </table>
+            </dialog>
+
+            <dialog class="servertournamentdialog">
+                <h3 class="dialogtitle">Vom Server öffnen</h3>
+                <p class="serverfilter">
+                    <input type="text" class="serversearch"
+                           placeholder="Turnier suchen" />
+                    <select class="serverdaterange">
+                        <option value="all">Alle</option>
+                        <option value="upcoming" selected>Kommende</option>
+                        <option value="past">Vergangene</option>
+                    </select>
+                </p>
+                <p class="serverloading hidden">
+                    {# whitespace between icon and label #}
+                    <span class="spin tiny" data-img="reload"></span>
+                    Lade Turniere vom Server …
+                </p>
+                <div class="servertournaments serverdialoglist">
+                    <div class="servertournamentview template boxview">
+                        <h3 class="name">%% %%</h3>
+                        <p class="serversource">
+                            <span class="startdate">%% %%</span><span class="sep"> &middot; </span><span class="place">%% %%</span><span class="sep"> &middot; </span><a href="%%%" class="url_href">Online-Turnier</a>
+                        </p>
+                        <p>
+                            <button class="play tiny" data-img="reload">Öffnen</button>
+                        </p>
+                    </div>
+                </div>
+                <p class="noresults">Keine Turniere gefunden</p>
+                <p class="dialogactions">
+                    <button data-close>Schließen</button>
+                </p>
+            </dialog>
+
+            <dialog class="newtournamentdialog">
+                <h3 class="dialogtitle">Neues Turnier</h3>
+                {# everything inside .newcommittree:
+                   TimeMachineNewTreeController scopes its treename/
+                   createroot lookups to this container #}
+                <div class="newcommittree">
+                    <input type="text" class="treename"
+                           placeholder="z.B. Stadtmeisterschaft 2016" />
+                    {% if teamsize or melee %}
+                    <p class="pillchoice teamsizechoice{% if not teamsize %} meleeonly hidden{% endif %}">
+                        {# variants without a team-size choice show this row
+                           for the mêlée only, where tête-à-tête has nothing
+                           to draw #}
+                        <label class="pill{% if not teamsize %} hidden{% endif %}">
+                            <input type="radio" name="newteamsize" value="1" />
+                            <span class="pillicon tiny" data-img="teams1"></span>
+                            Tête-à-tête
+                        </label>
+                        <label class="pill">
+                            <input type="radio" name="newteamsize" value="2"
+                                   checked="checked" />
+                            <span class="pillicon tiny" data-img="teams2"></span>
+                            Doublette
+                        </label>
+                        <label class="pill">
+                            <input type="radio" name="newteamsize" value="3" />
+                            <span class="pillicon tiny" data-img="teams3"></span>
+                            Triplette
+                        </label>
+                    </p>
+                    {% endif %}
+                    {% if melee %}
+                    <p class="pillchoice kindchoice">
+                        <label class="pill">
+                            <input type="radio" name="tournamentkind" value="normal"
+                                   checked="checked" />
+                            <span class="pillicon tiny" data-img="{{ teamsicon }}"></span>
+                            Feste Teams
+                        </label>
+                        <label class="pill">
+                            <input type="radio" name="tournamentkind" value="melee"
+                                   class="createmelee" />
+                            <span class="pillicon tiny" data-img="new"></span>
+                            Supermêlée
+                        </label>
+                    </p>
+                    <p class="note meleehint hidden">
+                        Angemeldet wird einzeln, die Teams werden jede Runde
+                        neu ausgelost.
+                    </p>
+                    {% endif %}
+                    <p class="pillchoice onlinechoice">
+                        <label class="pill">
+                            <input type="radio" name="tournamentmode"
+                                   value="offline" checked="checked" />
+                            <span class="pillicon tiny" data-img="globeoff"></span>
+                            Offline
+                        </label>
+                        <label class="pill">
+                            <input type="radio" name="tournamentmode"
+                                   value="online" class="createonline" />
+                            <span class="pillicon tiny" data-img="globe"></span>
+                            Online
+                        </label>
+                    </p>
+                    <p class="note onlinehint">
+                        Nur auf diesem Gerät gespeichert.
+                    </p>
+                    <p class="dialogactions">
+                        <button class="createroot tiny" data-img="new">
+                            Erstellen
+                        </button>
+                        <button data-close>Abbrechen</button>
+                    </p>
+                </div>
+            </dialog>
+        </div>
+        <div class="boxview info inline firststeps leftalign">
+            <h3>Erste Schritte</h3>
+            So führst du ein Turnier durch:
+            <ol class="leftalign">
+                <li>
+                    Trage links den Turniernamen ein und erstelle ein neues
+                    Turnier
+                </li>
+                <li>
+                    Trage die Teilnehmer im <a href="#teams" class="tiny"
+                                               data-img="{{ teamsicon }}">Teilnehmer-Tab</a> ein
+                </li>
+                <li>
+                    Wähle und starte ein Turniersystem im <a href="#new"
+                                                             class="tiny" data-img="new">Turniersysteme-Tab</a>
+                </li>
+                <li>
+                    Trage die Spielergebnisse im <a href="#games"
+                                                    class="tiny" data-img="history">Turnierverlauf-Tab</a> ein
+                </li>
+                <li>
+                    Sieh die Platzierung im <a href="#ranking" class="tiny"
+                                               data-img="ranking">Platzierungen-Tab</a> ein
+                </li>
+                <li>
+                    Drucke Begegnungen und Ergebnisse über den
+                    <button class="print tiny" data-img="print"></button>
+                    Drucker-Knopf
+                </li>
+            </ol>
+        </div>
+        <div class="boxview info inline">
+            <h3>Autor &amp; Mitwirkende</h3>
+            <p>
+                © Erik E. Lorenz
+                <br>
+                Tel: 0175 8404964
+                <br>
+                Mail: <a href="mailto:erik@tuvero.de">erik@tuvero.de</a>
+            </p>
+            <p>Bei Fragen und Problemen stehe ich gern zur Verfügung.</p>
+            <p>
+                <a href="https://www.tuvero.de/impressum">Impressum</a>
+                <br>
+                <a href="https://www.tuvero.de/datenschutz">Datenschutzerklärung</a>
+            </p>
+            <h4>Mitwirkende</h4>
+            <table class="borderless background middle">
+                <tr>
+                    <td>Fabian Böttcher</td>
+                    <td>Öffentlichkeitsarbeit <br> Beratung (Boule, Design)</td>
+                </tr>
+                <tr>
+                    <td>Kai Angne</td>
+                    <td>Beratung (TAC), Tuvero-Logo</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
