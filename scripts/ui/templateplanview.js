@@ -126,12 +126,20 @@ class TemplatePlanView extends View {
         const names = tournaments.map(function (tournament) {
           return tournament.getName().get()
         })
-        const done = tournaments.every(function (tournament) {
-          return tournament.getState().get() === 'finished'
+        const states = tournaments.map(function (tournament) {
+          return tournament.getState().get()
+        })
+        const done = states.every(function (state) {
+          return state === 'finished'
+        })
+        const waiting = states.every(function (state) {
+          return state === 'initial'
         })
         $step.addClass(done ? 'done' : 'running')
         $step.append($('<span>').addClass('phases')
-          .text(names.join(', ') + (done ? ' — beendet' : ' — läuft')))
+          .text(names.join(', ') + ' — ' + (done
+            ? 'beendet'
+            : (waiting ? 'ausgelost' : 'läuft'))))
       } else if (index === next) {
         $step.addClass('next')
       }
@@ -153,13 +161,27 @@ class TemplatePlanView extends View {
     if (!ready) {
       this.$hint.text(teams.length < template.minteams
         ? 'Dafür fehlen noch Teams: mindestens ' + template.minteams + '.'
-        : 'Beende zuerst die laufenden Phasen.')
+        : this.waitingHint())
       return
     }
     this.$hint.text(previewNextStep(State.plan, teams, State.tournaments)
       .map(function (spec) {
         return spec.name + ': ' + spec.teamIDs.length + ' ' + Strings.teamstext
       }).join(' · '))
+  }
+
+  /**
+   * @return what the previous phases are still waiting for
+   */
+  waitingHint () {
+    const previous = State.plan.tournamentsByStep(State.tournaments)[
+      State.plan.nextStep() - 1] || []
+    const waiting = previous.every(function (tournament) {
+      return tournament.getState().get() === 'initial'
+    })
+    return waiting
+      ? 'Starte und beende zuerst die ausgelosten Phasen.'
+      : 'Beende zuerst die laufenden Phasen.'
   }
 
   onupdate () {

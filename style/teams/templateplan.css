@@ -1,7 +1,15 @@
 div.boxview.templateplan {
   display: inline-block;
-  max-width: 45em;
+  /* the box switches between the template list and the step list --
+     keep it the same width either way, but let it shrink on a phone */
+  width: 40em;
+  max-width: calc(100% - 4em);
   text-align: left;
+}
+
+div.boxview.templateplan button.cancelplan {
+  font-weight: normal;
+  font-size: 0.8em;
 }
 
 div.boxview.templateplan h4 {
