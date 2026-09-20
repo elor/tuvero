@@ -36,6 +36,11 @@ class NewTeamView extends View {
   }
 
   updatePlaceholder () {
+    // only a placeholder that carries a slot number counts up; one
+    // that names the field ("Spielername") stays as it is
+    if (!/\d+\s*$/.test(this.firstPlaceholder)) {
+      return
+    }
     const base = this.firstPlaceholder.replace(/\s*\d+\s*$/, '')
     if (!base || !this.model) {
       return

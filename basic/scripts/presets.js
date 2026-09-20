@@ -30,11 +30,20 @@ const Presets = {
   ranking: {
     components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn', 'numgames', 'wins', 'headtohead', 'threepoint', 'twopoint']
   },
+  taboptions: {
+    // a basic team is identified by its name; who plays for it is
+    // detail that can be switched on when it matters
+    showteamname: true,
+    shownames: false
+  },
   registration: {
     defaultteamsize: 1,
     minteamsize: 1,
     maxteamsize: 3,
-    teamsizeicon: false
+    teamsizeicon: false,
+    // the team name carries the registration here; player names are
+    // hidden by default and can be filled in later
+    playernamesoptional: true
   },
   names: {
     playernameurl: '',

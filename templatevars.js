@@ -12,9 +12,9 @@ const { version } = require('./package.json')
 // system get the Supermêlée choice in the create dialog.
 
 const variants = {
-  basic: { variant: 'Basic', teamtext: 'Team', teamstext: 'Teams', playertext: 'Team', teamnametext: 'Teamname', teamsicon: 'teams', matchplace: 'Ort', matchplaces: 'Orte', teamsize: false, melee: !!basicPresets.systems.melee, teamnamefirst: false },
-  boule: { variant: 'Boule', teamtext: 'Spieler', teamstext: 'Spieler', playertext: 'Spieler', teamnametext: 'Teamname', teamsicon: 'teams3', matchplace: 'Bahn', matchplaces: 'Bahnen', teamsize: true, melee: !!boulePresets.systems.melee, teamnamefirst: false },
-  tac: { variant: 'TAC', teamtext: 'Team', teamstext: 'Teams', playertext: 'Spieler', teamnametext: 'Team', teamsicon: 'teams', matchplace: 'Tisch', matchplaces: 'Tische', teamsize: false, melee: !!tacPresets.systems.melee, teamnamefirst: true }
+  basic: { variant: 'Basic', teamtext: 'Team', teamstext: 'Teams', playertext: 'Spieler', teamnametext: 'Teamname', teamsicon: 'teams', matchplace: 'Ort', matchplaces: 'Orte', teamsize: false, melee: !!basicPresets.systems.melee, playerplaceholder: 'Spielername', teamnamefirst: true },
+  boule: { variant: 'Boule', teamtext: 'Spieler', teamstext: 'Spieler', playertext: 'Spieler', teamnametext: 'Teamname', teamsicon: 'teams3', matchplace: 'Bahn', matchplaces: 'Bahnen', teamsize: true, melee: !!boulePresets.systems.melee, playerplaceholder: 'Spieler 1', teamnamefirst: false },
+  tac: { variant: 'TAC', teamtext: 'Team', teamstext: 'Teams', playertext: 'Spieler', teamnametext: 'Team', teamsicon: 'teams', matchplace: 'Tisch', matchplaces: 'Tische', teamsize: false, melee: !!tacPresets.systems.melee, playerplaceholder: 'optional', teamnamefirst: true }
 }
 
 export function templateVars (variant) {
