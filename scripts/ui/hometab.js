@@ -60,6 +60,13 @@ class HomeTab extends View {
     this.timeMachineView = new TimeMachineView($container)
 
     /*
+     * "Erste Schritte" points at the tabs it talks about
+     */
+    this.$view.on('click', 'button.tabjump', function () {
+      TabsHandle.focus($(this).attr('data-hash'))
+    })
+
+    /*
      * "Neues Turnier" dialog. Creation itself stays with the existing
      * TimeMachineNewTreeController (input.treename/button.createroot
      * keep their classes); this only opens/closes the dialog and, for
