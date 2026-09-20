@@ -38,3 +38,45 @@
   height: 18px;
   vertical-align: middle;
 }
+
+/* The name is the button to the account dialog: avatar and name on
+   one line, the name truncated rather than pushing the header
+   around. */
+.loginview button.account {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  max-width: 14em;
+  vertical-align: middle;
+}
+
+.loginview button.account .username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+dialog.accountdialog .dialogtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+dialog.accountdialog .accountlinks {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4em;
+  margin: 1em 0;
+}
+
+dialog.accountdialog .accountlinks a {
+  padding: 0.3em 0.5em;
+  border-radius: 0.5em;
+  text-align: left;
+}
+
+dialog.accountdialog .accountlinks a:hover {
+  background: #f0f0f0;
+}

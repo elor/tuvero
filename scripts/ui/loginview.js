@@ -5,6 +5,7 @@ import $ from 'jquery'
 import ValueModel from '../core/valuemodel.js'
 import ClassView from '../core/classview.js'
 import ImageView from './imageview.js'
+import wireDialog from './dialogcontroller.js'
 
 /*
  * The login view is instantiated more than once (home tab and
@@ -37,6 +38,7 @@ class LoginView extends View {
     this.$avatar = this.$view.find('img.avatar')
     this.$loginbutton = this.$view.find('button.login')
     this.$logoutbutton = this.$view.find('button.logout')
+    this.$accountbutton = this.$view.find('button.account')
     this.$busy = this.$view.find('.busy')
     this.$online = this.$view.find('.online')
     this.$offline = this.$view.find('.offline')
@@ -93,6 +95,12 @@ class LoginView extends View {
     $(window).on('beforeunload', function ($) {
       this.closeLoginWindow()
     }.bind(this))
+    // the name is a button: profile, tournaments, registrations and
+    // logout live in the dialog behind it. closeOnAction covers the
+    // logout button inside.
+    wireDialog(this.$view.find('dialog.accountdialog'), this.$accountbutton,
+      { closeOnAction: true })
+
     this.controller = new LoginController(this)
   }
 

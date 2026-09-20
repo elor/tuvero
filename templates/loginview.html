@@ -1,9 +1,44 @@
 <div class="loginview">
-  <img class="avatar userinfo" alt="avatar" src="" /> <span class="username userinfo">%% %%</span>
+  {# logged in: the name is the button to everything account-related #}
+  <button class="account userinfo">
+    <img class="avatar" alt="" src="" />
+    <span class="username">%% %%</span>
+  </button>
 
-  <button class="logout big">logout</button>
   <button class="login big">login</button>
+
   <span class="busy spin" data-img="reload" title="Verbindung zum Server"></span>
+
+  <dialog class="accountdialog">
+    <h3 class="dialogtitle">
+      <img class="avatar" alt="" src="" />
+      <span class="username">%% %%</span>
+    </h3>
+
+    {# rewritten to the serving origin by LoginView, so staging and
+       localhost stay where they are #}
+    <p class="accountlinks">
+      <a class="tiny" data-img="tuvero" target="_blank" rel="noopener"
+         href="https://www.tuvero.de/t/by/me">
+        Meine Turniere
+      </a>
+      <a class="tiny" data-img="teams" target="_blank" rel="noopener"
+         href="https://www.tuvero.de/registrations">
+        Meine Anmeldungen
+      </a>
+      <a class="tiny" data-img="settings" target="_blank" rel="noopener"
+         href="https://www.tuvero.de/profile">
+        Mein Profil
+      </a>
+    </p>
+
+    <p class="dialogactions">
+      <button class="logout tiny" data-img="globeoff">
+        Abmelden
+      </button>
+      <button data-close>Schließen</button>
+    </p>
+  </dialog>
 
   <p class="popupnotice">
     Popup-Blocker aktiv.
