@@ -14,6 +14,18 @@ import State from './state.js'
 import TEMPLATES from '../tournament/templates.js'
 import { canStartNextStep, startNextStep, previewNextStep } from '../tournament/templaterunner.js'
 import Strings from './strings.js'
+import Presets from 'presets'
+
+/**
+ * @return the templates this variant can actually play
+ */
+function availableTemplates () {
+  return TEMPLATES.filter(function (template) {
+    return template.steps.every(function (step) {
+      return !!Presets.systems[step.system]
+    })
+  })
+}
 
 /**
  * @return all registered teams as global team ids, best first
@@ -60,7 +72,7 @@ class TemplatePlanView extends View {
    */
   initTemplates () {
     const view = this
-    TEMPLATES.forEach(function (template) {
+    availableTemplates().forEach(function (template) {
       const $button = $('<button>').text(template.name)
         .attr('data-template', template.id)
       const $entry = $('<li>').append($button)
@@ -85,7 +97,8 @@ class TemplatePlanView extends View {
   update () {
     const plan = State.plan
     const template = plan.getTemplate()
-    this.$view.toggleClass('hidden', !template && !this.canChoose())
+    this.$view.toggleClass('hidden',
+      (!template && !this.canChoose()) || availableTemplates().length === 0)
     this.$choice.toggleClass('hidden', !!template)
     this.$progress.toggleClass('hidden', !template)
     if (!template) {
@@ -101,7 +114,7 @@ class TemplatePlanView extends View {
     const numTeams = State.teams.length
     this.$list.find('button[data-template]').each(function () {
       const $button = $(this)
-      const template = TEMPLATES.filter(function (candidate) {
+      const template = availableTemplates().filter(function (candidate) {
         return candidate.id === $button.attr('data-template')
       })[0]
       $button.prop('disabled', numTeams < template.minteams)
