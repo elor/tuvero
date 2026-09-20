@@ -134,8 +134,10 @@ class TournamentModel extends PropertyModel {
   }
 
   verifyRanking () {
-    const rankingcopy = new RankingModel()
-    rankingcopy.clone(this.ranking)
+    // clone() returns the copy, it does not copy into the receiver —
+    // the old form compared against an empty ranking and always
+    // reported a mismatch
+    const rankingcopy = this.ranking.clone()
     rankingcopy.recalculate(this.history, this.totalvotes)
     return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get())
   }
@@ -477,9 +479,33 @@ class TournamentModel extends PropertyModel {
     }
     this.matches.erase(match)
     this.history.push(matchresult)
-    this.ranking.result(matchresult)
+    this.applyResult(matchresult)
     this.postprocessMatch(matchresult)
     this.checkIdleState()
+  }
+
+  /**
+   * Feed a finished match into the ranking.
+   *
+   * Overridable seam: in most systems a match side and a ranking
+   * entry are the same thing, but a Supermêlée plays line-ups and
+   * ranks the players inside them, so it translates here.
+   *
+   * @param matchresult
+   *          a MatchResult instance with internal ids
+   */
+  applyResult (matchresult) {
+    this.ranking.result(matchresult)
+  }
+
+  /**
+   * Feed a correction into the ranking. Same seam as applyResult().
+   *
+   * @param correction
+   *          a CorrectionModel instance with internal ids
+   */
+  applyCorrection (correction) {
+    this.ranking.correct(correction)
   }
 
   /*****************************************************************************
@@ -635,7 +661,7 @@ class TournamentModel extends PropertyModel {
       this.emit('error', 'correction is invalid, although the score is fine')
       return false
     }
-    this.ranking.correct(correction)
+    this.applyCorrection(correction)
     this.corrections.push(correction)
     this.history.set(index, correction.after)
     this.postprocessCorrection(correction)
