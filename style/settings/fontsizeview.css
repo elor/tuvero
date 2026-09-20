@@ -29,6 +29,30 @@
   transition: background 0.15s, color 0.15s;
 }
 
+/* The size classes are percentages of the inherited size — which
+   the control itself scales, so the letters grew along with the
+   page and the preview stopped meaning anything. In rem they say
+   what they show, whatever the page is set to. */
+.fontsizeview > button.fontsizetiny {
+  font-size: 0.6rem;
+}
+
+.fontsizeview > button.fontsizesmall {
+  font-size: 0.8rem;
+}
+
+.fontsizeview > button.fontsizenormal {
+  font-size: 1rem;
+}
+
+.fontsizeview > button.fontsizelarge {
+  font-size: 1.25rem;
+}
+
+.fontsizeview > button.fontsizehuge {
+  font-size: 1.6rem;
+}
+
 .fontsizeview > button:first-child {
   border-left-width: 1px;
   border-radius: 0.4rem 0 0 0.4rem;
