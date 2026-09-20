@@ -86,3 +86,13 @@ dialog.optionsdialog .options > span {
 #tabs > [data-tab="home"] > .homeboxes > .boxview {
   float: left;
 }
+
+/* Slim icon buttons: a 32px icon makes a 44px button, which towers
+   over the text it sits in. At text size the buttons match the
+   login button next to them. */
+#tabs > div > .tabtitle > .tabactions button[data-img]::before,
+#tabs > [data-tab="home"] .firststeps button[data-img]::before {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
