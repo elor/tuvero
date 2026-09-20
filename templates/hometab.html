@@ -80,7 +80,10 @@
                        placeholder="z.B. Stadtmeisterschaft 2016" />
                 {% if teamsize or melee %}
                 <p class="pillchoice teamsizechoice{% if not teamsize %} meleeonly hidden{% endif %}">
-                    <label class="pill">
+                    {# variants without a team-size choice show this row
+                       for the mêlée only, where tête-à-tête has nothing
+                       to draw #}
+                    <label class="pill{% if not teamsize %} hidden{% endif %}">
                         <input type="radio" name="newteamsize" value="1" />
                         <span class="pillicon tiny" data-img="teams1"></span>
                         Tête-à-tête

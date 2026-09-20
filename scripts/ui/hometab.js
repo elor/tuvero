@@ -104,6 +104,16 @@ class HomeTab extends View {
     const $melee = $dialog.find('input.createmelee')
     const $sizechoice = $dialog.find('.teamsizechoice')
     const updateKind = function () {
+      // a mêlée draws its teams every round -- with tête-à-tête
+      // there is nothing to draw, so the choice is greyed out
+      const single = Number($sizechoice.find('input:checked').val()) === 1
+      $melee.prop('disabled', single)
+      $melee.closest('label').attr('title',
+        single ? 'Supermêlée braucht Doublette oder Triplette' : '')
+      if (single && $melee.prop('checked')) {
+        $dialog.find('input[name="tournamentkind"][value="normal"]')
+          .prop('checked', true)
+      }
       const melee = $melee.prop('checked')
       $dialog.find('.meleehint').toggleClass('hidden', !melee)
       if ($sizechoice.hasClass('meleeonly')) {
@@ -113,7 +123,8 @@ class HomeTab extends View {
       }
     }
     updateKind()
-    $dialog.find('input[name="tournamentkind"]').on('change', updateKind)
+    $dialog.find('input[name="tournamentkind"], input[name="newteamsize"]')
+      .on('change', updateKind)
 
     $dialog.find('button.createroot').on('click', function () {
       // variants without a team-size choice only show the size
