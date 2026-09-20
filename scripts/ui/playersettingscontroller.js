@@ -17,12 +17,15 @@ class PlayerSettingsController extends Controller {
   }
 
   register () {
+    // no save button: every field is applied when it is left
+    this.view.$view.on('change', 'input', this.update)
     this.view.$view.on('click', 'button.reset', this.reset)
     this.view.$view.on('click', 'button.update', this.update)
     this.view.$view.on('keypress', 'input', this.enterkey)
   }
 
   unregister () {
+    this.view.$view.off('change', 'input', this.update)
     this.view.$view.off('click', 'button.reset', this.reset)
     this.view.$view.off('click', 'button.update', this.update)
     this.view.$view.off('keypress', 'input', this.enterkey)
@@ -41,7 +44,6 @@ class PlayerSettingsController extends Controller {
     this.model.license = this.view.$view.find('.license').val()
     this.model.rankingpoints = Number(this.view.$view.find('.rankingpoints').val())
     this.model.elo = Number(this.view.$view.find('.elo').val())
-    Toast.once(Strings.team_settings_updated)
     if (this.teamref.team) {
       this.teamref.team.updateRankingPointSum()
     }

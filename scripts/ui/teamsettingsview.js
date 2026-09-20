@@ -1,4 +1,5 @@
 import View from '../core/view.js'
+import Listener from '../core/listener.js'
 import TeamSettingsController from './teamsettingscontroller.js'
 
 class TeamSettingsView extends View {
@@ -21,9 +22,15 @@ class TeamSettingsView extends View {
     this.update()
   }
 
+  /**
+   * The form belongs to the team tab, which fills it for the next
+   * team: unbind, but leave the markup where it is. (The View
+   * default removes its element, which is right for list rows and
+   * wrong here.)
+   */
   destroy () {
     this.controller.destroy()
-    super.destroy()
+    Listener.prototype.destroy.call(this)
   }
 
   static bindTeamList (teamlist) {

@@ -12,54 +12,20 @@
       <span class="teamno">##</span>
     </h2>
 
-    <div class="teamsettings">
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ID</td>
-            <td class="teamid">##</td>
-          </tr>
-          <tr>
-            <td>Teamnummer</td>
-            <td>
-              <input type="text" class="teamnumber" />
-            </td>
-          </tr>
-          <tr>
-            <td>Pseudonym</td>
-            <td>
-              <input type="text" class="alias" />
-            </td>
-          </tr>
-          <tr>
-            <td>Verein</td>
-            <td>
-              <input type="text" class="club" />
-            </td>
-          </tr>
-          <tr>
-            <td>Ranglistenpunkte</td>
-            <td>
-              <input type="number" class="rankingpoints" />
-            </td>
-          </tr>
-          <tr>
-            <td>Elo-Punkte</td>
-            <td>
-              <input type="number" class="elo" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <button class="update">Speichern</button>
-      <button class="reset">Zurücksetzen</button>
+    {# the two things one actually edits: applied as they are typed #}
+    <div class="teamnames">
+      <p>
+        <label>Teamname
+          <input type="text" class="teamalias" />
+        </label>
+      </p>
+      <div class="playernames">
+        <p class="template playername">
+          <label><span class="playerlabel">{{ teamtext }}</span>
+            <input type="text" class="playeralias" />
+          </label>
+        </p>
+      </div>
     </div>
 
     <div class="teammatches matchtable">
@@ -84,9 +50,11 @@
       </div>
     </div>
 
-    <div class="playersettings">
-      <h3>Spieler</h3>
-      <div class="template player">
+    {# everything else about the team, out of the way until it is
+       wanted -- also applied as it is typed #}
+    <div class="boxview collapsed advanced">
+      <h3>Erweitert</h3>
+      <div class="teamsettings">
         <table>
           <thead>
             <tr>
@@ -96,54 +64,33 @@
           </thead>
           <tbody>
             <tr>
-              <td>Lizenznummer</td>
+              <td>ID</td>
+              <td class="teamid">##</td>
+            </tr>
+            <tr>
+              <td>Teamnummer</td>
               <td>
-                <input type="text" class="license" />
+                <input type="text" class="teamnumber" />
               </td>
             </tr>
-
             <tr>
-              <td>Vorname</td>
-              <td>
-                <input type="text" class="firstname" />
-              </td>
-            </tr>
-
-            <tr>
-              <td>Nachname</td>
-              <td>
-                <input type="text" class="lastname" />
-              </td>
-            </tr>
-
-            <tr>
-              <td>Name / Pseudonym</td>
+              <td>Pseudonym</td>
               <td>
                 <input type="text" class="alias" />
               </td>
             </tr>
-
             <tr>
               <td>Verein</td>
               <td>
                 <input type="text" class="club" />
               </td>
             </tr>
-
-            <tr>
-              <td>Email</td>
-              <td>
-                <input type="text" class="email" />
-              </td>
-            </tr>
-
             <tr>
               <td>Ranglistenpunkte</td>
               <td>
                 <input type="number" class="rankingpoints" />
               </td>
             </tr>
-
             <tr>
               <td>Elo-Punkte</td>
               <td>
@@ -153,8 +100,78 @@
           </tbody>
         </table>
 
-        <button class="update">Speichern</button>
-        <button class="reset">Zurücksetzen</button>
+      </div>
+
+      <div class="playersettings">
+        <h3>Spieler</h3>
+        <div class="template player">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lizenznummer</td>
+                <td>
+                  <input type="text" class="license" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Vorname</td>
+                <td>
+                  <input type="text" class="firstname" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Nachname</td>
+                <td>
+                  <input type="text" class="lastname" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Name / Pseudonym</td>
+                <td>
+                  <input type="text" class="alias" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Verein</td>
+                <td>
+                  <input type="text" class="club" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Email</td>
+                <td>
+                  <input type="text" class="email" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Ranglistenpunkte</td>
+                <td>
+                  <input type="number" class="rankingpoints" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Elo-Punkte</td>
+                <td>
+                  <input type="number" class="elo" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
       </div>
     </div>
 
