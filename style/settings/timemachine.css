@@ -25,3 +25,13 @@
 .timemachineview .rootcommits > .timemachinecommitview.activetree {
   order: -1;
 }
+
+/* "Öffnen" and the other buttons in the tournament lists: icon at
+   text size rather than 32px, like the buttons in the tab headings.
+   Covers the server rows too — same list, same buttons. */
+.timemachinecommitview > .commitactions button[data-img]::before,
+.servertournamentview button[data-img]::before {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}

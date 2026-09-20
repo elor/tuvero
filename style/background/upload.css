@@ -20,8 +20,11 @@ body.loggedout button.linkserver {
 }
 
 /* Muted meta line under the tournament name: start date and last
- * change, exact timestamps in the hover text. */
-.timemachinecommitview .meta {
+ * change (exact timestamps in the hover text) for local
+ * tournaments, date and place for the ones on the server. Same
+ * line, same look. */
+.timemachinecommitview .meta,
+.servertournamentview .serversource {
   color: #777777;
   font-size: 0.9em;
   margin: 0.1em 0 0.4em;

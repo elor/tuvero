@@ -3,10 +3,8 @@
 }
 
 /* Frame and title come from .boxview — the rows ARE BoxViews, like
- * the local tournament boxes. Only the extras live here. */
-.servertournamentview .serversource {
-	margin: 0.1em 0 0.4em;
-}
+ * the local tournament boxes, and the meta line shares their rule
+ * (style/background/upload.css). Only the extras live here. */
 
 /* a local copy exists: the tournament is already in the local list
  * above, so the server row is redundant */
