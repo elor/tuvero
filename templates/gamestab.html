@@ -1,13 +1,4 @@
 <div data-tab="games" accesskey="g">
-  <p class="tabactions">
-    {# whitespace between icon and label, like the other icon buttons #}
-    <button class="print tiny" data-img="print">
-      Drucken
-    </button>
-    <button class="viewoptions tiny" data-img="settings">
-      Ansicht
-    </button>
-  </p>
 
   <dialog class="optionsdialog">
     <h3 class="dialogtitle">Ansicht</h3>
@@ -26,7 +17,18 @@
       <button data-close>Schließen</button>
     </p>
   </dialog>
-  <h2>Laufende Spiele</h2>
+  <div class="tabtitle">
+    <h2>Laufende Spiele</h2>
+    <p class="tabactions">
+      {# whitespace between icon and label, like the other icon buttons #}
+      <button class="print tiny" data-img="print">
+        Drucken
+      </button>
+      <button class="viewoptions tiny" data-img="eye">
+        Ansicht
+      </button>
+    </p>
+  </div>
 
   <div class="tournamentlist">
     <div class="boxview tournament dontprintresultcol template">

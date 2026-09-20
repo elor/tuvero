@@ -53,6 +53,10 @@ h2[data-img]::before,
 
 
 
+[data-img="eye"]::before {
+  background-image: url("../../core/images/eye.png");
+}
+
 [data-img="globe"]::before {
   background-image: url("../../core/images/globe.png");
 }

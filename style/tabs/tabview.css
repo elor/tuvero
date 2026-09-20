@@ -23,10 +23,25 @@
   display: block;
 }
 
-/* print + view options, top right of every tab */
-#tabs > div > .tabactions {
-  float: right;
-  margin: 0 0 0.5em 0.5em;
+/* The tab heading carries the print and view-options buttons on
+   its own line: the heading stays centred in the full width, the
+   buttons sit at the right edge beside it. */
+#tabs > div > .tabtitle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5em;
+}
+
+#tabs > div > .tabtitle > h2 {
+  margin: 0.4em 0;
+}
+
+#tabs > div > .tabtitle > .tabactions {
+  position: absolute;
+  right: 0;
+  margin: 0;
   white-space: nowrap;
 }
 
@@ -59,7 +74,7 @@ dialog.optionsdialog .options > span {
     padding: 0em;
   }
 
-  #tabs > div > .tabactions,
+  #tabs > div > .tabtitle > .tabactions,
   #tabs > div > .tabhint {
     display: none;
   }
