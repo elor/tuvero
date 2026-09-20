@@ -12,7 +12,30 @@ import TournamentModel from '../tournament/tournamentmodel.js'
 import StateSaver from '../ui/statesaver.js'
 import Listener from '../core/listener.js'
 import Server from '../ui/server.js'
+import TimeMachine from '../timemachine/timemachine.js'
+import UploadLog from '../ui/uploadlog.js'
+import { syncState, SYNC_UNSYNCED } from '../core/syncstatus.js'
 import upload from './upload.js'
+
+/**
+ * Is there anything the server does not have yet?
+ *
+ * Restoring a state fires the same change events as editing one, so
+ * without this every reload of a tournament with teams in it sent
+ * the unchanged state back to the server.
+ *
+ * @param serverlink
+ *          the tournament's server id
+ * @return true if the local state is ahead of the last upload
+ */
+function hasUnsentChanges (serverlink) {
+  const commit = TimeMachine.commit.get()
+  return syncState({
+    serverlink,
+    lastUpload: UploadLog.lastUpload(serverlink),
+    lastSave: commit && commit.key ? new Date(commit.key.saveDate) : undefined
+  }) === SYNC_UNSYNCED
+}
 let updatePending
 const AutoSave = undefined
 updatePending = undefined
@@ -28,8 +51,11 @@ function save () {
         // Linked tournaments always upload: being linked IS the
         // opt-in, and a tournament that silently stops syncing is
         // worse than an extra request. Guarded so upload() doesn't
-        // toast about a missing login or link on every save.
-        if (Server.logged_in.get() && State.serverlink.get()) {
+        // toast about a missing login or link on every save, and so
+        // a state the server already has stays where it is.
+        const serverlink = State.serverlink.get()
+        if (Server.logged_in.get() && serverlink &&
+            hasUnsentChanges(serverlink)) {
           upload()
         }
       } else {
