@@ -87,36 +87,57 @@ function extractMatches (state) {
     return team.map(team => teams[team])
   }
 
-  function formatMatch (match) {
+  /*
+   * A Supermêlée side is a line-up drawn for that round, not a
+   * registered team, so it resolves to the list of its players —
+   * the same shape an interlaced side already has.
+   */
+  function sideResolver (tournament) {
+    if (!tournament.getLineup) {
+      return insertTeam
+    }
+    return function (lineupid) {
+      return (tournament.getLineup(lineupid) || []).map(function (playerid) {
+        return teams[tournament.teams.get(playerid)]
+      })
+    }
+  }
+
+  function formatMatch (match, resolve) {
     return {
-      teams: match.teams.map(insertTeam),
+      teams: match.teams.map(resolve),
       group: match.group,
       id: match.getID(),
       place: match.place || ''
     }
   }
 
-  function formatResult (match) {
-    const result = formatMatch(match)
+  function formatResult (match, resolve) {
+    const result = formatMatch(match, resolve)
     result.score = match.score
     return result
   }
 
   return {
     tournaments: state.tournaments.map(function (tournament) {
+      const resolve = sideResolver(tournament)
       return {
         name: tournament.getName().get(),
         size: tournament.getTeams().length,
         state: tournament.getState().get(),
         system: tournament.SYSTEM,
-        finished: tournament.getHistory().map(formatResult),
+        finished: tournament.getHistory().map(function (match) {
+          return formatResult(match, resolve)
+        }),
         running: tournament.getMatches().asArray()
           .filter(match => match.teams.indexOf(undefined) === -1)
-          .map(formatMatch),
+          .map(function (match) {
+            return formatMatch(match, resolve)
+          }),
         corrections: tournament.getCorrections().map(function (correction) {
           return {
-            before: formatResult(correction.before),
-            after: formatResult(correction.after)
+            before: formatResult(correction.before, resolve),
+            after: formatResult(correction.after, resolve)
           }
         })
       }
