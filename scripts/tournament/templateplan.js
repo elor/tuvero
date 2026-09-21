@@ -10,6 +10,8 @@
  * @see LICENSE
  */
 
+import { withDefaults } from './templates.js'
+
 /**
  * @param tournament
  *          a TournamentModel
@@ -88,6 +90,115 @@ function teamsOf (tournaments) {
 }
 
 /**
+ * @param groupCount
+ *          how many group phases feed the final
+ * @param options
+ *          the plan options
+ * @return how many teams of every group play the final
+ */
+export function qualifiersPerGroup (groupCount, options) {
+  return Math.max(1, Math.floor(withDefaults(options).kosize /
+    Math.max(1, groupCount)))
+}
+
+/**
+ * @param size
+ *          the number of teams in a KO tournament
+ * @return the rounds it takes to play it
+ */
+function koRounds (size) {
+  return size >= 2 ? Math.ceil(Math.log2(size)) : 0
+}
+
+/**
+ * @param template
+ *          a template
+ * @param options
+ *          the plan options
+ * @return {rounds, matches}: the rounds the whole tournament takes
+ *         and the most matches a single team can play in it
+ */
+export function schedule (template, options) {
+  const complete = withDefaults(options)
+  let rounds = 0
+  let matches = 0
+  let alternative = 0
+  template.steps.forEach(function (step) {
+    switch (step.kind) {
+      case 'groups':
+        rounds += complete.rounds
+        matches += complete.rounds
+        alternative = 0
+        break
+      case 'top':
+      case 'brackets':
+        rounds += koRounds(complete.kosize)
+        matches += koRounds(complete.kosize)
+        alternative = koRounds(complete.kosize)
+        break
+      case 'rest':
+        rounds += complete.rounds
+        // a team plays either the final or the placement round
+        matches += Math.max(0, complete.rounds - alternative)
+        alternative = 0
+        break
+    }
+  })
+  return { rounds, matches }
+}
+
+/**
+ * @param template
+ *          a template
+ * @param options
+ *          the plan options
+ * @return the smallest field this template makes sense for
+ */
+export function minTeams (template, options) {
+  const complete = withDefaults(options)
+  let min = 2
+  const hasRest = template.steps.some(function (step) {
+    return step.kind === 'rest'
+  })
+  template.steps.forEach(function (step) {
+    if (step.kind === 'groups') {
+      min = Math.max(min, step.groups * 2)
+    }
+    if (step.kind === 'top') {
+      // somebody has to be left over for the placement round
+      min = Math.max(min, complete.kosize + (hasRest ? 2 : 0))
+    }
+  })
+  return min
+}
+
+/**
+ * @param template
+ *          a template
+ * @param stepIndex
+ *          one of its steps
+ * @param options
+ *          the plan options
+ * @param groupCount
+ *          how many group phases the step before it had
+ * @return the step's label, with the configured numbers in it
+ */
+export function stepLabel (template, stepIndex, options, groupCount) {
+  const step = template.steps[stepIndex]
+  const complete = withDefaults(options)
+  switch (step.kind) {
+    case 'top':
+      return 'Finale der besten ' +
+        qualifiersPerGroup(groupCount || 1, complete) +
+        (groupCount > 1 ? ' jeder Gruppe' : '')
+    case 'brackets':
+      return 'KO-Turniere A, B, C … mit je ' + complete.kosize + ' Teams'
+    default:
+      return step.label
+  }
+}
+
+/**
  * @param template
  *          a template
  * @param stepIndex
@@ -123,6 +234,32 @@ export function stepReady (template, stepIndex, context) {
  * @param template
  *          a template
  * @param stepIndex
+ *          a step which is supposed to cover the whole field
+ * @param context
+ *          as for planStep()
+ * @return the teams this step leaves without a phase
+ */
+export function unplacedTeams (template, stepIndex, context) {
+  if (template.steps[stepIndex].kind !== 'brackets') {
+    return []
+  }
+  const pool = interleave(
+    groupTournaments(template, stepIndex, context).map(rankedTeams))
+  const placed = []
+  planStep(template, stepIndex, context).forEach(function (spec) {
+    spec.teamIDs.forEach(function (teamID) {
+      placed.push(teamID)
+    })
+  })
+  return pool.filter(function (teamID) {
+    return placed.indexOf(teamID) === -1
+  })
+}
+
+/**
+ * @param template
+ *          a template
+ * @param stepIndex
  *          which of its steps to plan
  * @param context
  *          {teamIDs: all registered teams, in global ranking order;
@@ -132,6 +269,7 @@ export function stepReady (template, stepIndex, context) {
 export function planStep (template, stepIndex, context) {
   const step = template.steps[stepIndex]
   const teamIDs = context.teamIDs || []
+  const options = withDefaults(context.options)
 
   switch (step.kind) {
     case 'groups': {
@@ -150,8 +288,9 @@ export function planStep (template, stepIndex, context) {
 
     case 'top': {
       const groups = groupTournaments(template, stepIndex, context)
+      const perGroup = qualifiersPerGroup(groups.length, options)
       const qualified = interleave(groups.map(function (tournament) {
-        return rankedTeams(tournament).slice(0, step.perGroup)
+        return rankedTeams(tournament).slice(0, perGroup)
       }))
       return [{
         system: step.system,
@@ -165,13 +304,14 @@ export function planStep (template, stepIndex, context) {
       const groups = groupTournaments(template, stepIndex, context)
       const ranked = interleave(groups.map(rankedTeams))
       const blocks = []
-      for (let index = 0; index < ranked.length; index += step.size) {
-        blocks.push(ranked.slice(index, index + step.size))
+      for (let index = 0; index < ranked.length; index += options.kosize) {
+        blocks.push(ranked.slice(index, index + options.kosize))
       }
-      // a single team cannot play a bracket of its own
+      // a single team cannot play a bracket of its own -- and it must
+      // not be stuffed into the bracket above it either, which would
+      // turn a clean field of eight into nine. It hangs over instead.
       if (blocks.length > 1 && blocks[blocks.length - 1].length < 2) {
-        const lonely = blocks.pop()
-        blocks[blocks.length - 1] = blocks[blocks.length - 1].concat(lonely)
+        blocks.pop()
       }
       let bracketIndex = 0
       return blocks.map(function (ids) {
@@ -179,7 +319,7 @@ export function planStep (template, stepIndex, context) {
           system: step.system,
           name: String.fromCharCode('A'.charCodeAt(0) + bracketIndex) + '-Turnier',
           teamIDs: ids,
-          startIndex: bracketIndex * step.size
+          startIndex: bracketIndex * options.kosize
         }
         bracketIndex += 1
         return spec

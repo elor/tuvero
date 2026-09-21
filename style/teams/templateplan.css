@@ -79,3 +79,28 @@ div.boxview.templateplan .stephint {
   color: #777;
   font-size: 0.9em;
 }
+
+div.boxview.templateplan .planoptions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+div.boxview.templateplan .planoptions label {
+  white-space: nowrap;
+}
+
+div.boxview.templateplan .planoptions input,
+div.boxview.templateplan .planoptions select {
+  width: 4.5em;
+  margin-left: 0.3em;
+}
+
+div.boxview.templateplan .planschedule {
+  margin-bottom: 1em;
+  text-align: center;
+  color: #555;
+  font-size: 0.9em;
+}

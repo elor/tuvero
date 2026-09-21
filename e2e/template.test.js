@@ -1,60 +1,56 @@
 import { test, expect } from './coverage.fixture.js'
 import { collectErrors, goTab, createTournament, registerTeams, finishAllMatches } from './helpers.js'
 
-const TEAMS = ['Alice', 'Bob', 'Carol', 'Dave', 'Eve', 'Frank', 'Grace',
-  'Heidi', 'Ivan', 'Judy']
+const TEAMS = ['Alice', 'Bob', 'Carol', 'Dave', 'Eve', 'Frank',
+  'Grace', 'Heidi', 'Ivan', 'Judy', 'Mallory', 'Niaj']
 
-// Play one round in every group phase and end them, which is what a
-// template waits for before it draws the next step.
-async function playAndCloseAll (page) {
-  await goTab(page, 'teams')
-  const runButtons = page.locator('.system:not(.template) button.runtournament:visible')
-  const count = await runButtons.count()
-  for (let i = 0; i < count; i++) {
-    await runButtons.first().click()
-    await expect(page.locator('.system:not(.template).running')).toHaveCount(i + 1)
-  }
-  await finishAllMatches(page)
-  await goTab(page, 'teams')
-  // closing one phase re-renders the whole table, so reload between
-  // the clicks instead of racing the buttons as they are replaced
-  const closeButtons = page.locator('.system:not(.template) button.closetournament:visible')
-  for (let remaining = await closeButtons.count(); remaining > 0; remaining--) {
-    await goTab(page, 'teams')
-    await closeButtons.first().click()
-    await expect(closeButtons).toHaveCount(remaining - 1)
-  }
-}
-
-test('a template plays groups, final and placement round', async ({ page }) => {
+test('a template draws, starts and ends every phase', async ({ page }) => {
   const errors = collectErrors(page)
   await createTournament(page, 'Vorlage')
   await goTab(page, 'teams')
   await registerTeams(page, TEAMS)
 
   await page.locator('.templateplan button[data-template="groupsfinal"]').click()
-  const start = page.locator('.templateplan button.startstep')
-  await expect(start).toBeEnabled()
-  await start.click()
+  // one qualifying round keeps the test short
+  await page.locator('.templateplan input.planrounds').fill('1')
+  await page.locator('.templateplan input.planrounds').dispatchEvent('change')
+  // one group round, three KO rounds, one placement round -- and a
+  // team plays either the final or the placement round
+  await expect(page.locator('.templateplan .planschedule'))
+    .toHaveText('insgesamt 5 Runden · höchstens 4 Begegnungen pro Team')
 
-  await expect(page.locator('.system:not(.template)')).toHaveCount(2)
-  await expect(page.locator('.system:not(.template) .tournamentname').first())
+  const step = page.locator('.templateplan button.planstep')
+  const round = page.locator('.templateplan button.planround')
+  await expect(step).toHaveText('Vorrunden starten')
+  await step.click()
+
+  // both group phases are drawn and running
+  await expect(page.locator('.system:not(.template):not(.newsystem)')).toHaveCount(2)
+  await expect(page.locator('.system:not(.template):not(.newsystem).running')).toHaveCount(2)
+  await expect(page.locator('.system:not(.template):not(.newsystem) .tournamentname').first())
     .toHaveText('Vorrunde A')
-  // the next step waits for the group phases
-  await expect(start).toBeDisabled()
+  await expect(step).toBeDisabled()
 
-  await playAndCloseAll(page)
-  await expect(start).toBeEnabled()
-  await expect(start).toHaveText(/Finale/)
-  await start.click()
-  await expect(page.locator('.system:not(.template)')).toHaveCount(1)
-  await expect(page.locator('.system:not(.template) .tournamentname').first())
+  await finishAllMatches(page)
+  await goTab(page, 'teams')
+  // the single round is played, so there is nothing left to start here
+  await expect(round).toBeHidden()
+  await expect(step).toHaveText('Finale starten')
+  await expect(step).toBeEnabled()
+  await step.click()
+
+  // the groups were ended on the way and the final is under way
+  await expect(page.locator('.system:not(.template):not(.newsystem)')).toHaveCount(1)
+  await expect(page.locator('.system:not(.template):not(.newsystem) .tournamentname').first())
     .toHaveText('Finale')
+  await expect(page.locator('.system:not(.template):not(.newsystem).running')).toHaveCount(1)
 
-  await playAndCloseAll(page)
-  await expect(start).toHaveText(/Platzierungsrunde/)
-  await start.click()
-  await expect(page.locator('.system:not(.template) .tournamentname').first())
+  await finishAllMatches(page)
+  await goTab(page, 'teams')
+  await expect(step).toHaveText('Platzierungsrunde starten')
+  await step.click()
+  // the swiss box repeats its name below the options
+  await expect(page.locator('.system:not(.template):not(.newsystem) .tournamentname').first())
     .toHaveText('Platzierungsrunde')
   await expect(page.locator('.templateplan .stephint'))
     .toHaveText(/Alle Phasen sind ausgelost/)

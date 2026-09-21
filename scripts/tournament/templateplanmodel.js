@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 import Model from '../core/model.js'
-import { templateById } from './templates.js'
+import { templateById, withDefaults } from './templates.js'
 
 class TemplatePlanModel extends Model {
   constructor () {
@@ -17,6 +17,30 @@ class TemplatePlanModel extends Model {
     this.id = undefined
     // steps[stepIndex] = the tournament ids created for that step
     this.steps = []
+    // how many qualifying rounds, how big the KO tournaments are
+    this.options = withDefaults({})
+  }
+
+  /**
+   * change one of the options. Only possible as long as no phase has
+   * been drawn -- afterwards the numbers are part of what is played.
+   *
+   * @return true when the value was taken
+   */
+  setOption (name, value) {
+    if (this.steps.length > 0 || this.options[name] === undefined) {
+      return false
+    }
+    this.options[name] = value
+    this.emit('update')
+    return true
+  }
+
+  /**
+   * @return true while the options can still be changed
+   */
+  isConfigurable () {
+    return this.steps.length === 0
   }
 
   /**
@@ -47,6 +71,7 @@ class TemplatePlanModel extends Model {
     }
     this.id = id
     this.steps = []
+    this.options = withDefaults({})
     this.emit('update')
     return true
   }
@@ -102,6 +127,7 @@ class TemplatePlanModel extends Model {
   clear () {
     this.id = undefined
     this.steps = []
+    this.options = withDefaults({})
     this.emit('update')
   }
 
@@ -109,6 +135,7 @@ class TemplatePlanModel extends Model {
     const data = super.save()
     data.id = this.id
     data.steps = this.steps
+    data.options = this.options
     return data
   }
 
@@ -120,6 +147,7 @@ class TemplatePlanModel extends Model {
     this.steps = (data.steps || []).map(function (ids) {
       return ids.slice(0)
     })
+    this.options = withDefaults(data.options)
     this.emit('update')
     return true
   }
@@ -132,5 +160,6 @@ TemplatePlanModel.prototype.EVENTS = {
 TemplatePlanModel.prototype.SAVEFORMAT = Object.create(Model.prototype.SAVEFORMAT)
 TemplatePlanModel.prototype.SAVEFORMAT.id = String
 TemplatePlanModel.prototype.SAVEFORMAT.steps = [[Number]]
+TemplatePlanModel.prototype.SAVEFORMAT.options = Object
 
 export default TemplatePlanModel

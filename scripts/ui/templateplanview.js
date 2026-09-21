@@ -11,8 +11,9 @@ import $ from 'jquery'
 import View from '../core/view.js'
 import Listener from '../core/listener.js'
 import State from './state.js'
-import TEMPLATES from '../tournament/templates.js'
-import { canStartNextStep, startNextStep, previewNextStep } from '../tournament/templaterunner.js'
+import TEMPLATES, { OPTIONS } from '../tournament/templates.js'
+import { canAdvance, advanceToNextStep, canStartRound, startPendingRounds, previewNextStep, previewUnplaced } from '../tournament/templaterunner.js'
+import { schedule, minTeams, stepLabel } from '../tournament/templateplan.js'
 import Strings from './strings.js'
 import Presets from 'presets'
 
@@ -43,13 +44,24 @@ class TemplatePlanView extends View {
     this.$progress = this.$view.find('.templateprogress')
     this.$name = this.$view.find('.templatename')
     this.$steps = this.$view.find('.templatesteps')
-    this.$start = this.$view.find('button.startstep')
+    this.$start = this.$view.find('button.planstep')
+    this.$round = this.$view.find('button.planround')
+    this.$options = this.$view.find('.planoptions')
+    this.$rounds = this.$view.find('input.planrounds')
+    this.$kosize = this.$view.find('select.plankosize')
+    this.$schedule = this.$view.find('.planschedule')
     this.$hint = this.$view.find('.stephint')
 
     this.initTemplates()
+    this.initOptions()
     const view = this
     this.$start.click(function () {
-      startNextStep(State.plan, seededTeams(), State.tournaments)
+      advanceToNextStep(State.plan, seededTeams(), State.tournaments)
+      view.update()
+    })
+    this.$round.click(function () {
+      startPendingRounds(State.plan, State.tournaments)
+      view.update()
     })
     this.$view.find('button.cancelplan').click(function () {
       if (window.confirm(Strings.confirm_plan_cancel)) {
@@ -65,6 +77,27 @@ class TemplatePlanView extends View {
     window.setTimeout(function () {
       view.update()
     }, 0)
+  }
+
+  /**
+   * the two numbers which shape the whole tournament
+   */
+  initOptions () {
+    const view = this
+    this.$rounds.attr('min', OPTIONS.rounds.min).attr('max', OPTIONS.rounds.max)
+    this.$rounds.parent().find('.optionlabel').text(OPTIONS.rounds.label)
+    this.$kosize.parent().find('.optionlabel').text(OPTIONS.kosize.label)
+    OPTIONS.kosize.values.forEach(function (value) {
+      view.$kosize.append($('<option>').attr('value', value).text(value))
+    })
+    this.$rounds.on('change', function () {
+      State.plan.setOption('rounds', Number(view.$rounds.val()))
+      view.update()
+    })
+    this.$kosize.on('change', function () {
+      State.plan.setOption('kosize', Number(view.$kosize.val()))
+      view.update()
+    })
   }
 
   /**
@@ -106,8 +139,10 @@ class TemplatePlanView extends View {
       return
     }
     this.$name.text(template.name)
+    this.updateOptions(template)
     this.updateSteps(template)
     this.updateStartButton(template)
+    this.$round.toggleClass('hidden', !canStartRound(State.plan, State.tournaments))
   }
 
   updateTemplateButtons () {
@@ -117,11 +152,29 @@ class TemplatePlanView extends View {
       const template = availableTemplates().filter(function (candidate) {
         return candidate.id === $button.attr('data-template')
       })[0]
-      $button.prop('disabled', numTeams < template.minteams)
+      $button.prop('disabled', numTeams < minTeams(template, undefined))
     })
     this.$view.find('.hint').text(numTeams < 2
       ? 'Melde zuerst die Teams an, dann steht der Ablauf zur Wahl.'
       : TemplatePlanView.prototype.HINT)
+  }
+
+  /**
+   * the options, and what they add up to
+   */
+  updateOptions (template) {
+    const options = State.plan.options
+    this.$options.toggleClass('hidden', !State.plan.isConfigurable())
+    this.$rounds.val(options.rounds)
+    this.$kosize.val(options.kosize)
+    const plan = schedule(template, options)
+    const settings = State.plan.isConfigurable()
+      // the numbers are in the fields right above
+      ? ''
+      : options.rounds + ' ' + OPTIONS.rounds.label + ' · KO-Turniere mit ' +
+        options.kosize + ' Teams · '
+    this.$schedule.text(settings + 'insgesamt ' + plan.rounds +
+      ' Runden · höchstens ' + plan.matches + ' Begegnungen pro Team')
   }
 
   /**
@@ -132,9 +185,13 @@ class TemplatePlanView extends View {
     const next = State.plan.nextStep()
     this.$steps.empty()
     const $steps = this.$steps
+    const groupCount = (template.steps.filter(function (step) {
+      return step.kind === 'groups'
+    })[0] || {}).groups || 1
     template.steps.forEach(function (step, index) {
       const tournaments = played[index] || []
-      const $step = $('<li>').text(step.label)
+      const $step = $('<li>').text(
+        stepLabel(template, index, State.plan.options, groupCount))
       if (tournaments.length) {
         const names = tournaments.map(function (tournament) {
           return tournament.getName().get()
@@ -169,18 +226,27 @@ class TemplatePlanView extends View {
     }
     const step = template.steps[next]
     const teams = seededTeams()
-    const ready = canStartNextStep(State.plan, teams, State.tournaments)
-    this.$start.removeClass('hidden').text(step.label).prop('disabled', !ready)
+    const ready = canAdvance(State.plan, teams, State.tournaments)
+    this.$start.removeClass('hidden').text(step.action || step.label)
+      .prop('disabled', !ready)
     if (!ready) {
-      this.$hint.text(teams.length < template.minteams
-        ? 'Dafür fehlen noch Teams: mindestens ' + template.minteams + '.'
+      const minimum = minTeams(template, State.plan.options)
+      this.$hint.text(teams.length < minimum
+        ? 'Dafür fehlen noch Teams: mindestens ' + minimum + '.'
         : this.waitingHint())
       return
     }
-    this.$hint.text(previewNextStep(State.plan, teams, State.tournaments)
+    const phases = previewNextStep(State.plan, teams, State.tournaments)
       .map(function (spec) {
         return spec.name + ': ' + spec.teamIDs.length + ' ' + Strings.teamstext
-      }).join(' · '))
+      })
+    const unplaced = previewUnplaced(State.plan, teams, State.tournaments)
+    if (unplaced.length) {
+      phases.push(unplaced.length === 1
+        ? 'ein Team bleibt ohne Turnier'
+        : unplaced.length + ' Teams bleiben ohne Turnier')
+    }
+    this.$hint.text(phases.join(' · '))
   }
 
   /**
@@ -193,8 +259,8 @@ class TemplatePlanView extends View {
       return tournament.getState().get() === 'initial'
     })
     return waiting
-      ? 'Starte und beende zuerst die ausgelosten Phasen.'
-      : 'Beende zuerst die laufenden Phasen.'
+      ? 'Starte zuerst die ausgelosten Phasen.'
+      : 'Trage zuerst die offenen Ergebnisse ein.'
   }
 
   onupdate () {

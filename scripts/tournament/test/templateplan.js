@@ -8,7 +8,7 @@
  */
 import { test, expect } from 'vitest'
 
-import { snakeGroups, planStep, stepReady, rankedTeams } from '../templateplan.js'
+import { snakeGroups, planStep, stepReady, rankedTeams, unplacedTeams, schedule, minTeams, qualifiersPerGroup } from '../templateplan.js'
 import { templateById } from '../templates.js'
 import TournamentIndex from '../tournamentindex.js'
 
@@ -170,12 +170,52 @@ test('the Maastricht system splits the field into KO brackets of eight', () => {
     .toEqual(ranked.slice(24))
 })
 
-test('a lonely team joins the last bracket instead of playing alone', () => {
+test('a single leftover team hangs over instead of bloating a bracket', () => {
   const template = templateById('maastricht')
-  const groups = planStep(template, 0, { teamIDs: teamIDs(17), tournaments: [] })
+  const groups = planStep(template, 0, { teamIDs: teamIDs(33), tournaments: [] })
   const played = [playTournament(groups[0].system, groups[0].teamIDs)]
+  const context = { teamIDs: teamIDs(33), tournaments: [played] }
 
-  const specs = planStep(template, 1, { teamIDs: teamIDs(17), tournaments: [played] })
-  expect(specs.map(function (spec) { return spec.teamIDs.length }), '8 and 9')
-    .toEqual([8, 9])
+  const specs = planStep(template, 1, context)
+  expect(specs.map(function (spec) { return spec.teamIDs.length }), 'four times eight')
+    .toEqual([8, 8, 8, 8])
+
+  const ranked = rankedTeams(played[0])
+  expect(unplacedTeams(template, 1, context), 'the last team has no tournament')
+    .toEqual([ranked[32]])
+})
+
+test('two leftover teams still play each other', () => {
+  const template = templateById('maastricht')
+  const groups = planStep(template, 0, { teamIDs: teamIDs(18), tournaments: [] })
+  const played = [playTournament(groups[0].system, groups[0].teamIDs)]
+  const context = { teamIDs: teamIDs(18), tournaments: [played] }
+
+  expect(planStep(template, 1, context).map(function (spec) {
+    return spec.teamIDs.length
+  }), 'eight, eight and a single match').toEqual([8, 8, 2])
+  expect(unplacedTeams(template, 1, context), 'nobody is left out').toEqual([])
+})
+
+test('the schedule counts the rounds and a team\'s matches', () => {
+  const maastricht = templateById('maastricht')
+  expect(schedule(maastricht, { rounds: 5, kosize: 8 }), 'five plus three')
+    .toEqual({ rounds: 8, matches: 8 })
+  expect(schedule(maastricht, { rounds: 3, kosize: 16 }), 'three plus four')
+    .toEqual({ rounds: 7, matches: 7 })
+
+  // a team plays either the final or the placement round, never both
+  const groupsfinal = templateById('groupsfinal')
+  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'five, three, five')
+    .toEqual({ rounds: 13, matches: 10 })
+})
+
+test('the KO size decides the qualifiers and the smallest field', () => {
+  const groupsfinal = templateById('groupsfinal')
+  expect(qualifiersPerGroup(2, { kosize: 8 }), 'four of each group').toBe(4)
+  expect(qualifiersPerGroup(2, { kosize: 16 }), 'eight of each group').toBe(8)
+  expect(minTeams(groupsfinal, { kosize: 8 }), 'and two left over').toBe(10)
+  expect(minTeams(groupsfinal, { kosize: 16 }), 'grows with the final').toBe(18)
+  expect(minTeams(templateById('maastricht'), { kosize: 8 }), 'two per group')
+    .toBe(2)
 })
