@@ -71,11 +71,7 @@ function createPhase (spec, tournaments) {
  *
  * @return true when the phases were created, false otherwise
  */
-export function startNextStep (plan, teamIDs, tournaments) {
-  if (!canStartNextStep(plan, teamIDs, tournaments)) {
-    return false
-  }
-  const stepIndex = plan.nextStep()
+function drawStep (plan, stepIndex, teamIDs, tournaments) {
   const specs = planStep(plan.getTemplate(), stepIndex,
     context(plan, teamIDs, tournaments))
   const created = specs.filter(function (spec) {
@@ -87,6 +83,22 @@ export function startNextStep (plan, teamIDs, tournaments) {
   // any teams left over -- still counts as done, or the plan would
   // never reach its end
   plan.record(stepIndex, created)
+}
+
+export function startNextStep (plan, teamIDs, tournaments) {
+  if (!canStartNextStep(plan, teamIDs, tournaments)) {
+    return false
+  }
+  const steps = plan.getTemplate().steps
+  let stepIndex = plan.nextStep()
+  drawStep(plan, stepIndex, teamIDs, tournaments)
+  // a parallel step is played alongside the one before it, so it is
+  // drawn in the same breath -- the KO phase and the placement round
+  // start together
+  while (steps[stepIndex + 1] && steps[stepIndex + 1].parallel) {
+    stepIndex += 1
+    drawStep(plan, stepIndex, teamIDs, tournaments)
+  }
   return true
 }
 
@@ -98,8 +110,25 @@ export function previewNextStep (plan, teamIDs, tournaments) {
   if (stepIndex === -1) {
     return []
   }
-  return planStep(plan.getTemplate(), stepIndex,
-    context(plan, teamIDs, tournaments))
+  const template = plan.getTemplate()
+  const steps = template.steps
+  const base = context(plan, teamIDs, tournaments)
+  let previous = planStep(template, stepIndex, base)
+  let specs = previous
+  // whatever is drawn together is previewed together -- and the
+  // parallel step only sees the teams its sibling leaves behind once
+  // it is told about them, since that one does not exist yet
+  let next = stepIndex + 1
+  while (steps[next] && steps[next].parallel) {
+    const speculative = Object.assign({}, base, { specs: {} })
+    speculative.specs[next - 1] = previous
+    previous = planStep(template, next, speculative)
+    specs = specs.concat(previous)
+    next += 1
+  }
+  return specs.filter(function (spec) {
+    return spec.teamIDs.length >= 2
+  })
 }
 
 /**
@@ -223,8 +252,8 @@ export function advanceToNextStep (plan, teamIDs, tournaments) {
   if (!startNextStep(plan, teamIDs, tournaments)) {
     return false
   }
-  plan.tournamentsByStep(tournaments)[stepIndex].forEach(function (tournament) {
-    tournament.run()
-  })
+  // everything which was just drawn -- the step and whatever runs
+  // alongside it
+  startPendingRounds(plan, tournaments)
   return true
 }

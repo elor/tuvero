@@ -30,6 +30,8 @@ const OPTIONS = {
  *   previous step, seeded across the groups (A1, B1, A2, …), until
  *   it holds `kosize` teams.
  * - `rest`: one phase for everybody the previous step left over.
+ *   Marked `parallel`, because it is played alongside the KO phase
+ *   rather than after it -- the teams are disjoint.
  * - `brackets`: the whole field, split into blocks of `kosize` by
  *   rank, each block playing its own phase (A, B, C, ...).
  */
@@ -77,12 +79,13 @@ const TEMPLATES = [
         system: 'ko',
         name: 'Finale',
         label: 'Finale auslosen',
-        action: 'Finale starten'
+        action: 'KO-Phase starten'
       },
       {
         kind: 'rest',
         system: 'swiss',
         name: 'Platzierungsrunde',
+        parallel: true,
         label: 'Platzierungsrunde für die übrigen Teams',
         action: 'Platzierungsrunde starten'
       }
@@ -108,12 +111,13 @@ const TEMPLATES = [
         system: 'ko',
         name: 'Finale',
         label: 'Finale auslosen',
-        action: 'Finale starten'
+        action: 'KO-Phase starten'
       },
       {
         kind: 'rest',
         system: 'swiss',
         name: 'Platzierungsrunde',
+        parallel: true,
         label: 'Platzierungsrunde für die übrigen Teams',
         action: 'Platzierungsrunde starten'
       }

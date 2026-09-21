@@ -210,19 +210,20 @@ test('the schedule spells out every phase and adds them up', () => {
   expect(schedule(maastricht, { rounds: 3, kosize: 16 }), 'three plus four')
     .toMatchObject({ rounds: 7, matches: 7 })
 
-  // a team plays either the final or the placement round, never both
+  // the placement round is played alongside the final, so it adds
+  // neither a round to the tournament nor a match to a single team
   const groupsfinal = templateById('groupsfinal')
-  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'five, three, one')
-    .toMatchObject({ rounds: 9, matches: 8 })
-  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'and says so')
+  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'five and three')
     .toMatchObject({
+      rounds: 8,
+      matches: 8,
       lines: [
         '5 Vorrunden',
         'bis zu 3 Runden im Finale',
-        'eine Runde in der Platzierungsrunde'
+        'parallel dazu eine Runde Platzierungsrunde'
       ],
-      total: '9 Runden insgesamt',
-      note: 'höchstens 8 Begegnungen pro Team'
+      total: '8 Runden insgesamt',
+      note: ''
     })
 })
 

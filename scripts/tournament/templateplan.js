@@ -185,11 +185,19 @@ export function schedule (template, options) {
         break
       case 'rest': {
         const placement = stepRounds(step, complete)
-        lines.push(rounds(placement, 'eine Runde', 'Runden') +
-          ' in der Platzierungsrunde')
-        total += placement
-        // a team plays either the final or the placement round
-        matches += Math.max(0, placement - alternative)
+        // played alongside the KO phase, so its rounds only add to
+        // the tournament where they outlast it -- and a single team
+        // plays either the one or the other anyway
+        const extra = step.parallel
+          ? Math.max(0, placement - alternative)
+          : placement
+        lines.push(step.parallel
+          ? 'parallel dazu ' + rounds(placement, 'eine Runde', 'Runden') +
+            ' Platzierungsrunde'
+          : rounds(placement, 'eine Runde', 'Runden') +
+            ' in der Platzierungsrunde')
+        total += extra
+        matches += step.parallel ? extra : Math.max(0, placement - alternative)
         alternative = 0
         break
       }
@@ -260,6 +268,31 @@ export function stepLabel (template, stepIndex, options, groupCount) {
 }
 
 /**
+ * which teams the step before this one takes. Normally those are the
+ * teams of its tournaments -- but a preview has to work before they
+ * exist, so the caller may hand in the specifications instead.
+ *
+ * @param context
+ *          as for planStep()
+ * @param stepIndex
+ *          the step to look back from
+ * @return an array of global team ids
+ */
+function takenTeams (context, stepIndex) {
+  const specs = context.specs && context.specs[stepIndex - 1]
+  if (specs) {
+    const teamIDs = []
+    specs.forEach(function (spec) {
+      spec.teamIDs.forEach(function (teamID) {
+        teamIDs.push(teamID)
+      })
+    })
+    return teamIDs
+  }
+  return teamsOf(context.tournaments[stepIndex - 1] || [])
+}
+
+/**
  * @param template
  *          a template
  * @param stepIndex
@@ -285,6 +318,11 @@ export function stepReady (template, stepIndex, context) {
   const previous = context.tournaments[stepIndex - 1] || []
   if (previous.length === 0) {
     return false
+  }
+  if (template.steps[stepIndex].parallel) {
+    // played alongside the step before it, not after it: as soon as
+    // that one is drawn, this one's teams are known
+    return true
   }
   return previous.every(function (tournament) {
     return tournament.getState().get() === 'finished'
@@ -389,7 +427,7 @@ export function planStep (template, stepIndex, context) {
 
     case 'rest': {
       const groups = groupTournaments(template, stepIndex, context)
-      const taken = teamsOf(context.tournaments[stepIndex - 1] || [])
+      const taken = takenTeams(context, stepIndex)
       const isTaken = function (teamID) {
         return taken.indexOf(teamID) !== -1
       }

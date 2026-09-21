@@ -8,7 +8,7 @@
  */
 import { test, expect } from 'vitest'
 
-import { startNextStep, canStartNextStep, canAdvance, advanceToNextStep, canStartRound, startPendingRounds } from '../templaterunner.js'
+import { startNextStep, canStartNextStep, canAdvance, advanceToNextStep, canStartRound, startPendingRounds, previewNextStep } from '../templaterunner.js'
 import TemplatePlanModel from '../templateplanmodel.js'
 import TournamentListModel from '../tournamentlistmodel.js'
 
@@ -60,10 +60,13 @@ test('the next step waits for the running phases', () => {
   tournaments.forEach(playAll)
   expect(canStartNextStep(plan, teamIDs(16), tournaments), 'now it can').toBe(true)
   expect(startNextStep(plan, teamIDs(16), tournaments), 'and does').toBe(true)
-  expect(tournaments.length, 'the final was added').toBe(3)
+  expect(tournaments.length, 'the final and the placement round').toBe(4)
   expect(tournaments.get(2).getName().get(), 'named Finale').toBe('Finale')
   expect(tournaments.get(2).SYSTEM, 'a KO round').toBe('ko')
   expect(tournaments.startIndex.get(2), 'the finalists lead the ranking').toBe(0)
+  expect(tournaments.get(3).getName().get(), 'and the parallel round')
+    .toBe('Platzierungsrunde')
+  expect(tournaments.startIndex.get(3), 'below the finalists').toBe(8)
 })
 
 test('a finished plan has nothing left to start', () => {
@@ -101,6 +104,8 @@ test('the smallest allowed field still fills every phase', () => {
   expect(plan.isFinished(), 'the plan ran to its end').toBe(true)
   expect(tournaments.length, 'two groups, a final and a placement round')
     .toBe(4)
+  expect(tournaments.get(2).getState().get(), 'the final was played')
+    .toBe('finished')
   expect(tournaments.get(3).getTeams().length, 'the two teams left over')
     .toBe(2)
 })
@@ -162,8 +167,9 @@ test('the next step ends the running phases on its way', () => {
   expect(tournaments.get(0).getState().get(), 'the groups were finished')
     .toBe('finished')
   expect(tournaments.get(1).getState().get(), 'both of them').toBe('finished')
-  expect(tournaments.length, 'and the final was added').toBe(3)
+  expect(tournaments.length, 'final and placement round were added').toBe(4)
   expect(tournaments.get(2).getState().get(), 'already running').toBe('running')
+  expect(tournaments.get(3).getState().get(), 'side by side').toBe('running')
 })
 
 test('the qualifying phase stops after the configured rounds', () => {
@@ -215,4 +221,38 @@ test('the placement round is a single round', () => {
 
   expect(canStartRound(plan, tournaments), 'one round and no more').toBe(false)
   expect(plan.isFinished(), 'the plan is over').toBe(true)
+})
+
+test('the placement round starts together with the final', () => {
+  const plan = new TemplatePlanModel()
+  const tournaments = new TournamentListModel()
+  plan.start('groupsfinal')
+  plan.setOption('rounds', 1)
+  advanceToNextStep(plan, teamIDs(12), tournaments)
+  playOpenMatches(tournaments)
+
+  advanceToNextStep(plan, teamIDs(12), tournaments)
+  expect(tournaments.length, 'groups, final and placement round').toBe(4)
+  expect(plan.isFinished(), 'both were drawn, so the plan is done').toBe(true)
+  expect(tournaments.get(3).getTeams().length, 'the four who did not qualify')
+    .toBe(4)
+
+  playOpenMatches(tournaments)
+  expect(canStartRound(plan, tournaments), 'the placement round is over')
+    .toBe(false)
+})
+
+test('the preview knows which teams the parallel round gets', () => {
+  const plan = new TemplatePlanModel()
+  const tournaments = new TournamentListModel()
+  plan.start('groupsfinal')
+  plan.setOption('rounds', 1)
+  advanceToNextStep(plan, teamIDs(20), tournaments)
+  playOpenMatches(tournaments)
+
+  const preview = previewNextStep(plan, teamIDs(20), tournaments)
+  expect(preview.map(function (spec) { return spec.name }), 'both phases')
+    .toEqual(['Finale', 'Platzierungsrunde'])
+  expect(preview.map(function (spec) { return spec.teamIDs.length }),
+    'the eight who qualified and the twelve who did not').toEqual([8, 12])
 })
