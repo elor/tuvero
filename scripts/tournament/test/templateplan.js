@@ -197,17 +197,33 @@ test('two leftover teams still play each other', () => {
   expect(unplacedTeams(template, 1, context), 'nobody is left out').toEqual([])
 })
 
-test('the schedule counts the rounds and a team\'s matches', () => {
+test('the schedule spells out every phase and adds them up', () => {
   const maastricht = templateById('maastricht')
-  expect(schedule(maastricht, { rounds: 5, kosize: 8 }), 'five plus three')
-    .toEqual({ rounds: 8, matches: 8 })
+  expect(schedule(maastricht, { rounds: 4, kosize: 8 }), 'four and three')
+    .toMatchObject({
+      lines: ['4 Vorrunden', 'bis zu 3 KO-Runden'],
+      total: '7 Runden insgesamt',
+      note: ''
+    })
+  expect(schedule(maastricht, { rounds: 1, kosize: 4 }).lines, 'the singulars')
+    .toEqual(['eine Vorrunde', 'bis zu 2 KO-Runden'])
   expect(schedule(maastricht, { rounds: 3, kosize: 16 }), 'three plus four')
-    .toEqual({ rounds: 7, matches: 7 })
+    .toMatchObject({ rounds: 7, matches: 7 })
 
   // a team plays either the final or the placement round, never both
   const groupsfinal = templateById('groupsfinal')
-  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'five, three, five')
-    .toEqual({ rounds: 13, matches: 10 })
+  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'five, three, one')
+    .toMatchObject({ rounds: 9, matches: 8 })
+  expect(schedule(groupsfinal, { rounds: 5, kosize: 8 }), 'and says so')
+    .toMatchObject({
+      lines: [
+        '5 Vorrunden',
+        'bis zu 3 Runden im Finale',
+        'eine Runde in der Platzierungsrunde'
+      ],
+      total: '9 Runden insgesamt',
+      note: 'höchstens 8 Begegnungen pro Team'
+    })
 })
 
 test('the KO size decides the qualifiers and the smallest field', () => {

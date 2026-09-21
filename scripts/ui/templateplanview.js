@@ -164,17 +164,21 @@ class TemplatePlanView extends View {
    */
   updateOptions (template) {
     const options = State.plan.options
-    this.$options.toggleClass('hidden', !State.plan.isConfigurable())
-    this.$rounds.val(options.rounds)
-    this.$kosize.val(options.kosize)
+    // once a phase is drawn the numbers are part of what is played:
+    // keep them on screen, but out of reach
+    const configurable = State.plan.isConfigurable()
+    this.$options.toggleClass('locked', !configurable)
+    this.$rounds.prop('disabled', !configurable).val(options.rounds)
+    this.$kosize.prop('disabled', !configurable).val(options.kosize)
     const plan = schedule(template, options)
-    const settings = State.plan.isConfigurable()
-      // the numbers are in the fields right above
-      ? ''
-      : options.rounds + ' ' + OPTIONS.rounds.label + ' · KO-Turniere mit ' +
-        options.kosize + ' Teams · '
-    this.$schedule.text(settings + 'insgesamt ' + plan.rounds +
-      ' Runden · höchstens ' + plan.matches + ' Begegnungen pro Team')
+    const $schedule = this.$schedule.empty()
+    plan.lines.forEach(function (line) {
+      $schedule.append($('<li>').text(line))
+    })
+    $schedule.append($('<li>').addClass('total').text(plan.total))
+    if (plan.note) {
+      $schedule.append($('<li>').addClass('note').text(plan.note))
+    }
   }
 
   /**

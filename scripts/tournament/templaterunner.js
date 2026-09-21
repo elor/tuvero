@@ -7,7 +7,7 @@
  */
 import TournamentIndex from './tournamentindex.js'
 import Presets from 'presets'
-import { planStep, stepReady, unplacedTeams, minTeams } from './templateplan.js'
+import { planStep, stepReady, unplacedTeams, minTeams, stepRounds } from './templateplan.js'
 
 /**
  * @param plan
@@ -132,15 +132,19 @@ function pendingTournaments (plan, tournaments) {
   }
   const pending = []
   plan.tournamentsByStep(tournaments).forEach(function (phases, stepIndex) {
-    const kind = template.steps[stepIndex].kind
-    const limited = kind === 'groups' || kind === 'rest'
+    const step = template.steps[stepIndex]
+    // a KO tournament ends by itself; the ones played over rounds
+    // stop when the plan says they are done
+    const limit = step.kind === 'groups' || step.kind === 'rest'
+      ? stepRounds(step, plan.options)
+      : undefined
     phases.forEach(function (tournament) {
       const state = tournament.getState().get()
       if (state !== 'initial' && state !== 'idle') {
         return
       }
-      if (limited && tournament.getRound &&
-        tournament.getRound() + 1 >= plan.options.rounds) {
+      if (limit !== undefined && tournament.getRound &&
+        tournament.getRound() + 1 >= limit) {
         return
       }
       pending.push(tournament)

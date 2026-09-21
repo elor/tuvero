@@ -115,36 +115,97 @@ function koRounds (size) {
  *          a template
  * @param options
  *          the plan options
- * @return {rounds, matches}: the rounds the whole tournament takes
- *         and the most matches a single team can play in it
+ * @return the rounds the whole tournament takes, the most matches a
+ *         single team can play in it, one line per phase, and both
+ *         summary lines for the box to show
  */
+/**
+ * @param step
+ *          a template step
+ * @param options
+ *          the plan options
+ * @return how many rounds that step is played over
+ */
+export function stepRounds (step, options) {
+  const complete = withDefaults(options)
+  switch (step.kind) {
+    case 'groups':
+      return complete.rounds
+    case 'rest':
+      // the placement round is a single round for everybody who did
+      // not make the KO phase
+      return 1
+    case 'top':
+    case 'brackets':
+      return koRounds(complete.kosize)
+    default:
+      return 0
+  }
+}
+
+/**
+ * @param count
+ *          a number of rounds
+ * @param one
+ *          how to say it for a single round
+ * @param many
+ *          how to say it for more than one
+ */
+function rounds (count, one, many) {
+  return count === 1 ? one : count + ' ' + many
+}
+
 export function schedule (template, options) {
   const complete = withDefaults(options)
-  let rounds = 0
+  const ko = koRounds(complete.kosize)
+  const lines = []
+  let total = 0
   let matches = 0
   let alternative = 0
   template.steps.forEach(function (step) {
     switch (step.kind) {
       case 'groups':
-        rounds += complete.rounds
+        lines.push(rounds(complete.rounds, 'eine Vorrunde', 'Vorrunden'))
+        total += complete.rounds
         matches += complete.rounds
         alternative = 0
         break
       case 'top':
-      case 'brackets':
-        rounds += koRounds(complete.kosize)
-        matches += koRounds(complete.kosize)
-        alternative = koRounds(complete.kosize)
+        lines.push('bis zu ' + rounds(ko, 'einer Runde', 'Runden') +
+          ' im Finale')
+        total += ko
+        matches += ko
+        alternative = ko
         break
-      case 'rest':
-        rounds += complete.rounds
+      case 'brackets':
+        lines.push('bis zu ' + rounds(ko, 'einer KO-Runde', 'KO-Runden'))
+        total += ko
+        matches += ko
+        alternative = ko
+        break
+      case 'rest': {
+        const placement = stepRounds(step, complete)
+        lines.push(rounds(placement, 'eine Runde', 'Runden') +
+          ' in der Platzierungsrunde')
+        total += placement
         // a team plays either the final or the placement round
-        matches += Math.max(0, complete.rounds - alternative)
+        matches += Math.max(0, placement - alternative)
         alternative = 0
         break
+      }
     }
   })
-  return { rounds, matches }
+  return {
+    rounds: total,
+    matches,
+    lines,
+    total: total + ' Runden insgesamt',
+    // only worth saying where the phases do not add up for a single
+    // team: it plays either the final or the placement round
+    note: matches === total
+      ? ''
+      : 'höchstens ' + matches + ' Begegnungen pro Team'
+  }
 }
 
 /**

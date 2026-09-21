@@ -195,3 +195,24 @@ test('the KO size decides how the field is cut', () => {
   expect(tournaments.length, 'four brackets of four').toBe(5)
   expect(tournaments.get(4).getTeams().length, 'the last four').toBe(4)
 })
+
+test('the placement round is a single round', () => {
+  const plan = new TemplatePlanModel()
+  const tournaments = new TournamentListModel()
+  plan.start('groupsfinal')
+  plan.setOption('rounds', 3)
+  advanceToNextStep(plan, teamIDs(12), tournaments)
+  playOpenMatches(tournaments)
+  startPendingRounds(plan, tournaments)
+  playOpenMatches(tournaments)
+  startPendingRounds(plan, tournaments)
+  playOpenMatches(tournaments)
+
+  advanceToNextStep(plan, teamIDs(12), tournaments) // the final
+  playOpenMatches(tournaments)
+  advanceToNextStep(plan, teamIDs(12), tournaments) // the placement round
+  playOpenMatches(tournaments)
+
+  expect(canStartRound(plan, tournaments), 'one round and no more').toBe(false)
+  expect(plan.isFinished(), 'the plan is over').toBe(true)
+})

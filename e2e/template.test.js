@@ -16,8 +16,13 @@ test('a template draws, starts and ends every phase', async ({ page }) => {
   await page.locator('.templateplan input.planrounds').dispatchEvent('change')
   // one group round, three KO rounds, one placement round -- and a
   // team plays either the final or the placement round
-  await expect(page.locator('.templateplan .planschedule'))
-    .toHaveText('insgesamt 5 Runden · höchstens 4 Begegnungen pro Team')
+  await expect(page.locator('.templateplan .planschedule li')).toHaveText([
+    'eine Vorrunde',
+    'bis zu 3 Runden im Finale',
+    'eine Runde in der Platzierungsrunde',
+    '5 Runden insgesamt',
+    'höchstens 4 Begegnungen pro Team'
+  ])
 
   const step = page.locator('.templateplan button.planstep')
   const round = page.locator('.templateplan button.planround')
