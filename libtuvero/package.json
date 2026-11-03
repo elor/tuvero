@@ -43,7 +43,7 @@
     "@types/lodash": "^4.17.16",
     "@vitest/coverage-v8": "^5.1.0",
     "eslint": "^10.4.0",
-    "tsup": "^8.5.0",
+    "tsup": "^9.0.0",
     "typedoc": "^0.28.19",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.33.0",
