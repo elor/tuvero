@@ -1,3 +1,8 @@
+// Pinned to monocart 2.x on purpose: this script feeds one report
+// both Playwright's raw V8 entries and vitest's istanbul JSON, and
+// 3.x rejects that mix ("Invalid file coverage object" out of
+// istanbul-lib-coverage). Moving on means converting the V8 side
+// first or generating two reports.
 import MCR from 'monocart-coverage-reports'
 import fs from 'node:fs'
 import path from 'node:path'
