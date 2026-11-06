@@ -14,6 +14,16 @@ import wireDialog from './dialogcontroller.js'
  * the popup — the others would stack duplicate login windows for a
  * single click.
  */
+/*
+ * Waiting for the login window to come back. The user has just
+ * clicked, so ask quickly at first and then ease off -- and stop
+ * altogether at some point: a login that never completes used to
+ * poll twice a second for as long as the tab stayed open.
+ */
+const POLL_FIRST = 500
+const POLL_MAX = 5000
+const POLL_GIVE_UP = 3 * 60 * 1000
+
 let windowOwner
 
 /**
@@ -98,6 +108,8 @@ class LoginView extends View {
     })
     this.loginWindow = undefined
     this.loginPollingTimeout = undefined
+    this.loginPollingDelay = POLL_FIRST
+    this.loginPollingDeadline = undefined
     this.loginWindowSuppressed = new ValueModel(false)
     this.popupBlockedView = new ClassView(this.popupBlocked, this.$view.find('.popupnotice'), undefined, 'hidden')
     this.errorView = new ClassView(this.errorModel, this.$view.find('.errornotice'), undefined, 'hidden')
@@ -149,25 +161,60 @@ class LoginView extends View {
   }
 
   loginPolling () {
-    if (this.loginPollingTimeout) {
+    if (this.loginPollingTimeout !== undefined) {
+      return
+    }
+    if (this.loginPollingDeadline === undefined) {
+      this.loginPollingDeadline = Date.now() + POLL_GIVE_UP
+    }
+    // the user closed the window without logging in, or is not
+    // coming back at all
+    if ((this.loginWindow && this.loginWindow.closed) ||
+      Date.now() >= this.loginPollingDeadline) {
+      this.giveUpLogin()
       return
     }
     this.loginPollingTimeout = window.setTimeout(function () {
       this.loginPollingTimeout = undefined
+      this.loginPollingDelay = Math.min(
+        Math.round(this.loginPollingDelay * 1.5), POLL_MAX)
       this.model.createToken()
-    }.bind(this), 500)
+    }.bind(this), this.loginPollingDelay)
+  }
+
+  stopLoginPolling () {
+    if (this.loginPollingTimeout !== undefined) {
+      window.clearTimeout(this.loginPollingTimeout)
+      this.loginPollingTimeout = undefined
+    }
+    this.loginPollingDelay = POLL_FIRST
+    this.loginPollingDeadline = undefined
+  }
+
+  /**
+   * stop waiting for a login that is not happening, and say so --
+   * the error notice is what offers the retry
+   */
+  giveUpLogin () {
+    this.stopLoginPolling()
+    if (this.isLoginWindowOpen()) {
+      this.loginWindow.close()
+    }
+    this.loginWindow = undefined
+    this.loginWindowSuppressed.set(false)
+    this.onerror()
   }
 
   closeLoginWindow () {
+    // the polling stops either way: it used to clear the timeout
+    // into a field of its own invention (loginPollingInterval), so
+    // the id stayed behind and blocked every later attempt
+    this.stopLoginPolling()
     if (!this.isLoginWindowOpen()) {
       return
     }
     if (this.loginWindow) {
       this.loginWindow.close()
-    }
-    if (this.loginPollingTimeout !== undefined) {
-      window.clearInterval(this.loginPollingTimeout)
-      this.loginPollingInterval = undefined
     }
     this.loginWindow = undefined
     this.loginWindowSuppressed.set(false)
